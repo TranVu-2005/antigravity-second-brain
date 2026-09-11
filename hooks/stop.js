@@ -64,6 +64,19 @@ async function main() {
             }
         } catch (e) {}
 
+        // 4. Git Incremental Synchronization (Event-Driven: Ngay khi có tri thức mới)
+        try {
+            const { getGitBackupManager } = require('../src/git_backup');
+            const gitMgr = getGitBackupManager();
+            const res = gitMgr.commitBackup();
+            if (res.committed) {
+                const st = gitMgr.getStatus();
+                if (st.remoteUrl) {
+                    gitMgr.pushRemote();
+                }
+            }
+        } catch (e) {}
+
         process.stdout.write(JSON.stringify({}));
     } catch (err) {
         process.stdout.write(JSON.stringify({}));

@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-11T17:21:35.830Z
+-- Generated: 2026-09-11T17:31:30.785Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
