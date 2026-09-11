@@ -54,6 +54,13 @@ async function main() {
                     } catch (e) {}
                 }
             } catch (e) {}
+
+            // 2.5. Autonomous Tool Execution Reinforcement (Tự động học từ lỗi lệnh và lưu lệnh đúng)
+            try {
+                const { getReinforcementLearner } = require('../src/reinforcement');
+                const learner = getReinforcementLearner();
+                learner.mineTranscript(transcriptPath);
+            } catch (e) {}
         }
 
         // 3. Automated Daily Snapshot Backup (Non-blocking check)

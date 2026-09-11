@@ -1,0 +1,126 @@
+// ==============================================================================
+// Antigravity Second Brain: Tier 4.5 - Autonomous Tool Reinforcement Engine
+// Self-Correction & Error-to-Fix Mining from Trajectory Transcripts
+// Automatically remembers failures and promotes winning solutions permanently
+// ==============================================================================
+
+const fs = require('node:fs');
+const { getSolutionStore } = require('./solutions');
+
+class ReinforcementLearner {
+    constructor(solutionStore = getSolutionStore()) {
+        this.solutionStore = solutionStore;
+    }
+
+    mineTranscript(transcriptPath, projectScope = 'global') {
+        if (!transcriptPath || !fs.existsSync(transcriptPath)) return { learned: 0, solutions: [] };
+        
+        const content = fs.readFileSync(transcriptPath, 'utf8');
+        const lines = content.trim().split('\n');
+        
+        const learnedSolutions = [];
+        let pendingFailure = null;
+
+        for (let i = 0; i < lines.length; i++) {
+            const line = lines[i];
+            if (!line.trim()) continue;
+
+            let step = null;
+            try {
+                step = JSON.parse(line);
+            } catch (e) {
+                continue;
+            }
+
+            // 1. Trace Tool Calls
+            if (step.type === 'PLANNER_RESPONSE' && Array.isArray(step.tool_calls)) {
+                for (const call of step.tool_calls) {
+                    if (call.name === 'run_command' && call.args) {
+                        let cmd = '';
+                        if (typeof call.args.CommandLine === 'string') {
+                            cmd = call.args.CommandLine.trim();
+                            // strip outer quotes if escaped as JSON string
+                            if (cmd.startsWith('"') && cmd.endsWith('"') && cmd.length > 2) {
+                                cmd = cmd.slice(1, -1);
+                            }
+                        }
+                        if (pendingFailure) {
+                            pendingFailure.candidateFix = cmd;
+                        }
+                    }
+                }
+            }
+
+            // 2. Trace Execution Outcomes
+            if (step.type === 'GENERIC' && step.content) {
+                const text = step.content;
+
+                const hasExitFailure = /exited with code\s+([1-9]\d*)/i.test(text);
+                const hasErrorKeywords = /not recognized|cannot be loaded|exception|syntaxerror|unauthorizedaccess|no such column|enoent/i.test(text);
+
+                if (hasExitFailure || (hasErrorKeywords && text.includes('exited with code'))) {
+                    const cleanError = this._extractErrorSignature(text);
+                    if (cleanError) {
+                        pendingFailure = {
+                            errorSignature: cleanError,
+                            rawOutput: text.slice(0, 300),
+                            candidateFix: null
+                        };
+                    }
+                } else if (text.includes('The command exited with code 0') && pendingFailure && pendingFailure.candidateFix) {
+                    // Resolved! The candidateFix worked!
+                    const id = this.solutionStore.addSolution({
+                        error_pattern: pendingFailure.errorSignature,
+                        root_cause: pendingFailure.rawOutput,
+                        solution_code: `Lệnh khắc phục thành công: ${pendingFailure.candidateFix}`,
+                        command_fix: pendingFailure.candidateFix,
+                        project_scope: projectScope,
+                        tags: 'autonomous_mined,self_correction',
+                        confidence: 1.0
+                    });
+
+                    learnedSolutions.push({
+                        id,
+                        error: pendingFailure.errorSignature,
+                        fix: pendingFailure.candidateFix
+                    });
+
+                    pendingFailure = null;
+                }
+            }
+        }
+
+        return { learned: learnedSolutions.length, solutions: learnedSolutions };
+    }
+
+    _extractErrorSignature(output) {
+        const lines = output.split('\n').map(l => l.trim()).filter(Boolean);
+        for (const line of lines) {
+            if (line.includes('is not recognized') || 
+                line.includes('cannot be loaded') ||
+                line.includes('CommandNotFoundException') ||
+                line.includes('SyntaxError') ||
+                line.includes('no such column') ||
+                line.includes('UnauthorizedAccess') ||
+                line.includes('ENOENT') ||
+                line.includes('error:')) {
+                return line.slice(0, 140);
+            }
+        }
+        return lines[0] ? lines[0].slice(0, 120) : null;
+    }
+}
+
+let instance = null;
+
+function getReinforcementLearner(solutionStore = getSolutionStore()) {
+    if (!instance) {
+        instance = new ReinforcementLearner(solutionStore);
+    }
+    return instance;
+}
+
+module.exports = {
+    ReinforcementLearner,
+    getReinforcementLearner
+};

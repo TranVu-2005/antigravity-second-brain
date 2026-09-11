@@ -31,5 +31,137 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-09-11T16:24:00.580Z"
+  },
+  {
+    "id": 4,
+    "error_pattern": "git : The term 'git' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the",
+    "root_cause": "Created At: 2026-09-12T00:01:14+07:00\nCompleted At: 2026-09-12T00:01:15+07:00\n\nThe command exited with code 1.\nOutput:\ngit : The term 'git' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the \r\nspelling of the name, or if a path was included, verify that ",
+    "solution_code": "Lệnh khắc phục thành công: & \\\"C:\\\\Program Files\\\\Git\\\\cmd\\\\git.exe\\\" ls-files",
+    "command_fix": "& \\\"C:\\\\Program Files\\\\Git\\\\cmd\\\\git.exe\\\" ls-files",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 3,
+    "created_at": "2026-09-11T17:36:38.046Z"
+  },
+  {
+    "id": 5,
+    "error_pattern": "Created At: 2026-09-11T23:49:33+07:00",
+    "root_cause": "Created At: 2026-09-11T23:49:33+07:00\nCompleted At: 2026-09-11T23:49:33+07:00\n\nThe command exited with code 1.\nOutput:\nWindows Package Manager v1.29.290\r\n© 2026 Microsoft. All rights reserved.\r\n\r\nArgument name was not recognized for the current command: '--dry-run'\r\n\r\nInstalls the selected package, ",
+    "solution_code": "Lệnh khắc phục thành công: ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)",
+    "command_fix": "([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.047Z"
+  },
+  {
+    "id": 6,
+    "error_pattern": "Created At: 2026-09-11T23:49:40+07:00",
+    "root_cause": "Created At: 2026-09-11T23:49:40+07:00\nCompleted At: 2026-09-11T23:49:40+07:00\n\nThe command exited with code 1.\nOutput:\nINFO: Could not find files for the given pattern(s).\r\nINFO: Could not find files for the given pattern(s).\r\n\n",
+    "solution_code": "Lệnh khắc phục thành công: winget show Git.MinGit",
+    "command_fix": "winget show Git.MinGit",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.047Z"
+  },
+  {
+    "id": 7,
+    "error_pattern": "Created At: 2026-09-11T23:52:26+07:00",
+    "root_cause": "Created At: 2026-09-11T23:52:26+07:00\nCompleted At: 2026-09-11T23:52:30+07:00\n\nThe command exited with code 1.\nStdout:\n\nStderr:\n\n",
+    "solution_code": "Lệnh khắc phục thành công: & \\\"C:\\\\Users\\\\tvu16\\\\AppData\\\\Roaming\\\\Antigravity\\\\bin\\\\agy-node.cmd\\\" --version",
+    "command_fix": "& \\\"C:\\\\Users\\\\tvu16\\\\AppData\\\\Roaming\\\\Antigravity\\\\bin\\\\agy-node.cmd\\\" --version",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.047Z"
+  },
+  {
+    "id": 8,
+    "error_pattern": "Lỗi thực thi: no such column: conversation_id",
+    "root_cause": "Created At: 2026-09-11T23:52:56+07:00\nCompleted At: 2026-09-11T23:52:57+07:00\n\nThe command exited with code 1.\nOutput:\n📦 Đang tiến hành sao lưu và đồng bộ Second Brain lên Git...\n(node:26996) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `Antigravity --tra",
+    "solution_code": "Lệnh khắc phục thành công: $env:Path = [System.Environment]::GetEnvironmentVariable(\\\"Path\\\",\\\"Machine\\\") + \\\";\\\" + [System.Environment]::GetEnvironmentVariable(\\\"Path\\\",\\\"User\\\")\\n& \\\"C:\\\\Users\\\\tvu16\\\\AppData\\\\Roaming\\\\Antigravity\\\\bin\\\\agy-node.cmd\\\" \\\"C:\\\\Users\\\\tvu16\\\\.gemini\\\\antigravity\\\\second_brain\\\\cli.js\\\" git-backup",
+    "command_fix": "$env:Path = [System.Environment]::GetEnvironmentVariable(\\\"Path\\\",\\\"Machine\\\") + \\\";\\\" + [System.Environment]::GetEnvironmentVariable(\\\"Path\\\",\\\"User\\\")\\n& \\\"C:\\\\Users\\\\tvu16\\\\AppData\\\\Roaming\\\\Antigravity\\\\bin\\\\agy-node.cmd\\\" \\\"C:\\\\Users\\\\tvu16\\\\.gemini\\\\antigravity\\\\second_brain\\\\cli.js\\\" git-backup",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.047Z"
+  },
+  {
+    "id": 9,
+    "error_pattern": "Created At: 2026-09-11T23:57:35+07:00",
+    "root_cause": "Created At: 2026-09-11T23:57:35+07:00\nCompleted At: 2026-09-11T23:57:36+07:00\n\nThe command exited with code 1.\nOutput:\nYou are not logged into any GitHub hosts. To log in, run: gh auth login\n\n",
+    "solution_code": "Lệnh khắc phục thành công: & \\\"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\\\" auth login --help",
+    "command_fix": "& \\\"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\\\" auth login --help",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.048Z"
+  },
+  {
+    "id": 10,
+    "error_pattern": "npm : File C:\\Program Files\\nodejs\\npm.ps1 cannot be loaded because running scripts is disabled on this system. For",
+    "root_cause": "Created At: 2026-09-12T00:07:35+07:00\nCompleted At: 2026-09-12T00:07:36+07:00\n\nThe command exited with code 1.\nOutput:\nv24.19.0\r\nnpm : File C:\\Program Files\\nodejs\\npm.ps1 cannot be loaded because running scripts is disabled on this system. For \r\nmore information, see about_Execution_Policies at htt",
+    "solution_code": "Lệnh khắc phục thành công: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force",
+    "command_fix": "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.049Z"
+  },
+  {
+    "id": 11,
+    "error_pattern": "'\"node\"' is not recognized as an internal or external command,",
+    "root_cause": "Created At: 2026-09-12T00:07:54+07:00\nCompleted At: 2026-09-12T00:08:03+07:00\n\nThe command exited with code 1.\nOutput:\nnpm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead\nnpm warn deprecated @modelcontextprotocol/server-github@2025.4.8: Package no longer supp",
+    "solution_code": "Lệnh khắc phục thành công: [Environment]::GetEnvironmentVariable(\\\"Path\\\", \\\"Machine\\\")",
+    "command_fix": "[Environment]::GetEnvironmentVariable(\\\"Path\\\", \\\"Machine\\\")",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.049Z"
+  },
+  {
+    "id": 12,
+    "error_pattern": "Created At: 2026-09-12T00:15:33+07:00",
+    "root_cause": "Created At: 2026-09-12T00:15:33+07:00\nCompleted At: 2026-09-12T00:15:34+07:00\n\nThe command exited with code 1.\nOutput:\n---\nname: subagent-driven-development\ndescrip\r\ntion: Use when executing implementation plans\r\n with independent tasks in the current sessio\r\nn\n---\n\n# Subagent-Driven Development\n\nEx",
+    "solution_code": "Lệnh khắc phục thành công: & \\\"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\\\" api repos/obra/superpowers/contents/skills/verification-before-completion/SKILL.md --jq .content | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) } | Select-Object -First 25",
+    "command_fix": "& \\\"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\\\" api repos/obra/superpowers/contents/skills/verification-before-completion/SKILL.md --jq .content | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) } | Select-Object -First 25",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.049Z"
+  },
+  {
+    "id": 13,
+    "error_pattern": "Created At: 2026-09-12T00:19:55+07:00",
+    "root_cause": "Created At: 2026-09-12T00:19:55+07:00\nCompleted At: 2026-09-12T00:19:55+07:00\n\nThe command exited with code 1.\nOutput:\naccepts 1 arg(s), received 3\n\n",
+    "solution_code": "Lệnh khắc phục thành công: Test-Path \\\"C:\\\\Users\\\\tvu16\\\\.gemini\\\\repos\\\\archify\\\\.git\\\"; Test-Path \\\"C:\\\\Users\\\\tvu16\\\\.gemini\\\\repos\\\\humanizer\\\\.git\\\"",
+    "command_fix": "Test-Path \\\"C:\\\\Users\\\\tvu16\\\\.gemini\\\\repos\\\\archify\\\\.git\\\"; Test-Path \\\"C:\\\\Users\\\\tvu16\\\\.gemini\\\\repos\\\\humanizer\\\\.git\\\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.049Z"
+  },
+  {
+    "id": 14,
+    "error_pattern": "Created At: 2026-09-12T00:21:06+07:00",
+    "root_cause": "Created At: 2026-09-12T00:21:06+07:00\nCompleted At: 2026-09-12T00:21:06+07:00\n\nThe command exited with code 1.\nOutput:\nINFO: Could not find files for the given pattern(s).\r\n\n",
+    "solution_code": "Lệnh khắc phục thành công: Get-ChildItem \\\"C:\\\\Users\\\\tvu16\\\\AppData\\\\Roaming\\\\npm\\\\\\\"",
+    "command_fix": "Get-ChildItem \\\"C:\\\\Users\\\\tvu16\\\\AppData\\\\Roaming\\\\npm\\\\\\\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.050Z"
+  },
+  {
+    "id": 15,
+    "error_pattern": "SyntaxError: Invalid or unexpected token",
+    "root_cause": "Created At: 2026-09-12T00:32:53+07:00\nCompleted At: 2026-09-12T00:32:53+07:00\n\nThe command exited with code 0.\nOutput:\nC:\\Users\\tvu16\\.gemini\\antigravity\\second_brain\\test_benchmark.js:33\r\nconsole.log(\\1. Đọc toàn bộ Hồ sơ (Profile): \\ ms (\\ mục)\\);\r\n            ^\r\n\r\nSyntaxError: Invalid or unexpect",
+    "solution_code": "Lệnh khắc phục thành công: $code = @'\\nconst { performance } = require('node:perf_hooks');\\nconst { getDB } = require('./src/db');\\nconst { getSemanticKnowledge } = require('./src/semantic');\\nconst { getProfileManager } = require('./src/profile');\\nconst { getGitBackupManager } = require('./src/git_backup');\\n\\nconsole.log('--- BẮT ĐẦU BENCHMARK THỰC TẾ ---');\\n\\n// 1. Benchmark Profile Read (Tier 0)\\nlet t0 = performance.now();\\nconst profile = getProfileManager();\\nconst facts = profile.getAll();\\nlet tProfile = (performance.now() - t0).toFixed(2);\\n\\n// 2. Benchmark Hybrid Search (BM25 + 128-dim Dense Vector)\\nt0 = performance.now();\\nconst semantic = getSemanticKnowledge();\\nconst results = semantic.searchKnowledge('kiến trúc hệ thống git second brain', { limit: 5 });\\nlet tSearch = (performance.now() - t0).toFixed(2);\\n\\n// 3. Benchmark SQLite WAL Read\\nt0 = performance.now();\\nconst db = getDB();\\nconst cnt = db.get('SELECT COUNT(*) as count FROM episodes').count;\\nlet tDb = (performance.now() - t0).toFixed(2);\\n\\n// 4. Benchmark Snapshot Export\\nt0 = performance.now();\\nconst gitMgr = getGitBackupManager();\\nconst exp = gitMgr.exportDataSnapshot();\\nlet tExport = (performance.now() - t0).toFixed(2);\\n\\nconsole.log(`1. Đọc toàn bộ Hồ sơ (Profile)                         : ${tProfile} ms (${facts.length} mục)`);\\nconsole.log(`2. True Hybrid Search (BM25 + Dense Vector 128-dim)    : ${tSearch} ms (${results.length} kết quả)`);\\nconsole.log(`3. Đọc dữ liệu từ SQLite WAL                           : ${tDb} ms (${cnt} sự kiện)`);\\nconsole.log(`4. Xuất 6 tệp Text Snapshot & SQL Dump trọn vẹn        : ${tExport} ms (${exp.exportedFiles.length} tệp)`);\\n'@\\n\\n$benchPath = \\\"C:\\\\Users\\\\tvu16\\\\.gemini\\\\antigravity\\\\second_brain\\\\test_benchmark.js\\\"\\n[System.IO.File]::WriteAllText($benchPath, $code)\\n& \\\"C:\\\\Users\\\\tvu16\\\\AppData\\\\Roaming\\\\Antigravity\\\\bin\\\\agy-node.cmd\\\" $benchPath\\nRemove-Item $benchPath -Force",
+    "command_fix": "$code = @'\\nconst { performance } = require('node:perf_hooks');\\nconst { getDB } = require('./src/db');\\nconst { getSemanticKnowledge } = require('./src/semantic');\\nconst { getProfileManager } = require('./src/profile');\\nconst { getGitBackupManager } = require('./src/git_backup');\\n\\nconsole.log('--- BẮT ĐẦU BENCHMARK THỰC TẾ ---');\\n\\n// 1. Benchmark Profile Read (Tier 0)\\nlet t0 = performance.now();\\nconst profile = getProfileManager();\\nconst facts = profile.getAll();\\nlet tProfile = (performance.now() - t0).toFixed(2);\\n\\n// 2. Benchmark Hybrid Search (BM25 + 128-dim Dense Vector)\\nt0 = performance.now();\\nconst semantic = getSemanticKnowledge();\\nconst results = semantic.searchKnowledge('kiến trúc hệ thống git second brain', { limit: 5 });\\nlet tSearch = (performance.now() - t0).toFixed(2);\\n\\n// 3. Benchmark SQLite WAL Read\\nt0 = performance.now();\\nconst db = getDB();\\nconst cnt = db.get('SELECT COUNT(*) as count FROM episodes').count;\\nlet tDb = (performance.now() - t0).toFixed(2);\\n\\n// 4. Benchmark Snapshot Export\\nt0 = performance.now();\\nconst gitMgr = getGitBackupManager();\\nconst exp = gitMgr.exportDataSnapshot();\\nlet tExport = (performance.now() - t0).toFixed(2);\\n\\nconsole.log(`1. Đọc toàn bộ Hồ sơ (Profile)                         : ${tProfile} ms (${facts.length} mục)`);\\nconsole.log(`2. True Hybrid Search (BM25 + Dense Vector 128-dim)    : ${tSearch} ms (${results.length} kết quả)`);\\nconsole.log(`3. Đọc dữ liệu từ SQLite WAL                           : ${tDb} ms (${cnt} sự kiện)`);\\nconsole.log(`4. Xuất 6 tệp Text Snapshot & SQL Dump trọn vẹn        : ${tExport} ms (${exp.exportedFiles.length} tệp)`);\\n'@\\n\\n$benchPath = \\\"C:\\\\Users\\\\tvu16\\\\.gemini\\\\antigravity\\\\second_brain\\\\test_benchmark.js\\\"\\n[System.IO.File]::WriteAllText($benchPath, $code)\\n& \\\"C:\\\\Users\\\\tvu16\\\\AppData\\\\Roaming\\\\Antigravity\\\\bin\\\\agy-node.cmd\\\" $benchPath\\nRemove-Item $benchPath -Force",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-11T17:36:38.050Z"
   }
 ]

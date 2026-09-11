@@ -47,15 +47,15 @@ class ContextRetriever {
 
         if (query && query.trim()) {
             // -----------------------------------------------------------------
-            // Priority 2: Procedural Solutions (If query involves error / bug / how-to)
+            // Priority 2: Procedural Solutions & Learned Fixes (Proactive Reinforcement)
             // -----------------------------------------------------------------
-            const isTroubleshooting = /(?:lỗi|error|fail|bug|exception|cannot|không thể|fix|sửa)/i.test(query);
-            if (isTroubleshooting) {
-                const solutions = this.solutions.searchSolutions(query, { project_scope: projectScope, limit: 2 });
+            const isRelevantToOperations = /(?:lỗi|error|fail|bug|exception|cannot|không thể|fix|sửa|lệnh|command|npm|git|node|powershell|sql|run|script|build|test)/i.test(query);
+            if (isRelevantToOperations) {
+                const solutions = this.solutions.searchSolutions(query, { project_scope: projectScope, limit: 3 });
                 if (solutions && solutions.length > 0) {
-                    const solLines = ['[GIẢI PHÁP KỸ THUẬT ĐÃ HỌC (PROCEDURAL MEMORY)]'];
+                    const solLines = ['[BỘ NHỚ KINH NGHIỆM ĐÃ HỌC (PROCEDURAL FIXES & LESSONS)]'];
                     for (const sol of solutions) {
-                        const line = `• Lỗi: ${sol.error_pattern}\n  ➔ Sửa: ${sol.solution_code}${sol.command_fix ? ` (Lệnh: ${sol.command_fix})` : ''}`;
+                        const line = `• Lỗi từng gặp: "${sol.error_pattern}"\n  ➔ LỆNH CHUẨN XÁC: ${sol.command_fix || sol.solution_code} (Độ tin cậy: ${Math.round(sol.confidence * 100)}%, Thành công: ${sol.success_count} lần)`;
                         if (currentChars + line.length < maxChars) {
                             solLines.push(line);
                             currentChars += line.length;
