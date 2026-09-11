@@ -1,0 +1,20 @@
+# ==============================================================================
+# Antigravity Second Brain: Git Ignore Rules
+# ==============================================================================
+
+# SQLite temporary journal and shared memory lock files
+brain.db-wal
+brain.db-shm
+*.tmp
+*.log
+
+# Dependency directories
+node_modules/
+
+# OS specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary backup snapshots (we track diffable exports in exports/ instead)
+backups/*.db

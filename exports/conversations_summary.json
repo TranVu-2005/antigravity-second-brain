@@ -1,0 +1,30 @@
+[
+  {
+    "id": "0d4ce915-aad6-4109-bcdf-ad3667d181e3",
+    "title": "tôi muốn làm 1 hệ thống memory tự động aka second brain để hỗ trợ tốt cho tôi tr",
+    "summary": "Phiên trao đổi tập trung vào: \"tôi muốn làm 1 hệ thống memory tự động aka second brain để hỗ trợ tốt cho tôi trong việc ghi nhớ biết tôi là ai biết tất cả mọi thứ biết cả cuộc hội thoại đã có; với cả nếu cần tải skill nào cần thiết hoặc là hãy tham khảo các hệ thống build lớn khác về memory tốt nhất rồi học hỏi hãy tải và làm những gì cần thiết để xây\". Kết quả chính: Called tools: view_file, view_file. Called tools: list_dir. Called tools: view_file, view_file.",
+    "message_count": 59,
+    "updated_at": "2026-09-11 16:03:04"
+  },
+  {
+    "id": "1372fd0a-fb71-4e55-ab51-5f182f6d5a1f",
+    "title": "dự báo thời tiết hôm nay hoàng mai",
+    "summary": "Phiên trao đổi tập trung vào: \"dự báo thời tiết hôm nay hoàng mai; nay có mưa ko; có tỉ lệ mưa vào thời điểm nào?\". Kết quả chính: Called tools: search_web. Dự báo thời tiết khu vực **quận Hoàng Mai (Hà Nội)** hôm nay (11/09): * **Tình trạng thời tiết:** Trời nhiều mây, chiều. **Có khả năng vẫn có mưa rào và dông rải rác**, đặc biệt vào chiều tối và đêm nay. Cụ thể: * **Chiều & Tối:** Mưa đã giả.",
+    "message_count": 34,
+    "updated_at": "2026-09-11 16:03:04"
+  },
+  {
+    "id": "204b4504-e59c-420b-a350-52bffaa65dd4",
+    "title": "hi",
+    "summary": "Phiên trao đổi tập trung vào: \"hi\". Kết quả chính: Chào buổi tối, thưa Ngài! *At your service, Sir.*  Hôm nay tôi có thể vinh hạnh được hỗ trợ Ngài trong dự án hay bài toá.",
+    "message_count": 2,
+    "updated_at": "2026-09-11 16:03:04"
+  },
+  {
+    "id": "340aaea7-9f95-4bdc-b7d9-e735db4bcf28",
+    "title": "hi",
+    "summary": "Phiên trao đổi tập trung vào: \"hi; chrome-devtools-mcp: exec: \"npx\": executable file not found in %PATH% xử lí lỗi này cho tôi; mcp này có ngon ko\". Kết quả chính: Hello! How can I help you today?. Called tools: run_command. Called tools: run_command.",
+    "message_count": 16,
+    "updated_at": "2026-09-11 16:03:04"
+  }
+]

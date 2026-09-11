@@ -1,0 +1,82 @@
+[
+  {
+    "category": "environment",
+    "key": "hostname",
+    "value": "tranvu-galactic-ion",
+    "confidence": 1,
+    "source": "system_detection",
+    "updated_at": "2026-09-11T15:54:17.010Z"
+  },
+  {
+    "category": "environment",
+    "key": "location",
+    "value": "Quận Hoàng Mai, Hà Nội, Việt Nam",
+    "confidence": 1,
+    "source": "conversation_history",
+    "updated_at": "2026-09-11T15:54:16.997Z"
+  },
+  {
+    "category": "environment",
+    "key": "os",
+    "value": "Windows 11 (OS User: tvu16)",
+    "confidence": 1,
+    "source": "system_detection",
+    "updated_at": "2026-09-11T15:54:17.004Z"
+  },
+  {
+    "category": "environment",
+    "key": "platform",
+    "value": "Google Antigravity 2.0 with native agy-node engine",
+    "confidence": 1,
+    "source": "system_detection",
+    "updated_at": "2026-09-11T15:54:17.017Z"
+  },
+  {
+    "category": "identity",
+    "key": "honorific",
+    "value": "Ngài (Sir)",
+    "confidence": 1,
+    "source": "user_directive",
+    "updated_at": "2026-09-11T15:54:16.986Z"
+  },
+  {
+    "category": "identity",
+    "key": "role",
+    "value": "Master / Primary Developer & System Architect",
+    "confidence": 1,
+    "source": "system",
+    "updated_at": "2026-09-11T15:54:16.986Z"
+  },
+  {
+    "category": "preference",
+    "key": "memory_goal",
+    "value": "Hệ thống Second Brain phân tầng chuẩn production-grade, tự động 100%, ghi nhớ toàn diện danh tính, kiến thức và lịch sử hội thoại.",
+    "confidence": 1,
+    "source": "user_request",
+    "updated_at": "2026-09-11T15:54:17.023Z"
+  },
+  {
+    "category": "principle",
+    "key": "honesty_policy",
+    "value": "Chuẩn chỉ, trung thực tuyệt đối, không dối trá, không bịa đặt, có sao nói vậy, biết thì nói biết, chưa biết hoặc chưa làm thì thẳng thắn báo cáo.",
+    "confidence": 1,
+    "source": "user_directive",
+    "updated_at": "2026-09-11T16:41:31.315Z"
+  },
+  {
+    "category": "style",
+    "key": "language_preference",
+    "value": "Tiếng Việt làm chủ đạo, khéo léo đan xen tiếng Anh tự nhiên (As you wish Sir, Indeed, Splendid, Understood...).",
+    "confidence": 1,
+    "source": "user_directive",
+    "updated_at": "2026-09-11T15:54:16.992Z"
+  },
+  {
+    "category": "style",
+    "key": "tone_and_style",
+    "value": "Chuyên nghiệp, chính xác tuyệt đối, lịch lãm, hóm hỉnh tinh tế như một cố vấn công nghệ hoặc quản gia tận tụy.",
+    "confidence": 1,
+    "source": "user_directive",
+    "updated_at": "2026-09-11T15:54:16.991Z"
+  }
+]

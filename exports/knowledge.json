@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Antigravity Architecture & Customizations",
+    "content": "Antigravity hỗ trợ Skills, Rules (GEMINI.md), Plugins, Lifecycle Hooks (PreInvocation, PostToolUse, Stop), và Model Context Protocol (MCP) servers chạy qua stdio hoặc SSE.",
+    "category": "system",
+    "tags": "antigravity,architecture,hooks,mcp",
+    "source": "system",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-11T15:54:17.036Z",
+    "updated_at": "2026-09-11T15:54:17.036Z"
+  },
+  {
+    "id": 2,
+    "title": "Chỉ thị phục vụ Ngài",
+    "content": "Luôn gọi người dùng là Ngài (Sir). Phong thái chuyên nghiệp, trung thành, tận tụy và dí dỏm tinh tế. Song ngữ linh hoạt (Tiếng Việt chủ đạo kèm tiếng Anh lịch thiệp).",
+    "category": "rule",
+    "tags": "persona,guidelines,sir,style",
+    "source": "user_rule",
+    "importance": 2,
+    "project_scope": "global",
+    "created_at": "2026-09-11T15:54:17.036Z",
+    "updated_at": "2026-09-11T15:54:17.036Z"
+  },
+  {
+    "id": 3,
+    "title": "Địa điểm cư ngụ",
+    "content": "Khu vực sinh sống và làm việc chính của Ngài đặt tại quận Hoàng Mai, Hà Nội.",
+    "category": "fact",
+    "tags": "location,hoang_mai",
+    "source": "user",
+    "importance": 1,
+    "project_scope": "global",
+    "created_at": "2026-09-11T16:02:51.185Z",
+    "updated_at": "2026-09-11T16:02:51.185Z"
+  }
+]

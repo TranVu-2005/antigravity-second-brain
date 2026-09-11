@@ -1,0 +1,129 @@
+// ==============================================================================
+// Antigravity Second Brain: Multi-Signal Context Compiler & Compressor
+// Attention-Weighted Dynamic Packing with Token Budgeting & Project Scoping
+// ==============================================================================
+
+const path = require('node:path');
+const { getProfileManager } = require('./profile');
+const { getSemanticKnowledge } = require('./semantic');
+const { getEpisodicMemory } = require('./episodic');
+const { getSolutionStore } = require('./solutions');
+
+const DEFAULT_MAX_TOKENS = 800; // ~3200 characters max
+const CHARS_PER_TOKEN = 3.5;
+
+class ContextRetriever {
+    constructor() {
+        this.profile = getProfileManager();
+        this.semantic = getSemanticKnowledge();
+        this.episodic = getEpisodicMemory();
+        this.solutions = getSolutionStore();
+    }
+
+    inferProjectScope(workspacePaths) {
+        if (!workspacePaths || !Array.isArray(workspacePaths) || workspacePaths.length === 0) {
+            return 'global';
+        }
+        const primary = workspacePaths[0];
+        if (!primary || typeof primary !== 'string') return 'global';
+        return path.basename(primary);
+    }
+
+    compileContext(query = '', conversationId = null, options = {}) {
+        const maxTokens = options.maxTokens || DEFAULT_MAX_TOKENS;
+        const maxChars = Math.floor(maxTokens * CHARS_PER_TOKEN);
+        const workspacePaths = options.workspacePaths || [];
+        const projectScope = this.inferProjectScope(workspacePaths);
+
+        const sections = [];
+        let currentChars = 0;
+
+        // ---------------------------------------------------------------------
+        // Priority 1: Core Profile of Ngài (Mandatory, High-Density)
+        // ---------------------------------------------------------------------
+        const profileSummary = this.profile.getProfileSummary();
+        sections.push(profileSummary);
+        currentChars += profileSummary.length;
+
+        if (query && query.trim()) {
+            // -----------------------------------------------------------------
+            // Priority 2: Procedural Solutions (If query involves error / bug / how-to)
+            // -----------------------------------------------------------------
+            const isTroubleshooting = /(?:lỗi|error|fail|bug|exception|cannot|không thể|fix|sửa)/i.test(query);
+            if (isTroubleshooting) {
+                const solutions = this.solutions.searchSolutions(query, { project_scope: projectScope, limit: 2 });
+                if (solutions && solutions.length > 0) {
+                    const solLines = ['[GIẢI PHÁP KỸ THUẬT ĐÃ HỌC (PROCEDURAL MEMORY)]'];
+                    for (const sol of solutions) {
+                        const line = `• Lỗi: ${sol.error_pattern}\n  ➔ Sửa: ${sol.solution_code}${sol.command_fix ? ` (Lệnh: ${sol.command_fix})` : ''}`;
+                        if (currentChars + line.length < maxChars) {
+                            solLines.push(line);
+                            currentChars += line.length;
+                        }
+                    }
+                    if (solLines.length > 1) {
+                        sections.push(solLines.join('\n'));
+                    }
+                }
+            }
+
+            // -----------------------------------------------------------------
+            // Priority 3: Semantic Knowledge & Technical Decisions (Hybrid Search)
+            // -----------------------------------------------------------------
+            const knowledgeResults = this.semantic.searchKnowledge(query, { limit: 4 });
+            if (knowledgeResults && knowledgeResults.length > 0) {
+                const kLines = ['[TRI THỨC & QUY TẮC PHÙ HỢP]'];
+                for (const k of knowledgeResults) {
+                    const line = `• [${k.category.toUpperCase()}] ${k.title}: ${k.content} (Score: ${k.score})`;
+                    if (currentChars + line.length < maxChars - 300) {
+                        kLines.push(line);
+                        currentChars += line.length;
+                    }
+                }
+                if (kLines.length > 1) {
+                    sections.push(kLines.join('\n'));
+                }
+            }
+
+            // -----------------------------------------------------------------
+            // Priority 4: Episodic History across Past Conversations
+            // -----------------------------------------------------------------
+            const episodicResults = this.episodic.searchEpisodes(query, 3);
+            if (episodicResults && episodicResults.length > 0) {
+                const eLines = ['[KÝ ỨC HỘI THOẠI QUÁ KHỨ LIÊN QUAN]'];
+                for (const ep of episodicResults) {
+                    const timeStr = ep.timestamp.split('T')[0];
+                    const line = `• [${timeStr} | ${ep.conv_title || 'Phiên trước'}] ${ep.role.toUpperCase()}: ${ep.summary.slice(0, 140)}`;
+                    if (currentChars + line.length < maxChars) {
+                        eLines.push(line);
+                        currentChars += line.length;
+                    }
+                }
+                if (eLines.length > 1) {
+                    sections.push(eLines.join('\n'));
+                }
+            }
+        }
+
+        // Add Active Project Scope header if scoped
+        if (projectScope && projectScope !== 'global') {
+            sections.unshift(`[DỰ ÁN HIỆN TẠI: ${projectScope}]`);
+        }
+
+        return sections.join('\n\n');
+    }
+}
+
+let instance = null;
+
+function getContextRetriever() {
+    if (!instance) {
+        instance = new ContextRetriever();
+    }
+    return instance;
+}
+
+module.exports = {
+    ContextRetriever,
+    getContextRetriever
+};
