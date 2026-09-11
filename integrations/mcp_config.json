@@ -16,6 +16,10 @@
     "puppeteer": {
       "command": "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\mcp-server-puppeteer.cmd",
       "args": []
+    },
+    "sequential-thinking": {
+      "command": "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\mcp-server-sequential-thinking.cmd",
+      "args": []
     }
   }
 }
