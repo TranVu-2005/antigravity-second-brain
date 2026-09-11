@@ -57,21 +57,19 @@ async function isDaemonHealthy() {
 
 /**
  * Automatically launches the embedding daemon in the background if not active.
+ * Uses WMI Win32_Process.Create on Windows to break away from Job Objects cleanly.
  */
 function ensureDaemonRunning() {
     if (_daemonSpawnAttempted) return;
     _daemonSpawnAttempted = true;
 
-    // Check health asynchronously
     isDaemonHealthy().then((healthy) => {
         if (!healthy) {
             try {
-                const child = spawn(UV_PATH, ['run', '--with', 'fastembed', 'python', DAEMON_SCRIPT], {
-                    detached: true,
-                    stdio: 'ignore',
-                    windowsHide: true
-                });
-                child.unref();
+                const { exec } = require('node:child_process');
+                const cmd = `powershell.exe -WindowStyle Hidden -Command "& '${UV_PATH}' run --with fastembed python '${DAEMON_SCRIPT}'"`;
+                const ps = `Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine = '${cmd.replace(/'/g, "''")}'}`;
+                exec(`powershell.exe -NoProfile -Command "${ps}"`, { windowsHide: true });
             } catch (err) {
                 // Ignore spawn errors
             }
