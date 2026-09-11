@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-11T17:36:49.567Z
+-- Generated: 2026-09-11T18:41:03.104Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -19,6 +19,9 @@ INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) V
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (1, 'Antigravity Architecture & Customizations', 'Antigravity hỗ trợ Skills, Rules (GEMINI.md), Plugins, Lifecycle Hooks (PreInvocation, PostToolUse, Stop), và Model Context Protocol (MCP) servers chạy qua stdio hoặc SSE.', 'system', 'antigravity,architecture,hooks,mcp', 'system', 1.5, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (2, 'Chỉ thị phục vụ Ngài', 'Luôn gọi người dùng là Ngài (Sir). Phong thái chuyên nghiệp, trung thành, tận tụy và dí dỏm tinh tế. Song ngữ linh hoạt (Tiếng Việt chủ đạo kèm tiếng Anh lịch thiệp).', 'rule', 'persona,guidelines,sir,style', 'user_rule', 2, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (3, 'Địa điểm cư ngụ', 'Khu vực sinh sống và làm việc chính của Ngài đặt tại quận Hoàng Mai, Hà Nội.', 'fact', 'location,hoang_mai', 'user', 1, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (4, 'Cài đặt & Tối ưu hóa Fetch MCP và Everything Search MCP', 'Đã cài đặt, tối ưu hóa và cấu hình 2 MCP Server mới:
+1. fetch (mcp-server-fetch qua uvx): Fetch nội dung web thành Markdown siêu nhẹ, tối ưu cờ --ignore-robots-txt và User-Agent trình duyệt hiện đại.
+2. everything-search (C:\Users\tvu16\.gemini\antigravity\everything_search\mcp_server.js): Server Node.js độc quyền tích hợp Voidtools Everything CLI (es.exe). Tìm kiếm triệu file trên Windows trong <15ms, cơ chế tự động phục hồi Self-Healing IPC nếu Everything chưa mở. Đã cấp quyền tự động trong config.json.', 'decision', 'mcp, fetch, everything-search, optimization, tools', 'agent_mcp', 1.5, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);

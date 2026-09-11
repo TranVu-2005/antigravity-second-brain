@@ -166,17 +166,23 @@ class SecondBrainMCPServer {
     }
 
     start() {
+        // Automatically ensure neural embedding daemon is running
+        try {
+            const { ensureDaemonRunning } = require('./src/embedding');
+            ensureDaemonRunning();
+        } catch (e) {}
+
         const rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout,
             terminal: false
         });
 
-        rl.on('line', (line) => {
+        rl.on('line', async (line) => {
             if (!line.trim()) return;
             try {
                 const request = JSON.parse(line);
-                this.handleRequest(request);
+                await this.handleRequest(request);
             } catch (err) {
                 // Ignore parse errors
             }
@@ -187,7 +193,7 @@ class SecondBrainMCPServer {
         process.stdout.write(JSON.stringify(response) + '\n');
     }
 
-    handleRequest(req) {
+    async handleRequest(req) {
         const { id, method, params } = req;
 
         // MCP Notifications (no id)
@@ -207,7 +213,7 @@ class SecondBrainMCPServer {
                         },
                         serverInfo: {
                             name: 'antigravity-second-brain',
-                            version: '1.0.0'
+                            version: '2.0.0'
                         }
                     }
                 });
@@ -224,7 +230,7 @@ class SecondBrainMCPServer {
                 break;
 
             case 'tools/call':
-                this.handleToolCall(id, params);
+                await this.handleToolCall(id, params);
                 break;
 
             default:
@@ -240,7 +246,7 @@ class SecondBrainMCPServer {
         }
     }
 
-    handleToolCall(id, params) {
+    async handleToolCall(id, params) {
         const { name, arguments: args } = params || {};
 
         try {
@@ -255,7 +261,7 @@ class SecondBrainMCPServer {
                     const results = [];
 
                     if (scope === 'all' || scope === 'knowledge') {
-                        const kn = this.semantic.searchKnowledge(query, { limit });
+                        const kn = await this.semantic.searchKnowledge(query, { limit });
                         for (const k of kn) {
                             results.push(`[Tri thức #${k.id} | ${k.category.toUpperCase()}] ${k.title}\n${k.content}\nTags: ${k.tags || 'none'} (Score: ${k.score})`);
                         }
@@ -275,7 +281,7 @@ class SecondBrainMCPServer {
                 }
 
                 case 'brain_store': {
-                    const insertId = this.semantic.addItem({
+                    const insertId = await this.semantic.addItem({
                         title: args.title,
                         content: args.content,
                         category: args.category || 'note',

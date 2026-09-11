@@ -7,19 +7,50 @@
       ]
     },
     "github": {
-      "command": "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\mcp-server-github.cmd",
-      "args": [],
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-github\\dist\\index.js"
+      ],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
       }
     },
     "puppeteer": {
-      "command": "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\mcp-server-puppeteer.cmd",
-      "args": []
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-puppeteer\\dist\\index.js"
+      ]
     },
     "sequential-thinking": {
-      "command": "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\mcp-server-sequential-thinking.cmd",
-      "args": []
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-sequential-thinking\\dist\\index.js"
+      ]
+    },
+    "chrome-devtools-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
+    },
+    "fetch": {
+      "command": "C:\\Users\\tvu16\\AppData\\Local\\Microsoft\\WinGet\\Packages\\astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe\\uvx.exe",
+      "args": [
+        "mcp-server-fetch",
+        "--ignore-robots-txt",
+        "--user-agent",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+      ],
+      "env": {
+        "PATH": "C:\\Program Files\\nodejs;C:\\Users\\tvu16\\AppData\\Local\\Microsoft\\WinGet\\Packages\\astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe;C:\\WINDOWS\\system32;C:\\WINDOWS"
+      }
+    },
+    "everything-search": {
+      "command": "C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\agy-node.cmd",
+      "args": [
+        "C:\\Users\\tvu16\\.gemini\\antigravity\\everything_search\\mcp_server.js"
+      ]
     }
   }
 }

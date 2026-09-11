@@ -34,6 +34,7 @@ Lệnh khả dụng:
   backups              Xem danh sách các bản sao lưu đã tạo
   compact              Tinh biến bộ nhớ, dọn dẹp và tối ưu hóa index
   dashboard            Mở giao diện trực quan Visual Dashboard trên trình duyệt
+  reembed              Nâng cấp và tính toán lại vector 384-dim cho toàn bộ tri thức
   git-backup [msg]     Sao lưu dữ liệu, xuất text diff và commit lên Git
   git-status           Xem trạng thái Git repo và kết nối Remote
   git-remote <url>     Cấu hình địa chỉ Remote Repository (GitHub/GitLab)
@@ -101,7 +102,7 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
             const semantic = getSemanticKnowledge();
             const episodic = getEpisodicMemory();
 
-            const kn = semantic.searchKnowledge(query, { limit: 3 });
+            const kn = await semantic.searchKnowledge(query, { limit: 3 });
             if (kn.length > 0) {
                 console.log('--- Tri thức & Ghi chú ---');
                 for (const k of kn) {
@@ -117,6 +118,14 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
                     console.log(`• [${e.timestamp.split('T')[0]}] [${e.conv_title || 'Phiên làm việc'}] ${e.role}: ${e.summary}`);
                 }
             }
+            break;
+        }
+
+        case 'reembed': {
+            console.log('🔄 Đang tính toán lại toàn bộ vector embedding 384-dim cho knowledge_items...');
+            const semantic = getSemanticKnowledge();
+            const count = await semantic.reembedAll();
+            console.log(`✅ Đã nâng cấp thành công ${count} mục tri thức lên chuẩn Multilingual Transformer!`);
             break;
         }
 
@@ -160,7 +169,7 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
                 return;
             }
             const semantic = getSemanticKnowledge();
-            const id = semantic.addItem({
+            const id = await semantic.addItem({
                 title,
                 content,
                 category: 'note',

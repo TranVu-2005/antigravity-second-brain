@@ -52,7 +52,7 @@ async function main() {
         }
 
         const retriever = getContextRetriever();
-        const compiledContext = retriever.compileContext(lastUserPrompt, conversationId, {
+        const compiledContext = await retriever.compileContext(lastUserPrompt, conversationId, {
             workspacePaths: payload.workspacePaths || []
         });
 

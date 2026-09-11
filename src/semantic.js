@@ -1,11 +1,19 @@
 // ==============================================================================
 // Antigravity Second Brain: Tier 3 - Semantic Knowledge & Entity Graph
 // Long-term facts, concepts, architectural decisions and True Hybrid Search
-// Fusing Dense Vector Embeddings (Cosine Sim) + Sparse Full-Text (BM25)
+// Fusing Dense Multilingual Transformer Vectors (Cosine Sim) + Sparse Full-Text (BM25)
 // ==============================================================================
 
 const { getDB } = require('./db');
-const { computeEmbedding, cosineSimilarity, vectorToBuffer, bufferToVector } = require('./embedding');
+const { 
+    computeEmbedding, 
+    computeEmbeddingSync, 
+    cosineSimilarity, 
+    vectorToBuffer, 
+    bufferToVector,
+    VECTOR_DIM,
+    ensureDaemonRunning 
+} = require('./embedding');
 
 class SemanticKnowledge {
     constructor(db = getDB()) {
@@ -14,6 +22,9 @@ class SemanticKnowledge {
     }
 
     _bootstrap() {
+        // Trigger background daemon pre-warm
+        ensureDaemonRunning();
+
         const count = this.db.get('SELECT COUNT(*) as cnt FROM knowledge_items').cnt;
         if (count === 0) {
             // Seed foundational knowledge
@@ -43,25 +54,41 @@ class SemanticKnowledge {
             this.addRelation('Ngài', 'located_in', 'Hoàng Mai');
         }
 
-        // Backfill embeddings if any items are missing them
+        // Auto backfill if dimension mismatch or missing
         this._backfillEmbeddings();
     }
 
-    _backfillEmbeddings() {
+    async _backfillEmbeddings() {
         try {
-            const rows = this.db.all('SELECT id, title, content, tags FROM knowledge_items WHERE embedding IS NULL');
+            const expectedByteLength = VECTOR_DIM * 4; // 384 * 4 = 1536 bytes
+            const rows = this.db.all('SELECT id, title, content, tags, embedding FROM knowledge_items');
             for (const r of rows) {
-                const text = `${r.title} ${r.content} ${r.tags || ''}`;
-                const vec = computeEmbedding(text);
-                this.db.run('UPDATE knowledge_items SET embedding = ? WHERE id = ?', vectorToBuffer(vec), r.id);
+                if (!r.embedding || r.embedding.length !== expectedByteLength) {
+                    const text = `${r.title} ${r.content} ${r.tags || ''}`;
+                    const vec = await computeEmbedding(text);
+                    this.db.run('UPDATE knowledge_items SET embedding = ? WHERE id = ?', vectorToBuffer(vec), r.id);
+                }
             }
         } catch (e) {}
     }
 
-    addItem({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0 }) {
+    async reembedAll() {
+        const expectedByteLength = VECTOR_DIM * 4;
+        const rows = this.db.all('SELECT id, title, content, tags FROM knowledge_items');
+        let count = 0;
+        for (const r of rows) {
+            const text = `${r.title} ${r.content} ${r.tags || ''}`;
+            const vec = await computeEmbedding(text);
+            this.db.run('UPDATE knowledge_items SET embedding = ? WHERE id = ?', vectorToBuffer(vec), r.id);
+            count++;
+        }
+        return count;
+    }
+
+    async addItem({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0 }) {
         const now = new Date().toISOString();
         const textToEmbed = `${title} ${content} ${tags}`;
-        const vec = computeEmbedding(textToEmbed);
+        const vec = await computeEmbedding(textToEmbed);
         const buf = vectorToBuffer(vec);
 
         const info = this.db.run(`
@@ -71,7 +98,7 @@ class SemanticKnowledge {
         return info.lastInsertRowid;
     }
 
-    updateItem(id, fields = {}) {
+    async updateItem(id, fields = {}) {
         const allowed = ['title', 'content', 'category', 'tags', 'importance'];
         const updates = [];
         const params = [];
@@ -90,7 +117,7 @@ class SemanticKnowledge {
             const newTitle = fields.title !== undefined ? fields.title : current.title;
             const newContent = fields.content !== undefined ? fields.content : current.content;
             const newTags = fields.tags !== undefined ? fields.tags : current.tags;
-            const vec = computeEmbedding(`${newTitle} ${newContent} ${newTags}`);
+            const vec = await computeEmbedding(`${newTitle} ${newContent} ${newTags}`);
             updates.push('embedding = ?');
             params.push(vectorToBuffer(vec));
         }
@@ -112,13 +139,13 @@ class SemanticKnowledge {
         return this.db.get('SELECT * FROM knowledge_items WHERE id = ?', id);
     }
 
-    // TRUE HYBRID SEARCH: Dense Vector Cosine Similarity (50%) + Sparse BM25 (35%) + Importance (15%)
-    searchKnowledge(query, { category = null, limit = 5 } = {}) {
+    // TRUE HYBRID SEARCH: Dense Multilingual Vector Cosine (50%) + Sparse BM25 (35%) + Importance (15%)
+    async searchKnowledge(query, { category = null, limit = 5 } = {}) {
         if (!query || !query.trim()) {
             return this.db.all('SELECT id, title, content, category, tags, source, importance, access_count, updated_at FROM knowledge_items ORDER BY importance DESC, updated_at DESC LIMIT ?', limit);
         }
 
-        const queryVec = computeEmbedding(query);
+        const queryVec = await computeEmbedding(query);
         const sanitized = query.replace(/[^\w\s\u00C0-\u1EF9]/gi, ' ').trim();
 
         // 1. Gather Sparse BM25 Ranks via FTS5
@@ -148,15 +175,16 @@ class SemanticKnowledge {
 
         const scored = [];
         const now = Date.now();
+        const expectedByteLength = VECTOR_DIM * 4;
 
         for (const item of items) {
             // Dense Cosine Similarity
             let denseScore = 0;
-            if (item.embedding) {
+            if (item.embedding && item.embedding.length === expectedByteLength) {
                 const itemVec = bufferToVector(item.embedding);
                 denseScore = cosineSimilarity(queryVec, itemVec);
             }
-            denseScore = Math.max(0, denseScore); // Normalize negative to 0 for score weighting
+            denseScore = Math.max(0, denseScore); // Normalize negative to 0 for hybrid ranking
 
             // Sparse BM25 Score
             const rawBm25 = bm25Map.get(item.id) || 0;
@@ -165,7 +193,7 @@ class SemanticKnowledge {
             // Recency & Importance
             const ageHours = Math.max(0, (now - new Date(item.updated_at).getTime()) / (1000 * 60 * 60));
             const recency = 1.0 / (1.0 + ageHours / 168.0);
-            const importance = (item.importance || 1.0) / 2.0; // normalize 0-1
+            const importance = (item.importance || 1.0) / 2.0;
 
             // Hybrid Weighted Score
             const hybridScore = (denseScore * 0.50) + (sparseScore * 0.35) + (importance * 0.15);
@@ -199,43 +227,40 @@ class SemanticKnowledge {
     addEntity(name, type = 'concept', description = '') {
         try {
             this.db.run(`
-                INSERT INTO entities (name, type, description, updated_at)
-                VALUES (?, ?, ?, datetime('now'))
-                ON CONFLICT(name) DO UPDATE SET 
-                    type = excluded.type,
-                    description = COALESCE(excluded.description, entities.description),
-                    updated_at = datetime('now')
+                INSERT INTO entities (name, type, description)
+                VALUES (?, ?, ?)
+                ON CONFLICT(name) DO UPDATE SET description = excluded.description, updated_at = CURRENT_TIMESTAMP
             `, name, type, description);
-        } catch (e) {}
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
 
-    addRelation(source, relation, target, confidence = 1.0) {
+    addRelation(source, relation, target, weight = 1.0) {
         try {
-            this.addEntity(source);
-            this.addEntity(target);
             this.db.run(`
-                INSERT INTO entity_relations (source_entity, relation, target_entity, confidence, updated_at)
-                VALUES (?, ?, ?, ?, datetime('now'))
-                ON CONFLICT(source_entity, relation, target_entity) DO UPDATE SET
-                    confidence = excluded.confidence,
-                    updated_at = datetime('now')
-            `, source, relation, target, confidence);
-        } catch (e) {}
+                INSERT INTO entity_relations (source, relation, target, weight)
+                VALUES (?, ?, ?, ?)
+                ON CONFLICT(source, relation, target) DO UPDATE SET weight = excluded.weight
+            `, source, relation, target, weight);
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
 
-    getRelationsForEntity(entityName) {
-        return this.db.all(`
-            SELECT * FROM entity_relations 
-            WHERE source_entity = ? OR target_entity = ?
-            ORDER BY confidence DESC
-        `, entityName, entityName);
+    getGraph() {
+        const entities = this.db.all('SELECT name, type, description FROM entities');
+        const relations = this.db.all('SELECT source, relation, target, weight FROM entity_relations');
+        return { entities, relations };
     }
 }
 
 let instance = null;
 
 function getSemanticKnowledge(db = getDB()) {
-    if (!instance) {
+    if (!instance || instance.db !== db) {
         instance = new SemanticKnowledge(db);
     }
     return instance;

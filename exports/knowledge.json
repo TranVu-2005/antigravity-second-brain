@@ -34,5 +34,17 @@
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
+  },
+  {
+    "id": 4,
+    "title": "Cài đặt & Tối ưu hóa Fetch MCP và Everything Search MCP",
+    "content": "Đã cài đặt, tối ưu hóa và cấu hình 2 MCP Server mới:\n1. fetch (mcp-server-fetch qua uvx): Fetch nội dung web thành Markdown siêu nhẹ, tối ưu cờ --ignore-robots-txt và User-Agent trình duyệt hiện đại.\n2. everything-search (C:\\Users\\tvu16\\.gemini\\antigravity\\everything_search\\mcp_server.js): Server Node.js độc quyền tích hợp Voidtools Everything CLI (es.exe). Tìm kiếm triệu file trên Windows trong <15ms, cơ chế tự động phục hồi Self-Healing IPC nếu Everything chưa mở. Đã cấp quyền tự động trong config.json.",
+    "category": "decision",
+    "tags": "mcp, fetch, everything-search, optimization, tools",
+    "source": "agent_mcp",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-11T18:07:50.239Z",
+    "updated_at": "2026-09-11T18:07:50.239Z"
   }
 ]

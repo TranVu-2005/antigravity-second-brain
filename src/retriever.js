@@ -29,7 +29,7 @@ class ContextRetriever {
         return path.basename(primary);
     }
 
-    compileContext(query = '', conversationId = null, options = {}) {
+    async compileContext(query = '', conversationId = null, options = {}) {
         const maxTokens = options.maxTokens || DEFAULT_MAX_TOKENS;
         const maxChars = Math.floor(maxTokens * CHARS_PER_TOKEN);
         const workspacePaths = options.workspacePaths || [];
@@ -70,7 +70,7 @@ class ContextRetriever {
             // -----------------------------------------------------------------
             // Priority 3: Semantic Knowledge & Technical Decisions (Hybrid Search)
             // -----------------------------------------------------------------
-            const knowledgeResults = this.semantic.searchKnowledge(query, { limit: 4 });
+            const knowledgeResults = await this.semantic.searchKnowledge(query, { limit: 4 });
             if (knowledgeResults && knowledgeResults.length > 0) {
                 const kLines = ['[TRI THỨC & QUY TẮC PHÙ HỢP]'];
                 for (const k of knowledgeResults) {

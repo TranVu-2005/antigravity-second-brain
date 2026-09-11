@@ -1,131 +1,177 @@
 // ==============================================================================
-// Antigravity Second Brain: Dense Vector Embedding Engine
-// Production-grade, zero-dependency local embedding with Semantic Concept Mapping
+// Antigravity Second Brain: Multilingual Neural Dense Vector Engine
+// Powered by 384-dimensional Multilingual Transformer with Auto-Daemon & Fallback
 // ==============================================================================
 
-const VECTOR_DIM = 128;
+const path = require('node:path');
+const { spawn } = require('node:child_process');
 
-// Semantic Concept Clusters (bridges semantic gaps like "quanh nhà" <-> "Hoàng Mai")
-const CONCEPT_CLUSTERS = [
-    {
-        name: 'geo_location_home',
-        terms: ['hoàng mai', 'hà nội', 'quanh nhà', 'gần nhà', 'nơi ở', 'sinh sống', 'khu vực', 'ở đây', 'quê', 'nhà', 'location'],
-        vectorIndex: 0
-    },
-    {
-        name: 'identity_master',
-        terms: ['ngài', 'sir', 'chủ nhân', 'bản thân', 'tôi', 'mình', 'profile', 'danh tính', 'ai'],
-        vectorIndex: 8
-    },
-    {
-        name: 'tech_stack',
-        terms: ['code', 'lập trình', 'developer', 'node', 'python', 'sqlite', 'typescript', 'javascript', 'antigravity', 'api', 'backend', 'frontend'],
-        vectorIndex: 16
-    },
-    {
-        name: 'system_architecture',
-        terms: ['kiến trúc', 'hệ thống', 'bộ nhớ', 'second brain', 'memory', 'database', 'fts5', 'bm25', 'vector', 'embedding', 'cache'],
-        vectorIndex: 24
-    },
-    {
-        name: 'rules_directives',
-        terms: ['quy tắc', 'chỉ thị', 'luôn luôn', 'sau này', 'nhớ kỹ', 'hãy luôn', 'yêu cầu', 'rule', 'directive', 'ponytail'],
-        vectorIndex: 32
-    },
-    {
-        name: 'daily_life_weather',
-        terms: ['thời tiết', 'mưa', 'nắng', 'nhiệt độ', 'ăn', 'uống', 'quán', 'đồ ăn', 'food', 'weather'],
-        vectorIndex: 40
-    }
-];
+const VECTOR_DIM = 384;
+const DAEMON_PORT = 49152;
+const DAEMON_HOST = '127.0.0.1';
+const DAEMON_URL = `http://${DAEMON_HOST}:${DAEMON_PORT}`;
+const UV_PATH = 'C:\\Users\\tvu16\\AppData\\Local\\Microsoft\\WinGet\\Packages\\astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe\\uv.exe';
+const DAEMON_SCRIPT = path.join(__dirname, 'embedding_daemon.py');
 
-function tokenize(text) {
-    if (!text || typeof text !== 'string') return [];
-    return text
-        .toLowerCase()
-        .replace(/[^\w\s\u00C0-\u1EF9]/gi, ' ')
-        .split(/\s+/)
-        .filter(t => t.length > 0);
-}
+// High-speed In-Memory LRU-style Embedding Cache
+const _embeddingCache = new Map();
+const MAX_CACHE_SIZE = 1000;
 
-// Murmur-inspired fast hash for n-grams
-function hashString(str, seed = 0) {
-    let h = seed ^ 0x12345678;
-    for (let i = 0; i < str.length; i++) {
-        h = Math.imul(h ^ str.charCodeAt(i), 0x5bd1e995);
-        h ^= h >>> 15;
-    }
-    return Math.abs(h);
-}
+let _daemonSpawnAttempted = false;
 
 /**
- * Computes a normalized 128-dimensional dense vector for a given text.
- * @param {string} text 
- * @returns {Float32Array}
+ * Normalizes a Float32Array vector in-place to unit L2 norm.
  */
-function computeEmbedding(text) {
-    const vec = new Float32Array(VECTOR_DIM);
-    const tokens = tokenize(text);
-    const fullTextLower = text.toLowerCase();
-
-    if (tokens.length === 0) return vec;
-
-    // 1. Concept Cluster Injections (High Semantic Signal)
-    for (const cluster of CONCEPT_CLUSTERS) {
-        let matchWeight = 0;
-        for (const term of cluster.terms) {
-            if (fullTextLower.includes(term)) {
-                matchWeight += term.includes(' ') ? 2.5 : 1.5;
-            }
-        }
-        if (matchWeight > 0) {
-            // Distribute across 6 dimensional sub-band
-            for (let j = 0; j < 6; j++) {
-                const idx = (cluster.vectorIndex + j) % VECTOR_DIM;
-                const sign = (j % 2 === 0) ? 1 : -0.7;
-                vec[idx] += matchWeight * sign * 1.8;
-            }
-        }
-    }
-
-    // 2. Token Hashing with Subword 3-grams
-    for (const token of tokens) {
-        // Full token hash
-        const hToken = hashString(token);
-        const idxToken = hToken % VECTOR_DIM;
-        const signToken = (hToken & 1) ? 1.0 : -1.0;
-        vec[idxToken] += signToken * 1.2;
-
-        // Character 3-grams for typo & morphology tolerance
-        if (token.length >= 3) {
-            for (let i = 0; i <= token.length - 3; i++) {
-                const tri = token.slice(i, i + 3);
-                const hTri = hashString(tri, 42);
-                const idxTri = hTri % VECTOR_DIM;
-                const signTri = (hTri & 1) ? 0.6 : -0.6;
-                vec[idxTri] += signTri;
-            }
-        }
-    }
-
-    // 3. L2 Normalization (Unit Length)
+function normalizeL2(vec) {
     let sumSq = 0;
-    for (let i = 0; i < VECTOR_DIM; i++) {
+    for (let i = 0; i < vec.length; i++) {
         sumSq += vec[i] * vec[i];
     }
     const norm = Math.sqrt(sumSq);
     if (norm > 0) {
-        for (let i = 0; i < VECTOR_DIM; i++) {
+        for (let i = 0; i < vec.length; i++) {
             vec[i] /= norm;
         }
     }
-
     return vec;
 }
 
 /**
- * Computes Cosine Similarity between two normalized vectors.
- * Since vectors are L2-normalized, Cosine Similarity is simply their dot product.
+ * Checks if the Local Embedding Daemon is alive and responsive.
+ */
+async function isDaemonHealthy() {
+    try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 400);
+        const res = await fetch(`${DAEMON_URL}/health`, { signal: controller.signal });
+        clearTimeout(timeout);
+        if (res.ok) {
+            const data = await res.json();
+            return data.status === 'ready' && data.dimension === VECTOR_DIM;
+        }
+    } catch (e) {
+        // Daemon not reachable
+    }
+    return false;
+}
+
+/**
+ * Automatically launches the embedding daemon in the background if not active.
+ */
+function ensureDaemonRunning() {
+    if (_daemonSpawnAttempted) return;
+    _daemonSpawnAttempted = true;
+
+    // Check health asynchronously
+    isDaemonHealthy().then((healthy) => {
+        if (!healthy) {
+            try {
+                const child = spawn(UV_PATH, ['run', '--with', 'fastembed', 'python', DAEMON_SCRIPT], {
+                    detached: true,
+                    stdio: 'ignore',
+                    windowsHide: true
+                });
+                child.unref();
+            } catch (err) {
+                // Ignore spawn errors
+            }
+        }
+    }).catch(() => {});
+}
+
+/**
+ * Fallback deterministic 384-dimensional vector generator
+ * Used strictly if daemon is initializing or unreachable (Zero-Crash Guarantee).
+ */
+function computeFallbackVector(text) {
+    const vec = new Float32Array(VECTOR_DIM);
+    if (!text || typeof text !== 'string') return vec;
+
+    const tokens = text.toLowerCase().replace(/[^\w\s\u00C0-\u1EF9]/gi, ' ').split(/\s+/).filter(Boolean);
+    if (tokens.length === 0) return vec;
+
+    for (const token of tokens) {
+        let h = 0x12345678;
+        for (let i = 0; i < token.length; i++) {
+            h = Math.imul(h ^ token.charCodeAt(i), 0x5bd1e995);
+            h ^= h >>> 15;
+        }
+        const idx = Math.abs(h) % VECTOR_DIM;
+        vec[idx] += (h & 1) ? 1.0 : -1.0;
+    }
+
+    return normalizeL2(vec);
+}
+
+/**
+ * Computes a 384-dimensional multilingual dense embedding using the local neural daemon.
+ * @param {string} text
+ * @returns {Promise<Float32Array>}
+ */
+async function computeEmbedding(text) {
+    if (!text || typeof text !== 'string' || !text.trim()) {
+        return new Float32Array(VECTOR_DIM);
+    }
+
+    const trimmed = text.trim();
+    if (_embeddingCache.has(trimmed)) {
+        return _embeddingCache.get(trimmed);
+    }
+
+    try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 1200); // 1.2s safety ceiling
+
+        const res = await fetch(`${DAEMON_URL}/embed`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ texts: [trimmed] }),
+            signal: controller.signal
+        });
+        clearTimeout(timeout);
+
+        if (res.ok) {
+            const data = await res.json();
+            if (data.embeddings && data.embeddings.length > 0) {
+                const rawVec = data.embeddings[0];
+                const floatVec = normalizeL2(new Float32Array(rawVec));
+
+                // Cache management
+                if (_embeddingCache.size >= MAX_CACHE_SIZE) {
+                    const firstKey = _embeddingCache.keys().next().value;
+                    _embeddingCache.delete(firstKey);
+                }
+                _embeddingCache.set(trimmed, floatVec);
+
+                return floatVec;
+            }
+        }
+    } catch (err) {
+        // Fall through to fallback & trigger auto-spawn
+        ensureDaemonRunning();
+    }
+
+    // Return fallback vector if daemon didn't answer in time
+    const fallback = computeFallbackVector(trimmed);
+    return fallback;
+}
+
+/**
+ * Synchronous embedding getter from cache or fallback.
+ * @param {string} text
+ * @returns {Float32Array}
+ */
+function computeEmbeddingSync(text) {
+    if (!text || !text.trim()) return new Float32Array(VECTOR_DIM);
+    const trimmed = text.trim();
+    if (_embeddingCache.has(trimmed)) {
+        return _embeddingCache.get(trimmed);
+    }
+    return computeFallbackVector(trimmed);
+}
+
+/**
+ * Computes Cosine Similarity between two normalized Float32Array vectors.
  */
 function cosineSimilarity(vecA, vecB) {
     if (!vecA || !vecB || vecA.length !== vecB.length) return 0;
@@ -148,6 +194,9 @@ function bufferToVector(buf) {
 module.exports = {
     VECTOR_DIM,
     computeEmbedding,
+    computeEmbeddingSync,
+    ensureDaemonRunning,
+    isDaemonHealthy,
     cosineSimilarity,
     vectorToBuffer,
     bufferToVector
