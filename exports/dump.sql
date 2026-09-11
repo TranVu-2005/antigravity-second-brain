@@ -1,17 +1,19 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-11T16:58:14.628Z
+-- Generated: 2026-09-11T16:58:38.038Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'location', 'Quận Hoàng Mai, Hà Nội, Việt Nam', 1, 'conversation_history');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'os', 'Windows 11 (OS User: tvu16)', 1, 'system_detection');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'platform', 'Google Antigravity 2.0 with native agy-node engine', 1, 'system_detection');
+INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('identity', 'github_username', 'TranVu-2005', 1, 'user_update');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('identity', 'honorific', 'Ngài (Sir)', 1, 'user_directive');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('identity', 'role', 'Master / Primary Developer & System Architect', 1, 'system');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('preference', 'memory_goal', 'Hệ thống Second Brain phân tầng chuẩn production-grade, tự động 100%, ghi nhớ toàn diện danh tính, kiến thức và lịch sử hội thoại.', 1, 'user_request');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('principle', 'honesty_policy', 'Chuẩn chỉ, trung thực tuyệt đối, không dối trá, không bịa đặt, có sao nói vậy, biết thì nói biết, chưa biết hoặc chưa làm thì thẳng thắn báo cáo.', 1, 'user_directive');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('style', 'language_preference', 'Tiếng Việt làm chủ đạo, khéo léo đan xen tiếng Anh tự nhiên (As you wish Sir, Indeed, Splendid, Understood...).', 1, 'user_directive');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('style', 'tone_and_style', 'Chuyên nghiệp, chính xác tuyệt đối, lịch lãm, hóm hỉnh tinh tế như một cố vấn công nghệ hoặc quản gia tận tụy.', 1, 'user_directive');
+INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('tech_stack', 'second_brain_repo', 'https://github.com/TranVu-2005/antigravity-second-brain.git', 1, 'user_update');
 
 -- Table: knowledge_items
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (1, 'Antigravity Architecture & Customizations', 'Antigravity hỗ trợ Skills, Rules (GEMINI.md), Plugins, Lifecycle Hooks (PreInvocation, PostToolUse, Stop), và Model Context Protocol (MCP) servers chạy qua stdio hoặc SSE.', 'system', 'antigravity,architecture,hooks,mcp', 'system', 1.5, 'global');

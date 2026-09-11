@@ -33,6 +33,14 @@
   },
   {
     "category": "identity",
+    "key": "github_username",
+    "value": "TranVu-2005",
+    "confidence": 1,
+    "source": "user_update",
+    "updated_at": "2026-09-11T16:58:34.493Z"
+  },
+  {
+    "category": "identity",
     "key": "honorific",
     "value": "Ngài (Sir)",
     "confidence": 1,
@@ -78,5 +86,13 @@
     "confidence": 1,
     "source": "user_directive",
     "updated_at": "2026-09-11T15:54:16.991Z"
+  },
+  {
+    "category": "tech_stack",
+    "key": "second_brain_repo",
+    "value": "https://github.com/TranVu-2005/antigravity-second-brain.git",
+    "confidence": 1,
+    "source": "user_update",
+    "updated_at": "2026-09-11T16:58:34.513Z"
   }
 ]
