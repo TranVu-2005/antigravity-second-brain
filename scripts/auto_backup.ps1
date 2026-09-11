@@ -7,13 +7,18 @@ $CliPath = "$BrainDir\cli.js"
 
 Write-Host "[$(Get-Date)] Running Antigravity Second Brain Backup & Compaction..." -ForegroundColor Cyan
 
-# 1. Hot Backup
-& agy-node "$CliPath" backup
+$NodeCmd = "$env:APPDATA\Antigravity\bin\agy-node.cmd"
+
+# 1. Hot Backup (SQLite VACUUM INTO)
+& "$NodeCmd" "$CliPath" backup
 
 # 2. Memory Compaction
-& agy-node "$CliPath" compact
+& "$NodeCmd" "$CliPath" compact
 
 # 3. Export fresh dashboard
-& agy-node "$BrainDir\src\export_dashboard.js"
+& "$NodeCmd" "$BrainDir\src\export_dashboard.js"
 
-Write-Host "[$(Get-Date)] Second Brain Maintenance Completed!" -ForegroundColor Green
+# 4. Git Automated Backup & Push (if remote configured)
+& "$NodeCmd" "$CliPath" git-backup
+
+Write-Host "[$(Get-Date)] Second Brain Maintenance & Git Backup Completed!" -ForegroundColor Green
