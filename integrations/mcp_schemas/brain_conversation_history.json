@@ -1,0 +1,1 @@
+{"name":"brain_conversation_history","description":"Tra cứu các phiên trò chuyện và nội dung trao đổi chi tiết trong quá khứ.","parameters":{"properties":{"limit":{"default":5,"description":"Số phiên tối đa cần xem","type":"integer"},"query":{"description":"Từ khóa tìm kiếm trong lịch sử (tùy chọn)","type":"string"}},"type":"object"}}

@@ -86,6 +86,11 @@ class GitBackupManager {
     exportDataSnapshot() {
         const db = getDB();
 
+        // 0. Force checkpoint SQLite WAL into main brain.db file
+        try {
+            db.exec('PRAGMA wal_checkpoint(TRUNCATE);');
+        } catch (e) {}
+
         // 1. Export Profile (Hồ sơ cá nhân)
         const profileRows = db.all('SELECT category, key, value, confidence, source, updated_at FROM user_profile ORDER BY category, key');
         const profilePath = path.join(this.exportsDir, 'profile.json');
@@ -106,7 +111,12 @@ class GitBackupManager {
         const convPath = path.join(this.exportsDir, 'conversations_summary.json');
         fs.writeFileSync(convPath, JSON.stringify(convRows, null, 2), 'utf8');
 
-        // 5. Generate Human-Readable SQL Dump
+        // 4.5. Export Episodes (Episodic memory - Lịch sử hội thoại đầy đủ)
+        const episodeRows = db.all('SELECT id, conversation_id, step_index, role, summary, timestamp FROM episodes ORDER BY id ASC');
+        const epPath = path.join(this.exportsDir, 'episodes_log.json');
+        fs.writeFileSync(epPath, JSON.stringify(episodeRows, null, 2), 'utf8');
+
+        // 5. Generate 100% Comprehensive Human-Readable SQL Dump
         let sqlDump = `-- Antigravity Second Brain SQL Dump\n-- Generated: ${new Date().toISOString()}\n\n`;
         
         // Profile inserts
@@ -122,17 +132,67 @@ class GitBackupManager {
             const tags = (row.tags || '').replace(/'/g, "''");
             sqlDump += `INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (${row.id}, '${title}', '${content}', '${row.category}', '${tags}', '${row.source}', ${row.importance}, '${row.project_scope}');\n`;
         }
+        sqlDump += `\n-- Table: solutions\n`;
+        for (const row of solutionRows) {
+            const errP = (row.error_pattern || '').replace(/'/g, "''");
+            const solC = (row.solution_code || '').replace(/'/g, "''");
+            const root = (row.root_cause || '').replace(/'/g, "''");
+            const cmd = (row.command_fix || '').replace(/'/g, "''");
+            sqlDump += `INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (${row.id}, '${errP}', '${root}', '${solC}', '${cmd}', '${row.project_scope}', ${row.confidence}, ${row.success_count});\n`;
+        }
+        sqlDump += `\n-- Table: conversations\n`;
+        for (const row of convRows) {
+            const title = (row.title || '').replace(/'/g, "''");
+            const sum = (row.summary || '').replace(/'/g, "''");
+            sqlDump += `INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('${row.id}', '${title}', '${sum}', ${row.message_count});\n`;
+        }
 
         const sqlDumpPath = path.join(this.exportsDir, 'dump.sql');
         fs.writeFileSync(sqlDumpPath, sqlDump, 'utf8');
+
+        // 6. Bundle external Antigravity configurations for 100% portable setup
+        this._bundleIntegrations();
 
         return {
             profileCount: profileRows.length,
             knowledgeCount: knowledgeRows.length,
             solutionsCount: solutionRows.length,
             conversationsCount: convRows.length,
-            exportedFiles: ['profile.json', 'knowledge.json', 'solutions.json', 'conversations_summary.json', 'dump.sql']
+            episodesCount: episodeRows.length,
+            exportedFiles: ['profile.json', 'knowledge.json', 'solutions.json', 'conversations_summary.json', 'episodes_log.json', 'dump.sql']
         };
+    }
+
+    _bundleIntegrations() {
+        const intDir = path.join(this.brainDir, 'integrations');
+        if (!fs.existsSync(intDir)) fs.mkdirSync(intDir, { recursive: true });
+
+        // Copy Antigravity configs if they exist
+        const geminiDir = path.resolve(this.brainDir, '..', '..'); // C:\Users\tvu16\.gemini
+        const mcpConfig = path.join(geminiDir, 'config', 'mcp_config.json');
+        const hooksConfig = path.join(geminiDir, 'config', 'hooks.json');
+        const skillPath = path.join(geminiDir, 'config', 'skills', 'second-brain', 'SKILL.md');
+        const mcpSchemasDir = path.join(geminiDir, 'antigravity', 'mcp', 'second-brain');
+
+        if (fs.existsSync(mcpConfig)) {
+            fs.copyFileSync(mcpConfig, path.join(intDir, 'mcp_config.json'));
+        }
+        if (fs.existsSync(hooksConfig)) {
+            fs.copyFileSync(hooksConfig, path.join(intDir, 'hooks.json'));
+        }
+        if (fs.existsSync(skillPath)) {
+            const intSkillDir = path.join(intDir, 'skills', 'second-brain');
+            if (!fs.existsSync(intSkillDir)) fs.mkdirSync(intSkillDir, { recursive: true });
+            fs.copyFileSync(skillPath, path.join(intSkillDir, 'SKILL.md'));
+        }
+        if (fs.existsSync(mcpSchemasDir)) {
+            const intSchemasDir = path.join(intDir, 'mcp_schemas');
+            if (!fs.existsSync(intSchemasDir)) fs.mkdirSync(intSchemasDir, { recursive: true });
+            const files = fs.readdirSync(mcpSchemasDir);
+            for (const f of files) {
+                fs.copyFileSync(path.join(mcpSchemasDir, f), path.join(intSchemasDir, f));
+            }
+        }
     }
 
     commitBackup(customMessage = null) {
