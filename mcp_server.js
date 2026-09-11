@@ -10,6 +10,7 @@ const { getProfileManager } = require('./src/profile');
 const { getSemanticKnowledge } = require('./src/semantic');
 const { getEpisodicMemory } = require('./src/episodic');
 const { getSolutionStore } = require('./src/solutions');
+const { getGitBackupManager } = require('./src/git_backup');
 
 const TOOLS = [
     {
@@ -133,6 +134,24 @@ const TOOLS = [
             type: 'object',
             properties: {}
         }
+    },
+    {
+        name: 'brain_git_backup',
+        description: 'Tự động trích xuất toàn bộ dữ liệu Second Brain ra text diff và commit bản sao lưu lên Git repo.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                message: { type: 'string', description: 'Thông điệp commit tùy chỉnh (tùy chọn)' }
+            }
+        }
+    },
+    {
+        name: 'brain_git_status',
+        description: 'Kiểm tra trạng thái Git repository, nhánh, commit mới nhất và cấu hình Remote của Second Brain.',
+        inputSchema: {
+            type: 'object',
+            properties: {}
+        }
     }
 ];
 
@@ -142,6 +161,7 @@ class SecondBrainMCPServer {
         this.semantic = getSemanticKnowledge();
         this.episodic = getEpisodicMemory();
         this.solutions = getSolutionStore();
+        this.gitBackup = getGitBackupManager();
         this.db = getDB();
     }
 
@@ -342,6 +362,35 @@ class SecondBrainMCPServer {
                         `• Tổng số phiên hội thoại (Conversations): ${convCount} phiên\n` +
                         `• Database engine: SQLite WAL mode + FTS5 BM25 + 128-dim Dense Vectors\n` +
                         `• Trạng thái: Sẵn sàng phục vụ Ngài!`;
+                    break;
+                }
+
+                case 'brain_git_backup': {
+                    const res = this.gitBackup.commitBackup(args.message || null);
+                    if (!res.success) {
+                        resultText = `❌ Lỗi thực hiện Git Backup: ${res.error}`;
+                    } else if (res.committed) {
+                        resultText = `✅ Đã tạo commit Git Backup thành công!\n• Commit: ${res.commit}\n• Thống kê: ${res.stats.profileCount} profile, ${res.stats.knowledgeCount} knowledge, ${res.stats.solutionsCount} solutions, ${res.stats.conversationsCount} convs.`;
+                    } else {
+                        resultText = `ℹ️ ${res.message}\n• Dữ liệu hiện tại đã đồng bộ và không có thay đổi mới.`;
+                    }
+                    break;
+                }
+
+                case 'brain_git_status': {
+                    const st = this.gitBackup.getStatus();
+                    if (!st.gitAvailable) {
+                        resultText = `❌ Git chưa khả dụng trên máy: ${st.error}`;
+                    } else if (!st.initialized) {
+                        resultText = `⚠️ Git repository chưa được khởi tạo. Hãy gọi tool brain_git_backup để khởi tạo lần đầu.`;
+                    } else {
+                        resultText = `=== TRẠNG THÁI GIT SECOND BRAIN ===\n` +
+                            `• Phiên bản Git: ${st.version}\n` +
+                            `• Nhánh hiện tại: ${st.branch}\n` +
+                            `• Commit mới nhất: ${st.lastCommit}\n` +
+                            `• Remote URL: ${st.remoteUrl || 'Chưa cấu hình remote (chỉ lưu cục bộ)'}\n` +
+                            `• Tệp chưa commit: ${st.uncommittedCount}`;
+                    }
                     break;
                 }
 
