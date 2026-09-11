@@ -5,6 +5,17 @@
       "args": [
         "C:\\Users\\tvu16\\.gemini\\antigravity\\second_brain\\mcp_server.js"
       ]
+    },
+    "github": {
+      "command": "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\mcp-server-github.cmd",
+      "args": [],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+      }
+    },
+    "puppeteer": {
+      "command": "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\mcp-server-puppeteer.cmd",
+      "args": []
     }
   }
 }
