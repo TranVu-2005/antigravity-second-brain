@@ -32,9 +32,9 @@ async function main() {
         const conversationId = payload.conversationId || null;
         const transcriptPath = payload.transcriptPath || null;
 
-        let lastUserPrompt = '';
+        let lastUserPrompt = payload.userPrompt || payload.prompt || payload.input || payload.query || '';
 
-        if (transcriptPath && fs.existsSync(transcriptPath)) {
+        if (!lastUserPrompt && transcriptPath && fs.existsSync(transcriptPath)) {
             try {
                 const content = fs.readFileSync(transcriptPath, 'utf8');
                 const lines = content.trim().split('\n');

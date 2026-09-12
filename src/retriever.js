@@ -66,25 +66,28 @@ class ContextRetriever {
                     }
                 }
             }
+        }
 
-            // -----------------------------------------------------------------
-            // Priority 3: Semantic Knowledge & Technical Decisions (Hybrid Search)
-            // -----------------------------------------------------------------
-            const knowledgeResults = await this.semantic.searchKnowledge(query, { limit: 4 });
-            if (knowledgeResults && knowledgeResults.length > 0) {
-                const kLines = ['[TRI THỨC & QUY TẮC PHÙ HỢP]'];
-                for (const k of knowledgeResults) {
-                    const line = `• [${k.category.toUpperCase()}] ${k.title}: ${k.content} (Score: ${k.score})`;
-                    if (currentChars + line.length < maxChars - 300) {
-                        kLines.push(line);
-                        currentChars += line.length;
-                    }
-                }
-                if (kLines.length > 1) {
-                    sections.push(kLines.join('\n'));
+        // ---------------------------------------------------------------------
+        // Priority 3: Semantic Knowledge & Technical Decisions (Hybrid Search)
+        // ---------------------------------------------------------------------
+        const knowledgeResults = await this.semantic.searchKnowledge(query || '', { limit: 4 });
+        if (knowledgeResults && knowledgeResults.length > 0) {
+            const kLines = [query ? '[TRI THỨC & QUY TẮC PHÙ HỢP]' : '[TRI THỨC & QUY TẮC NỔI BẬT (PINNED/ACTIVE)]'];
+            for (const k of knowledgeResults) {
+                const scoreText = k.score !== undefined ? ` (Score: ${k.score})` : '';
+                const line = `• [${k.category.toUpperCase()}] ${k.title}: ${k.content}${scoreText}`;
+                if (currentChars + line.length < maxChars - 200) {
+                    kLines.push(line);
+                    currentChars += line.length;
                 }
             }
+            if (kLines.length > 1) {
+                sections.push(kLines.join('\n'));
+            }
+        }
 
+        if (query && query.trim()) {
             // -----------------------------------------------------------------
             // Priority 4: Episodic History across Past Conversations
             // -----------------------------------------------------------------

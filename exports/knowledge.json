@@ -46,5 +46,41 @@
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
+  },
+  {
+    "id": 5,
+    "title": "Cấu hình môi trường Python 3.12 và uv trên hệ thống",
+    "content": "Hệ thống của Ngài đã được cấu hình Python và Astral uv hoàn chỉnh:\n- Trình quản lý: Astral uv (v0.12.x).\n- Python mặc định: CPython 3.12.14 (tương thích tối đa với AI, PyTorch, packages).\n- Executables & Shims đặt tại C:\\Users\\tvu16\\.local\\bin và C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin bao gồm: python, python3, pip, uv, uvx.\n- Đã đưa C:\\Users\\tvu16\\.local\\bin vào đầu User PATH để vượt qua App Execution Alias (Microsoft Store redirector) của Windows.",
+    "category": "decision",
+    "tags": "python,uv,environment,config",
+    "source": "agent_mcp",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-11T19:59:20.654Z",
+    "updated_at": "2026-09-11T19:59:20.654Z"
+  },
+  {
+    "id": 6,
+    "title": "Lệnh kiểm tra nhiệt độ CPU GPU tức thì (temp.cmd)",
+    "content": "Để kiểm tra nhiệt độ CPU & GPU tức thì trên máy Ngài (< 1 giây):\nChỉ cần chạy lệnh: temp\nHoặc PowerShell one-liner:\n(Get-Counter '\\Thermal Zone Information(*)\\High Precision Temperature').CounterSamples | Select-Object @{N='GPU';E={(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)}}, @{N='CPU_TZ';E={[math]::Round(($_.CookedValue - 2732) / 10.0, 1)}}\n\nĐã tạo sẵn lệnh temp.cmd tại C:\\Users\\tvu16\\.local\\bin và C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin. Tuyệt đối không chạy vòng lặp sleep hay query lặp nhiều bước.",
+    "category": "snippet",
+    "tags": "hardware,temperature,quick-command,perf",
+    "source": "agent_mcp",
+    "importance": 1.8,
+    "project_scope": "global",
+    "created_at": "2026-09-11T20:04:06.261Z",
+    "updated_at": "2026-09-11T20:04:06.261Z"
+  },
+  {
+    "id": 7,
+    "title": "Nâng cấp lệnh temp thế hệ mới tích hợp Lenovo Legion Toolkit",
+    "content": "Lệnh `temp` đã được nâng cấp toàn diện và đồng bộ với Lenovo Legion Toolkit (LLT CLI):\n- Thực thi qua Python + psutil + llt.exe CLI + nvidia-smi + ACPI counter.\n- Báo cáo rõ ràng:\n  1. Profile Legion: Chế độ quạt (Quiet/Balanced/Performance), Hybrid GPU (On/Off) đọc trực tiếp từ llt.exe CLI.\n  2. GPU rời (NVIDIA RTX 4050): Nhiệt độ nhân Core, Hotspot, điện năng (W), xung nhịp, mức tải %.\n  3. CPU AMD Ryzen 7 7840H: Tải % CPU (psutil), % RAM, Cảm biến bán dẫn SoC APU (~55°C), Cụm tản nhiệt ACPI.\n  4. Giải thích tương quan: Ở chế độ Quiet, quạt quay chậm/dừng nên nhiệt độ ACPI tích tụ ~80°C là phản ứng bình thường.\n- Vị trí tệp: C:\\Users\\tvu16\\.local\\bin\\temp.cmd và C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\temp.cmd.\n- Tốc độ: ~1.5 giây. Không còn gây hiểu nhầm về nhiệt độ CPU.",
+    "category": "snippet",
+    "tags": "hardware,temperature,legion,llt,upgrade",
+    "source": "agent_mcp",
+    "importance": 1.9,
+    "project_scope": "global",
+    "created_at": "2026-09-11T20:28:18.738Z",
+    "updated_at": "2026-09-11T20:28:18.738Z"
   }
 ]

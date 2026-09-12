@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-11T19:00:00.901Z
+-- Generated: 2026-09-12T04:55:14.870Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -22,6 +22,26 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (4, 'Cài đặt & Tối ưu hóa Fetch MCP và Everything Search MCP', 'Đã cài đặt, tối ưu hóa và cấu hình 2 MCP Server mới:
 1. fetch (mcp-server-fetch qua uvx): Fetch nội dung web thành Markdown siêu nhẹ, tối ưu cờ --ignore-robots-txt và User-Agent trình duyệt hiện đại.
 2. everything-search (C:\Users\tvu16\.gemini\antigravity\everything_search\mcp_server.js): Server Node.js độc quyền tích hợp Voidtools Everything CLI (es.exe). Tìm kiếm triệu file trên Windows trong <15ms, cơ chế tự động phục hồi Self-Healing IPC nếu Everything chưa mở. Đã cấp quyền tự động trong config.json.', 'decision', 'mcp, fetch, everything-search, optimization, tools', 'agent_mcp', 1.5, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (5, 'Cấu hình môi trường Python 3.12 và uv trên hệ thống', 'Hệ thống của Ngài đã được cấu hình Python và Astral uv hoàn chỉnh:
+- Trình quản lý: Astral uv (v0.12.x).
+- Python mặc định: CPython 3.12.14 (tương thích tối đa với AI, PyTorch, packages).
+- Executables & Shims đặt tại C:\Users\tvu16\.local\bin và C:\Users\tvu16\AppData\Roaming\Antigravity\bin bao gồm: python, python3, pip, uv, uvx.
+- Đã đưa C:\Users\tvu16\.local\bin vào đầu User PATH để vượt qua App Execution Alias (Microsoft Store redirector) của Windows.', 'decision', 'python,uv,environment,config', 'agent_mcp', 1.5, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (6, 'Lệnh kiểm tra nhiệt độ CPU GPU tức thì (temp.cmd)', 'Để kiểm tra nhiệt độ CPU & GPU tức thì trên máy Ngài (< 1 giây):
+Chỉ cần chạy lệnh: temp
+Hoặc PowerShell one-liner:
+(Get-Counter ''\Thermal Zone Information(*)\High Precision Temperature'').CounterSamples | Select-Object @{N=''GPU'';E={(nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader)}}, @{N=''CPU_TZ'';E={[math]::Round(($_.CookedValue - 2732) / 10.0, 1)}}
+
+Đã tạo sẵn lệnh temp.cmd tại C:\Users\tvu16\.local\bin và C:\Users\tvu16\AppData\Roaming\Antigravity\bin. Tuyệt đối không chạy vòng lặp sleep hay query lặp nhiều bước.', 'snippet', 'hardware,temperature,quick-command,perf', 'agent_mcp', 1.8, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (7, 'Nâng cấp lệnh temp thế hệ mới tích hợp Lenovo Legion Toolkit', 'Lệnh `temp` đã được nâng cấp toàn diện và đồng bộ với Lenovo Legion Toolkit (LLT CLI):
+- Thực thi qua Python + psutil + llt.exe CLI + nvidia-smi + ACPI counter.
+- Báo cáo rõ ràng:
+  1. Profile Legion: Chế độ quạt (Quiet/Balanced/Performance), Hybrid GPU (On/Off) đọc trực tiếp từ llt.exe CLI.
+  2. GPU rời (NVIDIA RTX 4050): Nhiệt độ nhân Core, Hotspot, điện năng (W), xung nhịp, mức tải %.
+  3. CPU AMD Ryzen 7 7840H: Tải % CPU (psutil), % RAM, Cảm biến bán dẫn SoC APU (~55°C), Cụm tản nhiệt ACPI.
+  4. Giải thích tương quan: Ở chế độ Quiet, quạt quay chậm/dừng nên nhiệt độ ACPI tích tụ ~80°C là phản ứng bình thường.
+- Vị trí tệp: C:\Users\tvu16\.local\bin\temp.cmd và C:\Users\tvu16\AppData\Roaming\Antigravity\bin\temp.cmd.
+- Tốc độ: ~1.5 giây. Không còn gây hiểu nhầm về nhiệt độ CPU.', 'snippet', 'hardware,temperature,legion,llt,upgrade', 'agent_mcp', 1.9, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);
