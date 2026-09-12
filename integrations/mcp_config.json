@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "second-brain": {
-      "command": "C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\agy-node.cmd",
+      "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": [
         "C:\\Users\\tvu16\\.gemini\\antigravity\\second_brain\\mcp_server.js"
       ]

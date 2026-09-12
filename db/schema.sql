@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS knowledge_items (
     source TEXT DEFAULT 'auto_extraction', -- 'user', 'agent', 'auto_extraction', 'sync'
     importance REAL NOT NULL DEFAULT 1.0,  -- 0.1 to 2.0
     access_count INTEGER NOT NULL DEFAULT 0,
-    embedding BLOB,                        -- 128-dim dense float32 vector
+    embedding BLOB,                        -- 384-dim dense float32 vector (1536 bytes)
     project_scope TEXT DEFAULT 'global',   -- 'global' or workspace directory name
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))

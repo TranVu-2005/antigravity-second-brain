@@ -11,6 +11,7 @@ const { getSemanticKnowledge } = require('./src/semantic');
 const { getEpisodicMemory } = require('./src/episodic');
 const { getSolutionStore } = require('./src/solutions');
 const { getGitBackupManager } = require('./src/git_backup');
+const { VECTOR_DIM } = require('./src/embedding');
 
 const TOOLS = [
     {
@@ -366,7 +367,7 @@ class SecondBrainMCPServer {
                         `• Bộ nhớ quy trình sửa lỗi (Solutions): ${solCount} giải pháp\n` +
                         `• Tổng số sự kiện hội thoại (Episodes): ${epCount} tin nhắn\n` +
                         `• Tổng số phiên hội thoại (Conversations): ${convCount} phiên\n` +
-                        `• Database engine: SQLite WAL mode + FTS5 BM25 + 128-dim Dense Vectors\n` +
+                        `• Database engine: SQLite WAL mode + FTS5 BM25 + ${VECTOR_DIM}-dim Dense Vectors\n` +
                         `• Trạng thái: Sẵn sàng phục vụ Ngài!`;
                     break;
                 }
