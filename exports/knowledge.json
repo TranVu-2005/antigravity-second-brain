@@ -82,5 +82,41 @@
     "project_scope": "global",
     "created_at": "2026-09-11T20:28:18.738Z",
     "updated_at": "2026-09-11T20:28:18.738Z"
+  },
+  {
+    "id": 8,
+    "title": "Lệnh tắt màn hình tức thì screenoff.cmd",
+    "content": "Lệnh tắt màn hình (Turn Off Display): Đã tạo script `screenoff.cmd` tại `C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\screenoff.cmd`. Sử dụng Windows API `user32.dll SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, 2)` qua Python ctypes với độ trễ 0.5s để tránh đánh thức màn hình ngay khi nhả phím. Chỉ cần gõ `screenoff` là màn hình tắt ngay lập tức mà không cần phụ thuộc LLT. Chạm chuột hoặc bấm phím bất kỳ sẽ sáng lại.",
+    "category": "snippet",
+    "tags": "display,screenoff,windows,hardware",
+    "source": "agent_mcp",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-12T13:16:01.605Z",
+    "updated_at": "2026-09-12T13:16:01.605Z"
+  },
+  {
+    "id": 9,
+    "title": "Quy tắc thực thi lệnh screenoff tức thì",
+    "content": "Khi Ngài nhập 'screenoff' hoặc yêu cầu tắt màn hình / tắt màn rời: Trợ lý phải thực thi ngay lập tức lệnh `screenoff` (hoặc `offscreen.exe`) qua terminal (`run_command`) mà không cần hỏi lại hay chần chừ. Màn hình sẽ tắt ngầm trong khi các tác vụ vẫn chạy bình thường. Chạm chuột hoặc bấm phím để bật lại.",
+    "category": "rule",
+    "tags": "screenoff,display,rule,persona",
+    "source": "agent_mcp",
+    "importance": 2,
+    "project_scope": "global",
+    "created_at": "2026-09-12T13:33:43.461Z",
+    "updated_at": "2026-09-12T13:33:43.461Z"
+  },
+  {
+    "id": 10,
+    "title": "Nâng cấp lệnh screenoff đồng bộ qua Lenovo Legion Toolkit Quick Action",
+    "content": "Lệnh tắt màn hình thông qua Lenovo Legion Toolkit (Preserves Remote Control):\n- Đã thêm Quick Action 'Turn Off Display' vào automation.json của LLT với bước TurnOffMonitorsAutomationStep.\n- File lệnh screenoff.cmd tại C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\screenoff.cmd đã được cập nhật gọi `llt qa \"Turn Off Display\"`.\n- Cơ chế này sử dụng chính bộ điều khiển phần cứng của LLT, giúp màn hình tắt hoàn toàn mà KHÔNG làm ngắt kết nối Remote Control (WebRTC) ở Antigravity.\n- Nếu LLT chưa khởi chạy hoặc lỗi, tự động fallback sang offscreen.exe.",
+    "category": "snippet",
+    "tags": "display,screenoff,llt,remote_control,hardware",
+    "source": "agent_mcp",
+    "importance": 2,
+    "project_scope": "global",
+    "created_at": "2026-09-12T15:32:42.466Z",
+    "updated_at": "2026-09-12T15:32:42.466Z"
   }
 ]
