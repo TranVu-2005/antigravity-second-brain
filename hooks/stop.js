@@ -63,6 +63,12 @@ async function main() {
             } catch (e) {}
         }
 
+        // 2.8. Auto-Sync all conversations incrementally (Zero manual sync needed)
+        try {
+            const episodic = getEpisodicMemory();
+            episodic.syncAllConversations();
+        } catch (e) {}
+
         // 3. Automated Daily Snapshot Backup (Non-blocking check)
         try {
             const backupMgr = getBackupManager();

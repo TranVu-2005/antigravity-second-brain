@@ -150,6 +150,12 @@ class GitBackupManager {
         const sqlDumpPath = path.join(this.exportsDir, 'dump.sql');
         fs.writeFileSync(sqlDumpPath, sqlDump, 'utf8');
 
+        // 5.5. Regenerate interactive visual dashboard with current live data
+        try {
+            const { generateDashboard } = require('./export_dashboard');
+            generateDashboard();
+        } catch (e) {}
+
         // 6. Bundle external Antigravity configurations for 100% portable setup
         this._bundleIntegrations();
 

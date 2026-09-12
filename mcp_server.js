@@ -5,6 +5,8 @@
 // ==============================================================================
 
 const readline = require('node:readline');
+const fs = require('node:fs');
+const path = require('node:path');
 const { getDB } = require('./src/db');
 const { getProfileManager } = require('./src/profile');
 const { getSemanticKnowledge } = require('./src/semantic');
@@ -360,6 +362,10 @@ class SecondBrainMCPServer {
                     const convCount = this.db.get('SELECT COUNT(*) as cnt FROM conversations').cnt;
                     const profCount = this.db.get('SELECT COUNT(*) as cnt FROM user_profile').cnt;
                     const solCount = this.db.get('SELECT COUNT(*) as cnt FROM solutions').cnt;
+                    const embRow = this.db.get('SELECT length(embedding) as len FROM knowledge_items WHERE embedding IS NOT NULL LIMIT 1');
+                    const actualDim = (embRow && embRow.len) ? (embRow.len / 4) : VECTOR_DIM;
+                    const dbPath = path.join(__dirname, 'brain.db');
+                    const dbSize = fs.existsSync(dbPath) ? `${(fs.statSync(dbPath).size / 1024).toFixed(1)} KB` : 'N/A';
 
                     resultText = `=== ANTIGRAVITY SECOND BRAIN STATS (v2.0) ===\n` +
                         `• Hồ sơ người dùng (User Profile): ${profCount} mục\n` +
@@ -367,7 +373,8 @@ class SecondBrainMCPServer {
                         `• Bộ nhớ quy trình sửa lỗi (Solutions): ${solCount} giải pháp\n` +
                         `• Tổng số sự kiện hội thoại (Episodes): ${epCount} tin nhắn\n` +
                         `• Tổng số phiên hội thoại (Conversations): ${convCount} phiên\n` +
-                        `• Database engine: SQLite WAL mode + FTS5 BM25 + ${VECTOR_DIM}-dim Dense Vectors\n` +
+                        `• Không gian vector nhúng: ${actualDim}-dim Dense Vectors (Đo trực tiếp từ CSDL: ${embRow && embRow.len ? embRow.len : 0} bytes/record)\n` +
+                        `• Database engine: SQLite WAL mode + FTS5 BM25 (Dung lượng: ${dbSize})\n` +
                         `• Trạng thái: Sẵn sàng phục vụ Ngài!`;
                     break;
                 }

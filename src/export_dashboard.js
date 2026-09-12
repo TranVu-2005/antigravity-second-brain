@@ -12,20 +12,27 @@ const { getBackupManager } = require('./backup');
 function generateDashboard(targetPaths = []) {
     const db = getDB();
     const profile = getProfileManager().getAll();
-    const knowledge = db.all('SELECT * FROM knowledge_items ORDER BY importance DESC, updated_at DESC');
+    const knowledge = db.all('SELECT id, title, content, category, tags, source, importance, project_scope, created_at, updated_at FROM knowledge_items ORDER BY importance DESC, updated_at DESC');
+    const totalEpisodesCount = db.get('SELECT COUNT(*) as cnt FROM episodes').cnt;
+    const totalConversationsCount = db.get('SELECT COUNT(*) as cnt FROM conversations').cnt;
     const episodes = db.all(`
-        SELECT e.*, c.title as conv_title 
+        SELECT e.id, e.conversation_id, e.step_index, e.role, e.summary, e.content, e.timestamp, c.title as conv_title 
         FROM episodes e 
         JOIN conversations c ON e.conversation_id = c.id 
-        ORDER BY e.timestamp DESC LIMIT 40
+        ORDER BY e.timestamp DESC LIMIT 50
     `);
     const entities = db.all('SELECT * FROM entities');
     const relations = db.all('SELECT * FROM entity_relations');
     const backups = getBackupManager().listBackups();
     const solutions = db.all('SELECT * FROM solutions ORDER BY success_count DESC, updated_at DESC');
+    const embRow = db.get('SELECT length(embedding) as len FROM knowledge_items WHERE embedding IS NOT NULL LIMIT 1');
+    const actualDim = (embRow && embRow.len) ? (embRow.len / 4) : 384;
 
     const dataBundle = {
         generatedAt: new Date().toLocaleString(),
+        totalEpisodesCount,
+        totalConversationsCount,
+        actualDim,
         profile,
         knowledge,
         solutions,
@@ -248,7 +255,7 @@ function generateDashboard(targetPaths = []) {
             <h1>ANTIGRAVITY SECOND BRAIN</h1>
             <p>Knowledge Nexus & Cognitive Graph — Kính phục vụ Ngài</p>
         </div>
-        <span class="badge">PRODUCTION READY • v1.1.0</span>
+        <span class="badge">PRODUCTION READY • v2.0 (${dataBundle.actualDim}-dim Vectors)</span>
     </header>
 
     <div class="container">
@@ -337,8 +344,8 @@ function generateDashboard(targetPaths = []) {
 
         // Populate KPIs
         document.getElementById('kpiProfile').textContent = BRAIN_DATA.profile.length + ' mục';
-        document.getElementById('kpiKnowledge').textContent = BRAIN_DATA.knowledge.length + ' bài';
-        document.getElementById('kpiEpisodes').textContent = BRAIN_DATA.episodes.length + ' tin';
+        document.getElementById('kpiKnowledge').textContent = BRAIN_DATA.knowledge.length + ' bài (' + (BRAIN_DATA.actualDim || 384) + '-dim)';
+        document.getElementById('kpiEpisodes').textContent = (BRAIN_DATA.totalEpisodesCount || BRAIN_DATA.episodes.length) + ' tin (' + (BRAIN_DATA.totalConversationsCount || 0) + ' phiên)';
         document.getElementById('kpiBackups').textContent = BRAIN_DATA.backups.length + ' snapshot';
 
         // Tab Switching

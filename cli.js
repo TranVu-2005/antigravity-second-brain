@@ -57,6 +57,7 @@ async function main() {
         }
 
         case 'stats': {
+            const fs = require('node:fs');
             const db = getDB();
             const knCount = db.get('SELECT COUNT(*) as cnt FROM knowledge_items').cnt;
             const epCount = db.get('SELECT COUNT(*) as cnt FROM episodes').cnt;
@@ -64,6 +65,10 @@ async function main() {
             const profCount = db.get('SELECT COUNT(*) as cnt FROM user_profile').cnt;
             const solCount = db.get('SELECT COUNT(*) as cnt FROM solutions').cnt;
             const backups = getBackupManager().listBackups();
+            const embRow = db.get('SELECT length(embedding) as len FROM knowledge_items WHERE embedding IS NOT NULL LIMIT 1');
+            const actualDim = (embRow && embRow.len) ? (embRow.len / 4) : 384;
+            const dbPath = path.join(__dirname, 'brain.db');
+            const dbSize = fs.existsSync(dbPath) ? `${(fs.statSync(dbPath).size / 1024).toFixed(1)} KB` : 'N/A';
 
             console.log(`
 📊 ANTIGRAVITY SECOND BRAIN - BÁO CÁO THỐNG KÊ (v2.0)
@@ -74,7 +79,8 @@ async function main() {
 • Sự kiện hội thoại (Episodes)       : ${epCount} tin nhắn
 • Phiên hội thoại (Conversations)    : ${convCount} phiên
 • Bản sao lưu an toàn (Snapshots)    : ${backups.length} bản
-• Vị trí CSDL                        : brain.db (SQLite WAL Mode)
+• Không gian vector (Dense Vectors)  : ${actualDim}-dim (${embRow && embRow.len ? embRow.len : 0} bytes/record)
+• Vị trí CSDL                        : brain.db (SQLite WAL Mode, ${dbSize})
 --------------------------------------------------
 Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
 `);
@@ -219,7 +225,9 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
         }
 
         case 'dashboard': {
-            const dashPath = path.join(__dirname, 'dashboard.html');
+            const { generateDashboard } = require('./src/export_dashboard');
+            console.log('🔄 Đang kết xuất dữ liệu thời gian thực cho Visual Dashboard...');
+            const dashPath = generateDashboard();
             console.log(`🚀 Đang khởi chạy Interactive Dashboard: ${dashPath}`);
             const startCmd = process.platform === 'win32' ? `start "" "${dashPath}"` : `open "${dashPath}"`;
             exec(startCmd);
