@@ -69,6 +69,46 @@ class ContextRetriever {
         }
 
         // ---------------------------------------------------------------------
+        // Priority 2.5: Entity Knowledge Graph Traversal (1-Hop & 2-Hop Relations)
+        // ---------------------------------------------------------------------
+        if (query && query.trim() && this.semantic.getRelationsForEntity) {
+            try {
+                const allEntities = this.semantic.db.all('SELECT name FROM entities');
+                const matchedEntities = allEntities.filter(e => 
+                    query.toLowerCase().includes(e.name.toLowerCase())
+                );
+                if (matchedEntities.length === 0 && /(?:ngài|sir|chủ nhân|bạn)/i.test(query)) {
+                    matchedEntities.push({ name: 'Ngài' });
+                }
+
+                if (matchedEntities.length > 0) {
+                    const graphLines = ['[QUAN HỆ THỰC THỂ (KNOWLEDGE GRAPH)]'];
+                    const seenRel = new Set();
+                    for (const ent of matchedEntities) {
+                        const rels = this.semantic.getRelationsForEntity(ent.name, 2);
+                        for (const r of rels) {
+                            const src = r.source_entity || r.source;
+                            const tgt = r.target_entity || r.target;
+                            const key = `${src}->${r.relation}->${tgt}`;
+                            if (!seenRel.has(key)) {
+                                seenRel.add(key);
+                                const conf = Math.round((r.confidence || r.weight || 1.0) * 100);
+                                const line = `• ${src} -[${r.relation}]-> ${tgt} (Độ tin cậy: ${conf}%)`;
+                                if (currentChars + line.length < maxChars - 100) {
+                                    graphLines.push(line);
+                                    currentChars += line.length;
+                                }
+                            }
+                        }
+                    }
+                    if (graphLines.length > 1) {
+                        sections.push(graphLines.join('\n'));
+                    }
+                }
+            } catch (e) {}
+        }
+
+        // ---------------------------------------------------------------------
         // Priority 3: Semantic Knowledge & Technical Decisions (Hybrid Search)
         // ---------------------------------------------------------------------
         const knowledgeResults = await this.semantic.searchKnowledge(query || '', { limit: 4 });

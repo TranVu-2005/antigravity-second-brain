@@ -80,25 +80,40 @@ class MemoryConsolidator {
             }
         }
 
-        // 3. Temporal Memory Decay (Ephemeral facts like weather decay after 48 hours)
-        const decayThreshold = new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString();
+        // 3. Ebbinghaus Forgetting Curve Decay with Spaced-Repetition Stability
+        // Stability S = S0 * (1.0 + 0.2 * access_count)^0.5
+        // S0: rule/identity=10000d, decision/solution=180d, fact/concept=60d, project/active=14d, other=2d
+        // R(t) = exp(-delta_t / S)
         const decayResult = this.db.run(`
             UPDATE knowledge_items 
-            SET importance = MAX(0.2, importance * 0.5)
-            WHERE (tags LIKE '%weather%' OR tags LIKE '%thoi_tiet%' OR category = 'temporary')
-              AND updated_at < ?
-              AND importance > 0.3
-        `, decayThreshold);
+            SET importance = MAX(0.1, ROUND(
+                importance * exp(
+                    - (julianday('now') - julianday(updated_at)) / 
+                    (
+                        CASE 
+                            WHEN category IN ('rule', 'identity') THEN 10000.0
+                            WHEN category IN ('decision', 'solution') THEN 180.0
+                            WHEN category IN ('fact', 'concept') THEN 60.0
+                            WHEN category IN ('project', 'active') THEN 14.0
+                            ELSE 2.0
+                        END * (1.0 + 0.2 * access_count)
+                    )
+                ), 
+                3
+            ))
+            WHERE category NOT IN ('rule', 'identity')
+              AND (julianday('now') - julianday(updated_at)) > 0.05
+        `);
         stats.decayedItems = decayResult.changes || 0;
 
-        // 4. Prune Obsolete Expired Memories (importance < 0.3 and older than 30 days)
-        const pruneThreshold = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
+        // 4. Safe Spaced-Repetition Pruning (importance < 0.25, access_count <= 1, older than 60 days)
         const pruneResult = this.db.run(`
             DELETE FROM knowledge_items 
-            WHERE importance <= 0.3 
-              AND access_count = 0 
-              AND updated_at < ?
-        `, pruneThreshold);
+            WHERE importance < 0.25 
+              AND access_count <= 1 
+              AND category NOT IN ('rule', 'identity')
+              AND updated_at < datetime('now', '-60 days')
+        `);
         stats.prunedItems = pruneResult.changes || 0;
 
         // 5. Defragment & Optimize SQLite DB

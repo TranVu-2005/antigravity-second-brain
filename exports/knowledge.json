@@ -6,7 +6,7 @@
     "category": "system",
     "tags": "antigravity,architecture,hooks,mcp",
     "source": "system",
-    "importance": 1.5,
+    "importance": 1.357,
     "project_scope": "global",
     "created_at": "2026-09-11T15:54:17.036Z",
     "updated_at": "2026-09-11T15:54:17.036Z"
@@ -30,7 +30,7 @@
     "category": "fact",
     "tags": "location,hoang_mai",
     "source": "user",
-    "importance": 1,
+    "importance": 0.995,
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
@@ -42,7 +42,7 @@
     "category": "decision",
     "tags": "mcp, fetch, everything-search, optimization, tools",
     "source": "agent_mcp",
-    "importance": 1.5,
+    "importance": 1.496,
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
@@ -54,7 +54,7 @@
     "category": "decision",
     "tags": "python,uv,environment,config",
     "source": "agent_mcp",
-    "importance": 1.5,
+    "importance": 1.497,
     "project_scope": "global",
     "created_at": "2026-09-11T19:59:20.654Z",
     "updated_at": "2026-09-11T19:59:20.654Z"
@@ -66,7 +66,7 @@
     "category": "snippet",
     "tags": "hardware,temperature,quick-command,perf",
     "source": "agent_mcp",
-    "importance": 1.8,
+    "importance": 1.588,
     "project_scope": "global",
     "created_at": "2026-09-11T20:04:06.261Z",
     "updated_at": "2026-09-11T20:04:06.261Z"
@@ -78,7 +78,7 @@
     "category": "snippet",
     "tags": "hardware,temperature,legion,llt,upgrade",
     "source": "agent_mcp",
-    "importance": 1.9,
+    "importance": 1.755,
     "project_scope": "global",
     "created_at": "2026-09-11T20:28:18.738Z",
     "updated_at": "2026-09-11T20:28:18.738Z"
@@ -90,7 +90,7 @@
     "category": "snippet",
     "tags": "display,screenoff,windows,hardware",
     "source": "agent_mcp",
-    "importance": 1.5,
+    "importance": 1.063,
     "project_scope": "global",
     "created_at": "2026-09-12T13:16:01.605Z",
     "updated_at": "2026-09-12T13:16:01.605Z"
@@ -114,9 +114,21 @@
     "category": "snippet",
     "tags": "display,screenoff,llt,remote_control,hardware",
     "source": "agent_mcp",
-    "importance": 2,
+    "importance": 1.899,
     "project_scope": "global",
     "created_at": "2026-09-12T15:32:42.466Z",
     "updated_at": "2026-09-12T15:32:42.466Z"
+  },
+  {
+    "id": 11,
+    "title": "Nâng cấp lệnh temp: Đọc cảm biến phần cứng thực tế qua FastTemp và ThreadPoolExecutor",
+    "content": "Đã nâng cấp lệnh temp thế hệ mới:\n- Biên dịch module C# FastTemp (C:\\Users\\tvu16\\.local\\bin\\fast_temp\\FastTemp.exe) sử dụng LibreHardwareMonitorLib.dll để đọc trực tiếp cảm biến phần cứng thời gian thực từ AMD Display Driver / ADL (nhiệt độ SoC của APU Radeon 780M trên chip Ryzen 7 7840H) và NVIDIA RTX 4050 (Core + Hotspot) trong < 0.5s không cần quyền Admin.\n- Tái cấu trúc system_temp.py sang mô hình chạy đa luồng song song (ThreadPoolExecutor) kết hợp đồng thời:\n  1. FastTemp.exe (AMD SoC APU + NVIDIA dGPU Core & Hotspot + Power + Load).\n  2. Lenovo Legion Toolkit CLI (Power-mode, Hybrid-mode).\n  3. ACPI Heatsink Thermal Zone Counter (Cụm tản nhiệt bo mạch).\n  4. psutil (CPU Load %, RAM Load %, Xung nhịp CPU MHz).\n- Xóa bỏ hoàn toàn con số gán cứng giả tạo ~55°C, mọi chỉ số báo cáo thời gian thực đều là ground-truth phần cứng 100%. Tốc độ phản hồi ~1.2s.",
+    "category": "snippet",
+    "tags": "temp,hardware,cpu,gpu,legion,upgrade",
+    "source": "agent_mcp",
+    "importance": 1.466,
+    "project_scope": "global",
+    "created_at": "2026-09-13T07:01:21.884Z",
+    "updated_at": "2026-09-13T07:01:21.884Z"
   }
 ]

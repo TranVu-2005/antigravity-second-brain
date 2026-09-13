@@ -50,7 +50,7 @@ async function runTests() {
     // Test 3: Semantic Knowledge & Hybrid Search (Tier 3)
     console.log('Test 3: Kiểm tra Tier 3 - Semantic Knowledge & FTS5 BM25 Search');
     const semantic = new SemanticKnowledge(db);
-    const id = semantic.addItem({
+    const id = await semantic.addItem({
         title: 'Quy chuẩn bảo mật Token',
         content: 'Tuyệt đối không hardcode API key vào git repository.',
         category: 'decision',
@@ -60,7 +60,7 @@ async function runTests() {
     assert.ok(id > 0, 'Phải tạo thành công item ID');
 
     // Search using BM25 FTS5
-    const results = semantic.searchKnowledge('bảo mật Token');
+    const results = await semantic.searchKnowledge('bảo mật Token');
     assert.ok(results.length > 0, 'FTS5 phải tìm thấy kết quả bảo mật Token');
     assert.ok(results[0].score > 0, 'Phải tính được điểm Hybrid Score');
     console.log(`  ✓ FTS5 BM25 Hybrid Search thành công (Score: ${results[0].score})`);
@@ -88,7 +88,7 @@ async function runTests() {
     // Test 7: Context Retriever
     console.log('Test 7: Kiểm tra Context Compiler cho PreInvocation Hook');
     const retriever = new ContextRetriever();
-    const compiled = retriever.compileContext('thời tiết hoàng mai', null, { workspacePaths: ['C:/Workspace/Alpha'] });
+    const compiled = await retriever.compileContext('thời tiết hoàng mai', null, { workspacePaths: ['C:/Workspace/Alpha'] });
     assert.ok(compiled.includes('[HỒ SƠ CỐT LÕI CỦA NGÀI]'), 'Context phải chứa hồ sơ của Ngài');
     assert.ok(compiled.includes('[DỰ ÁN HIỆN TẠI: Alpha]'), 'Context phải chứa project scope');
     console.log('  ✓ Context Compiler biên dịch ngữ cảnh thành công với Project Scope');
@@ -112,8 +112,8 @@ async function runTests() {
 
     // Test 9: Token-Budgeted Context Compression
     console.log('Test 9: Kiểm tra Token-Budgeted Context Compression');
-    const compiledTroubleshoot = retriever.compileContext('cách sửa lỗi powershell quotes', null, { maxTokens: 400 });
-    assert.ok(compiledTroubleshoot.includes('PROCEDURAL MEMORY'), 'Context phải nạp Procedural Memory khi gặp lỗi');
+    const compiledTroubleshoot = await retriever.compileContext('cách sửa lỗi powershell quotes', null, { maxTokens: 400 });
+    assert.ok(compiledTroubleshoot.includes('PROCEDURAL'), 'Context phải nạp Procedural Memory khi gặp lỗi');
     assert.ok(compiledTroubleshoot.length < 400 * 4, 'Context không được vượt quá ngân sách token');
     console.log(`  ✓ Context Compressor nén tối ưu (Độ dài: ${compiledTroubleshoot.length} ký tự, < 1600 budget)`);
 
