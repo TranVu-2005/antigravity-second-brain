@@ -166,5 +166,17 @@
     "project_scope": "global",
     "created_at": "2026-09-14T13:38:27.351Z",
     "updated_at": "2026-09-14T13:38:27.351Z"
+  },
+  {
+    "id": 15,
+    "title": "Khắc phục triệt để bẫy kiểm duyệt tiếng Việt và lỗi ngắt stream Gemini Web v1.2.5",
+    "content": "Giải pháp v1.2.5 cho Gemini Web Bridge:\n1. Tạo normalizer.js: Chuẩn hóa bẫy kiểm duyệt tiếng Việt của Google (chạm chân -> đặt chân, lần đầu con người -> lần đầu tiên con người đặt chân lên Mặt Trăng, gán tiền tố bách khoa 'Về mặt thông tin và lịch sử: ').\n2. Khắc phục lỗi cắt dòng stream trong content.js: Bỏ mốc 800ms, yêu cầu lắng đọng 2.5s-4s sau khi nút Stop biến mất.\n3. Cơ chế Range + execCommand('insertText') chuẩn xác không sót văn bản cũ.\n4. Tự động phục hồi khi phát hiện câu từ chối mặc định.\n5. Cập nhật ask.js, mcp_server.js và manifest v1.2.5.",
+    "category": "decision",
+    "tags": "gemini_web,dual_quota,bugfix,safety_filter,v1.2.5",
+    "source": "agent_mcp",
+    "importance": 2,
+    "project_scope": "global",
+    "created_at": "2026-09-14T14:08:00.642Z",
+    "updated_at": "2026-09-14T14:08:00.642Z"
   }
 ]

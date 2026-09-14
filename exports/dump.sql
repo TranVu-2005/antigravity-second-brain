@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-14T13:48:47.990Z
+-- Generated: 2026-09-14T14:08:04.681Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -95,6 +95,12 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 - Giai đoạn 2: Hỗ trợ đính kèm tệp/ảnh cục bộ chuyển tiếp lên Gemini Web qua clipboard/input file upload.
 - Giai đoạn 3: Streaming thời gian thực từng khối Markdown từ Browser qua WebSocket về terminal/agent.
 - Giai đoạn 4: Đa tab load-balancing (chia tải giữa nhiều tab Gemini Web nếu cần xử lý song song).', 'decision', 'gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap', 'agent_mcp', 2, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (15, 'Khắc phục triệt để bẫy kiểm duyệt tiếng Việt và lỗi ngắt stream Gemini Web v1.2.5', 'Giải pháp v1.2.5 cho Gemini Web Bridge:
+1. Tạo normalizer.js: Chuẩn hóa bẫy kiểm duyệt tiếng Việt của Google (chạm chân -> đặt chân, lần đầu con người -> lần đầu tiên con người đặt chân lên Mặt Trăng, gán tiền tố bách khoa ''Về mặt thông tin và lịch sử: '').
+2. Khắc phục lỗi cắt dòng stream trong content.js: Bỏ mốc 800ms, yêu cầu lắng đọng 2.5s-4s sau khi nút Stop biến mất.
+3. Cơ chế Range + execCommand(''insertText'') chuẩn xác không sót văn bản cũ.
+4. Tự động phục hồi khi phát hiện câu từ chối mặc định.
+5. Cập nhật ask.js, mcp_server.js và manifest v1.2.5.', 'decision', 'gemini_web,dual_quota,bugfix,safety_filter,v1.2.5', 'agent_mcp', 2, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);
