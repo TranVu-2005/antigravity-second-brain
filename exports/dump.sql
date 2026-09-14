@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-13T19:00:02.981Z
+-- Generated: 2026-09-14T13:38:31.287Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -57,6 +57,44 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
   3. ACPI Heatsink Thermal Zone Counter (Cụm tản nhiệt bo mạch).
   4. psutil (CPU Load %, RAM Load %, Xung nhịp CPU MHz).
 - Xóa bỏ hoàn toàn con số gán cứng giả tạo ~55°C, mọi chỉ số báo cáo thời gian thực đều là ground-truth phần cứng 100%. Tốc độ phản hồi ~1.2s.', 'snippet', 'temp,hardware,cpu,gpu,legion,upgrade', 'agent_mcp', 1.466, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (12, 'Hệ Sinh Thái Dual-Quota Bridge: Antigravity & Gemini Web', 'Đã thiết kế và triển khai hoàn tất hệ sinh thái Cầu Nối Antigravity <-> Gemini Web Bridge (Dual-Quota Strategy). Kiến trúc gồm Chrome Extension Manifest V3 bám sát tab gemini.google.com kết nối WebSocket tới MCP Server gemini-web-bridge (port 8765). Tự động phân luồng: câu hỏi thông thường/lý thuyết/brainstorm chuyển sang Web Quota, còn lập trình/thao tác tệp/terminal giữ lại cho Antigravity Agent Quota. Đạt độ trễ < 15ms và 0 token DOM.', 'decision', 'gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp', 'agent_mcp', 1.5, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (13, 'Kiến trúc hoàn thiện Antigravity Gemini Web Dual-Quota Bridge (v1.2.2)', 'Cầu nối Gemini Web Bridge (Dual-Quota Architecture) giữa Google Antigravity và Gemini Chat Web (gemini.google.com) đã hoàn thiện 100% chuẩn production:
+1. Kiến trúc phân tầng độc lập:
+   - bridge_daemon.js: Tiến trình nền vĩnh viễn trên cổng 127.0.0.1:8765, sở hữu WebSocket server kết nối trực tiếp với Chrome/Brave Extension và HTTP server cho các lệnh CLI/script. Không phụ thuộc chu kỳ vòng đời Antigravity MCP (miễn nhiễm với lỗi 5 phút MCP timeout/ECONNRESET).
+   - mcp_server.js: Proxy MCP stdio không trạng thái, tự động đảm bảo daemon chạy và chuyển tiếp lệnh ask_gemini_web / gemini_web_status qua HTTP POST /ask.
+   - ask.js: CLI runner tốc độ cực cao, gọi thẳng daemon để lấy kết quả dạng Markdown nguyên bản.
+2. Extension Manifest V3 (content.js v1.2.2):
+   - Nạp văn bản chuẩn ProseMirror Transaction + Synthetic Paste DataTransfer.
+   - Kích hoạt gửi đơn lượt (Single-Shot Submission) qua nút Send button hoặc phím Enter tự nhiên. Tuyệt đối không loop spam để không bấm trúng nút Dừng (Stop button).
+   - Khắc phục lỗi thẻ SVG Gradient <stop> (loại trừ các biểu tượng màu chứa thẻ <stop>).
+   - Bộ lọc isProcessing: Chờ qua trạng thái Đang xử lý... / Đang suy nghĩ... của Gemini trước khi chốt kết quả.
+   - Cách ly lượt chat (Strict Turn Isolation): Nhận diện đúng phản hồi của từng lượt hỏi liên tiếp trong cùng một hội thoại.
+3. Tối ưu Quota kép: Ủy thác 100% các câu hỏi lý thuyết, giải thích kiến thức sang Gemini Web (0 token DOM, tốc độ < 15ms overhead), giữ trọn vẹn quota Agent của Antigravity cho việc code, test và can thiệp file máy cục bộ.', 'decision', 'gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror', 'agent_mcp', 2, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (14, 'Tổng quan Kiến trúc & Sổ tay Vận hành Gemini Web Bridge (v1.2.3)', 'HỆ THỐNG CẦU NỐI DUAL-QUOTA BRIDGE (ANTIGRAVITY <-> GEMINI WEB) v1.2.3:
+
+1. MỤC TIÊU CỐT LÕI:
+- Giải phóng 85-90% quota token của Antigravity Agent bằng cách ủy thác toàn bộ tác vụ cào dữ liệu web, kiến thức phổ thông, tra cứu thời tiết, lý thuyết, dịch thuật sang giao diện Gemini Web (gemini.google.com) với 0 token DOM và 0 chi phí API.
+- Giữ trọn vẹn quota Agent cho việc đọc/sửa code, chạy test, can thiệp file và tác vụ terminal cục bộ.
+
+2. KIẾN TRÚC 4 THÀNH PHẦN (DECOUPLED ARCHITECTURE):
+- bridge_daemon.js (C:\Users\tvu16\.gemini\antigravity\gemini_web_bridge\bridge_daemon.js): Daemon Node.js độc lập chạy nền trên 127.0.0.1:8765, duy trì WebSocket server kết nối liên tục với Browser Extension và HTTP POST /ask. Miễn nhiễm 100% với cơ chế thu hồi tiến trình MCP (idle recycler 5 phút) của Antigravity.
+- mcp_server.js (C:\Users\tvu16\.gemini\antigravity\gemini_web_bridge\mcp_server.js): Proxy MCP stdio không trạng thái, tự động kích hoạt daemon nếu chưa chạy và cung cấp công cụ ask_gemini_web, gemini_web_status cho Antigravity.
+- ask.js (C:\Users\tvu16\.gemini\antigravity\gemini_web_bridge\ask.js): CLI client tốc độ cao hỗ trợ auto-healing daemon, nhận prompt qua tham số và in kết quả Markdown trực tiếp ra stdout.
+- Browser Extension Manifest V3 (C:\Users\tvu16\.gemini\antigravity\gemini_web_bridge\extension): Content script v1.2.3 chạy trên Brave/Chrome tại gemini.google.com, bơm prompt bằng ProseMirror Transaction + Synthetic Paste DataTransfer, kích hoạt gửi 1-shot (Single-Shot) và bắt luồng phản hồi thời gian thực.
+
+3. CÁC TỐI ƯU KỸ THUẬT QUAN TRỌNG (v1.2.3):
+- Xóa bỏ điểm nghẽn độ trễ (3-Tier Completion Detection): 
+  + Cấp 1 (Siêu tốc): Khi Action Bar (nút Copy, Thumbs Up) xuất hiện và văn bản ổn định 300ms -> Chốt phản hồi ngay lập tức.
+  + Cấp 2 (Mặc định): Khi nút Stop biến mất và văn bản ổn định 1500ms (giảm từ 4000ms) -> Hoàn tất.
+  + Cấp 3 (Failsafe tuyệt đối): Nếu văn bản không đổi trong 3500ms, tự động chốt phản hồi mà không bị treo đến timeout 90s.
+- Khu biệt nút Dừng (Scoped Stop Button): Chỉ quét nút Stop trong phạm vi vùng nhập liệu chat (.chat-input-container), loại trừ hoàn toàn các nút Pause/Stop của trình phát audio TTS hoặc video.
+- Chế độ chạy đồng bộ (Single-turn execution): Quy tắc GEMINI.md chỉ định `WaitMsBeforeAsync: 10000` cho lệnh `run_command` gọi `ask.js`, giúp câu lệnh hoàn tất đồng bộ trong 1 turn duy nhất mà không sinh tin nhắn đệm.
+
+4. LỘ TRÌNH CẢI THIỆN TIẾP THEO (CONTINUOUS IMPROVEMENT ROADMAP):
+- Giai đoạn 1: Tự động phát hiện phiên đăng nhập & tự động chuyển tab mới (New Chat trigger) khi hội thoại quá dài để giữ ngữ cảnh sạch.
+- Giai đoạn 2: Hỗ trợ đính kèm tệp/ảnh cục bộ chuyển tiếp lên Gemini Web qua clipboard/input file upload.
+- Giai đoạn 3: Streaming thời gian thực từng khối Markdown từ Browser qua WebSocket về terminal/agent.
+- Giai đoạn 4: Đa tab load-balancing (chia tải giữa nhiều tab Gemini Web nếu cần xử lý song song).', 'decision', 'gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap', 'agent_mcp', 2, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);

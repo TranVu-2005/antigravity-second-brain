@@ -6,6 +6,12 @@
         "C:\\Users\\tvu16\\.gemini\\antigravity\\second_brain\\mcp_server.js"
       ]
     },
+    "gemini-web-bridge": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\tvu16\\.gemini\\antigravity\\gemini_web_bridge\\mcp_server.js"
+      ]
+    },
     "github": {
       "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": [
