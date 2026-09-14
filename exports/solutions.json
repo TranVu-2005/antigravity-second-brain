@@ -163,5 +163,16 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-09-11T17:36:38.050Z"
+  },
+  {
+    "id": 16,
+    "error_pattern": "Tôi không thể giúp bạn việc đó, vì tôi chỉ là một mô hình ngôn ngữ nên không thể hiểu điều đó (Gemini Web False-Positive Canned Refusal)",
+    "root_cause": "Bộ lọc kiểm duyệt tiếng Việt của Google trên Gemini Web bị kích hoạt nhầm (False-Positive) bởi các cụm từ đời thường (ví dụ: 'chạm chân' bị bộ lọc quét nhầm thành đụng chạm thân thể/quấy rối). Khi bị kích hoạt, Gemini Web lập tức xóa đoạn văn bản đang sinh dở và đè lên câu từ chối mặc định. Đồng thời extension v1.2.2 bị chốt kết quả sớm khi action bar có sẵn trong DOM ảo.",
+    "solution_code": "Nâng cấp Hệ thống Cầu nối lên v1.2.4 với cơ chế phòng thủ 2 lớp:\n1. Tiền xử lý Prompt (Pre-flight Sanitizer) tại ask.js và mcp_server.js: Tự động chuẩn hóa các cụm từ dễ dính bẫy kiểm duyệt (ví dụ: 'chạm chân lên mặt trăng' -> 'đặt chân lên Mặt Trăng').\n2. Tự động phục hồi tại Content Script (Auto-Recovery in content.js): Hàm isCannedRefusal() phát hiện câu từ chối mặc định và tự động re-submit kèm tiền tố định danh học thuật 'Về mặt kiến thức và thông tin: '.\n3. Sửa lỗi nhận diện Streaming: Chỉ chốt phản hồi khi hasVisibleCopyButton() thực sự hiển thị trên màn hình (height > 0) và ngừng gõ > 800ms.",
+    "command_fix": "Tải lại Extension tại chrome://extensions (bản v1.2.4)",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-14T13:48:42.439Z"
   }
 ]
