@@ -174,5 +174,16 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-09-14T13:48:42.439Z"
+  },
+  {
+    "id": 17,
+    "error_pattern": "Gemini Web đang sinh câu trả lời thì bị ngắt dở dang, biến thành câu từ chối 'Là một mô hình ngôn ngữ, tôi không được thiết kế để trợ giúp về điều đó.' hoặc bị cắt cụt sau vài chục ký tự.",
+    "root_cause": "1. Lỗi Double-Submit: Script vừa click Send button vừa dispatch phím Enter sau 250ms vào ProseMirror khi text chưa kịp xóa. Lệnh Enter đè trúng lúc nút Send đang đổi thành nút Stop khiến Gemini coi là hủy luồng và kích hoạt canned refusal.\n2. Lỗi Stop Button False-Positive: Hàm findStopButton kiểm tra thẻ <rect> trong SVG. Trong Google Web, mọi Material Symbol SVG đều chứa <rect width=24 height=24 fill=none>, khiến trang bị nhận nhầm là luôn luôn streaming.\n3. Lỗi Truncation: Ngưỡng ngắt non nớt (chỉ cần chứa chữ content_copy trong DOM template dù nút chưa hiện) ngắt ngay khi Gemini tạm dừng vài giây giữa các đoạn văn.\n4. Lỗi Reload Cứng: window.location.href làm tải lại trang, đứt WebSocket và làm chết script đang chạy ngầm.",
+    "solution_code": "// 1. Gửi lệnh bằng Native Enter Sequence duy nhất (ProseMirror):\nconst keyOpts = { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true, cancelable: true, composed: true };\ninputEl.dispatchEvent(new KeyboardEvent('keydown', keyOpts));\ninputEl.dispatchEvent(new KeyboardEvent('keypress', keyOpts));\ninputEl.dispatchEvent(new KeyboardEvent('keyup', keyOpts));\n\n// 2. Nhận diện nút Stop chính xác (không check rect SVG, không match substring 'desktop'):\nlabel.includes('dừng phản hồi') || label.includes('stop response') || iconText === 'stop'\n\n// 3. Giám sát stream sâu (Anti-truncation):\n!isStillStreaming && (hasVisibleCopyButton || timeSinceLastChange >= 4000) && timeSinceLastChange >= 2500\n\n// 4. Chuyển phiên chat bằng SPA Button:\nfindNewChatButton().click() // Cấm tuyệt đối window.location.href\n\n// 5. Chuẩn hóa Educational Intent:\nnormalizer.js v2.0.0 tự động thêm tiền tố 'Hãy giải thích chi tiết về: ' cho câu hỏi thông tin.",
+    "command_fix": "node \"C:\\Users\\tvu16\\.gemini\\antigravity\\gemini_web_bridge\\ask.js\" \"<câu hỏi>\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-14T15:21:58.764Z"
   }
 ]

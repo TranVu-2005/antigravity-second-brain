@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-14T14:08:04.681Z
+-- Generated: 2026-09-14T15:22:02.800Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -101,6 +101,42 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 3. Cơ chế Range + execCommand(''insertText'') chuẩn xác không sót văn bản cũ.
 4. Tự động phục hồi khi phát hiện câu từ chối mặc định.
 5. Cập nhật ask.js, mcp_server.js và manifest v1.2.5.', 'decision', 'gemini_web,dual_quota,bugfix,safety_filter,v1.2.5', 'agent_mcp', 2, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (16, 'Kiến trúc và Quy chuẩn Vận hành Gemini Web Dual-Quota Bridge v2.0.0', '# Antigravity <-> Gemini Web Dual-Quota Bridge v2.0.0 (Bản Chuẩn Hóa Production-Grade)
+
+## 1. Mục Đích & Vị Trí Lưu Trữ
+- **Mục đích:** Tận dụng quota kép giữa Antigravity (Local Agent) và Gemini Chat Web (gemini.google.com) thông qua Chrome Extension chạy ngầm, tốc độ cao, zero-DOM token.
+- **Đường dẫn thư mục:** `C:\Users\tvu16\.gemini\antigravity\gemini_web_bridge`
+  - `extension/content.js`: Kịch bản tương tác DOM trực tiếp trên tab gemini.google.com (v2.0.0).
+  - `extension/manifest.json`: Cấu hình Manifest V3, permissions `storage`, `tabs`, host permissions `gemini.google.com`, `ws://127.0.0.1:8765`.
+  - `bridge_daemon.js`: Standalone daemon HTTP + WebSocket (Port 8765), quản lý kết nối và endpoint `/ask`, `/status`, `/inspect`.
+  - `ask.js`: CLI bridge script hỗ trợ cờ `--continue`, tự động gọi daemon và chuẩn hóa prompt.
+  - `normalizer.js`: Chuẩn hóa prompt với cơ chế Educational Intent Guarantee (v2.0.0).
+  - `run_daemon.vbs`: Khởi chạy daemon ngầm hoàn toàn không hiện cửa sổ console hoặc task runner.
+
+## 2. Các Quy Chuẩn Kỹ Thuật Cốt Lõi (v2.0.0)
+1. **Cơ chế Gửi Prompt (ProseMirror Native Enter):**
+   - Không được dùng `.click()` trần hoặc bắn chuỗi PointerEvent đè lên phím Enter.
+   - Sử dụng chuỗi phím Enter native: `keydown` -> `keypress` -> `keyup` (key: ''Enter'', keyCode: 13, bubbles: true, cancelable: true, composed: true) trực tiếp trên `rich-textarea div[contenteditable="true"]`.
+   - Chỉ fallback sang click nút Send nếu sau 500ms văn bản trong ô soạn thảo chưa được dọn sạch.
+2. **Cơ chế Nhận Diện Nút Dừng (Stop Button Detector):**
+   - Tuyệt đối không query thẻ `rect` trong SVG vì toàn bộ Google Material Symbols đều chứa `<rect width="24" height="24" fill="none"/>` gây false-positive liên tục.
+   - Nhận diện chính xác theo: nhãn `aria-label` chứa ''dừng phản hồi'', ''dừng tạo'', ''dừng'', ''stop response'', ''stop generating'', hoặc icon text `stop`, `stop_circle`, `pause` tại khu vực thanh nhập liệu đáy.
+3. **Cơ chế Giám Sát Dòng Phản Hồi (Anti-Truncation Stream Monitor):**
+   - Chỉ kết luận hoàn tất khi:
+     - Nút Stop hoàn toàn biến mất khỏi DOM (`!isStillStreaming`).
+     - Văn bản đã ngừng biến thiên tối thiểu 2.5 giây (`timeSinceLastChange >= 2500ms`).
+     - Nút Sao chép (Copy button) đã thực sự xuất hiện trên DOM (`hasCopyBtn` có bounding rect hợp lệ) HOẶC văn bản đã đứng yên liên tục 4 giây.
+     - Failsafe cứng: nếu văn bản không đổi trong 8.0 giây, tự động đóng gói trả về.
+4. **Cơ chế Chuyển Phiên Chat (Zero-Reload SPA Navigation):**
+   - Tuyệt đối không gán `window.location.href = ''/app''`. Việc này sẽ reload trang, đứt kết nối WebSocket và làm chết script đang chạy.
+   - Luôn click vào nút New Chat có sẵn trong DOM (`button[data-test-id="new-chat-button"]`, `a[href="/app"]`, hoặc mở menu sidebar rồi click).
+5. **Cơ chế Chuẩn Hóa Prompt (Educational Intent):**
+   - Gắn tiền tố `Hãy giải thích chi tiết về: ` cho các câu hỏi thông tin/tri thức để triệt tiêu false-positive từ bộ lọc an toàn 2 tầng (pre/post-response filter) của Google.
+
+## 3. Quy Trình Nạp Khi Sửa Code
+- Sau khi chỉnh sửa `extension/content.js` hoặc `manifest.json`:
+  1. Mở `brave://extensions` -> Bấm icon 🔄 Tải lại tiện ích.
+  2. Mở tab Gemini Web (`gemini.google.com`) -> Nhấn F5.', 'decision', 'gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture', 'agent_mcp', 2, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);
@@ -219,6 +255,26 @@ INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, 
 1. Tiền xử lý Prompt (Pre-flight Sanitizer) tại ask.js và mcp_server.js: Tự động chuẩn hóa các cụm từ dễ dính bẫy kiểm duyệt (ví dụ: ''chạm chân lên mặt trăng'' -> ''đặt chân lên Mặt Trăng'').
 2. Tự động phục hồi tại Content Script (Auto-Recovery in content.js): Hàm isCannedRefusal() phát hiện câu từ chối mặc định và tự động re-submit kèm tiền tố định danh học thuật ''Về mặt kiến thức và thông tin: ''.
 3. Sửa lỗi nhận diện Streaming: Chỉ chốt phản hồi khi hasVisibleCopyButton() thực sự hiển thị trên màn hình (height > 0) và ngừng gõ > 800ms.', 'Tải lại Extension tại chrome://extensions (bản v1.2.4)', 'global', 1, 1);
+INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (17, 'Gemini Web đang sinh câu trả lời thì bị ngắt dở dang, biến thành câu từ chối ''Là một mô hình ngôn ngữ, tôi không được thiết kế để trợ giúp về điều đó.'' hoặc bị cắt cụt sau vài chục ký tự.', '1. Lỗi Double-Submit: Script vừa click Send button vừa dispatch phím Enter sau 250ms vào ProseMirror khi text chưa kịp xóa. Lệnh Enter đè trúng lúc nút Send đang đổi thành nút Stop khiến Gemini coi là hủy luồng và kích hoạt canned refusal.
+2. Lỗi Stop Button False-Positive: Hàm findStopButton kiểm tra thẻ <rect> trong SVG. Trong Google Web, mọi Material Symbol SVG đều chứa <rect width=24 height=24 fill=none>, khiến trang bị nhận nhầm là luôn luôn streaming.
+3. Lỗi Truncation: Ngưỡng ngắt non nớt (chỉ cần chứa chữ content_copy trong DOM template dù nút chưa hiện) ngắt ngay khi Gemini tạm dừng vài giây giữa các đoạn văn.
+4. Lỗi Reload Cứng: window.location.href làm tải lại trang, đứt WebSocket và làm chết script đang chạy ngầm.', '// 1. Gửi lệnh bằng Native Enter Sequence duy nhất (ProseMirror):
+const keyOpts = { key: ''Enter'', code: ''Enter'', keyCode: 13, which: 13, bubbles: true, cancelable: true, composed: true };
+inputEl.dispatchEvent(new KeyboardEvent(''keydown'', keyOpts));
+inputEl.dispatchEvent(new KeyboardEvent(''keypress'', keyOpts));
+inputEl.dispatchEvent(new KeyboardEvent(''keyup'', keyOpts));
+
+// 2. Nhận diện nút Stop chính xác (không check rect SVG, không match substring ''desktop''):
+label.includes(''dừng phản hồi'') || label.includes(''stop response'') || iconText === ''stop''
+
+// 3. Giám sát stream sâu (Anti-truncation):
+!isStillStreaming && (hasVisibleCopyButton || timeSinceLastChange >= 4000) && timeSinceLastChange >= 2500
+
+// 4. Chuyển phiên chat bằng SPA Button:
+findNewChatButton().click() // Cấm tuyệt đối window.location.href
+
+// 5. Chuẩn hóa Educational Intent:
+normalizer.js v2.0.0 tự động thêm tiền tố ''Hãy giải thích chi tiết về: '' cho câu hỏi thông tin.', 'node "C:\Users\tvu16\.gemini\antigravity\gemini_web_bridge\ask.js" "<câu hỏi>"', 'global', 1, 1);
 
 -- Table: conversations
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('0d4ce915-aad6-4109-bcdf-ad3667d181e3', 'hệ thống này hoạt động như nào giải thích rõ ràng chi tiết tất cả file và cần là', 'Phiên trao đổi tập trung vào: "tôi muốn làm 1 hệ thống memory tự động aka second brain để hỗ trợ tốt cho tôi trong việc ghi nhớ biết tôi là ai biết tất cả mọi thứ biết cả cuộc hội thoại đã có; với cả nếu cần tải skill nào cần thiết hoặc là hãy tham khảo các hệ thống build lớn khác về memory tốt nhất rồi học hỏi hãy tải và làm những gì cần thiết để xây". Kết quả chính: Called tools: view_file, view_file. Called tools: list_dir. Called tools: view_file, view_file.', 205);
