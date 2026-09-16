@@ -1,8 +1,8 @@
 {
-  "totalPassed": 37,
-  "totalFailed": 20,
+  "totalPassed": 57,
+  "totalFailed": 0,
   "grandTotal": 57,
-  "overallPassRate": 64.9,
+  "overallPassRate": 100,
   "results": {
     "suite1_fuzzing": {
       "name": "Input Fuzzing & Exception Safety",
@@ -109,7 +109,7 @@
           "name": "TC-1.13: 100KB repetitive string",
           "passed": true,
           "details": {
-            "elapsedMs": 0,
+            "elapsedMs": 1,
             "validShape": true
           }
         },
@@ -165,21 +165,21 @@
     },
     "suite2_contradictions": {
       "name": "Contradiction & Conflict Handling",
-      "passed": 2,
-      "failed": 4,
+      "passed": 6,
+      "failed": 0,
       "tests": [
         {
           "name": "TC-2.01: Intra-turn preference correction (React -> Svelte)",
-          "passed": false,
+          "passed": true,
           "details": {
             "hazard": "Regex matches first occurrence (React) and ignores true intent (Svelte)",
             "observed": {
-              "extractedReact": true,
-              "extractedSvelte": false,
+              "extractedReact": false,
+              "extractedSvelte": true,
               "profiles": [
                 {
-                  "key": "tech_pref_react",
-                  "value": "Thích dùng React",
+                  "key": "tech_pref_svelte",
+                  "value": "Thích dùng Svelte",
                   "category": "tech_stack",
                   "action": "ADD"
                 }
@@ -207,15 +207,11 @@
         },
         {
           "name": "TC-2.03: Inter-turn preference replacement (Angular -> Svelte)",
-          "passed": false,
+          "passed": true,
           "details": {
             "hazard": "Stale tech preferences accumulate indefinitely because key is keyed by technology name (tech_pref_angular vs tech_pref_svelte)",
             "observed": {
               "dbProfiles": [
-                {
-                  "key": "tech_pref_angular",
-                  "value": "Thích dùng Angular"
-                },
                 {
                   "key": "tech_pref_svelte",
                   "value": "Thích dùng Svelte"
@@ -236,29 +232,21 @@
         },
         {
           "name": "TC-2.05: Temporary stay distinction (Hotel stay overwrites home)",
-          "passed": false,
+          "passed": true,
           "details": {
             "hazard": "Keyword \"ở\" matches temporary hotel stays and pollutes permanent residence",
             "observed": {
-              "dbLocation": "khách sạn Rex"
+              "dbLocation": "Cầu Giấy, Hà Nội"
             }
           }
         },
         {
           "name": "TC-2.06: Intra-turn rule contradiction (Prettier allowed -> forbidden)",
-          "passed": false,
+          "passed": true,
           "details": {
             "hazard": "Extractor captures contradictory rule before user retracts it in the same sentence",
             "observed": {
-              "extractedRules": [
-                {
-                  "title": "Chỉ thị của Ngài: format bằng Prettier nhé...",
-                  "content": "Từ nay luôn format bằng Prettier nhé",
-                  "category": "rule",
-                  "tags": "directive,rule,preference",
-                  "importance": 1.8
-                }
-              ]
+              "extractedRules": []
             }
           }
         }
@@ -355,25 +343,18 @@
     },
     "suite4_false_positives": {
       "name": "False Positive Suppression (Chatter)",
-      "passed": 4,
-      "failed": 12,
+      "passed": 16,
+      "failed": 0,
       "tests": [
         {
           "name": "TC-4.01: VN Daily verb \"ở nhà\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Tôi ở nhà ngủ một giấc đã.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Overwrites living location with \"nhà ngủ một giấc đã\"",
             "observed": {
-              "profiles": [
-                {
-                  "key": "location",
-                  "value": "nhà ngủ một giấc đã",
-                  "category": "environment",
-                  "action": "UPDATE"
-                }
-              ],
+              "profiles": [],
               "knowledge": [],
               "solutions": []
             }
@@ -381,20 +362,13 @@
         },
         {
           "name": "TC-4.02: VN Daily verb \"ở công ty\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Tôi ở công ty tăng ca đến đêm.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Overwrites living location with \"công ty tăng ca đến đêm\"",
             "observed": {
-              "profiles": [
-                {
-                  "key": "location",
-                  "value": "công ty tăng ca đến đêm",
-                  "category": "environment",
-                  "action": "UPDATE"
-                }
-              ],
+              "profiles": [],
               "knowledge": [],
               "solutions": []
             }
@@ -402,20 +376,13 @@
         },
         {
           "name": "TC-4.03: VN State \"ở một mình\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Mình ở một mình buồn quá.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Overwrites living location with \"một mình buồn quá\"",
             "observed": {
-              "profiles": [
-                {
-                  "key": "location",
-                  "value": "một mình buồn quá",
-                  "category": "environment",
-                  "action": "UPDATE"
-                }
-              ],
+              "profiles": [],
               "knowledge": [],
               "solutions": []
             }
@@ -423,20 +390,13 @@
         },
         {
           "name": "TC-4.04: EN Metaphor \"live in fear\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "I live in fear every day.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Overwrites living location with \"fear every day\"",
             "observed": {
-              "profiles": [
-                {
-                  "key": "location",
-                  "value": "fear every day",
-                  "category": "environment",
-                  "action": "UPDATE"
-                }
-              ],
+              "profiles": [],
               "knowledge": [],
               "solutions": []
             }
@@ -444,20 +404,13 @@
         },
         {
           "name": "TC-4.05: EN Metaphor \"moved to tears\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "I was moved to tears by the movie.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Overwrites living location with \"tears by the movie\"",
             "observed": {
-              "profiles": [
-                {
-                  "key": "location",
-                  "value": "tears by the movie",
-                  "category": "environment",
-                  "action": "UPDATE"
-                }
-              ],
+              "profiles": [],
               "knowledge": [],
               "solutions": []
             }
@@ -465,20 +418,13 @@
         },
         {
           "name": "TC-4.06: VN Everyday tool \"dùng dao\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Tôi dùng dao để gọt hoa quả.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Sets tech stack preference to \"dao\" (knife)",
             "observed": {
-              "profiles": [
-                {
-                  "key": "tech_pref_dao",
-                  "value": "Thích dùng dao",
-                  "category": "tech_stack",
-                  "action": "ADD"
-                }
-              ],
+              "profiles": [],
               "knowledge": [],
               "solutions": []
             }
@@ -486,20 +432,13 @@
         },
         {
           "name": "TC-4.07: VN Everyday habit \"dùng cà phê\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Tôi thường dùng cà phê mỗi sáng để tỉnh táo.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Sets tech stack preference to \"cà phê mỗi sáng\"",
             "observed": {
-              "profiles": [
-                {
-                  "key": "tech_pref_cà_phê_mỗi_sáng",
-                  "value": "Thích dùng cà phê mỗi sáng",
-                  "category": "tech_stack",
-                  "action": "ADD"
-                }
-              ],
+              "profiles": [],
               "knowledge": [],
               "solutions": []
             }
@@ -507,20 +446,13 @@
         },
         {
           "name": "TC-4.08: VN Politeness meal \"dùng bữa trưa\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Tôi dùng bữa trưa với bạn.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Sets tech stack preference to \"bữa trưa với bạn\"",
             "observed": {
-              "profiles": [
-                {
-                  "key": "tech_pref_bữa_trưa_với_bạn",
-                  "value": "Thích dùng bữa trưa với bạn",
-                  "category": "tech_stack",
-                  "action": "ADD"
-                }
-              ],
+              "profiles": [],
               "knowledge": [],
               "solutions": []
             }
@@ -528,20 +460,13 @@
         },
         {
           "name": "TC-4.09: EN Utensil \"use chopsticks\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "I usually use chopsticks when eating ramen.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Sets tech stack preference to \"chopsticks\"",
             "observed": {
-              "profiles": [
-                {
-                  "key": "tech_pref_chopsticks_when_eating_ramen",
-                  "value": "Thích dùng chopsticks when eating ramen",
-                  "category": "tech_stack",
-                  "action": "ADD"
-                }
-              ],
+              "profiles": [],
               "knowledge": [],
               "solutions": []
             }
@@ -549,20 +474,13 @@
         },
         {
           "name": "TC-4.10: EN Food preference \"prefer pizza\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "I prefer pizza over pasta.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Sets tech stack preference to \"pizza over pasta\"",
             "observed": {
-              "profiles": [
-                {
-                  "key": "tech_pref_pizza_over_pasta",
-                  "value": "Thích dùng pizza over pasta",
-                  "category": "tech_stack",
-                  "action": "ADD"
-                }
-              ],
+              "profiles": [],
               "knowledge": [],
               "solutions": []
             }
@@ -570,44 +488,28 @@
         },
         {
           "name": "TC-4.11: VN Slang beverage \"làm một cốc bia\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Tôi đang làm một cốc bia giải khát.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Extracts project: \"một cốc bia giải khát\"",
             "observed": {
               "profiles": [],
-              "knowledge": [
-                {
-                  "title": "Dự án: một cốc bia giải khát",
-                  "content": "Ngài đang phát triển dự án: một cốc bia giải khát",
-                  "category": "decision",
-                  "tags": "project,active",
-                  "importance": 1.4
-                }
-              ],
+              "knowledge": [],
               "solutions": []
             }
           }
         },
         {
           "name": "TC-4.12: VN Household chore \"làm việc nhà\"",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Tôi đang làm việc nhà.",
-            "totalExtractions": 1,
+            "totalExtractions": 0,
             "hazard": "Extracts project: \"việc nhà\"",
             "observed": {
               "profiles": [],
-              "knowledge": [
-                {
-                  "title": "Dự án: việc nhà",
-                  "content": "Ngài đang phát triển dự án: việc nhà",
-                  "category": "decision",
-                  "tags": "project,active",
-                  "importance": 1.4
-                }
-              ],
+              "knowledge": [],
               "solutions": []
             }
           }
@@ -672,17 +574,24 @@
     },
     "suite5_bilingual_slang": {
       "name": "Complex Bilingual & Slang Extractions",
-      "passed": 1,
-      "failed": 4,
+      "passed": 5,
+      "failed": 0,
       "tests": [
         {
           "name": "TC-5.01: VN Slang Tech Stack (TypeScript xịn sò con bò cười)",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Ê bro, tôi đang code con bot này bằng TypeScript xịn sò con bò cười nè.",
             "hazard": "Conversational starter \"Ê bro\" causes regex to miss valid programming stack",
             "observed": {
-              "profiles": [],
+              "profiles": [
+                {
+                  "key": "tech_pref_typescript",
+                  "value": "Thích dùng TypeScript",
+                  "category": "tech_stack",
+                  "action": "ADD"
+                }
+              ],
               "knowledge": [],
               "solutions": []
             }
@@ -711,7 +620,7 @@
         },
         {
           "name": "TC-5.03: VN Slang Location (chill phết)",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Location của tao hiện tại đang ở Landmark 81 Sài Gòn chill phết.",
             "hazard": "Slang particle \"chill phết\" is captured as part of permanent location string",
@@ -719,7 +628,7 @@
               "profiles": [
                 {
                   "key": "location",
-                  "value": "Landmark 81 Sài Gòn chill phết",
+                  "value": "Landmark 81 Sài Gòn",
                   "category": "environment",
                   "action": "UPDATE"
                 }
@@ -731,7 +640,7 @@
         },
         {
           "name": "TC-5.04: VN Slang Directive (nhớ giùm tao ... nha ní)",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Từ nay luôn nhớ giùm tao: format code bằng Prettier trước khi commit nha ní.",
             "hazard": "Colon position causes title to be truncated to \"nhớ giùm tao\", missing the directive",
@@ -739,8 +648,8 @@
               "profiles": [],
               "knowledge": [
                 {
-                  "title": "Chỉ thị của Ngài: nhớ giùm tao...",
-                  "content": "Từ nay luôn nhớ giùm tao",
+                  "title": "Chỉ thị của Ngài: format code bằng Prettier trước khi comm...",
+                  "content": "Từ nay luôn nhớ giùm tao: format code bằng Prettier trước khi commit nha ní",
                   "category": "rule",
                   "tags": "directive,rule,preference",
                   "importance": 1.8
@@ -752,12 +661,19 @@
         },
         {
           "name": "TC-5.05: Code-Switching Preference in VN Sentence",
-          "passed": false,
+          "passed": true,
           "details": {
             "text": "Thực ra mình prefer Python cho mấy bài toán ML nhé.",
             "hazard": "Code-switched \"prefer\" with Vietnamese phrase structure fails to extract",
             "observed": {
-              "profiles": [],
+              "profiles": [
+                {
+                  "key": "tech_pref_python",
+                  "value": "Thích dùng Python",
+                  "category": "tech_stack",
+                  "action": "ADD"
+                }
+              ],
               "knowledge": [],
               "solutions": []
             }

@@ -30,10 +30,16 @@ class ContextRetriever {
     }
 
     async compileContext(query = '', conversationId = null, options = {}) {
-        const maxTokens = options.maxTokens || DEFAULT_MAX_TOKENS;
+        const opts = (options && typeof options === 'object') ? options : {};
+        const maxTokens = opts.maxTokens || DEFAULT_MAX_TOKENS;
         const maxChars = Math.floor(maxTokens * CHARS_PER_TOKEN);
-        const workspacePaths = options.workspacePaths || [];
+        const workspacePaths = opts.workspacePaths || [];
         const projectScope = this.inferProjectScope(workspacePaths);
+
+        let safeQuery = '';
+        if (query !== null && query !== undefined) {
+            safeQuery = typeof query === 'string' ? query.trim() : String(query).trim();
+        }
 
         const sections = [];
         let currentChars = 0;
@@ -45,13 +51,13 @@ class ContextRetriever {
         sections.push(profileSummary);
         currentChars += profileSummary.length;
 
-        if (query && query.trim()) {
+        if (safeQuery) {
             // -----------------------------------------------------------------
             // Priority 2: Procedural Solutions & Learned Fixes (Proactive Reinforcement)
             // -----------------------------------------------------------------
-            const isRelevantToOperations = /(?:lỗi|error|fail|bug|exception|cannot|không thể|fix|sửa|lệnh|command|npm|git|node|powershell|sql|run|script|build|test)/i.test(query);
+            const isRelevantToOperations = /(?:lỗi|error|fail|bug|exception|cannot|không thể|fix|sửa|lệnh|command|npm|git|node|powershell|sql|run|script|build|test)/i.test(safeQuery);
             if (isRelevantToOperations) {
-                const solutions = this.solutions.searchSolutions(query, { project_scope: projectScope, limit: 3 });
+                const solutions = this.solutions.searchSolutions(safeQuery, { project_scope: projectScope, limit: 3 });
                 if (solutions && solutions.length > 0) {
                     const solLines = ['[BỘ NHỚ KINH NGHIỆM ĐÃ HỌC (PROCEDURAL FIXES & LESSONS)]'];
                     for (const sol of solutions) {
@@ -71,13 +77,13 @@ class ContextRetriever {
         // ---------------------------------------------------------------------
         // Priority 2.5: Entity Knowledge Graph Traversal (1-Hop & 2-Hop Relations)
         // ---------------------------------------------------------------------
-        if (query && query.trim() && this.semantic.getRelationsForEntity) {
+        if (safeQuery && this.semantic.getRelationsForEntity) {
             try {
                 const allEntities = this.semantic.db.all('SELECT name FROM entities');
                 const matchedEntities = allEntities.filter(e => 
-                    query.toLowerCase().includes(e.name.toLowerCase())
+                    safeQuery.toLowerCase().includes(e.name.toLowerCase())
                 );
-                if (matchedEntities.length === 0 && /(?:ngài|sir|chủ nhân|bạn)/i.test(query)) {
+                if (matchedEntities.length === 0 && /(?:ngài|sir|chủ nhân|bạn)/i.test(safeQuery)) {
                     matchedEntities.push({ name: 'Ngài' });
                 }
 
@@ -111,9 +117,9 @@ class ContextRetriever {
         // ---------------------------------------------------------------------
         // Priority 3: Semantic Knowledge & Technical Decisions (Hybrid Search)
         // ---------------------------------------------------------------------
-        const knowledgeResults = await this.semantic.searchKnowledge(query || '', { limit: 4 });
+        const knowledgeResults = await this.semantic.searchKnowledge(safeQuery || '', { limit: 4 });
         if (knowledgeResults && knowledgeResults.length > 0) {
-            const kLines = [query ? '[TRI THỨC & QUY TẮC PHÙ HỢP]' : '[TRI THỨC & QUY TẮC NỔI BẬT (PINNED/ACTIVE)]'];
+            const kLines = [safeQuery ? '[TRI THỨC & QUY TẮC PHÙ HỢP]' : '[TRI THỨC & QUY TẮC NỔI BẬT (PINNED/ACTIVE)]'];
             for (const k of knowledgeResults) {
                 const scoreText = k.score !== undefined ? ` (Score: ${k.score})` : '';
                 const line = `• [${k.category.toUpperCase()}] ${k.title}: ${k.content}${scoreText}`;
@@ -127,11 +133,11 @@ class ContextRetriever {
             }
         }
 
-        if (query && query.trim()) {
+        if (safeQuery) {
             // -----------------------------------------------------------------
             // Priority 4: Episodic History across Past Conversations
             // -----------------------------------------------------------------
-            const episodicResults = this.episodic.searchEpisodes(query, 3);
+            const episodicResults = this.episodic.searchEpisodes(safeQuery, 3);
             if (episodicResults && episodicResults.length > 0) {
                 const eLines = ['[KÝ ỨC HỘI THOẠI QUÁ KHỨ LIÊN QUAN]'];
                 for (const ep of episodicResults) {

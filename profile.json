@@ -5,8 +5,8 @@
     "value": "tranvu-galactic-ion",
     "confidence": 1,
     "source": "system_detection",
-    "created_at": "2026-09-16T19:23:18.038Z",
-    "updated_at": "2026-09-16T19:23:18.038Z"
+    "created_at": "2026-09-11T15:54:17.010Z",
+    "updated_at": "2026-09-11T15:54:17.010Z"
   },
   {
     "key": "location",
@@ -14,8 +14,8 @@
     "value": "Quận Hoàng Mai, Hà Nội, Việt Nam",
     "confidence": 1,
     "source": "conversation_history",
-    "created_at": "2026-09-16T19:23:18.037Z",
-    "updated_at": "2026-09-16T19:23:18.037Z"
+    "created_at": "2026-09-11T15:54:16.997Z",
+    "updated_at": "2026-09-11T15:54:16.997Z"
   },
   {
     "key": "os",
@@ -23,8 +23,8 @@
     "value": "Windows 11 (OS User: tvu16)",
     "confidence": 1,
     "source": "system_detection",
-    "created_at": "2026-09-16T19:23:18.038Z",
-    "updated_at": "2026-09-16T19:23:18.038Z"
+    "created_at": "2026-09-11T15:54:17.004Z",
+    "updated_at": "2026-09-11T15:54:17.004Z"
   },
   {
     "key": "platform",
@@ -32,8 +32,17 @@
     "value": "Google Antigravity 2.0 with native agy-node engine",
     "confidence": 1,
     "source": "system_detection",
-    "created_at": "2026-09-16T19:23:18.039Z",
-    "updated_at": "2026-09-16T19:23:18.039Z"
+    "created_at": "2026-09-11T15:54:17.017Z",
+    "updated_at": "2026-09-11T15:54:17.017Z"
+  },
+  {
+    "key": "github_username",
+    "category": "identity",
+    "value": "TranVu-2005",
+    "confidence": 1,
+    "source": "user_update",
+    "created_at": "2026-09-11T16:58:34.493Z",
+    "updated_at": "2026-09-11T16:58:34.493Z"
   },
   {
     "key": "honorific",
@@ -41,8 +50,8 @@
     "value": "Ngài (Sir)",
     "confidence": 1,
     "source": "user_directive",
-    "created_at": "2026-09-16T19:23:18.023Z",
-    "updated_at": "2026-09-16T19:23:18.023Z"
+    "created_at": "2026-09-11T15:54:16.986Z",
+    "updated_at": "2026-09-11T15:54:16.986Z"
   },
   {
     "key": "role",
@@ -50,8 +59,8 @@
     "value": "Master / Primary Developer & System Architect",
     "confidence": 1,
     "source": "system",
-    "created_at": "2026-09-16T19:23:18.036Z",
-    "updated_at": "2026-09-16T19:23:18.036Z"
+    "created_at": "2026-09-11T15:54:16.986Z",
+    "updated_at": "2026-09-11T15:54:16.986Z"
   },
   {
     "key": "memory_goal",
@@ -59,8 +68,17 @@
     "value": "Hệ thống Second Brain phân tầng chuẩn production-grade, tự động 100%, ghi nhớ toàn diện danh tính, kiến thức và lịch sử hội thoại.",
     "confidence": 1,
     "source": "user_request",
-    "created_at": "2026-09-16T19:23:18.039Z",
-    "updated_at": "2026-09-16T19:23:18.039Z"
+    "created_at": "2026-09-11T15:54:17.023Z",
+    "updated_at": "2026-09-11T15:54:17.023Z"
+  },
+  {
+    "key": "honesty_policy",
+    "category": "principle",
+    "value": "Chuẩn chỉ, trung thực tuyệt đối, không dối trá, không bịa đặt, có sao nói vậy, biết thì nói biết, chưa biết hoặc chưa làm thì thẳng thắn báo cáo.",
+    "confidence": 1,
+    "source": "user_directive",
+    "created_at": "2026-09-11T16:41:31.315Z",
+    "updated_at": "2026-09-11T16:41:31.315Z"
   },
   {
     "key": "language_preference",
@@ -68,8 +86,8 @@
     "value": "Tiếng Việt làm chủ đạo, khéo léo đan xen tiếng Anh tự nhiên (As you wish Sir, Indeed, Splendid, Understood...).",
     "confidence": 1,
     "source": "user_directive",
-    "created_at": "2026-09-16T19:23:18.037Z",
-    "updated_at": "2026-09-16T19:23:18.037Z"
+    "created_at": "2026-09-11T15:54:16.992Z",
+    "updated_at": "2026-09-11T15:54:16.992Z"
   },
   {
     "key": "tone_and_style",
@@ -77,16 +95,16 @@
     "value": "Chuyên nghiệp, chính xác tuyệt đối, lịch lãm, hóm hỉnh tinh tế như một cố vấn công nghệ hoặc quản gia tận tụy.",
     "confidence": 1,
     "source": "user_directive",
-    "created_at": "2026-09-16T19:23:18.036Z",
-    "updated_at": "2026-09-16T19:23:18.036Z"
+    "created_at": "2026-09-11T15:54:16.991Z",
+    "updated_at": "2026-09-11T15:54:16.991Z"
   },
   {
-    "key": "favorite_framework",
+    "key": "second_brain_repo",
     "category": "tech_stack",
-    "value": "Node.js",
+    "value": "https://github.com/TranVu-2005/antigravity-second-brain.git",
     "confidence": 1,
-    "source": "system",
-    "created_at": "2026-09-16T19:23:18.040Z",
-    "updated_at": "2026-09-16T19:23:18.040Z"
+    "source": "user_update",
+    "created_at": "2026-09-11T16:58:34.513Z",
+    "updated_at": "2026-09-11T16:58:34.513Z"
   }
 ]

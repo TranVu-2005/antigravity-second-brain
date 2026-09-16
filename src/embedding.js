@@ -67,9 +67,9 @@ function ensureDaemonRunning() {
         if (!healthy) {
             try {
                 const { exec } = require('node:child_process');
-                const cmd = `powershell.exe -WindowStyle Hidden -Command "& '${UV_PATH}' run --with fastembed python '${DAEMON_SCRIPT}'"`;
-                const ps = `Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine = '${cmd.replace(/'/g, "''")}'}`;
-                exec(`powershell.exe -NoProfile -Command "${ps}"`, { windowsHide: true });
+                const targetCmd = `\\"${UV_PATH}\\" run --with fastembed python \\"${DAEMON_SCRIPT}\\"`;
+                const ps = `Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine = '${targetCmd}'}`;
+                exec(`powershell.exe -NoProfile -NonInteractive -WindowStyle Hidden -Command "${ps}"`, { windowsHide: true });
             } catch (err) {
                 // Ignore spawn errors
             }

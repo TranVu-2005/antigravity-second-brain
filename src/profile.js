@@ -81,6 +81,12 @@ class ProfileManager {
 
     syncFiles() {
         try {
+            // Guard: Only write root profile files if connected to production brain.db
+            const prodDbPath = path.resolve(path.join(BRAIN_DIR, 'brain.db'));
+            if (this.db && this.db.dbPath && path.resolve(this.db.dbPath) !== prodDbPath) {
+                return;
+            }
+
             const facts = this.getAll();
             fs.writeFileSync(PROFILE_JSON_PATH, JSON.stringify(facts, null, 2), 'utf8');
 

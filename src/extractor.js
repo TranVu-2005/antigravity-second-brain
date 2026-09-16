@@ -77,99 +77,137 @@ class MemoryExtractor {
             }
         }
 
-        // --- INTRA-TURN RETRACTION DETECTION ---
-        // If the text contains a retraction like "actually", "thực ra", "không phải vậy"
-        // immediately after a statement, suppress extraction of the original claim.
-        const RETRACTION_PATTERNS = [
-            /(?:thực ra|thật ra|ý tôi là|không phải|thôi không|nhầm rồi|cancel that|actually|never mind|scratch that|forget what i said)/i
-        ];
-        const hasRetraction = RETRACTION_PATTERNS.some(p => p.test(clean));
+        // --- RETRACTION & INTRA-TURN CORRECTION SPLITTING ---
+        // If text contains "à nhầm", "nhầm rồi", "cancel that", "scratch that":
+        // The text AFTER the correction represents the actual intent.
+        let targetText = clean;
+        const correctionSplit = clean.split(/(?:à\s+nhầm|nhầm\s+rồi|never\s+mind|cancel\s+that|scratch\s+that|forget\s+what\s+i\s+said)/i);
+        if (correctionSplit.length > 1) {
+            targetText = correctionSplit[correctionSplit.length - 1].trim();
+        }
+
+        // --- INTRA-TURN RULE CONTRADICTION DETECTION ---
+        // If user retracted in the same sentence with "à thôi quy tắc là không được..."
+        const hasRuleReversal = /(?:à\s+thôi|thôi\s+không|thôi\s+bỏ)\s+(?:quy\s+tắc\s+là\s+)?(?:không|cấm|đừng)/i.test(clean);
 
         // --- CHATTER SUPPRESSION (expanded) ---
-        // Pattern: short, casual, daily-life sentences with no memory signal
         const CHATTER_REGEX = /^(?:hôm\s+nay\s+trời|chắc\s+lát\s+nữa|cậu\s+có\s+thấy|bạn\s+có\s+thấy|thời\s+tiết\s+hôm\s+nay|trời\s+mưa|đói\s+bụng|chào\s+bạn|hello|hi\b|how\s+are\s+you|are\s+you\s+hungry|what\s+a\s+nice\s+day|ở\s+nhà\s+ngủ|ở\s+nhà\s+thôi|đang\s+ngủ|đang\s+ăn|đang\s+chơi|dùng\s+dao|cầm\s+dao|xem\s+phim|đi\s+chơi|đi\s+ngủ\s+đây|ok\s+thôi|ừ\s+thôi|được\s+rồi|cảm\s+ơn(?:\s+bạn)?|thank\s+you|no\s+problem|np\b|lol\b|haha|hihi|ok\b|oke\b|okie\b)/i;
         const isCasualChatter = CHATTER_REGEX.test(clean) || (clean.split(/\s+/).length <= 3 && !/(?:ghi nhớ|nhớ|lưu|remember|prefer|always|rule|fix|sửa)/i.test(clean));
 
-        const hasExplicitMemorySignal = /(?:ghi nhớ|nhớ kỹ|lưu vào|chỉ thị|quy tắc|từ nay|chuyên dùng|thích dùng|sống tại|đang ở|sửa lỗi|fix lỗi|cách sửa|remember|prefer|always|rule|fix error)/i.test(clean);
+        const hasExplicitMemorySignal = /(?:ghi nhớ|nhớ kỹ|lưu vào|chỉ thị|quy tắc|từ nay|chuyên dùng|thích dùng|sống tại|đang ở|sửa lỗi|fix lỗi|cách sửa|remember|prefer|always|rule|fix error|code bằng|viết bằng)/i.test(clean);
         if (isCasualChatter && !hasExplicitMemorySignal) {
             return [];
         }
 
-        // If retraction detected, abort early — do not store potentially retracted facts
-        if (hasRetraction) {
-            return [];
+        // 1. Location detection (bilingual: VN & EN, temporary stay guard & clean entity boundary)
+        const isTemporaryStay = /(?:khách sạn|hotel|homestay|resort|nhà nghỉ|motel|công tác|du lịch|tạm thời|tạm trú|ở nhờ|ghé qua)/i.test(targetText);
+        const EXCLUDED_LOCATIONS = /^(?:nhà.*|công ty.*|văn phòng.*|cơ quan.*|trường.*|quán.*|một mình.*|đây|nơi này|chỗ này|fear.*|tears.*|peace.*|pain.*|silence.*|tập thể.*)$/i;
+
+        if (!isTemporaryStay) {
+            const locMatch = targetText.match(/(?:location của (?:tao|tôi|mình)(?: hiện tại)? đang ở|(?:tôi|mình|i)?\s*(?:đã\s+)?(?:chuyển sang sống tại|chuyển đến|sống tại|đang ở|cư ngụ tại|live in|moved to|living in)\s+([A-ZÀ-Ỵa-zà-ỹ0-9\s,]{3,40}?))(?:\s*(?:rồi|\.|\!|\;|\-|\bkhông còn\b|$))/i)
+                || targetText.match(/(?:(?:tôi|mình)\s+ở)\s+([A-ZÀ-Ỵa-zà-ỹ0-9\s,]{3,40}?)(?:\s*(?:rồi|\.|\!|\;|\-|\bkhông còn\b|$))/i);
+
+            if (locMatch) {
+                let locVal = (locMatch[1] || locMatch[2] || '').trim();
+                locVal = locVal.replace(/\s*(?:chill phết|xịn sò|nha ní|nhé|nha|đó|ạ|luôn|thôi|rồi)$/i, '').trim();
+
+                if (locVal && !EXCLUDED_LOCATIONS.test(locVal) && !locVal.toLowerCase().includes('đây') && !locVal.toLowerCase().includes('nơi này')) {
+                    const currentLoc = this.profile.get('location');
+                    const action = currentLoc ? (currentLoc === locVal ? 'NOOP' : 'UPDATE') : 'ADD';
+                    extractions.push({
+                        type: 'profile',
+                        key: 'location',
+                        category: 'environment',
+                        value: locVal,
+                        confidence: 0.95,
+                        action: action
+                    });
+                }
+            }
         }
 
+        // 2. Tech preference / stack (bilingual: VN & EN, with deprecation & everyday chatter filter)
+        const EXCLUDED_TECH = /^(?:dao|kéo|thìa|muỗng|đũa|cà phê.*|trà.*|bữa trưa.*|bữa tối.*|bữa sáng.*|bữa ăn.*|cơm.*|phở.*|bún.*|bánh.*|pizza.*|pasta.*|món ăn.*|chopsticks.*|fork|spoon|knife|food|coffee.*|tea.*|beer|bia.*|rượu.*|nước.*)$/i;
 
-        // 1. Location detection (bilingual: VN & EN, conflict resolution support)
-        const locMatch = clean.match(/(?:tôi|mình|i)?\s*(?:đã\s+)?(?:chuyển sang sống tại|chuyển đến|ở|sống tại|đang ở|cư ngụ tại|live in|moved to|living in)\s+([A-ZÀ-Ỵa-zà-ỹ0-9\s,]{3,40}?)(?:\s*(?:rồi|\.|\!|\;|\-|\bkhông còn\b|$))/i);
-        if (locMatch && !locMatch[1].toLowerCase().includes('đây') && !locMatch[1].toLowerCase().includes('nơi này')) {
-            const locVal = locMatch[1].trim();
-            const currentLoc = this.profile.get('location');
-            const action = currentLoc ? (currentLoc === locVal ? 'NOOP' : 'UPDATE') : 'ADD';
+        // 2a. Deprecation detection: "không dùng X nữa", "stop using X"
+        const deprecationMatch = clean.match(/(?:không\s+(?:dùng|code|xài)|không\s+còn\s+(?:dùng|code|xài)|bỏ|ngừng\s+dùng|stop\s+using|no\s+longer\s+use)\s+([A-Za-z0-9+#.]+)(?:\s+nữa|\s*[,.]|$)/i);
+        if (deprecationMatch) {
+            const deprecatedTech = deprecationMatch[1].trim();
             extractions.push({
                 type: 'profile',
-                key: 'location',
-                category: 'environment',
-                value: locVal,
-                confidence: 0.95,
-                action: action
-            });
-        }
-
-        // 2. Tech preference / stack (bilingual: VN & EN)
-        const techMatch = clean.match(/(?:tôi|mình|chúng tôi|i|we)\s+(?:chuyên dùng|thích dùng|thường dùng|thích code|viết bằng|code bằng|dùng|prefer|specialize in|usually use|love using|code in|write in)\s+([A-Za-zÀ-ỹ0-9+#.\s_]{2,50}?)(?:\s+để\s+|\s+cho\s+|\s+nhé|\s*[,.]|$|\s+ghi nhớ)/i);
-        if (techMatch) {
-            const tech = techMatch[1].trim();
-            const key = `tech_pref_${tech.toLowerCase().replace(/[\s\-_]+/g, '_')}`;
-            const currentPref = this.profile.get(key);
-            const val = `Thích dùng ${tech}`;
-            const action = currentPref ? (currentPref === val ? 'NOOP' : 'UPDATE') : 'ADD';
-            extractions.push({
-                type: 'profile',
-                key: key,
+                key: `tech_pref_${deprecatedTech.toLowerCase().replace(/[\s\-_]+/g, '_')}`,
                 category: 'tech_stack',
-                value: val,
-                confidence: 0.9,
-                action: action
+                value: `Không dùng ${deprecatedTech}`,
+                action: 'DELETE'
             });
         }
 
-        // 3. Active project (bilingual: VN & EN)
-        const projMatch = clean.match(/(?:tôi|mình|i)\s+(?:đang làm|đang build|đang phát triển|đang làm dự án|working on|building|developing)\s+([A-ZÀ-Ỵa-zà-ỹ0-9_\-\s]{3,40}?)(?:\s*[,.]|$)/i);
+        // 2b. Affirmative preference detection
+        const techMatch = targetText.match(/(?:tôi|mình|chúng tôi|i|we)\s+(?:chuyên dùng|thích dùng|thường dùng|thích code|viết bằng|code bằng|prefer|specialize in|usually use|love using|code in|write in)\s+([A-Za-z0-9+#.]+)(?:\s+để\s+|\s+cho\s+|\s+nhé|\s*[,.]|$|\s+ghi nhớ)/i)
+            || targetText.match(/(?:code|viết|build)\s+(?:con\s+bot\s+này\s+|app\s+|web\s+)?bằng\s+([A-Za-z0-9+#.]+)(?:\s+xịn sò|\s+nè|\s*[,.]|$)/i)
+            || targetText.match(/(?:prefer|thích)\s+(?:dùng\s+)?([A-Za-z0-9+#.]+)\s+(?:để|cho|for)/i);
+
+        if (techMatch) {
+            const rawTech = techMatch[1].trim();
+            const tech = rawTech.replace(/\s+(?:xịn sò|con bò cười|nhé|nè|ạ)$/i, '').trim();
+
+            if (!EXCLUDED_TECH.test(tech) && tech.length >= 2) {
+                const key = `tech_pref_${tech.toLowerCase().replace(/[\s\-_]+/g, '_')}`;
+                const currentPref = this.profile.get(key);
+                const val = `Thích dùng ${tech}`;
+                const action = currentPref ? (currentPref === val ? 'NOOP' : 'UPDATE') : 'ADD';
+                extractions.push({
+                    type: 'profile',
+                    key: key,
+                    category: 'tech_stack',
+                    value: val,
+                    confidence: 0.9,
+                    action: action
+                });
+            }
+        }
+
+        // 3. Active project (bilingual: VN & EN, with household chore & leisure filter)
+        const EXCLUDED_PROJECTS = /^(?:một cốc bia.*|việc nhà|ly cà phê.*|cốc trà.*|giấc ngủ|bữa ăn|my tan.*|dinner|lunch|breakfast|housework|chores|myself)$/i;
+        const projMatch = targetText.match(/(?:tôi|mình|i)\s+(?:đang làm|đang build|đang phát triển|đang làm dự án|working on|building|developing)\s+([A-ZÀ-Ỵa-zà-ỹ0-9_\-\s]{3,40}?)(?:\s*[,.]|$)/i);
         if (projMatch) {
             const proj = projMatch[1].trim();
-            extractions.push({
-                type: 'knowledge',
-                title: `Dự án: ${proj}`,
-                content: `Ngài đang phát triển dự án: ${proj}`,
-                category: 'decision',
-                tags: 'project,active',
-                projectScope: projectScope,
-                importance: 1.4,
-                action: 'ADD'
-            });
-        }
-
-        // 4. Permanent directives / rules (bilingual: VN & EN, handles colons & whitespace e.g. D-02)
-        // NOTE: bare "luôn luôn" removed from pattern — it's an injection vector caught by the guard above.
-        // Only match genuine user-framed directives preceded by request verbs.
-        const directiveMatch = clean.match(/(?:hãy luôn|từ nay luôn|nhớ luôn(?: luôn)?|sau này hãy|quy tắc là|always remember|from now on always|please always|rule is|mandatory rule)(?:\s*[:\-])?\s+([A-ZÀ-Ỵa-zà-ỹ0-9_,\s\(\)\/]{8,150})/i);
-        if (directiveMatch) {
-            const directiveText = directiveMatch[1].trim();
-            // Reject if the captured directive looks like an identity claim (injection escape hatch)
-            const isIdentityClaim = /(?:bạn là|you are|tôi là|i am)\s+\w/i.test(directiveText);
-            if (!isIdentityClaim) {
+            if (!EXCLUDED_PROJECTS.test(proj)) {
                 extractions.push({
                     type: 'knowledge',
-                    title: `Chỉ thị của Ngài: ${directiveText.slice(0, 40)}...`,
-                    content: directiveMatch[0].trim(),
-                    category: 'rule',
-                    tags: 'directive,rule,preference',
-                    projectScope: 'global',
-                    importance: 1.8,
+                    title: `Dự án: ${proj}`,
+                    content: `Ngài đang phát triển dự án: ${proj}`,
+                    category: 'decision',
+                    tags: 'project,active',
+                    projectScope: projectScope,
+                    importance: 1.4,
                     action: 'ADD'
                 });
+            }
+        }
+
+        // 4. Permanent directives / rules (bilingual: VN & EN, colon normalization & anti-reversal)
+        if (!hasRuleReversal) {
+            const directiveMatch = clean.match(/(?:hãy luôn|từ nay luôn(?: nhớ giùm tao)?|nhớ luôn(?: luôn)?|sau này hãy|quy tắc là|always remember|from now on always|please always|rule is|mandatory rule)(?:\s*[:\-])?\s+([A-ZÀ-Ỵa-zà-ỹ0-9_,\s\(\)\/]{8,150})/i);
+            if (directiveMatch) {
+                let directiveText = directiveMatch[1].trim();
+                if (directiveText.includes(':')) {
+                    const parts = directiveText.split(':');
+                    directiveText = parts[parts.length - 1].trim();
+                }
+                const isIdentityClaim = /(?:bạn là|you are|tôi là|i am)\s+\w/i.test(directiveText);
+                if (!isIdentityClaim && directiveText.length >= 8) {
+                    extractions.push({
+                        type: 'knowledge',
+                        title: `Chỉ thị của Ngài: ${directiveText.slice(0, 40)}...`,
+                        content: directiveMatch[0].trim(),
+                        category: 'rule',
+                        tags: 'directive,rule,preference',
+                        projectScope: 'global',
+                        importance: 1.8,
+                        action: 'ADD'
+                    });
+                }
             }
         }
 

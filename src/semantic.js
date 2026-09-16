@@ -178,6 +178,8 @@ class SemanticKnowledge {
             }
         }
 
+        if (limit === 0) return [];
+
         // Clamp limit to a sane range
         limit = (typeof limit === 'number' && limit > 0) ? Math.min(limit, 100) : 5;
 

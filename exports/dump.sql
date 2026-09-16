@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-16T20:08:15.759Z
+-- Generated: 2026-09-16T20:13:10.591Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -149,7 +149,7 @@ The command exited with code 1.
 Output:
 git : The term ''git'' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the 
 spelling of the name, or if a path was included, verify that ', 'Lệnh khắc phục thành công: & \"C:\\Program Files\\Git\\cmd\\git.exe\" ls-files', '& \"C:\\Program Files\\Git\\cmd\\git.exe\" ls-files', 'global', 1, 3);
-INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (5, 'Created At: 2026-09-11T23:49:33+07:00', 'Created At: 2026-09-11T23:49:33+07:00
+INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (5, 'Argument name was not recognized for the current command: ''--dry-run''', 'Created At: 2026-09-11T23:49:33+07:00
 Completed At: 2026-09-11T23:49:33+07:00
 
 The command exited with code 1.
@@ -160,7 +160,7 @@ Windows Package Manager v1.29.290
 Argument name was not recognized for the current command: ''--dry-run''
 
 Installs the selected package, ', 'Lệnh khắc phục thành công: ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)', '([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)', 'global', 1, 1);
-INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (6, 'Created At: 2026-09-11T23:49:40+07:00', 'Created At: 2026-09-11T23:49:40+07:00
+INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (6, 'INFO: Could not find files for the given pattern(s).', 'Created At: 2026-09-11T23:49:40+07:00
 Completed At: 2026-09-11T23:49:40+07:00
 
 The command exited with code 1.
@@ -169,15 +169,6 @@ INFO: Could not find files for the given pattern(s).
 INFO: Could not find files for the given pattern(s).
 
 ', 'Lệnh khắc phục thành công: winget show Git.MinGit', 'winget show Git.MinGit', 'global', 1, 1);
-INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (7, 'Created At: 2026-09-11T23:52:26+07:00', 'Created At: 2026-09-11T23:52:26+07:00
-Completed At: 2026-09-11T23:52:30+07:00
-
-The command exited with code 1.
-Stdout:
-
-Stderr:
-
-', 'Lệnh khắc phục thành công: & \"C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\agy-node.cmd\" --version', '& \"C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\agy-node.cmd\" --version', 'global', 1, 1);
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (8, 'Lỗi thực thi: no such column: conversation_id', 'Created At: 2026-09-11T23:52:56+07:00
 Completed At: 2026-09-11T23:52:57+07:00
 
@@ -186,7 +177,7 @@ Output:
 📦 Đang tiến hành sao lưu và đồng bộ Second Brain lên Git...
 (node:26996) ExperimentalWarning: SQLite is an experimental feature and might change at any time
 (Use `Antigravity --tra', 'Lệnh khắc phục thành công: $env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [System.Environment]::GetEnvironmentVariable(\"Path\",\"User\")\n& \"C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\agy-node.cmd\" \"C:\\Users\\tvu16\\.gemini\\antigravity\\second_brain\\cli.js\" git-backup', '$env:Path = [System.Environment]::GetEnvironmentVariable(\"Path\",\"Machine\") + \";\" + [System.Environment]::GetEnvironmentVariable(\"Path\",\"User\")\n& \"C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\agy-node.cmd\" \"C:\\Users\\tvu16\\.gemini\\antigravity\\second_brain\\cli.js\" git-backup', 'global', 1, 1);
-INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (9, 'Created At: 2026-09-11T23:57:35+07:00', 'Created At: 2026-09-11T23:57:35+07:00
+INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (9, 'You are not logged into any GitHub hosts. To log in, run: gh auth login', 'Created At: 2026-09-11T23:57:35+07:00
 Completed At: 2026-09-11T23:57:36+07:00
 
 The command exited with code 1.
@@ -209,7 +200,7 @@ The command exited with code 1.
 Output:
 npm warn deprecated node-domexception@1.0.0: Use your platform''s native DOMException instead
 npm warn deprecated @modelcontextprotocol/server-github@2025.4.8: Package no longer supp', 'Lệnh khắc phục thành công: [Environment]::GetEnvironmentVariable(\"Path\", \"Machine\")', '[Environment]::GetEnvironmentVariable(\"Path\", \"Machine\")', 'global', 1, 1);
-INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (12, 'Created At: 2026-09-12T00:15:33+07:00', 'Created At: 2026-09-12T00:15:33+07:00
+INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (12, '---', 'Created At: 2026-09-12T00:15:33+07:00
 Completed At: 2026-09-12T00:15:34+07:00
 
 The command exited with code 1.
@@ -225,7 +216,7 @@ n
 # Subagent-Driven Development
 
 Ex', 'Lệnh khắc phục thành công: & \"C:\\Program Files\\GitHub CLI\\gh.exe\" api repos/obra/superpowers/contents/skills/verification-before-completion/SKILL.md --jq .content | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) } | Select-Object -First 25', '& \"C:\\Program Files\\GitHub CLI\\gh.exe\" api repos/obra/superpowers/contents/skills/verification-before-completion/SKILL.md --jq .content | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) } | Select-Object -First 25', 'global', 1, 1);
-INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (13, 'Created At: 2026-09-12T00:19:55+07:00', 'Created At: 2026-09-12T00:19:55+07:00
+INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (13, 'accepts 1 arg(s), received 3', 'Created At: 2026-09-12T00:19:55+07:00
 Completed At: 2026-09-12T00:19:55+07:00
 
 The command exited with code 1.
@@ -233,7 +224,7 @@ Output:
 accepts 1 arg(s), received 3
 
 ', 'Lệnh khắc phục thành công: Test-Path \"C:\\Users\\tvu16\\.gemini\\repos\\archify\\.git\"; Test-Path \"C:\\Users\\tvu16\\.gemini\\repos\\humanizer\\.git\"', 'Test-Path \"C:\\Users\\tvu16\\.gemini\\repos\\archify\\.git\"; Test-Path \"C:\\Users\\tvu16\\.gemini\\repos\\humanizer\\.git\"', 'global', 1, 1);
-INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (14, 'Created At: 2026-09-12T00:21:06+07:00', 'Created At: 2026-09-12T00:21:06+07:00
+INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (14, 'INFO: Could not find files for the given pattern(s).', 'Created At: 2026-09-12T00:21:06+07:00
 Completed At: 2026-09-12T00:21:06+07:00
 
 The command exited with code 1.
@@ -277,6 +268,7 @@ findNewChatButton().click() // Cấm tuyệt đối window.location.href
 normalizer.js v2.0.0 tự động thêm tiền tố ''Hãy giải thích chi tiết về: '' cho câu hỏi thông tin.', 'node "C:\Users\tvu16\.gemini\antigravity\gemini_web_bridge\ask.js" "<câu hỏi>"', 'global', 1, 1);
 
 -- Table: conversations
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('164770cc-2831-4a99-9fd6-8f3a29a1badd', '/second-brain sau 1 tuần sử dụng dựa trên dữ liệu thực tế thu được và đã hỗ trợ ', '', 125);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('ffcc3229-aedc-4d2c-9116-17c8b48bc137', 'You are explorer_codebase_1, a Codebase Architecture Explorer for the Second Bra', '', 77);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('f912f9bf-5269-42ea-b8ff-c3544d953208', 'You are explorer_eval_1, a Benchmark & Evaluation Explorer for the Second Brain ', '', 50);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('f6430f00-c4dc-4786-8e08-e97290335d50', 'You are challenger_1, an Adversarial Challenger for the Second Brain optimizatio', '', 70);
@@ -308,7 +300,6 @@ INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES 
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('31bb352a-766f-4bc0-b12f-b55878c7f4a0', 'You are reviewer_1, a High-Reliability Reviewer for the Second Brain optimizatio', '', 72);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('27b529a7-76f2-42d7-8641-266b1fbc13ca', '/teamwork-preview', '', 68);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('20482a38-f707-41c7-bdbf-ec43ce00d557', 'You are worker_m1_1, the SOTA Research Synthesizer for Milestone M1 of the Secon', '', 31);
-INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('164770cc-2831-4a99-9fd6-8f3a29a1badd', '/second-brain sau 1 tuần sử dụng dựa trên dữ liệu thực tế thu được và đã hỗ trợ ', '', 96);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('0ec84150-17aa-4e1e-a048-c811d5c1a6b2', 'You are the Project Orchestrator for this project. Working Directory: C:\Users\', '', 107);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('083a91ff-91ac-47ed-b38e-946a4edfb399', 'gemini-web-bridge: context deadline exceeded sao giờ lại bị lỗi này?', '', 39);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('019c67d5-34e9-48ae-8546-12c47ba05b12', 'cho bạn môi trường linux ubuntu và win 11 thì bạn sẽ làm việc ở môi trường nào h', '', 4);

@@ -9,6 +9,9 @@ Write-Host "[$(Get-Date)] Running Antigravity Second Brain Backup & Compaction..
 
 $NodeCmd = "$env:APPDATA\Antigravity\bin\agy-node.cmd"
 
+# 0. Incremental Conversation Synchronization
+& "$NodeCmd" "$CliPath" sync
+
 # 1. Hot Backup (SQLite VACUUM INTO)
 & "$NodeCmd" "$CliPath" backup
 

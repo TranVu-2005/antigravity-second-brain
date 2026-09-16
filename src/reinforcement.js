@@ -94,7 +94,22 @@ class ReinforcementLearner {
     }
 
     _extractErrorSignature(output) {
-        const lines = output.split('\n').map(l => l.trim()).filter(Boolean);
+        if (!output || typeof output !== 'string') return null;
+
+        // Strip Antigravity metadata wrappers
+        const lines = output.split('\n')
+            .map(l => l.trim())
+            .filter(l => l && 
+                !l.startsWith('Created At:') && 
+                !l.startsWith('Completed At:') && 
+                !l.startsWith('The command exited with code') &&
+                !/^Output:\s*$/i.test(l) &&
+                !/^Stdout:\s*$/i.test(l) &&
+                !/^Stderr:\s*$/i.test(l)
+            );
+
+        if (lines.length === 0) return null;
+
         for (const line of lines) {
             if (line.includes('is not recognized') || 
                 line.includes('cannot be loaded') ||
@@ -103,11 +118,16 @@ class ReinforcementLearner {
                 line.includes('no such column') ||
                 line.includes('UnauthorizedAccess') ||
                 line.includes('ENOENT') ||
-                line.includes('error:')) {
+                line.includes('error:') ||
+                line.includes('Error:') ||
+                line.includes('FAILED') ||
+                line.includes('not logged into') ||
+                line.includes('Could not find') ||
+                line.includes('Argument name was not recognized')) {
                 return line.slice(0, 140);
             }
         }
-        return lines[0] ? lines[0].slice(0, 120) : null;
+        return lines[0].slice(0, 120);
     }
 }
 

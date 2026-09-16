@@ -28,6 +28,7 @@ class BrainDB {
         // Production-grade SQLite tuning for blazing fast concurrent reads and writes
         this.db.exec(`
             PRAGMA journal_mode = WAL;
+            PRAGMA busy_timeout = 5000;
             PRAGMA synchronous = NORMAL;
             PRAGMA cache_size = -64000;
             PRAGMA temp_store = MEMORY;
