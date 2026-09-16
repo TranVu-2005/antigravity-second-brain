@@ -19,7 +19,8 @@ class MemoryExtractor {
     }
 
     extractFromTurn(userText, assistantText = '', context = {}) {
-        const userExtractions = this.extractFromText(userText, 'user', context.projectScope || 'global');
+        const apply = context.apply !== undefined ? context.apply : true;
+        const userExtractions = this.extractFromText(userText, 'user', context.projectScope || 'global', { apply });
         const profiles = [];
         const knowledge = [];
         const solutions = [];
@@ -54,7 +55,7 @@ class MemoryExtractor {
         return { profiles, knowledge, solutions };
     }
 
-    extractFromText(text, role = 'user', projectScope = 'global') {
+    extractFromText(text, role = 'user', projectScope = 'global', options = {}) {
         if (!text || typeof text !== 'string') return [];
         const extractions = [];
         const clean = text.replace(/<[^>]+>/g, '').trim();
@@ -244,8 +245,10 @@ class MemoryExtractor {
             });
         }
 
-        // Apply extracted items with deduplication and dynamic conflict resolution
-        for (const item of extractions) {
+        const shouldApply = options && options.apply !== undefined ? options.apply : true;
+        if (shouldApply) {
+            // Apply extracted items with deduplication and dynamic conflict resolution
+            for (const item of extractions) {
             if (item.type === 'profile') {
                 const current = this.profile.get(item.key);
                 if (item.action === 'DELETE') {
@@ -311,6 +314,7 @@ class MemoryExtractor {
                 }
             }
         }
+    }
 
         return extractions;
     }
