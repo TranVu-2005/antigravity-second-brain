@@ -88,7 +88,16 @@ class ProfileManager {
             }
 
             const facts = this.getAll();
-            fs.writeFileSync(PROFILE_JSON_PATH, JSON.stringify(facts, null, 2), 'utf8');
+            const newJson = JSON.stringify(facts, null, 2);
+            if (fs.existsSync(PROFILE_JSON_PATH)) {
+                try {
+                    const oldJson = fs.readFileSync(PROFILE_JSON_PATH, 'utf8');
+                    if (oldJson.trim() === newJson.trim()) {
+                        return; // Facts unchanged, avoid rewriting files & churning timestamps
+                    }
+                } catch (e) {}
+            }
+            fs.writeFileSync(PROFILE_JSON_PATH, newJson, 'utf8');
 
             let md = `# Hồ Sơ Cá Nhân & Phong Cách Phục Vụ Của Ngài (Core Profile)\n\n`;
             md += `> Tự động đồng bộ với Antigravity Second Brain. Cập nhật lần cuối: ${new Date().toLocaleString()}\n\n`;
