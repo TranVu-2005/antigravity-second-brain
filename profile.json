@@ -5,8 +5,8 @@
     "value": "tranvu-galactic-ion",
     "confidence": 1,
     "source": "system_detection",
-    "created_at": "2026-09-13T08:35:41.666Z",
-    "updated_at": "2026-09-13T08:35:41.666Z"
+    "created_at": "2026-09-16T19:23:18.038Z",
+    "updated_at": "2026-09-16T19:23:18.038Z"
   },
   {
     "key": "location",
@@ -14,8 +14,8 @@
     "value": "Quận Hoàng Mai, Hà Nội, Việt Nam",
     "confidence": 1,
     "source": "conversation_history",
-    "created_at": "2026-09-13T08:35:41.657Z",
-    "updated_at": "2026-09-13T08:35:41.657Z"
+    "created_at": "2026-09-16T19:23:18.037Z",
+    "updated_at": "2026-09-16T19:23:18.037Z"
   },
   {
     "key": "os",
@@ -23,8 +23,8 @@
     "value": "Windows 11 (OS User: tvu16)",
     "confidence": 1,
     "source": "system_detection",
-    "created_at": "2026-09-13T08:35:41.661Z",
-    "updated_at": "2026-09-13T08:35:41.661Z"
+    "created_at": "2026-09-16T19:23:18.038Z",
+    "updated_at": "2026-09-16T19:23:18.038Z"
   },
   {
     "key": "platform",
@@ -32,8 +32,8 @@
     "value": "Google Antigravity 2.0 with native agy-node engine",
     "confidence": 1,
     "source": "system_detection",
-    "created_at": "2026-09-13T08:35:41.671Z",
-    "updated_at": "2026-09-13T08:35:41.671Z"
+    "created_at": "2026-09-16T19:23:18.039Z",
+    "updated_at": "2026-09-16T19:23:18.039Z"
   },
   {
     "key": "honorific",
@@ -41,8 +41,8 @@
     "value": "Ngài (Sir)",
     "confidence": 1,
     "source": "user_directive",
-    "created_at": "2026-09-13T08:35:41.638Z",
-    "updated_at": "2026-09-13T08:35:41.638Z"
+    "created_at": "2026-09-16T19:23:18.023Z",
+    "updated_at": "2026-09-16T19:23:18.023Z"
   },
   {
     "key": "role",
@@ -50,8 +50,8 @@
     "value": "Master / Primary Developer & System Architect",
     "confidence": 1,
     "source": "system",
-    "created_at": "2026-09-13T08:35:41.647Z",
-    "updated_at": "2026-09-13T08:35:41.647Z"
+    "created_at": "2026-09-16T19:23:18.036Z",
+    "updated_at": "2026-09-16T19:23:18.036Z"
   },
   {
     "key": "memory_goal",
@@ -59,8 +59,8 @@
     "value": "Hệ thống Second Brain phân tầng chuẩn production-grade, tự động 100%, ghi nhớ toàn diện danh tính, kiến thức và lịch sử hội thoại.",
     "confidence": 1,
     "source": "user_request",
-    "created_at": "2026-09-13T08:35:41.677Z",
-    "updated_at": "2026-09-13T08:35:41.677Z"
+    "created_at": "2026-09-16T19:23:18.039Z",
+    "updated_at": "2026-09-16T19:23:18.039Z"
   },
   {
     "key": "language_preference",
@@ -68,8 +68,8 @@
     "value": "Tiếng Việt làm chủ đạo, khéo léo đan xen tiếng Anh tự nhiên (As you wish Sir, Indeed, Splendid, Understood...).",
     "confidence": 1,
     "source": "user_directive",
-    "created_at": "2026-09-13T08:35:41.653Z",
-    "updated_at": "2026-09-13T08:35:41.653Z"
+    "created_at": "2026-09-16T19:23:18.037Z",
+    "updated_at": "2026-09-16T19:23:18.037Z"
   },
   {
     "key": "tone_and_style",
@@ -77,8 +77,8 @@
     "value": "Chuyên nghiệp, chính xác tuyệt đối, lịch lãm, hóm hỉnh tinh tế như một cố vấn công nghệ hoặc quản gia tận tụy.",
     "confidence": 1,
     "source": "user_directive",
-    "created_at": "2026-09-13T08:35:41.648Z",
-    "updated_at": "2026-09-13T08:35:41.648Z"
+    "created_at": "2026-09-16T19:23:18.036Z",
+    "updated_at": "2026-09-16T19:23:18.036Z"
   },
   {
     "key": "favorite_framework",
@@ -86,7 +86,7 @@
     "value": "Node.js",
     "confidence": 1,
     "source": "system",
-    "created_at": "2026-09-13T08:35:41.686Z",
-    "updated_at": "2026-09-13T08:35:41.686Z"
+    "created_at": "2026-09-16T19:23:18.040Z",
+    "updated_at": "2026-09-16T19:23:18.040Z"
   }
 ]

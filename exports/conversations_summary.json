@@ -1,5 +1,250 @@
 [
   {
+    "id": "ffcc3229-aedc-4d2c-9116-17c8b48bc137",
+    "title": "You are explorer_codebase_1, a Codebase Architecture Explorer for the Second Bra",
+    "summary": null,
+    "message_count": 77,
+    "updated_at": "2026-09-16T20:08:15.698Z"
+  },
+  {
+    "id": "f912f9bf-5269-42ea-b8ff-c3544d953208",
+    "title": "You are explorer_eval_1, a Benchmark & Evaluation Explorer for the Second Brain ",
+    "summary": null,
+    "message_count": 50,
+    "updated_at": "2026-09-16T20:08:15.691Z"
+  },
+  {
+    "id": "f6430f00-c4dc-4786-8e08-e97290335d50",
+    "title": "You are challenger_1, an Adversarial Challenger for the Second Brain optimizatio",
+    "summary": null,
+    "message_count": 70,
+    "updated_at": "2026-09-16T20:08:15.682Z"
+  },
+  {
+    "id": "e03bbc86-0319-4310-bf48-dd29ef987289",
+    "title": "https://claude.ai/share/cb20f887-bb71-431c-ad4f-7344742b567d hãy lọc kiến thức t",
+    "summary": null,
+    "message_count": 17,
+    "updated_at": "2026-09-16T20:08:15.670Z"
+  },
+  {
+    "id": "dc678356-3c8d-4b70-b091-db5053cccbd8",
+    "title": "screenoff",
+    "summary": null,
+    "message_count": 8,
+    "updated_at": "2026-09-16T20:08:15.668Z"
+  },
+  {
+    "id": "da0ca82e-4949-4ed1-8043-ec74adf886d0",
+    "title": "temp",
+    "summary": null,
+    "message_count": 3,
+    "updated_at": "2026-09-16T20:08:15.666Z"
+  },
+  {
+    "id": "cd19585a-52d6-45a9-b493-5eb7e67931c7",
+    "title": "nói về lần đầu con người tới mặt trăng",
+    "summary": null,
+    "message_count": 8,
+    "updated_at": "2026-09-16T20:08:15.665Z"
+  },
+  {
+    "id": "c7974bd5-064f-491f-9a74-d2ecf5f89062",
+    "title": "/second-brain",
+    "summary": null,
+    "message_count": 7,
+    "updated_at": "2026-09-16T20:08:15.664Z"
+  },
+  {
+    "id": "b7065ad8-b710-4321-a570-e15ef6f1e327",
+    "title": "screenoff",
+    "summary": null,
+    "message_count": 18,
+    "updated_at": "2026-09-16T20:08:15.661Z"
+  },
+  {
+    "id": "b690d66d-ad34-4646-a459-0a5e7e10295c",
+    "title": "dùng llt để turn off display",
+    "summary": null,
+    "message_count": 106,
+    "updated_at": "2026-09-16T20:08:15.658Z"
+  },
+  {
+    "id": "b33bbc89-3e71-4b6f-9951-f009d3d63f13",
+    "title": "You are worker_m3_1, the Core Engine Optimization Engineer for Milestone M3 of t",
+    "summary": null,
+    "message_count": 225,
+    "updated_at": "2026-09-16T20:08:15.641Z"
+  },
+  {
+    "id": "a48c982d-8f13-4302-a9bf-7c9ef79698b8",
+    "title": "You are reviewer_2, a High-Reliability Reviewer for the Second Brain optimizatio",
+    "summary": null,
+    "message_count": 103,
+    "updated_at": "2026-09-16T20:08:15.601Z"
+  },
+  {
+    "id": "92b09c77-ac49-4bcd-87e5-8c80d4540a45",
+    "title": "giải thích về lần đầu tiên con người chạm chân lên mặt trăng",
+    "summary": null,
+    "message_count": 16,
+    "updated_at": "2026-09-16T20:08:15.588Z"
+  },
+  {
+    "id": "899099ea-dcef-47dc-a1ce-b920893c5cc9",
+    "title": "You are challenger_2, an Adversarial Challenger for the Second Brain optimizatio",
+    "summary": null,
+    "message_count": 50,
+    "updated_at": "2026-09-16T20:08:15.585Z"
+  },
+  {
+    "id": "87dfca8a-5f68-4018-b7bb-5486b32770e0",
+    "title": "CONTINUATION TASK — Pick up from where a previous teamwork run was interrupted d",
+    "summary": null,
+    "message_count": 1,
+    "updated_at": "2026-09-16T20:08:15.581Z"
+  },
+  {
+    "id": "86b02cfb-0d27-4818-96e9-7da9212fca3d",
+    "title": "You are worker_m2_1, the Evaluation Suite Engineer for Milestone M2 (E2E Testing",
+    "summary": null,
+    "message_count": 85,
+    "updated_at": "2026-09-16T20:08:15.579Z"
+  },
+  {
+    "id": "811a93f6-e4dd-47c5-840b-049f026fafa8",
+    "title": "Research modern SOTA memory architectures (Mem0, Letta/MemGPT, Zep, LangMem) via",
+    "summary": null,
+    "message_count": 75,
+    "updated_at": "2026-09-16T20:08:15.566Z"
+  },
+  {
+    "id": "76c84e86-cf26-44d3-be14-26aedf4f3972",
+    "title": "You are explorer_sota_1, a SOTA Memory Architecture Researcher for the Second Br",
+    "summary": null,
+    "message_count": 79,
+    "updated_at": "2026-09-16T20:08:15.541Z"
+  },
+  {
+    "id": "6afe667f-5850-43f3-ba63-989f98338d19",
+    "title": "screenoff",
+    "summary": null,
+    "message_count": 5,
+    "updated_at": "2026-09-16T20:08:15.528Z"
+  },
+  {
+    "id": "5c8b1046-2a92-43a8-80ef-78a2272b708b",
+    "title": "tôi đag tải lmht được bao nhiêu % rồi",
+    "summary": null,
+    "message_count": 47,
+    "updated_at": "2026-09-16T20:08:15.526Z"
+  },
+  {
+    "id": "4d697ee6-7a2f-47cf-a758-c28b33dd94bc",
+    "title": "You are auditor_1, a Forensic Integrity Auditor for the Second Brain optimizatio",
+    "summary": null,
+    "message_count": 152,
+    "updated_at": "2026-09-16T20:08:15.516Z"
+  },
+  {
+    "id": "4c9e8e63-9aef-4f04-b805-172c3d478468",
+    "title": "thời tiết hoàng mai hiện tại",
+    "summary": null,
+    "message_count": 4,
+    "updated_at": "2026-09-16T20:08:15.499Z"
+  },
+  {
+    "id": "48168453-8727-4b9b-b33d-561262862ff8",
+    "title": "sao tôi bảo bạn chạy screenoff thì khi tắt màn hình cũng ngắt kết nối luôn remot",
+    "summary": null,
+    "message_count": 135,
+    "updated_at": "2026-09-16T20:08:15.497Z"
+  },
+  {
+    "id": "46c168fe-c539-463a-93aa-0f3f83747db6",
+    "title": "hệ mặt trời có các hành tinh nào và đặc điểm của từng cái",
+    "summary": null,
+    "message_count": 126,
+    "updated_at": "2026-09-16T20:08:15.476Z"
+  },
+  {
+    "id": "468bb24d-1cd6-4520-9213-47986cdb5355",
+    "title": "có thể kết nối antigravity với cả gemini chat web với nhau được ko?",
+    "summary": null,
+    "message_count": 714,
+    "updated_at": "2026-09-16T20:08:15.458Z"
+  },
+  {
+    "id": "457869fc-31f0-4774-8bd0-9be7ecff2f7e",
+    "title": "temp",
+    "summary": null,
+    "message_count": 5,
+    "updated_at": "2026-09-16T20:08:15.350Z"
+  },
+  {
+    "id": "3dda6779-b8aa-43b5-a0e0-14c01c9595fd",
+    "title": "temp",
+    "summary": null,
+    "message_count": 176,
+    "updated_at": "2026-09-16T20:08:15.349Z"
+  },
+  {
+    "id": "37cea62e-2cee-43cb-a203-37be017fa957",
+    "title": "và sao lại là 128 dim hãy chuẩn lại đi tại sao nó ko tự động sửa cái này",
+    "summary": "Phiên trao đổi tập trung vào: \"/second-brain; có 4 phiên làm việc thôi à tôi nhớ đã nhắn rất nhiều mà?\". Kết quả chính: Called tools: view_file. Called tools: call_mcp_tool. Called tools: call_mcp_tool.",
+    "message_count": 139,
+    "updated_at": "2026-09-16T20:08:15.317Z"
+  },
+  {
+    "id": "31bb352a-766f-4bc0-b12f-b55878c7f4a0",
+    "title": "You are reviewer_1, a High-Reliability Reviewer for the Second Brain optimizatio",
+    "summary": null,
+    "message_count": 72,
+    "updated_at": "2026-09-16T20:08:15.297Z"
+  },
+  {
+    "id": "27b529a7-76f2-42d7-8641-266b1fbc13ca",
+    "title": "/teamwork-preview",
+    "summary": null,
+    "message_count": 68,
+    "updated_at": "2026-09-16T20:08:15.290Z"
+  },
+  {
+    "id": "20482a38-f707-41c7-bdbf-ec43ce00d557",
+    "title": "You are worker_m1_1, the SOTA Research Synthesizer for Milestone M1 of the Secon",
+    "summary": null,
+    "message_count": 31,
+    "updated_at": "2026-09-16T20:08:15.276Z"
+  },
+  {
+    "id": "164770cc-2831-4a99-9fd6-8f3a29a1badd",
+    "title": "/second-brain sau 1 tuần sử dụng dựa trên dữ liệu thực tế thu được và đã hỗ trợ ",
+    "summary": null,
+    "message_count": 96,
+    "updated_at": "2026-09-16T20:08:15.265Z"
+  },
+  {
+    "id": "0ec84150-17aa-4e1e-a048-c811d5c1a6b2",
+    "title": "You are the Project Orchestrator for this project. Working Directory: C:\\Users\\",
+    "summary": null,
+    "message_count": 107,
+    "updated_at": "2026-09-16T20:08:15.242Z"
+  },
+  {
+    "id": "083a91ff-91ac-47ed-b38e-946a4edfb399",
+    "title": "gemini-web-bridge: context deadline exceeded sao giờ lại bị lỗi này?",
+    "summary": null,
+    "message_count": 39,
+    "updated_at": "2026-09-16T20:08:15.211Z"
+  },
+  {
+    "id": "019c67d5-34e9-48ae-8546-12c47ba05b12",
+    "title": "cho bạn môi trường linux ubuntu và win 11 thì bạn sẽ làm việc ở môi trường nào h",
+    "summary": null,
+    "message_count": 4,
+    "updated_at": "2026-09-16T20:08:15.203Z"
+  },
+  {
     "id": "0d4ce915-aad6-4109-bcdf-ad3667d181e3",
     "title": "hệ thống này hoạt động như nào giải thích rõ ràng chi tiết tất cả file và cần là",
     "summary": "Phiên trao đổi tập trung vào: \"tôi muốn làm 1 hệ thống memory tự động aka second brain để hỗ trợ tốt cho tôi trong việc ghi nhớ biết tôi là ai biết tất cả mọi thứ biết cả cuộc hội thoại đã có; với cả nếu cần tải skill nào cần thiết hoặc là hãy tham khảo các hệ thống build lớn khác về memory tốt nhất rồi học hỏi hãy tải và làm những gì cần thiết để xây\". Kết quả chính: Called tools: view_file, view_file. Called tools: list_dir. Called tools: view_file, view_file.",
@@ -32,13 +277,6 @@
     "title": "github: '\"node\"' is not recognized as an internal or external command, operable ",
     "summary": "Phiên trao đổi tập trung vào: \"github: '\"node\"' is not recognized as an internal or external command, operable program or batch file. : connection closed: calling \"initialize\": client is clos\". Kết quả chính: Called tools: run_command. Called tools: run_command. Called tools: run_command.",
     "message_count": 31,
-    "updated_at": "2026-09-12 19:00:02"
-  },
-  {
-    "id": "37cea62e-2cee-43cb-a203-37be017fa957",
-    "title": "/second-brain",
-    "summary": "Phiên trao đổi tập trung vào: \"/second-brain; có 4 phiên làm việc thôi à tôi nhớ đã nhắn rất nhiều mà?\". Kết quả chính: Called tools: view_file. Called tools: call_mcp_tool. Called tools: call_mcp_tool.",
-    "message_count": 13,
     "updated_at": "2026-09-12 19:00:02"
   },
   {

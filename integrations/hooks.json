@@ -3,15 +3,15 @@
     "PreInvocation": [
       {
         "type": "command",
-        "command": "\"C:\\Program Files\\nodejs\\node.exe\" \"C:\\Users\\tvu16\\.gemini\\antigravity\\second_brain\\hooks\\pre_invocation.js\"",
+        "command": "node \"C:/Users/tvu16/.gemini/antigravity/second_brain/hooks/pre_invocation.js\"",
         "timeout": 5
       }
     ],
     "Stop": [
       {
         "type": "command",
-        "command": "\"C:\\Program Files\\nodejs\\node.exe\" \"C:\\Users\\tvu16\\.gemini\\antigravity\\second_brain\\hooks\\stop.js\"",
-        "timeout": 8
+        "command": "node \"C:/Users/tvu16/.gemini/antigravity/second_brain/hooks/stop.js\"",
+        "timeout": 15
       }
     ]
   }
