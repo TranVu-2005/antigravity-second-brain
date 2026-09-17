@@ -6,7 +6,7 @@
     "category": "system",
     "tags": "antigravity,architecture,hooks,mcp",
     "source": "system",
-    "importance": 0.728,
+    "importance": 0.563,
     "project_scope": "global",
     "created_at": "2026-09-11T15:54:17.036Z",
     "updated_at": "2026-09-11T15:54:17.036Z"
@@ -30,7 +30,7 @@
     "category": "fact",
     "tags": "location,hoang_mai",
     "source": "user",
-    "importance": 0.963,
+    "importance": 0.95,
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
@@ -42,7 +42,7 @@
     "category": "decision",
     "tags": "mcp, fetch, everything-search, optimization, tools",
     "source": "agent_mcp",
-    "importance": 1.472,
+    "importance": 1.463,
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
@@ -54,7 +54,7 @@
     "category": "decision",
     "tags": "python,uv,environment,config",
     "source": "agent_mcp",
-    "importance": 1.476,
+    "importance": 1.468,
     "project_scope": "global",
     "created_at": "2026-09-11T19:59:20.654Z",
     "updated_at": "2026-09-11T19:59:20.654Z"
@@ -66,7 +66,7 @@
     "category": "snippet",
     "tags": "hardware,temperature,quick-command,perf",
     "source": "agent_mcp",
-    "importance": 0.694,
+    "importance": 0.57,
     "project_scope": "global",
     "created_at": "2026-09-11T20:04:06.261Z",
     "updated_at": "2026-09-11T20:04:06.261Z"
@@ -78,7 +78,7 @@
     "category": "snippet",
     "tags": "hardware,temperature,legion,llt,upgrade",
     "source": "agent_mcp",
-    "importance": 1.035,
+    "importance": 0.899,
     "project_scope": "global",
     "created_at": "2026-09-11T20:28:18.738Z",
     "updated_at": "2026-09-11T20:28:18.738Z"
@@ -114,7 +114,7 @@
     "category": "snippet",
     "tags": "display,screenoff,llt,remote_control,hardware",
     "source": "agent_mcp",
-    "importance": 1.188,
+    "importance": 0.97,
     "project_scope": "global",
     "created_at": "2026-09-12T15:32:42.466Z",
     "updated_at": "2026-09-12T15:32:42.466Z"
@@ -126,7 +126,7 @@
     "category": "snippet",
     "tags": "temp,hardware,cpu,gpu,legion,upgrade",
     "source": "agent_mcp",
-    "importance": 0.994,
+    "importance": 0.891,
     "project_scope": "global",
     "created_at": "2026-09-13T07:01:21.884Z",
     "updated_at": "2026-09-13T07:01:21.884Z"
@@ -138,7 +138,7 @@
     "category": "decision",
     "tags": "gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp",
     "source": "agent_mcp",
-    "importance": 1.466,
+    "importance": 1.459,
     "project_scope": "global",
     "created_at": "2026-09-14T12:23:30.612Z",
     "updated_at": "2026-09-14T12:23:30.612Z"
@@ -150,7 +150,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror",
     "source": "agent_mcp",
-    "importance": 1.957,
+    "importance": 1.949,
     "project_scope": "global",
     "created_at": "2026-09-14T13:25:36.414Z",
     "updated_at": "2026-09-14T13:25:36.414Z"
@@ -162,7 +162,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap",
     "source": "agent_mcp",
-    "importance": 1.948,
+    "importance": 1.942,
     "project_scope": "global",
     "created_at": "2026-09-14T13:38:27.351Z",
     "updated_at": "2026-09-14T13:38:27.351Z"
@@ -174,7 +174,7 @@
     "category": "decision",
     "tags": "gemini_web,dual_quota,bugfix,safety_filter,v1.2.5",
     "source": "agent_mcp",
-    "importance": 1.949,
+    "importance": 1.942,
     "project_scope": "global",
     "created_at": "2026-09-14T14:08:00.642Z",
     "updated_at": "2026-09-14T14:08:00.642Z"
@@ -186,9 +186,57 @@
     "category": "decision",
     "tags": "gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture",
     "source": "agent_mcp",
-    "importance": 1.951,
+    "importance": 1.943,
     "project_scope": "global",
     "created_at": "2026-09-14T15:21:52.020Z",
     "updated_at": "2026-09-14T15:21:52.020Z"
+  },
+  {
+    "id": 17,
+    "title": "",
+    "content": "",
+    "category": "fact",
+    "tags": "test",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-17T10:24:22.046Z",
+    "updated_at": "2026-09-17T10:24:22.046Z"
+  },
+  {
+    "id": 18,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-17T10:25:07.257Z",
+    "updated_at": "2026-09-17T10:25:07.257Z"
+  },
+  {
+    "id": 19,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-17T10:25:30.516Z",
+    "updated_at": "2026-09-17T10:25:30.516Z"
+  },
+  {
+    "id": 20,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-17T10:25:41.282Z",
+    "updated_at": "2026-09-17T10:25:41.282Z"
   }
 ]

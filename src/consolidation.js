@@ -10,6 +10,166 @@ class MemoryConsolidator {
         this.db = db;
     }
 
+    distillSession(conversationId) {
+        const path = require('node:path');
+        const conv = this.db.get('SELECT id, title, created_at, updated_at FROM conversations WHERE id = ?', conversationId);
+        if (!conv) return null;
+
+        const episodes = this.db.all(`
+            SELECT role, summary, content, timestamp 
+            FROM episodes 
+            WHERE conversation_id = ? 
+            ORDER BY step_index ASC
+        `, conversationId);
+
+        if (!episodes || episodes.length === 0) return null;
+
+        // 1. Extract Primary Goal
+        const userEpisodes = episodes.filter(e => e.role === 'user');
+        let primaryGoal = '';
+        for (const ue of userEpisodes) {
+            let text = (ue.content || ue.summary || '').trim();
+            // Remove markdown/system tags
+            text = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+            if (!text) continue;
+            const lower = text.toLowerCase();
+            // Skip pure greeting if subsequent messages exist
+            if (['hi', 'hello', 'chào', 'hey'].includes(lower) && userEpisodes.length > 1) {
+                continue;
+            }
+            primaryGoal = text.length > 140 ? text.slice(0, 137) + '...' : text;
+            break;
+        }
+        if (!primaryGoal && conv.title) {
+            primaryGoal = conv.title.slice(0, 140);
+        }
+        if (!primaryGoal) primaryGoal = 'Thực hiện tác vụ theo yêu cầu của Ngài';
+
+        // 2. Extract Key Decisions & Directives
+        const decisionRegex = /(?:quy tắc|chốt|quy định|không được|từ giờ|bắt buộc|luôn luôn|tiêu chí|nguyên tắc|rule|decision|yêu cầu|chính sách)[\s:]+([^.\n\r]{10,140})/gi;
+        const decisions = new Set();
+
+        for (const ep of episodes) {
+            const text = ep.content || '';
+            let match;
+            while ((match = decisionRegex.exec(text)) !== null) {
+                const clean = match[0].replace(/[\r\n]+/g, ' ').trim();
+                if (clean.length >= 15 && clean.length <= 150) {
+                    decisions.add(clean);
+                }
+                if (decisions.size >= 4) break;
+            }
+            if (decisions.size >= 4) break;
+        }
+
+        // 3. Extract Files Touched / Artifacts Created
+        const fileRegex = /(?:[A-Za-z]:[\\/][\w\s./\\-]+\.(?:js|ts|py|ps1|json|sql|md|html|css|sh|bat)|(?:[\w.-]+[\\/])+[\w.-]+\.(?:js|ts|py|ps1|json|sql|md|html|css|sh|bat)|\b[\w_.-]+\.(?:js|ts|py|ps1|json|sql|md|html|css|sh|bat))\b/gi;
+        const files = new Set();
+        const ignoredFiles = new Set(['node.exe', 'npm.cmd', 'powershell.exe', 'cmd.exe', 'package.json', 'package-lock.json', 'tsconfig.json']);
+
+        for (const ep of episodes) {
+            const text = ep.content || '';
+            let match;
+            while ((match = fileRegex.exec(text)) !== null) {
+                const f = match[0].trim();
+                const base = path.basename(f).toLowerCase();
+                if (!ignoredFiles.has(base) && !f.includes('node_modules') && !f.includes('.git')) {
+                    files.add(path.basename(f));
+                }
+                if (files.size >= 6) break;
+            }
+            if (files.size >= 6) break;
+        }
+
+        // 4. Extract Learned Fixes / Solutions
+        const fixRegex = /(?:fix|sửa|khắc phục|giải pháp|đã xử lý)[\s:]+([^.\n\r]{10,120})/gi;
+        const learnedFixes = new Set();
+
+        for (const ep of episodes) {
+            if (ep.role === 'assistant') {
+                const summary = ep.summary || '';
+                if (summary.startsWith('Called tools:')) continue;
+                let match;
+                while ((match = fixRegex.exec(ep.content || '')) !== null) {
+                    const clean = match[0].replace(/[\r\n]+/g, ' ').trim();
+                    if (clean.length >= 15 && clean.length <= 130) {
+                        learnedFixes.add(clean);
+                    }
+                    if (learnedFixes.size >= 3) break;
+                }
+            }
+        }
+
+        const decisionList = Array.from(decisions).slice(0, 3);
+        const fileList = Array.from(files).slice(0, 5);
+        const fixList = Array.from(learnedFixes).slice(0, 2);
+
+        // Filter meaningful assistant responses for outcome summary
+        const assistantVerbal = episodes
+            .filter(e => e.role === 'assistant' && !e.summary.startsWith('Called tools:'))
+            .map(e => e.summary.replace(/[\r\n]+/g, ' ').trim())
+            .filter(s => s.length > 15)
+            .slice(0, 2);
+
+        // Build Executive Distilled Summary
+        const parts = [
+            `[Mục tiêu: ${primaryGoal}]`
+        ];
+        if (decisionList.length > 0) {
+            parts.push(`[Quyết định: ${decisionList.join('; ')}]`);
+        }
+        if (fileList.length > 0) {
+            parts.push(`[Tệp tin: ${fileList.join(', ')}]`);
+        }
+        if (fixList.length > 0) {
+            parts.push(`[Bài học: ${fixList.join('; ')}]`);
+        } else if (assistantVerbal.length > 0) {
+            parts.push(`[Kết quả: ${assistantVerbal[0].slice(0, 100)}]`);
+        }
+
+        const executiveSummary = parts.join(' | ');
+
+        const takeawaysObj = {
+            goal: primaryGoal,
+            decisions: decisionList,
+            files: fileList,
+            solutions: fixList,
+            distilled_at: new Date().toISOString()
+        };
+
+        this.db.run(`
+            UPDATE conversations 
+            SET summary = ?, key_takeaways = ?, updated_at = datetime('now')
+            WHERE id = ?
+        `, executiveSummary, JSON.stringify(takeawaysObj), conversationId);
+
+        return {
+            conversationId,
+            goal: primaryGoal,
+            decisions: decisionList,
+            files: fileList,
+            solutions: fixList,
+            summary: executiveSummary
+        };
+    }
+
+    distillAll(force = false) {
+        const query = force
+            ? `SELECT id FROM conversations WHERE message_count >= 2 ORDER BY updated_at DESC`
+            : `SELECT id FROM conversations 
+               WHERE (summary IS NULL OR length(summary) < 20 OR summary NOT LIKE '[Mục tiêu:%')
+                 AND message_count >= 2 
+               ORDER BY updated_at DESC`;
+
+        const convs = this.db.all(query);
+        let count = 0;
+        for (const c of convs) {
+            const res = this.distillSession(c.id);
+            if (res) count++;
+        }
+        return count;
+    }
+
     consolidate() {
         const stats = {
             summarizedConversations: 0,
@@ -20,45 +180,8 @@ class MemoryConsolidator {
             optimized: false
         };
 
-        // 1. Summarize Past Conversations (Episodic Consolidation)
-        const unsummarizedConvs = this.db.all(`
-            SELECT c.id, c.title, c.message_count, c.summary
-            FROM conversations c
-            WHERE (c.summary IS NULL OR length(c.summary) < 20)
-              AND c.message_count >= 2
-        `);
-
-        for (const conv of unsummarizedConvs) {
-            const episodes = this.db.all(`
-                SELECT role, summary, content, timestamp 
-                FROM episodes 
-                WHERE conversation_id = ? 
-                ORDER BY step_index ASC
-            `, conv.id);
-
-            if (episodes.length > 0) {
-                const userPrompts = episodes
-                    .filter(e => e.role === 'user')
-                    .map(e => e.summary.replace(/[\r\n]+/g, ' ').trim())
-                    .filter(Boolean);
-
-                const assistantKeyPoints = episodes
-                    .filter(e => e.role === 'assistant')
-                    .slice(0, 3)
-                    .map(e => e.summary.slice(0, 120).replace(/[\r\n]+/g, ' ').trim());
-
-                const autoSummary = `Phiên trao đổi tập trung vào: "${userPrompts.slice(0, 3).join('; ')}". Kết quả chính: ${assistantKeyPoints.join('. ')}.`;
-                const takeaways = JSON.stringify(userPrompts.slice(0, 5));
-
-                this.db.run(`
-                    UPDATE conversations 
-                    SET summary = ?, key_takeaways = ?, updated_at = datetime('now')
-                    WHERE id = ?
-                `, autoSummary, takeaways, conv.id);
-
-                stats.summarizedConversations++;
-            }
-        }
+        // 1. Summarize Past Conversations (Autonomous Executive Session Distillation)
+        stats.summarizedConversations = this.distillAll(false);
 
         // 2. Contradiction Resolution & Deduplication for Knowledge Items
         const duplicates = this.db.all(`

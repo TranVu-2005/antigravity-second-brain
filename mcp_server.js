@@ -155,6 +155,61 @@ const TOOLS = [
             type: 'object',
             properties: {}
         }
+    },
+    {
+        name: 'brain_remember',
+        description: 'Chủ động ghi nhớ một thông tin, thói quen, chỉ thị hoặc quan hệ thực thể mới (Letta-style Active Memory).',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                text: { type: 'string', description: 'Nội dung sự thật hoặc tri thức cần ghi nhớ' },
+                category: { 
+                    type: 'string', 
+                    enum: ['fact', 'preference', 'rule', 'tech_stack', 'entity_relation'],
+                    description: 'Phân loại tri thức (mặc định: preference)',
+                    default: 'preference'
+                },
+                key: { type: 'string', description: 'Khóa định danh (tùy chọn, tự động sinh nếu bỏ trống)' },
+                relation: {
+                    type: 'object',
+                    description: 'Thông tin quan hệ thực thể (nếu category là entity_relation)',
+                    properties: {
+                        source: { type: 'string', description: 'Thực thể nguồn (vd: Ngài)' },
+                        predicate: { type: 'string', description: 'Quan hệ (vd: prefers, uses, located_in)' },
+                        target: { type: 'string', description: 'Thực thể đích (vd: Svelte, Hoàng Mai)' }
+                    }
+                }
+            },
+            required: ['text']
+        }
+    },
+    {
+        name: 'brain_forget',
+        description: 'Chủ động loại bỏ, đính chính hoặc hết hiệu lực một thông tin lỗi thời trong Second Brain (Letta-style Active Forgetting).',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                key: { type: 'string', description: 'Khóa profile cần xóa, hoặc tên thực thể/mục kiến thức' },
+                target: { type: 'string', description: 'Thực thể đích nếu muốn hủy quan hệ (tùy chọn)' },
+                reason: { type: 'string', description: 'Lý do gỡ bỏ hoặc đính chính (tùy chọn)' }
+            },
+            required: ['key']
+        }
+    },
+    {
+        name: 'brain_learn_fix',
+        description: 'Chủ động ghi nhớ ngay một kinh nghiệm sửa lỗi dòng lệnh vừa được kiểm chứng thành công vào trí nhớ thủ tục.',
+        inputSchema: {
+            type: 'object',
+            properties: {
+                error_pattern: { type: 'string', description: 'Mẫu chuỗi lỗi nhận dạng (signature error)' },
+                solution_code: { type: 'string', description: 'Giải pháp sửa lỗi chi tiết' },
+                command_fix: { type: 'string', description: 'Lệnh dòng lệnh chính xác sửa được lỗi (tùy chọn)' },
+                root_cause: { type: 'string', description: 'Nguyên nhân gốc rễ của lỗi (tùy chọn)' },
+                project_scope: { type: 'string', description: 'Phạm vi dự án áp dụng (mặc định: global)', default: 'global' }
+            },
+            required: ['error_pattern', 'solution_code']
+        }
     }
 ];
 
@@ -405,6 +460,78 @@ class SecondBrainMCPServer {
                             `• Remote URL: ${st.remoteUrl || 'Chưa cấu hình remote (chỉ lưu cục bộ)'}\n` +
                             `• Tệp chưa commit: ${st.uncommittedCount}`;
                     }
+                    break;
+                }
+
+                case 'brain_remember': {
+                    const text = args.text || args.value || '';
+                    const category = args.category || 'preference';
+                    let key = args.key || args.identifier || null;
+
+                    if (!key) {
+                        key = text.toLowerCase()
+                            .replace(/[^\w\s]/g, '')
+                            .trim()
+                            .split(/\s+/)
+                            .slice(0, 4)
+                            .join('_');
+                    }
+
+                    if (category === 'preference' || category === 'fact' || category === 'tech_stack' || category === 'test') {
+                        this.profile.setFact(key, text, category, 1.0, 'agent_remember');
+                    }
+
+                    // Also store as semantic knowledge for neural retrieval
+                    const insertId = await this.semantic.addItem({
+                        title: text.slice(0, 50),
+                        content: text,
+                        category: category === 'rule' ? 'rule' : 'fact',
+                        tags: args.tags || category,
+                        source: 'agent_remember',
+                        importance: 1.5
+                    });
+
+                    // If relation is provided, also add to Knowledge Graph
+                    if (args.relation && args.relation.source && args.relation.predicate && args.relation.target) {
+                        this.semantic.addRelation(args.relation.source, args.relation.predicate, args.relation.target, { confidence: 1.0 });
+                    }
+
+                    resultText = `Đã chủ động ghi nhớ thành công (Letta-style): Key "${key}" vào Profile, Semantic Knowledge (ID #${insertId})${args.relation ? ' và Đồ thị quan hệ thực thể' : ''}.`;
+                    break;
+                }
+
+                case 'brain_forget': {
+                    const key = args.key || args.identifier || '';
+                    const target = args.target || null;
+                    const reason = args.reason || 'User requested forgetting or obsolete';
+
+                    let deletedProfile = false;
+                    if (this.profile.get(key)) {
+                        this.profile.deleteFact(key);
+                        deletedProfile = true;
+                    }
+
+                    // If target specified, expire entity relation
+                    let expiredRel = false;
+                    if (target) {
+                        expiredRel = this.semantic.expireRelation(key, 'prefers', target) ||
+                                     this.semantic.expireRelation(key, 'uses', target);
+                    }
+
+                    resultText = `Đã thực hiện gỡ bỏ/hết hiệu lực (Letta-style): ${deletedProfile ? `Profile key "${key}" đã xóa.` : `Key "${key}" đã xử lý.`} ${expiredRel ? `Quan hệ thực thể với "${target}" đã chuyển sang trạng thái expired.` : ''} (Lý do: ${reason})`;
+                    break;
+                }
+
+                case 'brain_learn_fix': {
+                    const id = this.solutions.addSolution({
+                        error_pattern: args.error_pattern,
+                        solution_code: args.solution_code,
+                        command_fix: args.command_fix || args.solution_code,
+                        root_cause: args.root_cause || '',
+                        project_scope: args.project_scope || 'global',
+                        tags: 'learned_fix,agent_self_edit'
+                    });
+                    resultText = `Đã chủ động lưu giải pháp sửa lỗi mới vào Procedural Memory (ID #${id}):\n• Mẫu lỗi: "${args.error_pattern}"\n• Lệnh sửa: ${args.command_fix || args.solution_code}`;
                     break;
                 }
 

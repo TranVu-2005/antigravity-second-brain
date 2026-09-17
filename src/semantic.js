@@ -339,13 +339,16 @@ class SemanticKnowledge {
     }
 
 
-    // Entity Graph Operations
+    // Entity Graph Operations (Bi-Temporal SOTA Graph Engine)
     addEntity(name, type = 'concept', description = '') {
         try {
             this.db.run(`
                 INSERT INTO entities (name, type, description)
                 VALUES (?, ?, ?)
-                ON CONFLICT(name) DO UPDATE SET description = excluded.description, updated_at = CURRENT_TIMESTAMP
+                ON CONFLICT(name) DO UPDATE SET 
+                    type = CASE WHEN excluded.type != 'concept' THEN excluded.type ELSE entities.type END,
+                    description = CASE WHEN excluded.description != '' THEN excluded.description ELSE entities.description END,
+                    updated_at = CURRENT_TIMESTAMP
             `, name, type, description);
             return true;
         } catch (e) {
@@ -353,28 +356,79 @@ class SemanticKnowledge {
         }
     }
 
-    addRelation(sourceEntity, relation, targetEntity, confidence = 1.0) {
+    addRelation(sourceEntity, relation, targetEntity, options = {}) {
+        const confidence = (options && typeof options.confidence === 'number') 
+            ? options.confidence 
+            : (typeof options === 'number' ? options : 1.0);
+        const metadata = (options && options.metadata) ? JSON.stringify(options.metadata) : '{}';
+        const validFrom = (options && options.validFrom) || new Date().toISOString();
+        const validUntil = (options && options.validUntil) || null;
+
+        // Auto-register entities if they do not exist
+        this.addEntity(sourceEntity);
+        this.addEntity(targetEntity);
+
         try {
+            // Conflict Superseding: If relation is singular (e.g. prefers, located_in, works_on),
+            // supersede previous active relations with different target
+            const isSingular = /^(?:prefers|located_in|lives_in|works_as|replaces)$/i.test(relation);
+            if (isSingular) {
+                this.db.run(`
+                    UPDATE entity_relations 
+                    SET valid_until = datetime('now'), updated_at = datetime('now')
+                    WHERE source_entity = ? COLLATE NOCASE 
+                      AND relation = ? COLLATE NOCASE 
+                      AND target_entity != ? COLLATE NOCASE
+                      AND (valid_until IS NULL OR valid_until > datetime('now'))
+                `, sourceEntity, relation, targetEntity);
+            }
+
             this.db.run(`
-                INSERT INTO entity_relations (source_entity, relation, target_entity, confidence, updated_at)
-                VALUES (?, ?, ?, ?, datetime('now'))
+                INSERT INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
                 ON CONFLICT(source_entity, relation, target_entity) 
-                DO UPDATE SET confidence = excluded.confidence, updated_at = datetime('now')
-            `, sourceEntity, relation, targetEntity, confidence);
+                DO UPDATE SET 
+                    confidence = excluded.confidence, 
+                    valid_until = excluded.valid_until, 
+                    metadata = excluded.metadata, 
+                    updated_at = datetime('now')
+            `, sourceEntity, relation, targetEntity, confidence, validFrom, validUntil, metadata);
             return true;
         } catch (e) {
             return false;
         }
     }
 
-    getGraph() {
+    expireRelation(sourceEntity, relation, targetEntity) {
+        try {
+            this.db.run(`
+                UPDATE entity_relations 
+                SET valid_until = datetime('now'), updated_at = datetime('now')
+                WHERE source_entity = ? COLLATE NOCASE 
+                  AND relation = ? COLLATE NOCASE 
+                  AND target_entity = ? COLLATE NOCASE
+                  AND (valid_until IS NULL OR valid_until > datetime('now'))
+            `, sourceEntity, relation, targetEntity);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    getGraph(includeExpired = false) {
         const entities = this.db.all('SELECT name, type, description FROM entities');
-        const relations = this.db.all('SELECT source_entity AS source, relation, target_entity AS target, confidence AS weight, source_entity, target_entity, confidence FROM entity_relations');
+        const filter = includeExpired ? '' : "WHERE (valid_until IS NULL OR valid_until > datetime('now'))";
+        const relations = this.db.all(`
+            SELECT source_entity AS source, relation, target_entity AS target, confidence AS weight, 
+                   source_entity, target_entity, confidence, valid_from, valid_until, metadata 
+            FROM entity_relations ${filter}
+        `);
         return { entities, relations };
     }
 
-    getRelationsForEntity(entityName, maxDepth = 2) {
+    getRelationsForEntity(entityName, maxDepth = 2, includeExpired = false) {
         if (!entityName || typeof entityName !== 'string') return [];
+        const incFlag = includeExpired ? 1 : 0;
         try {
             return this.db.all(`
                 WITH RECURSIVE graph_hops AS (
@@ -383,11 +437,13 @@ class SemanticKnowledge {
                         relation,
                         target_entity,
                         confidence,
+                        valid_from,
+                        valid_until,
                         1 AS depth,
                         source_entity || ' -[' || relation || ']-> ' || target_entity AS path
                     FROM entity_relations
-                    WHERE source_entity = ? COLLATE NOCASE 
-                       OR target_entity = ? COLLATE NOCASE
+                    WHERE (source_entity = ? COLLATE NOCASE OR target_entity = ? COLLATE NOCASE)
+                      AND (? = 1 OR (valid_until IS NULL OR valid_until > datetime('now')))
 
                     UNION ALL
 
@@ -396,6 +452,8 @@ class SemanticKnowledge {
                         r.relation,
                         r.target_entity,
                         r.confidence * gh.confidence AS confidence,
+                        r.valid_from,
+                        r.valid_until,
                         gh.depth + 1,
                         gh.path || ' -> ' || r.target_entity AS path
                     FROM entity_relations r
@@ -404,27 +462,65 @@ class SemanticKnowledge {
                         AND r.source_entity != gh.source_entity
                     )
                     WHERE gh.depth < ?
+                      AND (? = 1 OR (r.valid_until IS NULL OR r.valid_until > datetime('now')))
                       AND gh.path NOT LIKE '%' || r.target_entity || '%'
                 )
-                SELECT DISTINCT source_entity, relation, target_entity, confidence, depth,
+                SELECT DISTINCT source_entity, relation, target_entity, confidence, depth, valid_from, valid_until,
                        source_entity AS source, target_entity AS target, confidence AS weight
                 FROM graph_hops 
                 ORDER BY depth ASC, confidence DESC 
                 LIMIT 15;
-            `, entityName, entityName, maxDepth);
+            `, entityName, entityName, incFlag, maxDepth, incFlag);
         } catch (e) {
             try {
                 return this.db.all(`
-                    SELECT source_entity, relation, target_entity, confidence, 1 AS depth,
+                    SELECT source_entity, relation, target_entity, confidence, 1 AS depth, valid_from, valid_until,
                            source_entity AS source, target_entity AS target, confidence AS weight
                     FROM entity_relations
-                    WHERE source_entity = ? COLLATE NOCASE OR target_entity = ? COLLATE NOCASE
+                    WHERE (source_entity = ? COLLATE NOCASE OR target_entity = ? COLLATE NOCASE)
+                      AND (? = 1 OR (valid_until IS NULL OR valid_until > datetime('now')))
                     ORDER BY confidence DESC
                     LIMIT 15
-                `, entityName, entityName);
+                `, entityName, entityName, incFlag);
             } catch (err) {
                 return [];
             }
+        }
+    }
+
+    seedCoreGraph() {
+        const coreEntities = [
+            { name: 'Ngài', type: 'person', description: 'Master & System Architect' },
+            { name: 'Hoàng Mai', type: 'location', description: 'Địa bàn cư ngụ tại Hà Nội' },
+            { name: 'Antigravity 2.0', type: 'platform', description: 'Google Advanced Agentic Coding Assistant' },
+            { name: 'Second Brain', type: 'system', description: 'Autonomous Multi-Tier Memory Engine' },
+            { name: 'Dual-Quota Bridge', type: 'technology', description: 'High-speed Chrome Extension Bridge to Gemini Web' },
+            { name: 'Gemini Web', type: 'service', description: 'Google Gemini Web with 0 API tokens' },
+            { name: 'Lenovo Legion Toolkit', type: 'tool', description: 'CLI & Quick Action Hardware Automation' },
+            { name: 'FastTemp', type: 'tool', description: 'Hardware Sensor Temperature Reader' },
+            { name: 'Windows 11', type: 'environment', description: 'Operating System (tranvu-galactic-ion)' },
+            { name: 'GitHub Backup', type: 'system', description: 'Remote Version Control & Cloud Sync' }
+        ];
+
+        for (const ent of coreEntities) {
+            this.addEntity(ent.name, ent.type, ent.description);
+        }
+
+        const coreRelations = [
+            { source: 'Ngài', relation: 'located_in', target: 'Hoàng Mai' },
+            { source: 'Ngài', relation: 'uses', target: 'Antigravity 2.0' },
+            { source: 'Ngài', relation: 'owns', target: 'Second Brain' },
+            { source: 'Antigravity 2.0', relation: 'runs_on', target: 'Windows 11' },
+            { source: 'Antigravity 2.0', relation: 'integrates', target: 'Second Brain' },
+            { source: 'Antigravity 2.0', relation: 'bridges_to', target: 'Gemini Web' },
+            { source: 'Gemini Web', relation: 'powered_by', target: 'Dual-Quota Bridge' },
+            { source: 'Second Brain', relation: 'monitors_via', target: 'FastTemp' },
+            { source: 'Second Brain', relation: 'automates_via', target: 'Lenovo Legion Toolkit' },
+            { source: 'Second Brain', relation: 'persists_to', target: 'GitHub Backup' }
+        ];
+
+        for (const rel of coreRelations) {
+            this.addRelation(rel.source, rel.relation, rel.target, { confidence: 1.0 });
         }
     }
 }

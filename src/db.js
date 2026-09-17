@@ -40,7 +40,7 @@ class BrainDB {
     _initSchema() {
         // Auto-migration for existing tables before applying new schema indexes
         try {
-            const cols = this.db.prepare("PRAGMA table_info(knowledge_items);").all();
+            const cols = this.db.prepare("PRAGMA table_info(knowledge_items)").all();
             if (cols.length > 0) {
                 if (!cols.some(c => c.name === 'embedding')) {
                     this.db.exec("ALTER TABLE knowledge_items ADD COLUMN embedding BLOB;");
@@ -49,7 +49,23 @@ class BrainDB {
                     this.db.exec("ALTER TABLE knowledge_items ADD COLUMN project_scope TEXT DEFAULT 'global';");
                 }
             }
-        } catch (e) {}
+
+            const relCols = this.db.prepare("PRAGMA table_info(entity_relations)").all();
+            if (relCols.length > 0) {
+                if (!relCols.some(c => c.name === 'valid_from')) {
+                    this.db.exec("ALTER TABLE entity_relations ADD COLUMN valid_from TEXT DEFAULT NULL;");
+                    this.db.exec("UPDATE entity_relations SET valid_from = datetime('now') WHERE valid_from IS NULL;");
+                }
+                if (!relCols.some(c => c.name === 'valid_until')) {
+                    this.db.exec("ALTER TABLE entity_relations ADD COLUMN valid_until TEXT DEFAULT NULL;");
+                }
+                if (!relCols.some(c => c.name === 'metadata')) {
+                    this.db.exec("ALTER TABLE entity_relations ADD COLUMN metadata TEXT DEFAULT '{}';");
+                }
+            }
+        } catch (e) {
+            console.error('Migration error:', e.message);
+        }
 
         if (fs.existsSync(SCHEMA_PATH)) {
             const schemaSql = fs.readFileSync(SCHEMA_PATH, 'utf8');

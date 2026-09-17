@@ -103,16 +103,20 @@ CREATE TABLE IF NOT EXISTS entities (
 CREATE TABLE IF NOT EXISTS entity_relations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     source_entity TEXT NOT NULL,
-    relation TEXT NOT NULL, -- 'uses', 'prefers', 'located_in', 'works_on', 'relates_to'
+    relation TEXT NOT NULL, -- 'uses', 'prefers', 'located_in', 'works_on', 'relates_to', 'supersedes', 'built_with'
     target_entity TEXT NOT NULL,
     confidence REAL NOT NULL DEFAULT 1.0,
+    valid_from TEXT NOT NULL DEFAULT (datetime('now')),
+    valid_until TEXT DEFAULT NULL,
+    metadata TEXT DEFAULT '{}',
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now')),
-    UNIQUE(source_entity, relation, target_entity)
+    UNIQUE(source_entity, relation, target_entity, valid_from)
 );
 
 CREATE INDEX IF NOT EXISTS idx_relations_source ON entity_relations(source_entity);
 CREATE INDEX IF NOT EXISTS idx_relations_target ON entity_relations(target_entity);
+CREATE INDEX IF NOT EXISTS idx_relations_validity ON entity_relations(source_entity, valid_until);
 
 -- 6. Full-Text Search (FTS5) Virtual Tables
 CREATE VIRTUAL TABLE IF NOT EXISTS knowledge_fts USING fts5(

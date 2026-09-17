@@ -20,7 +20,7 @@ const command = args[0] || 'help';
 function printHelp() {
     console.log(`
 ===================================================================
-🧠 ANTIGRAVITY SECOND BRAIN CLI v2.0 (Kính phục vụ Ngài)
+🧠 ANTIGRAVITY SECOND BRAIN CLI v3.0 (Kính phục vụ Ngài)
 ===================================================================
 Lệnh khả dụng:
   sync                 Đồng bộ toàn bộ lịch sử transcript từ Antigravity brain
@@ -29,6 +29,8 @@ Lệnh khả dụng:
   solutions            Xem các giải pháp kỹ thuật đã học (Procedural Memory)
   solution <error>     Tìm kiếm cách fix lỗi kỹ thuật cụ thể
   profile              Xem hồ sơ cốt lõi của Ngài
+  graph [entity]       Hiển thị bản đồ đồ thị tri thức (Bi-Temporal Knowledge Graph)
+  summarize [conv_id]  Tự động tóm tắt cấp cao (Executive Session Distiller)
   store <title> <text> Lưu nhanh một ghi chú kiến thức mới
   backup               Tạo bản sao lưu nóng an toàn ngay lập tức
   backups              Xem danh sách các bản sao lưu đã tạo
@@ -218,9 +220,77 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
             const consolidator = getMemoryConsolidator();
             const res = consolidator.consolidate();
             console.log(`✅ Tinh biến hoàn tất!`);
+            console.log(`• Phiên đã chắt lọc tri thức: ${res.summarizedConversations}`);
             console.log(`• Mục trùng lặp đã gộp: ${res.deduplicatedItems}`);
             console.log(`• Ký ức quá hạn đã dọn: ${res.prunedItems}`);
             console.log(`• Chỉ mục SQLite: ${res.optimized ? 'Đã tối ưu hóa' : 'Bỏ qua'}`);
+            break;
+        }
+
+        case 'graph': {
+            const entity = (args[1] && !args[1].startsWith('--')) ? args[1] : 'Ngài';
+            const includeExpired = args.includes('--all');
+            const semantic = getSemanticKnowledge();
+            const relations = semantic.getRelationsForEntity(entity, 2, includeExpired);
+
+            console.log(`\n🌲 BẢN ĐỒ TRI THỨC ĐỒ THỊ (Bi-Temporal Knowledge Graph)`);
+            console.log(`===================================================================`);
+            console.log(`Thực thể gốc: [${entity}] (Hiển thị quan hệ 2-hop)\n`);
+
+            if (!relations || relations.length === 0) {
+                console.log(`Chưa có quan hệ tri thức nào được liên kết với [${entity}].`);
+                break;
+            }
+
+            const hop1 = relations.filter(r => r.depth === 1);
+            const hop2 = relations.filter(r => r.depth === 2);
+
+            for (const r of hop1) {
+                const isExpired = r.valid_until && new Date(r.valid_until) <= new Date();
+                const statusStr = isExpired ? `❌ Đã hết hạn (${r.valid_until})` : `✅ Hiệu lực`;
+                const other = (r.source_entity.toLowerCase() === entity.toLowerCase()) ? r.target_entity : r.source_entity;
+                const arrow = (r.source_entity.toLowerCase() === entity.toLowerCase()) ? `-[${r.relation}]->` : `<-[${r.relation}]-`;
+                console.log(` ├── ${arrow} [${other}] (${statusStr})`);
+
+                const subRelations = hop2.filter(s => 
+                    s.source_entity.toLowerCase() === other.toLowerCase() || 
+                    s.target_entity.toLowerCase() === other.toLowerCase()
+                );
+                for (const sub of subRelations) {
+                    const subExpired = sub.valid_until && new Date(sub.valid_until) <= new Date();
+                    const subStatus = subExpired ? `❌ Hết hạn` : `✅`;
+                    const subOther = (sub.source_entity.toLowerCase() === other.toLowerCase()) ? sub.target_entity : sub.source_entity;
+                    const subArrow = (sub.source_entity.toLowerCase() === other.toLowerCase()) ? `-[${sub.relation}]->` : `<-[${sub.relation}]-`;
+                    console.log(` │    └── ${subArrow} [${subOther}] (${subStatus})`);
+                }
+            }
+            console.log(`\n===================================================================\n`);
+            break;
+        }
+
+        case 'summarize': {
+            const targetId = (args[1] && !args[1].startsWith('--')) ? args[1] : null;
+            const force = args.includes('--force');
+            const consolidator = getMemoryConsolidator();
+
+            if (targetId) {
+                console.log(`🔄 Đang chắt lọc tri thức phiên hội thoại: ${targetId}...`);
+                const res = consolidator.distillSession(targetId);
+                if (res) {
+                    console.log(`✅ Chắt lọc thành công!`);
+                    console.log(`• Tóm tắt cấp cao:\n  ${res.summary}\n`);
+                    console.log(`• Mục tiêu : ${res.goal}`);
+                    console.log(`• Quyết định: ${res.decisions.length ? res.decisions.join('; ') : 'N/A'}`);
+                    console.log(`• Tệp tin  : ${res.files.length ? res.files.join(', ') : 'N/A'}`);
+                    console.log(`• Bài học  : ${res.solutions.length ? res.solutions.join('; ') : 'N/A'}`);
+                } else {
+                    console.log(`❌ Không tìm thấy hoặc phiên hội thoại không đủ tin nhắn.`);
+                }
+            } else {
+                console.log(`🔄 Đang tiến hành chắt lọc tri thức tự động cho các phiên hội thoại (Executive Distillation)...`);
+                const count = consolidator.distillAll(force);
+                console.log(`✅ Hoàn tất chắt lọc ${count} phiên hội thoại!`);
+            }
             break;
         }
 

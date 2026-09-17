@@ -24,6 +24,7 @@ class MemoryExtractor {
         const profiles = [];
         const knowledge = [];
         const solutions = [];
+        const relations = [];
 
         for (const item of userExtractions) {
             if (item.type === 'profile') {
@@ -49,10 +50,17 @@ class MemoryExtractor {
                     command_fix: item.command_fix || item.solution_code,
                     project_scope: item.project_scope || 'global'
                 });
+            } else if (item.type === 'entity_relation') {
+                relations.push({
+                    source: item.source,
+                    relation: item.relation,
+                    target: item.target,
+                    confidence: item.confidence || 1.0
+                });
             }
         }
 
-        return { profiles, knowledge, solutions };
+        return { profiles, knowledge, solutions, relations };
     }
 
     extractFromText(text, role = 'user', projectScope = 'global', options = {}) {
@@ -245,6 +253,22 @@ class MemoryExtractor {
             });
         }
 
+        // 7. Entity Relation Triplet detection (e.g. "tôi chuyển sang dùng Svelte", "Antigravity kết nối với Gemini Web")
+        const relMatch = clean.match(/(?:tôi|chúng ta|dự án|hệ thống)\s+(?:chuyên dùng|chuyển sang dùng|thích dùng|kết nối với|tích hợp với|sử dụng|use|prefers)\s+([A-Za-z0-9_.\s-]{2,30}?)(?:\s+(?:để|cho|với|nhé|nha|ạ|\.|\n|$))/i);
+        if (relMatch && !isCasualChatter) {
+            const target = relMatch[1].trim();
+            if (target.length >= 2 && !/^(?:cái|này|kia|đó|việc|gì|được)$/i.test(target)) {
+                extractions.push({
+                    type: 'entity_relation',
+                    source: 'Ngài',
+                    relation: /thích|chuyên|chuyển/i.test(clean) ? 'prefers' : 'uses',
+                    target: target,
+                    confidence: 0.9,
+                    action: 'ADD'
+                });
+            }
+        }
+
         const shouldApply = options && options.apply !== undefined ? options.apply : true;
         if (shouldApply) {
             // Apply extracted items with deduplication and dynamic conflict resolution
@@ -311,6 +335,10 @@ class MemoryExtractor {
                         project_scope: item.project_scope || projectScope,
                         tags: item.tags || 'bugfix'
                     });
+                }
+            } else if (item.type === 'entity_relation') {
+                if (this.semantic && this.semantic.addRelation) {
+                    this.semantic.addRelation(item.source, item.relation, item.target, { confidence: item.confidence });
                 }
             }
         }
