@@ -66,9 +66,8 @@ function ensureDaemonRunning() {
     isDaemonHealthy().then((healthy) => {
         if (!healthy) {
             try {
-                const targetCmd = `\\"${UV_PATH}\\" run --with fastembed python \\"${DAEMON_SCRIPT}\\"`;
-                const ps = `$si = New-CimInstance -ClassName Win32_ProcessStartup -ClientOnly -Property @{ShowWindow = [UInt16]0}; Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine = '${targetCmd}'; ProcessStartupInformation = $si}`;
-                exec(`powershell.exe -NoProfile -NonInteractive -WindowStyle Hidden -Command "${ps}"`, { windowsHide: true });
+                const startScript = path.resolve(__dirname, '../scripts/start_daemon.ps1');
+                exec(`powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File "${startScript}"`, { windowsHide: true });
             } catch (err) {
                 // Ignore spawn errors
             }
