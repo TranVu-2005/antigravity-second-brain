@@ -117,23 +117,32 @@ class ContextRetriever {
         // ---------------------------------------------------------------------
         // Priority 3: Semantic Knowledge & Technical Decisions (Hybrid Search)
         // ---------------------------------------------------------------------
+        const isCasualQuery = safeQuery ? /^(?:chào|hi|hello|hey|alo|ê|ơi|bye|tạm biệt|cảm ơn|thanks|thank you|ok|oke|okie|ừ|được rồi)\b/i.test(safeQuery.trim()) : false;
+
         const knowledgeResults = await this.semantic.searchKnowledge(safeQuery || '', { limit: 4 });
         if (knowledgeResults && knowledgeResults.length > 0) {
-            const kLines = [safeQuery ? '[TRI THỨC & QUY TẮC PHÙ HỢP]' : '[TRI THỨC & QUY TẮC NỔI BẬT (PINNED/ACTIVE)]'];
-            for (const k of knowledgeResults) {
-                const scoreText = k.score !== undefined ? ` (Score: ${k.score})` : '';
-                const line = `• [${k.category.toUpperCase()}] ${k.title}: ${k.content}${scoreText}`;
-                if (currentChars + line.length < maxChars - 200) {
-                    kLines.push(line);
-                    currentChars += line.length;
+            // Dynamic Relevance Cutoff: Only inject if genuinely relevant
+            const filteredKnowledge = safeQuery 
+                ? (isCasualQuery ? [] : knowledgeResults.filter(k => (k.denseScore >= 0.25 || k.sparseScore >= 0.20)))
+                : knowledgeResults;
+
+            if (filteredKnowledge.length > 0) {
+                const kLines = [safeQuery ? '[TRI THỨC & QUY TẮC PHÙ HỢP]' : '[TRI THỨC & QUY TẮC NỔI BẬT (PINNED/ACTIVE)]'];
+                for (const k of filteredKnowledge) {
+                    const scoreText = k.score !== undefined ? ` (Score: ${k.score})` : '';
+                    const line = `• [${k.category.toUpperCase()}] ${k.title}: ${k.content}${scoreText}`;
+                    if (currentChars + line.length < maxChars - 200) {
+                        kLines.push(line);
+                        currentChars += line.length;
+                    }
                 }
-            }
-            if (kLines.length > 1) {
-                sections.push(kLines.join('\n'));
+                if (kLines.length > 1) {
+                    sections.push(kLines.join('\n'));
+                }
             }
         }
 
-        if (safeQuery) {
+        if (safeQuery && !isCasualQuery) {
             // -----------------------------------------------------------------
             // Priority 4: Episodic History across Past Conversations
             // -----------------------------------------------------------------
