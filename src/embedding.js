@@ -4,7 +4,7 @@
 // ==============================================================================
 
 const path = require('node:path');
-const { spawn } = require('node:child_process');
+const { spawn, exec } = require('node:child_process');
 
 const VECTOR_DIM = 384;
 const DAEMON_PORT = 49152;
@@ -66,9 +66,8 @@ function ensureDaemonRunning() {
     isDaemonHealthy().then((healthy) => {
         if (!healthy) {
             try {
-                const { exec } = require('node:child_process');
                 const targetCmd = `\\"${UV_PATH}\\" run --with fastembed python \\"${DAEMON_SCRIPT}\\"`;
-                const ps = `Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine = '${targetCmd}'}`;
+                const ps = `$si = New-CimInstance -ClassName Win32_ProcessStartup -ClientOnly -Property @{ShowWindow = [UInt16]0}; Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{CommandLine = '${targetCmd}'; ProcessStartupInformation = $si}`;
                 exec(`powershell.exe -NoProfile -NonInteractive -WindowStyle Hidden -Command "${ps}"`, { windowsHide: true });
             } catch (err) {
                 // Ignore spawn errors

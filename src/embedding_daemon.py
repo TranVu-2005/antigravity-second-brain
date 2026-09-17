@@ -8,8 +8,11 @@ import os
 import sys
 import json
 import time
+import warnings
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import urllib.request
+
+warnings.filterwarnings("ignore")
 
 MODEL_NAME = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
 DEFAULT_PORT = 49152
