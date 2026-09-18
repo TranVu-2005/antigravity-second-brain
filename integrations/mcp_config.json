@@ -34,10 +34,9 @@
       ]
     },
     "chrome-devtools-mcp": {
-      "command": "npx",
+      "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": [
-        "-y",
-        "chrome-devtools-mcp@latest"
+        "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\node_modules\\chrome-devtools-mcp\\build\\src\\bin\\chrome-devtools-mcp.js"
       ]
     },
     "fetch": {
@@ -53,7 +52,7 @@
       }
     },
     "everything-search": {
-      "command": "C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\agy-node.cmd",
+      "command": "C:\\Program Files\\nodejs\\node.exe",
       "args": [
         "C:\\Users\\tvu16\\.gemini\\antigravity\\everything_search\\mcp_server.js"
       ]
