@@ -214,5 +214,77 @@
     "project_scope": "global",
     "created_at": "2026-09-17T10:25:41.282Z",
     "updated_at": "2026-09-17T10:25:41.282Z"
+  },
+  {
+    "id": 21,
+    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789897377941)",
+    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
+    "category": "architecture",
+    "tags": "test,dual_quota,gemini_web",
+    "source": "gemini_web_distillation",
+    "importance": 1.3,
+    "project_scope": "global",
+    "created_at": "2026-09-20T09:42:57.967Z",
+    "updated_at": "2026-09-20T09:42:57.967Z"
+  },
+  {
+    "id": 22,
+    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789900755454)",
+    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
+    "category": "architecture",
+    "tags": "test,dual_quota,gemini_web",
+    "source": "gemini_web_distillation",
+    "importance": 1.3,
+    "project_scope": "global",
+    "created_at": "2026-09-20T10:39:15.478Z",
+    "updated_at": "2026-09-20T10:39:15.478Z"
+  },
+  {
+    "id": 23,
+    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789918301384)",
+    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
+    "category": "architecture",
+    "tags": "test,dual_quota,gemini_web",
+    "source": "gemini_web_distillation",
+    "importance": 1.3,
+    "project_scope": "global",
+    "created_at": "2026-09-20T15:31:41.411Z",
+    "updated_at": "2026-09-20T15:31:41.411Z"
+  },
+  {
+    "id": 24,
+    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789919200606)",
+    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
+    "category": "architecture",
+    "tags": "test,dual_quota,gemini_web",
+    "source": "gemini_web_distillation",
+    "importance": 1.3,
+    "project_scope": "global",
+    "created_at": "2026-09-20T15:46:40.656Z",
+    "updated_at": "2026-09-20T15:46:40.656Z"
+  },
+  {
+    "id": 25,
+    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789919246478)",
+    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
+    "category": "architecture",
+    "tags": "test,dual_quota,gemini_web",
+    "source": "gemini_web_distillation",
+    "importance": 1.3,
+    "project_scope": "global",
+    "created_at": "2026-09-20T15:47:26.505Z",
+    "updated_at": "2026-09-20T15:47:26.505Z"
+  },
+  {
+    "id": 26,
+    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789919388599)",
+    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
+    "category": "architecture",
+    "tags": "test,dual_quota,gemini_web",
+    "source": "gemini_web_distillation",
+    "importance": 1.3,
+    "project_scope": "global",
+    "created_at": "2026-09-20T15:49:48.622Z",
+    "updated_at": "2026-09-20T15:49:48.622Z"
   }
 ]

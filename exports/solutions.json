@@ -174,5 +174,16 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-09-14T15:21:58.764Z"
+  },
+  {
+    "id": 21,
+    "error_pattern": "SyntaxError: unterminated string literal (detected at line 12)",
+    "root_cause": "Created At: 2026-09-20T22:51:03+07:00\nCompleted At: 2026-09-20T22:51:04+07:00\n\nThe command exited with code 1.\nOutput:\n  File \"<string>\", line 12\r\n    cur.execute(\" SELECT name FROM sqlite_master WHERE type=table\r\n                ^\r\nSyntaxError: unterminated string literal (detected at line 12)\r\n\\)\r",
+    "solution_code": "Lệnh khắc phục thành công: python \\\"C:\\\\Users\\\\tvu16\\\\.gemini\\\\antigravity\\\\brain\\\\faa22add-76eb-4baa-a704-6a2228a3521f\\\\scratch\\\\check_fdm.py\\\"",
+    "command_fix": "python \\\"C:\\\\Users\\\\tvu16\\\\.gemini\\\\antigravity\\\\brain\\\\faa22add-76eb-4baa-a704-6a2228a3521f\\\\scratch\\\\check_fdm.py\\\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-20T16:26:41.763Z"
   }
 ]
