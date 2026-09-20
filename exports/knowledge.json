@@ -286,5 +286,17 @@
     "project_scope": "global",
     "created_at": "2026-09-20T15:49:48.622Z",
     "updated_at": "2026-09-20T15:49:48.622Z"
+  },
+  {
+    "id": 27,
+    "title": "Thông tin tải game Diablo II: Resurrected của Ngài",
+    "content": "Ngài đang tải bộ cài đặt Diablo II: Resurrected (bản LinkNeverDie TCP) bằng phần mềm Free Download Manager (FDM).\n- Thư mục lưu trữ: C:\\Users\\tvu16\\Downloads\n- Cấu trúc bộ cài: Gồm 3 part dạng file RAR (Part 1: ~13GB, Part 2: ~13GB, Part 3: ~2GB, tổng ~28GB).\n- File đang tải sẽ có định dạng *.rar.fdmdownload, khi hoàn tất sẽ tự chuyển thành *.rar.\n- Quá trình tải ghi nhận: Part 1 xong trước (22:51 ngày 20/09/2026), Part 2 và Part 3 hoàn tất sau đó.\n- Công cụ kiểm tra: Truy vấn SQLite tại %LOCALAPPDATA%\\Softdeluxe\\Free Download Manager\\db.sqlite.",
+    "category": "fact",
+    "tags": "diablo,d2r,game,fdm,downloads,linkneverdie",
+    "source": "agent_mcp",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-20T16:47:10.070Z",
+    "updated_at": "2026-09-20T16:47:10.070Z"
   }
 ]

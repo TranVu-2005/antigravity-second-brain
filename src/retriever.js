@@ -55,13 +55,15 @@ class ContextRetriever {
             // -----------------------------------------------------------------
             // Priority 2: Procedural Solutions & Learned Fixes (Proactive Reinforcement)
             // -----------------------------------------------------------------
-            const isRelevantToOperations = /(?:lỗi|error|fail|bug|exception|cannot|không thể|fix|sửa|lệnh|command|npm|git|node|powershell|sql|run|script|build|test)/i.test(safeQuery);
+            const isRelevantToOperations = /(?:lỗi|error|fail|bug|exception|cannot|không thể|fix|sửa|lệnh|command|npm|git|node|powershell|sql|run|script|build|test|tải|download|cài|install|progress|tiến độ|check|status|trạng thái|fdm|diablo|legion|temp|gpu|cpu)/i.test(safeQuery);
             if (isRelevantToOperations) {
                 const solutions = this.solutions.searchSolutions(safeQuery, { project_scope: projectScope, limit: 3 });
                 if (solutions && solutions.length > 0) {
-                    const solLines = ['[BỘ NHỚ KINH NGHIỆM ĐÃ HỌC (PROCEDURAL FIXES & LESSONS)]'];
+                    const solLines = ['[BỘ NHỚ QUY TRÌNH & GIẢI PHÁP ĐÃ HỌC (PROCEDURAL SOLUTIONS)]'];
                     for (const sol of solutions) {
-                        const line = `• Lỗi từng gặp: "${sol.error_pattern}"\n  ➔ LỆNH CHUẨN XÁC: ${sol.command_fix || sol.solution_code} (Độ tin cậy: ${Math.round(sol.confidence * 100)}%, Thành công: ${sol.success_count} lần)`;
+                        const isProcedure = sol.error_pattern.startsWith('[') || (sol.tags && (sol.tags.includes('procedure') || sol.tags.includes('recipe')));
+                        const label = isProcedure ? `• Quy trình: "${sol.error_pattern}"` : `• Lỗi từng gặp: "${sol.error_pattern}"`;
+                        const line = `${label}\n  ➔ GIẢI PHÁP / LỆNH CHUẨN: ${sol.command_fix || sol.solution_code} (Độ tin cậy: ${Math.round(sol.confidence * 100)}%)`;
                         if (currentChars + line.length < maxChars) {
                             solLines.push(line);
                             currentChars += line.length;

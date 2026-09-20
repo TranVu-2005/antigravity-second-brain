@@ -5,6 +5,7 @@
 // ==============================================================================
 
 const fs = require('node:fs');
+const path = require('node:path');
 const { getContextRetriever } = require('../src/retriever');
 const { getEpisodicMemory } = require('../src/episodic');
 
@@ -30,7 +31,14 @@ async function main() {
         }
 
         const conversationId = payload.conversationId || null;
-        const transcriptPath = payload.transcriptPath || null;
+        let transcriptPath = payload.transcriptPath || null;
+
+        if (!transcriptPath && conversationId) {
+            const candidate = path.join('C:/Users/tvu16/.gemini/antigravity/brain', conversationId, '.system_generated', 'logs', 'transcript.jsonl');
+            if (fs.existsSync(candidate)) {
+                transcriptPath = candidate;
+            }
+        }
 
         let lastUserPrompt = payload.userPrompt || payload.prompt || payload.input || payload.query || '';
 
@@ -64,14 +72,14 @@ async function main() {
                     }
                 ]
             };
-            process.stdout.write(JSON.stringify(output));
+            process.stdout.write(Buffer.from(JSON.stringify(output), 'utf8'));
             return;
         }
 
-        process.stdout.write(JSON.stringify({}));
+        process.stdout.write(Buffer.from(JSON.stringify({}), 'utf8'));
     } catch (err) {
         // Safe fallback - never crash or hang the agent
-        process.stdout.write(JSON.stringify({}));
+        process.stdout.write(Buffer.from(JSON.stringify({}), 'utf8'));
     }
 }
 

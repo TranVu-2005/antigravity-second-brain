@@ -5,6 +5,7 @@
 // ==============================================================================
 
 const fs = require('node:fs');
+const path = require('node:path');
 const { getEpisodicMemory } = require('../src/episodic');
 const { getMemoryExtractor } = require('../src/extractor');
 const { getBackupManager } = require('../src/backup');
@@ -30,8 +31,15 @@ async function main() {
             payload = {};
         }
 
-        const transcriptPath = payload.transcriptPath || null;
         const conversationId = payload.conversationId || null;
+        let transcriptPath = payload.transcriptPath || null;
+
+        if (!transcriptPath && conversationId) {
+            const candidate = path.join('C:/Users/tvu16/.gemini/antigravity/brain', conversationId, '.system_generated', 'logs', 'transcript.jsonl');
+            if (fs.existsSync(candidate)) {
+                transcriptPath = candidate;
+            }
+        }
 
         if (transcriptPath && fs.existsSync(transcriptPath)) {
             // 1. Ingest new steps into episodic memory
@@ -90,9 +98,9 @@ async function main() {
             }
         } catch (e) {}
 
-        process.stdout.write(JSON.stringify({}));
+        process.stdout.write(Buffer.from(JSON.stringify({}), 'utf8'));
     } catch (err) {
-        process.stdout.write(JSON.stringify({}));
+        process.stdout.write(Buffer.from(JSON.stringify({}), 'utf8'));
     }
 }
 

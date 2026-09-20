@@ -1,5 +1,12 @@
 [
   {
+    "id": "8605dc00-8e3d-4684-ba41-baebde76dda8",
+    "title": "ok hãy lên kế hoạch tối ưu hết sức kỹ càng hoạt động ổn định tự động và hỗ trợ t",
+    "summary": null,
+    "message_count": 96,
+    "updated_at": "2026-09-20T16:47:42.978Z"
+  },
+  {
     "id": "f23015f6-168a-420c-9b59-2862cd91e664",
     "title": "screenoff",
     "summary": null,
@@ -19,13 +26,6 @@
     "summary": "[Mục tiêu: hãy rà soát lại hệ thống bridge antigravity với gemini chat web xem nâng cấp như nào để thay đổi cuộc chơi tầm cao mới /superpowers] | [Quyết định: nguyên tắc **Evolutionary Design** & **Không làm gián đoạn hệ thống đang chạy ổn định của Ngài**, tôi đề xuất lộ trình 2 giai đoạn:; yêu cầu:    185 lượt (Thành công: 166 | Lỗi/Timeout: 19); yêu cầu kiểm tra sức khỏe bridge, tôi sẽ lập tức kích hoạt bộ thu thập dữ liệu và báo cáo cấu trúc chuẩn như trên] | [Tệp tin: content.js, Node.js, SKILL.md, telemetry.js, sessions.json] | [Bài học: Giải pháp Production:** Bổ sung công cụ MCP mới [`gemini_web_consult_codebase`](file:///C:/Users/tvu16/; Giải pháp Production:** Tích hợp bộ dò lỗi cấp]",
     "message_count": 539,
     "updated_at": "2026-09-20T16:26:41.987Z"
-  },
-  {
-    "id": "8605dc00-8e3d-4684-ba41-baebde76dda8",
-    "title": "/second-brain @[conversation:\"Checking Diablo 2 Download\"] @[conversation:\"Diabl",
-    "summary": null,
-    "message_count": 26,
-    "updated_at": "2026-09-20T16:26:41.881Z"
   },
   {
     "id": "3259a616-4250-43b5-875e-360057839c9f",

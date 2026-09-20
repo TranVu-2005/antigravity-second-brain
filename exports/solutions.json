@@ -185,5 +185,49 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-09-20T16:26:41.763Z"
+  },
+  {
+    "id": 22,
+    "error_pattern": "[QUY TRÌNH] Kiểm tra tiến độ tải game Diablo 2 Resurrected qua Free Download Manager (FDM)",
+    "root_cause": "FDM pre-allocates file size trên đĩa và lưu trữ bytes đã tải (done/size) dưới dạng QDataStream binary blob trong cột files của SQLite table downloads (%LOCALAPPDATA%\\Softdeluxe\\Free Download Manager\\db.sqlite). Không thể kiểm tra bằng Get-Item FileSize đơn thuần.",
+    "solution_code": "Quy trình 1 bước kiểm tra live progress FDM: 1. Mở CSDL SQLite FDM ở chế độ read-only mode: `file:C:/Users/tvu16/AppData/Local/Softdeluxe/Free Download Manager/db.sqlite?mode=ro`. 2. Truy vấn bảng `downloads` lọc bản ghi chứa `D2R` (hoặc tên game). 3. Bóc tách nhị phân các block QDataStream: `re.finditer(rb's\\x00i\\x00z\\x00e\\x00\\x00\\x00\\x04(.{8})')` và `re.finditer(rb'd\\x00o\\x00n\\x00e\\x00\\x00\\x00\\x04(.{8})')` bằng `struct.unpack('>Q', ...)`. 4. Tính % tổng và từng part. File hoàn tất sẽ mất đuôi `.fdmdownload` và có `finishedTime > 0`.",
+    "command_fix": "python -c \"import sqlite3, os, re, struct; db = os.path.expandvars(r'%LOCALAPPDATA%\\Softdeluxe\\Free Download Manager\\db.sqlite'); conn = sqlite3.connect(f'file:{db}?mode=ro', uri=True); c = conn.cursor(); c.execute('SELECT id, finishedTime, files FROM downloads'); [print(f'ID {fid}: fin={fin}') for fid, fin, blob in c.fetchall() if b'D\\x002\\x00R' in blob]\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-20T16:47:02.729Z"
+  },
+  {
+    "id": 23,
+    "error_pattern": "FullName",
+    "root_cause": "Created At: 2026-09-20T23:09:48+07:00\nCompleted At: 2026-09-20T23:09:48+07:00\n\nThe command exited with code 1.\nOutput:\n\r\nFullName                                                                                           \r\n--------                                                                      ",
+    "solution_code": "Lệnh khắc phục thành công: Get-ChildItem \\\"$HOME\\\\AppData\\\\Local\\\\Softdeluxe\\\\Free Download Manager\\\\logs\\\" | Sort-Object LastWriteTime -Descending | Select-Object -First 5 Name, Length, LastWriteTime",
+    "command_fix": "Get-ChildItem \\\"$HOME\\\\AppData\\\\Local\\\\Softdeluxe\\\\Free Download Manager\\\\logs\\\" | Sort-Object LastWriteTime -Descending | Select-Object -First 5 Name, Length, LastWriteTime",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-20T16:47:42.897Z"
+  },
+  {
+    "id": 24,
+    "error_pattern": "sqlite3.OperationalError: near \"table\": syntax error",
+    "root_cause": "Created At: 2026-09-20T23:09:56+07:00\nCompleted At: 2026-09-20T23:09:56+07:00\n\nThe command exited with code 1.\nOutput:\nTraceback (most recent call last):\r\n  File \"<string>\", line 1, in <module>\r\nsqlite3.OperationalError: near \"table\": syntax error\r\n\n",
+    "solution_code": "Lệnh khắc phục thành công: python -c \\\"import sqlite3, os; db = os.path.expanduser('~\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Softdeluxe\\\\\\\\Free Download Manager\\\\\\\\db.sqlite'); conn = sqlite3.connect('file:' + db + '?mode=ro', uri=True); c = conn.cursor(); c.execute('SELECT name FROM sqlite_master'); print(c.fetchall())\\\"",
+    "command_fix": "python -c \\\"import sqlite3, os; db = os.path.expanduser('~\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Softdeluxe\\\\\\\\Free Download Manager\\\\\\\\db.sqlite'); conn = sqlite3.connect('file:' + db + '?mode=ro', uri=True); c = conn.cursor(); c.execute('SELECT name FROM sqlite_master'); print(c.fetchall())\\\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-20T16:47:42.897Z"
+  },
+  {
+    "id": 25,
+    "error_pattern": "SyntaxError: unterminated string literal (detected at line 31)",
+    "root_cause": "Created At: 2026-09-20T23:10:25+07:00\nCompleted At: 2026-09-20T23:10:25+07:00\n\nThe command exited with code 1.\nOutput:\n  File \"<string>\", line 31\r\n    print(f'  Status: {\" HO�N TH�NH\\\r\n                       ^\r\nSyntaxError: unterminated string literal (detected at line 31)\r\n\n",
+    "solution_code": "Lệnh khắc phục thành công: python -c \\\"\\nimport sqlite3, os, re, struct\\n\\ndb = os.path.expanduser('~\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Softdeluxe\\\\\\\\Free Download Manager\\\\\\\\db.sqlite')\\nconn = sqlite3.connect('file:' + db + '?mode=ro', uri=True)\\nc = conn.cursor()\\nc.execute('SELECT id, finishedTime, files FROM downloads WHERE id IN (127, 128, 129)')\\nfor fid, fin, blob in c.fetchall():\\n    name_idx = blob.find(b'D\\\\x002\\\\x00R')\\n    name = blob[name_idx:name_idx+100].decode('utf-16le', errors='ignore').split('\\\\x00')[0]\\n    \\n    sections_pos = blob.find(b's\\\\x00e\\\\x00c\\\\x00t\\\\x00i\\\\x00o\\\\x00n\\\\x00s')\\n    total_size = 0\\n    total_done = 0\\n    if sections_pos != -1:\\n        sec_blob = blob[sections_pos:]\\n        for m in re.finditer(rb's\\\\x00i\\\\x00z\\\\x00e\\\\x00\\\\x00\\\\x00\\\\x04(.{8})', sec_blob):\\n            total_size += struct.unpack('>Q', m.group(1))[0]\\n        for m in re.finditer(rb'd\\\\x00o\\\\x00n\\\\x00e\\\\x00\\\\x00\\\\x00\\\\x04(.{8})', sec_blob):\\n            total_done += struct.unpack('>Q', m.group(1))[0]\\n            \\n    # Also get file size on disk if available\\n    disk_path = os.path.expanduser(f'~\\\\\\\\Downloads\\\\\\\\{name}')\\n    fdm_path = disk_path + '.fdmdownload'\\n    exists = os.path.exists(disk_path)\\n    fdm_exists = os.path.exists(fdm_path)\\n    \\n    print(f'File: {name}')\\n    print(f'  FinishedTime: {fin}')\\n    print(f'  Disk status: exists={exists}, fdm_exists={fdm_exists}')\\n    if total_size > 0:\\n        pct = (total_done / total_size) * 100\\n        print(f'  Progress: {total_done / (1024**3):.2f} GB / {total_size / (1024**3):.2f} GB ({pct:.1f}%)')\\n\\\"",
+    "command_fix": "python -c \\\"\\nimport sqlite3, os, re, struct\\n\\ndb = os.path.expanduser('~\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Softdeluxe\\\\\\\\Free Download Manager\\\\\\\\db.sqlite')\\nconn = sqlite3.connect('file:' + db + '?mode=ro', uri=True)\\nc = conn.cursor()\\nc.execute('SELECT id, finishedTime, files FROM downloads WHERE id IN (127, 128, 129)')\\nfor fid, fin, blob in c.fetchall():\\n    name_idx = blob.find(b'D\\\\x002\\\\x00R')\\n    name = blob[name_idx:name_idx+100].decode('utf-16le', errors='ignore').split('\\\\x00')[0]\\n    \\n    sections_pos = blob.find(b's\\\\x00e\\\\x00c\\\\x00t\\\\x00i\\\\x00o\\\\x00n\\\\x00s')\\n    total_size = 0\\n    total_done = 0\\n    if sections_pos != -1:\\n        sec_blob = blob[sections_pos:]\\n        for m in re.finditer(rb's\\\\x00i\\\\x00z\\\\x00e\\\\x00\\\\x00\\\\x00\\\\x04(.{8})', sec_blob):\\n            total_size += struct.unpack('>Q', m.group(1))[0]\\n        for m in re.finditer(rb'd\\\\x00o\\\\x00n\\\\x00e\\\\x00\\\\x00\\\\x00\\\\x04(.{8})', sec_blob):\\n            total_done += struct.unpack('>Q', m.group(1))[0]\\n            \\n    # Also get file size on disk if available\\n    disk_path = os.path.expanduser(f'~\\\\\\\\Downloads\\\\\\\\{name}')\\n    fdm_path = disk_path + '.fdmdownload'\\n    exists = os.path.exists(disk_path)\\n    fdm_exists = os.path.exists(fdm_path)\\n    \\n    print(f'File: {name}')\\n    print(f'  FinishedTime: {fin}')\\n    print(f'  Disk status: exists={exists}, fdm_exists={fdm_exists}')\\n    if total_size > 0:\\n        pct = (total_done / total_size) * 100\\n        print(f'  Progress: {total_done / (1024**3):.2f} GB / {total_size / (1024**3):.2f} GB ({pct:.1f}%)')\\n\\\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-20T16:47:42.898Z"
   }
 ]
