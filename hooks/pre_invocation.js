@@ -11,12 +11,24 @@ const { getEpisodicMemory } = require('../src/episodic');
 
 function readStdin() {
     return new Promise((resolve) => {
+        if (process.stdin.isTTY) {
+            return resolve('');
+        }
         let data = '';
+        let settled = false;
+        const done = (val) => {
+            if (!settled) {
+                settled = true;
+                clearTimeout(timer);
+                resolve(val);
+            }
+        };
+        const timer = setTimeout(() => done(data), 800);
         process.stdin.setEncoding('utf8');
         process.stdin.on('data', chunk => { data += chunk; });
-        process.stdin.on('end', () => { resolve(data); });
-        // Failsafe timeout
-        setTimeout(() => resolve(data), 2500);
+        process.stdin.on('end', () => done(data));
+        process.stdin.on('close', () => done(data));
+        process.stdin.on('error', () => done(data));
     });
 }
 

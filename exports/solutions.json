@@ -205,7 +205,7 @@
     "command_fix": "Get-ChildItem \\\"$HOME\\\\AppData\\\\Local\\\\Softdeluxe\\\\Free Download Manager\\\\logs\\\" | Sort-Object LastWriteTime -Descending | Select-Object -First 5 Name, Length, LastWriteTime",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 1,
+    "success_count": 2,
     "created_at": "2026-09-20T16:47:42.897Z"
   },
   {
@@ -216,7 +216,7 @@
     "command_fix": "python -c \\\"import sqlite3, os; db = os.path.expanduser('~\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Softdeluxe\\\\\\\\Free Download Manager\\\\\\\\db.sqlite'); conn = sqlite3.connect('file:' + db + '?mode=ro', uri=True); c = conn.cursor(); c.execute('SELECT name FROM sqlite_master'); print(c.fetchall())\\\"",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 1,
+    "success_count": 2,
     "created_at": "2026-09-20T16:47:42.897Z"
   },
   {
@@ -227,7 +227,7 @@
     "command_fix": "python -c \\\"\\nimport sqlite3, os, re, struct\\n\\ndb = os.path.expanduser('~\\\\\\\\AppData\\\\\\\\Local\\\\\\\\Softdeluxe\\\\\\\\Free Download Manager\\\\\\\\db.sqlite')\\nconn = sqlite3.connect('file:' + db + '?mode=ro', uri=True)\\nc = conn.cursor()\\nc.execute('SELECT id, finishedTime, files FROM downloads WHERE id IN (127, 128, 129)')\\nfor fid, fin, blob in c.fetchall():\\n    name_idx = blob.find(b'D\\\\x002\\\\x00R')\\n    name = blob[name_idx:name_idx+100].decode('utf-16le', errors='ignore').split('\\\\x00')[0]\\n    \\n    sections_pos = blob.find(b's\\\\x00e\\\\x00c\\\\x00t\\\\x00i\\\\x00o\\\\x00n\\\\x00s')\\n    total_size = 0\\n    total_done = 0\\n    if sections_pos != -1:\\n        sec_blob = blob[sections_pos:]\\n        for m in re.finditer(rb's\\\\x00i\\\\x00z\\\\x00e\\\\x00\\\\x00\\\\x00\\\\x04(.{8})', sec_blob):\\n            total_size += struct.unpack('>Q', m.group(1))[0]\\n        for m in re.finditer(rb'd\\\\x00o\\\\x00n\\\\x00e\\\\x00\\\\x00\\\\x00\\\\x04(.{8})', sec_blob):\\n            total_done += struct.unpack('>Q', m.group(1))[0]\\n            \\n    # Also get file size on disk if available\\n    disk_path = os.path.expanduser(f'~\\\\\\\\Downloads\\\\\\\\{name}')\\n    fdm_path = disk_path + '.fdmdownload'\\n    exists = os.path.exists(disk_path)\\n    fdm_exists = os.path.exists(fdm_path)\\n    \\n    print(f'File: {name}')\\n    print(f'  FinishedTime: {fin}')\\n    print(f'  Disk status: exists={exists}, fdm_exists={fdm_exists}')\\n    if total_size > 0:\\n        pct = (total_done / total_size) * 100\\n        print(f'  Progress: {total_done / (1024**3):.2f} GB / {total_size / (1024**3):.2f} GB ({pct:.1f}%)')\\n\\\"",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 1,
+    "success_count": 2,
     "created_at": "2026-09-20T16:47:42.898Z"
   }
 ]
