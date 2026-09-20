@@ -9,7 +9,7 @@ const { getSemanticKnowledge } = require('./semantic');
 const { getEpisodicMemory } = require('./episodic');
 const { getSolutionStore } = require('./solutions');
 
-const DEFAULT_MAX_TOKENS = 800; // ~3200 characters max
+const DEFAULT_MAX_TOKENS = 1200; // ~4200 characters max
 const CHARS_PER_TOKEN = 3.5;
 
 class ContextRetriever {
@@ -125,7 +125,7 @@ class ContextRetriever {
         if (knowledgeResults && knowledgeResults.length > 0) {
             // Dynamic Relevance Cutoff: Only inject if genuinely relevant
             const filteredKnowledge = safeQuery 
-                ? (isCasualQuery ? [] : knowledgeResults.filter(k => (k.denseScore >= 0.25 || k.sparseScore >= 0.20)))
+                ? (isCasualQuery ? [] : knowledgeResults.filter(k => (k.denseScore >= 0.35 || k.sparseScore >= 0.25)))
                 : knowledgeResults;
 
             if (filteredKnowledge.length > 0) {

@@ -86,7 +86,15 @@ class SolutionStore {
         const sanitized = query.replace(/[^\w\s\u00C0-\u1EF9]/gi, ' ').trim();
         if (!sanitized) return [];
 
-        const ftsQuery = sanitized.split(/\s+/).filter(Boolean).map(w => `"${w}"*`).join(' OR ');
+        const STOPWORDS = new Set([
+            'la', 'va', 'co', 'khong', 'cho', 'cua', 'trong', 'cac', 'nhung', 'duoc', 'de', 'nay', 
+            'do', 'thi', 'the', 'nao', 'gi', 'sao', 'hoi', 'xem', 'giup', 'toi', 'minh', 'ban', 'ngai',
+            'is', 'are', 'was', 'were', 'the', 'a', 'an', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'and', 'or'
+        ]);
+        const meaningfulWords = sanitized.split(/\s+/).filter(Boolean).filter(w => w.length > 1 && !STOPWORDS.has(w.toLowerCase()));
+        if (meaningfulWords.length === 0) return [];
+
+        const ftsQuery = meaningfulWords.map(w => `"${w}"*`).join(' OR ');
 
         try {
             const scopeFilter = project_scope ? "AND (s.project_scope = ? OR s.project_scope = 'global')" : '';
