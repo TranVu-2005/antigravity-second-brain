@@ -6,7 +6,7 @@
     "category": "system",
     "tags": "antigravity,architecture,hooks,mcp",
     "source": "system",
-    "importance": 0.148,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-11T15:54:17.036Z",
     "updated_at": "2026-09-11T15:54:17.036Z"
@@ -30,7 +30,7 @@
     "category": "fact",
     "tags": "location,hoang_mai",
     "source": "user",
-    "importance": 0.889,
+    "importance": 0.872,
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
@@ -42,7 +42,7 @@
     "category": "decision",
     "tags": "mcp, fetch, everything-search, optimization, tools",
     "source": "agent_mcp",
-    "importance": 1.416,
+    "importance": 1.402,
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
@@ -54,7 +54,7 @@
     "category": "decision",
     "tags": "python,uv,environment,config",
     "source": "agent_mcp",
-    "importance": 1.425,
+    "importance": 1.411,
     "project_scope": "global",
     "created_at": "2026-09-11T19:59:20.654Z",
     "updated_at": "2026-09-11T19:59:20.654Z"
@@ -66,7 +66,7 @@
     "category": "snippet",
     "tags": "hardware,temperature,quick-command,perf",
     "source": "agent_mcp",
-    "importance": 0.226,
+    "importance": 0.169,
     "project_scope": "global",
     "created_at": "2026-09-11T20:04:06.261Z",
     "updated_at": "2026-09-11T20:04:06.261Z"
@@ -78,7 +78,7 @@
     "category": "snippet",
     "tags": "hardware,temperature,legion,llt,upgrade",
     "source": "agent_mcp",
-    "importance": 0.462,
+    "importance": 0.378,
     "project_scope": "global",
     "created_at": "2026-09-11T20:28:18.738Z",
     "updated_at": "2026-09-11T20:28:18.738Z"
@@ -114,7 +114,7 @@
     "category": "snippet",
     "tags": "display,screenoff,llt,remote_control,hardware",
     "source": "agent_mcp",
-    "importance": 0.346,
+    "importance": 0.254,
     "project_scope": "global",
     "created_at": "2026-09-12T15:32:42.466Z",
     "updated_at": "2026-09-12T15:32:42.466Z"
@@ -126,7 +126,7 @@
     "category": "snippet",
     "tags": "temp,hardware,cpu,gpu,legion,upgrade",
     "source": "agent_mcp",
-    "importance": 0.516,
+    "importance": 0.433,
     "project_scope": "global",
     "created_at": "2026-09-13T07:01:21.884Z",
     "updated_at": "2026-09-13T07:01:21.884Z"
@@ -138,7 +138,7 @@
     "category": "decision",
     "tags": "gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp",
     "source": "agent_mcp",
-    "importance": 1.413,
+    "importance": 1.397,
     "project_scope": "global",
     "created_at": "2026-09-14T12:23:30.612Z",
     "updated_at": "2026-09-14T12:23:30.612Z"
@@ -150,7 +150,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror",
     "source": "agent_mcp",
-    "importance": 1.905,
+    "importance": 1.893,
     "project_scope": "global",
     "created_at": "2026-09-14T13:25:36.414Z",
     "updated_at": "2026-09-14T13:25:36.414Z"
@@ -162,7 +162,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap",
     "source": "agent_mcp",
-    "importance": 1.916,
+    "importance": 1.91,
     "project_scope": "global",
     "created_at": "2026-09-14T13:38:27.351Z",
     "updated_at": "2026-09-14T13:38:27.351Z"
@@ -174,7 +174,7 @@
     "category": "decision",
     "tags": "gemini_web,dual_quota,bugfix,safety_filter,v1.2.5",
     "source": "agent_mcp",
-    "importance": 1.901,
+    "importance": 1.89,
     "project_scope": "global",
     "created_at": "2026-09-14T14:08:00.642Z",
     "updated_at": "2026-09-14T14:08:00.642Z"
@@ -186,7 +186,7 @@
     "category": "decision",
     "tags": "gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture",
     "source": "agent_mcp",
-    "importance": 1.9,
+    "importance": 1.891,
     "project_scope": "global",
     "created_at": "2026-09-14T15:21:52.020Z",
     "updated_at": "2026-09-14T15:21:52.020Z"
@@ -198,7 +198,7 @@
     "category": "fact",
     "tags": "test",
     "source": "agent_remember",
-    "importance": 1.354,
+    "importance": 1.3,
     "project_scope": "global",
     "created_at": "2026-09-17T10:24:22.046Z",
     "updated_at": "2026-09-17T10:24:22.046Z"
@@ -210,7 +210,7 @@
     "category": "fact",
     "tags": "preference",
     "source": "agent_remember",
-    "importance": 1.363,
+    "importance": 1.314,
     "project_scope": "global",
     "created_at": "2026-09-17T10:25:41.282Z",
     "updated_at": "2026-09-17T10:25:41.282Z"
@@ -222,7 +222,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 1.106,
+    "importance": 0.621,
     "project_scope": "global",
     "created_at": "2026-09-20T09:42:57.967Z",
     "updated_at": "2026-09-20T09:42:57.967Z"
@@ -234,7 +234,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 1.092,
+    "importance": 0.557,
     "project_scope": "global",
     "created_at": "2026-09-20T10:39:15.478Z",
     "updated_at": "2026-09-20T10:39:15.478Z"
@@ -246,7 +246,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 1.209,
+    "importance": 0.682,
     "project_scope": "global",
     "created_at": "2026-09-20T15:31:41.411Z",
     "updated_at": "2026-09-20T15:31:41.411Z"
@@ -258,7 +258,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 1.216,
+    "importance": 0.69,
     "project_scope": "global",
     "created_at": "2026-09-20T15:46:40.656Z",
     "updated_at": "2026-09-20T15:46:40.656Z"
@@ -270,7 +270,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 1.216,
+    "importance": 0.69,
     "project_scope": "global",
     "created_at": "2026-09-20T15:47:26.505Z",
     "updated_at": "2026-09-20T15:47:26.505Z"
@@ -282,7 +282,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 1.217,
+    "importance": 0.691,
     "project_scope": "global",
     "created_at": "2026-09-20T15:49:48.622Z",
     "updated_at": "2026-09-20T15:49:48.622Z"
@@ -294,7 +294,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,fdm,downloads,linkneverdie",
     "source": "agent_mcp",
-    "importance": 1.5,
+    "importance": 1.496,
     "project_scope": "global",
     "created_at": "2026-09-20T16:47:10.070Z",
     "updated_at": "2026-09-20T16:47:10.070Z"
@@ -306,9 +306,69 @@
     "category": "fact",
     "tags": "diablo,d2r,game,downloads,linkneverdie,extracted",
     "source": "agent_mcp",
-    "importance": 1.5,
+    "importance": 1.474,
     "project_scope": "global",
     "created_at": "2026-09-20T18:00:33.394Z",
     "updated_at": "2026-09-20T18:00:33.394Z"
+  },
+  {
+    "id": 29,
+    "title": "Nâng cấp lệnh screenoff thế hệ mới (Eco Agentic Mode) và bổ sung lệnh screenon",
+    "content": "HỆ THỐNG ECO AGENTIC SCREENOFF THẾ HỆ MỚI (V2.0):\n1. Mục tiêu: Khi Ngài tắt màn hình (screenoff), toàn bộ các ứng dụng bên thứ 3 và tác vụ nền ngốn tài nguyên (Brave cá nhân, Zalo, Riot Client, Vanguard, FDM, Spotify, Widgets...) sẽ được đưa vào trạng thái ngủ đông (NtSuspendProcess) và thu hồi RAM (EmptyWorkingSet).\n2. Bảo vệ tuyệt đối (Whitelisted 100%):\n   - Antigravity (IDE, language_server, node, python, MCP, uv).\n   - Gemini Web Bridge (node daemon 127.0.0.1:8765 và Chromium Sidecar với profile chuyên dụng).\n   - Windows Core (dwm, explorer, csrss, lsass, services) và Remote Control WebRTC.\n   - Phần cứng & Mạng (Lenovo Legion Toolkit, Cloudflare WARP, FastTemp, UniKeyNT, Audio/Display drivers).\n3. Phần cứng: Tự động đưa Legion sang Quiet Mode và tắt đèn nền bàn phím để triệt tiêu tiếng ồn quạt và nhiệt lượng.\n4. Cơ chế thức tỉnh kép (Dual-Wake):\n   - Tự động: Background Watcher phát hiện cử chỉ chuột hoặc gõ phím vật lý tại bàn -> Tự động rã đông (NtResumeProcess) toàn bộ ứng dụng trong < 500ms, phục hồi profile Legion.\n   - Chủ động: Gõ 'screenon' (hoặc 'resume') trong terminal hoặc bảo Agent 'screenon' / 'bật màn hình' để đánh thức màn hình và rã đông tức thì từ xa.",
+    "category": "SNIPPET",
+    "tags": "screenoff,screenon,display,eco,performance,llt,gemini_web_bridge,hardware",
+    "source": "agent_mcp",
+    "importance": 0.91,
+    "project_scope": "global",
+    "created_at": "2026-09-21T16:57:14.974Z",
+    "updated_at": "2026-09-21T16:57:14.974Z"
+  },
+  {
+    "id": 30,
+    "title": "Nâng cấp screenoff v2.1: Tự động chuyển đổi Power Saver và Ultimate Performance",
+    "content": "CẬP NHẬT ECO AGENTIC SCREENOFF (V2.1 - PONYTAIL COMPLIANT):\n- Bổ sung chuyển đổi gói nguồn Windows Native qua powercfg:\n  1. Khi tắt màn hình (screenoff): Tự động chuyển Windows Power Scheme sang 'Power saver' (GUID: 538df9f7-dc4f-4a30-844c-a7ce0628d803), giúp chip Ryzen 7 7840H giảm điện áp, giảm công suất tiêu thụ thêm 4-6W và hạ nhiệt độ sâu hơn.\n  2. Khi bật máy / mở màn hình (screenon hoặc chạm chuột/bàn phím): Tự động khôi phục ngay lập tức về 'Ultimate Performance' (GUID: 3a41ddd7-0eea-4292-a049-1ad7a6674099) để Ngài làm việc với toàn bộ sức mạnh phần cứng.\n- Triết lý Ponytail: Tận dụng 100% native powercfg của Windows, không thêm thư viện hay tiến trình thừa.\n- Trạng thái kiểm thử: Đã test 2 chiều thành công 100%.",
+    "category": "SNIPPET",
+    "tags": "screenoff,screenon,powersaver,ultimate_performance,powercfg,ponytail,eco",
+    "source": "agent_mcp",
+    "importance": 0.919,
+    "project_scope": "global",
+    "created_at": "2026-09-21T17:25:48.253Z",
+    "updated_at": "2026-09-21T17:25:48.253Z"
+  },
+  {
+    "id": 31,
+    "title": "Giải mã & Tối ưu hóa sâu gói Power Saver: Hạ công suất APU về 2W và giảm 26 độ C cụm ACPI",
+    "content": "TỐI ƯU HÓA ĐỈNH CAO POWER SAVER WINDOWS (CHÊ ĐỘ ĐÓNG BĂNG 2W):\n1. Vấn đề của Power Saver mặc định:\n   - Windows mặc định để PERFBOOSTMODE = Aggressive (2) và PROCTHROTTLEMAX = 100%. CPU AMD Ryzen 7 7840H vẫn bị ép xung gián đoạn lên 4.5-5.1GHz và ăn 18W điện standby, giữ nhiệt độ ở ~53-55°C và cụm ACPI nóng 73°C.\n2. Tinh chỉnh sâu qua powercfg native (Ponytail):\n   - powercfg /setacvalueindex 538df9f7-dc4f-4a30-844c-a7ce0628d803 SUB_PROCESSOR PERFBOOSTMODE 0 (Tắt Turbo Boost).\n   - powercfg /setacvalueindex 538df9f7-dc4f-4a30-844c-a7ce0628d803 SUB_PROCESSOR PROCTHROTTLEMAX 65 (Khóa trần xung ở 2.46 GHz).\n3. Kết quả đo đạc thực tế:\n   - Công suất APU giảm từ 18.0W xuống 2.0W (giảm 89%).\n   - Cảm biến SoC APU giảm từ 55.0°C xuống 46.0°C.\n   - Nhiệt độ dGPU RTX 4050 giảm từ 50.0°C xuống 46.0°C.\n   - Nhiệt độ cụm tản nhiệt bo mạch ACPI giảm từ 73.0°C xuống 47.0°C (Hạ 26°C kỷ lục).\n4. Phối hợp với Ultimate Performance:\n   - Screenoff -> Kích hoạt Power Saver tối ưu này (2W, 46°C, quạt tắt hẳn).\n   - Screenon / chạm chuột -> Lập tức bật lại Ultimate Performance 100% công suất.",
+    "category": "SNIPPET",
+    "tags": "powersave,ultimate_performance,powercfg,thermals,ryzen,perfboostmode,optimization",
+    "source": "agent_mcp",
+    "importance": 0.969,
+    "project_scope": "global",
+    "created_at": "2026-09-21T17:29:27.131Z",
+    "updated_at": "2026-09-21T17:29:27.131Z"
+  },
+  {
+    "id": 32,
+    "title": "Khởi tạo Custom Power Plan chuyên dụng: Antigravity Eco Agent (44 độ C, Never Sleep)",
+    "content": "KHỞI TẠO CUSTOM POWER PLAN CHUYÊN DỤNG: ANTIGRAVITY ECO AGENT (v2.2):\n1. GUID: 14d37a79-56ce-489c-8976-e97796598820 (Tên: 'Antigravity Eco Agent').\n2. Các thông số vàng được đo ni đóng giày:\n   - STANDBYIDLE = 0 & HIBERNATEIDLE = 0: Tuyệt đối KHÔNG ngủ (Sleep) hay ngủ đông (Hibernate) hệ thống khi màn hình tắt. Giữ cho Agent Antigravity và Gemini Web Bridge chạy xuyên đêm ổn định 100% không bị ngắt mạng hay ngắt socket.\n   - PERFBOOSTMODE = 0: Khóa Turbo Boost giật xung.\n   - PROCTHROTTLEMAX = 65%: Khóa trần xung ở 2.46 GHz (điểm ngọt Zen 4).\n   - ASPM = 2: Tiết kiệm điện tối đa cho bus PCIe.\n3. Hiệu quả thực tế vừa đo đạc:\n   - Cả CPU Ryzen 7 và GPU RTX 4050 đều tụt xuống mốc kỷ lục: 44.0 °C!\n   - Cụm tản nhiệt bo mạch ACPI giảm xuống: 45.0 °C!\n4. Cơ chế tích hợp:\n   - 'screenoff' -> Tự động kích hoạt 'Antigravity Eco Agent'.\n   - 'screenon' (hoặc chạm chuột/phím) -> Tự động trả về 'Ultimate Performance' 100% công suất.",
+    "category": "SNIPPET",
+    "tags": "powerplan,custom,antigravity_eco_agent,screenoff,screenon,ryzen,optimization,ponytail",
+    "source": "agent_mcp",
+    "importance": 0.971,
+    "project_scope": "global",
+    "created_at": "2026-09-21T17:36:38.672Z",
+    "updated_at": "2026-09-21T17:36:38.672Z"
+  },
+  {
+    "id": 33,
+    "title": "Quy chuẩn Tối ưu tự động Screenoff: Loại bỏ screenon, chỉ thức tỉnh khi chạm chuột/phím tại bàn",
+    "content": "QUY CHUẨN TỐI ƯU TỰ ĐỘNG SCREENOFF HOÀN THIỆN (LOẠI BỎ SCREENON MANUAL):\n1. Quyết định loại bỏ hoàn toàn: Đã xóa screenon.cmd và resume.cmd.\n2. Lý do: Tránh mọi sự nhầm lẫn giữa trạng thái màn hình tắt phần cứng và lệnh rã đông phần mềm. Khi Ngài ở xa hoặc dùng điện thoại điều khiển Antigravity/Remote Control, máy vẫn giữ 100% chế độ đóng băng siêu tiết kiệm điện Antigravity Eco Agent (43°C, APU 1W).\n3. Cơ chế thức tỉnh duy nhất:\n   - Khi Ngài ngồi vào bàn làm việc: Chỉ cần chạm nhẹ chuột vật lý hoặc gõ 1 phím bất kỳ trên bàn phím.\n   - Watcher ngầm sẽ bắt cử chỉ thực tế tại bàn trong < 500ms, tự động rã đông 65 app và trả về Ultimate Performance.\n4. Trạng thái đo đạc thực tế: Cả CPU, GPU và cụm ACPI đều đạt mốc kỷ lục: 43.0 °C!",
+    "category": "DECISION",
+    "tags": "screenoff,decision,auto_wake,ponytail,second_brain,hardware",
+    "source": "agent_mcp",
+    "importance": 1,
+    "project_scope": "global",
+    "created_at": "2026-09-21T18:20:32.686Z",
+    "updated_at": "2026-09-21T18:20:32.686Z"
   }
 ]
