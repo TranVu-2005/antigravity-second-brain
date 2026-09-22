@@ -1,5 +1,54 @@
 [
   {
+    "id": "5563db52-d331-4ff5-8a56-1f904bae4cdf",
+    "title": "tôi đã bật máy lên mà các ứng dụng đơ và mode llt vẫn quiet sao lại thế?",
+    "summary": "[Mục tiêu: có thể làm tối ưu screenoff được ko bây giờ hoạt động tốt rồi nhưng tôi đang muốn có thể tối ưu hiệu năng hơn chỉ giữ lại tiến trình anti...] | [Quyết định: Yêu cầu tối ưu hóa tính năng `screenoff` của Ngài là một ý tưởng xuất sắc để biến cỗ máy Lenovo Legion thành một **\"Eco Agentic Station\"** thực thụ:; bắt buộc phải duy trì 9; bắt buộc phải nhận tối thiểu ~9] | [Tệp tin: implementation_plan.md, walkthrough.md, system_temp.py] | [Bài học: GIẢI PHÁP ĐỂ MÁY MÁT CẢ KHI NGÀI ĐANG SỬ DỤNG (BẬT MÀN HÌNH)]",
+    "message_count": 357,
+    "updated_at": "2026-09-22T19:00:08.214Z"
+  },
+  {
+    "id": "43e74b7d-e3ad-4100-a551-d1fe13702f98",
+    "title": "@[conversation:\"Checking Current Temperature\"] sao ko có nhiệt độ CPU",
+    "summary": "[Mục tiêu: temp] | [Kết quả: Báo cáo tình trạng phần cứng hiện tại của cỗ máy Lenovo Legion gửi tới Ngài, Sir: ```text ==========]",
+    "message_count": 39,
+    "updated_at": "2026-09-22T19:00:07.671Z"
+  },
+  {
+    "id": "3256d8e9-40c9-4054-a34c-dfbf361b9433",
+    "title": "screenofd",
+    "summary": null,
+    "message_count": 1,
+    "updated_at": "2026-09-22T19:00:06.694Z"
+  },
+  {
+    "id": "00da42bc-f781-4ca4-b915-3262041295c4",
+    "title": "temp",
+    "summary": "[Mục tiêu: temp] | [Kết quả: Báo cáo nhiệt độ và trạng thái phần cứng thời gian thực của hệ thống, thưa Ngài: ```text ===========]",
+    "message_count": 10,
+    "updated_at": "2026-09-22 19:00:13"
+  },
+  {
+    "id": "60f9e27e-879d-4183-ac47-0e551976fd48",
+    "title": "temp",
+    "summary": "[Mục tiêu: temp] | [Kết quả: Báo cáo thông số nhiệt độ và tài nguyên hệ thống theo thời gian thực gửi tới Ngài: ```text =========]",
+    "message_count": 3,
+    "updated_at": "2026-09-22 19:00:13"
+  },
+  {
+    "id": "79c3c981-8898-4287-8cad-4151da410224",
+    "title": "temp",
+    "summary": "[Mục tiêu: temp] | [Kết quả: Báo cáo Ngài, hệ thống đang hoạt động vô cùng mát mẻ và êm ái! Dưới đây là thông số thời gian thực t]",
+    "message_count": 3,
+    "updated_at": "2026-09-22 19:00:13"
+  },
+  {
+    "id": "d34fa786-9307-4579-9df7-b26d97bfce72",
+    "title": "screenoff",
+    "summary": "[Mục tiêu: screenoff] | [Quyết định: yêu cầu `screenoff` trực tiếp trong khung chat với tôi, câu lệnh được Antigravity thực thi qua runner hệ thống (`run_command`)] | [Tệp tin: screenoff_engine.ps1, screenoff_watcher.ps1] | [Bài học: Khắc phục Triệt để Đã Hoàn tất]",
+    "message_count": 98,
+    "updated_at": "2026-09-22 19:00:13"
+  },
+  {
     "id": "80f45b22-f0bf-4a52-9de4-5bb7262a3061",
     "title": "sao lại có 2 bản TCP và remodded?",
     "summary": "[Mục tiêu: giải nén diablo 2 cho tôi vào downloads pass là \"linkneverdie.com\"] | [Kết quả: Tuân lệnh Ngài (As you wish, Sir)! Thần đã xác thực chính xác toàn bộ 3 part tệp nén của **Diablo II]",
@@ -11,20 +60,6 @@
     "title": "temp",
     "summary": "[Mục tiêu: temp] | [Kết quả: Báo cáo nhiệt độ và trạng thái phần cứng của Ngài đây ạ: ```text ===================================]",
     "message_count": 3,
-    "updated_at": "2026-09-21 19:00:14"
-  },
-  {
-    "id": "43e74b7d-e3ad-4100-a551-d1fe13702f98",
-    "title": "temp",
-    "summary": "[Mục tiêu: temp] | [Kết quả: Báo cáo tình trạng phần cứng hiện tại của cỗ máy Lenovo Legion gửi tới Ngài, Sir: ```text ==========]",
-    "message_count": 3,
-    "updated_at": "2026-09-21 19:00:14"
-  },
-  {
-    "id": "5563db52-d331-4ff5-8a56-1f904bae4cdf",
-    "title": "có thể làm tối ưu screenoff được ko bây giờ hoạt động tốt rồi nhưng tôi đang muố",
-    "summary": "[Mục tiêu: có thể làm tối ưu screenoff được ko bây giờ hoạt động tốt rồi nhưng tôi đang muốn có thể tối ưu hiệu năng hơn chỉ giữ lại tiến trình anti...] | [Quyết định: Yêu cầu tối ưu hóa tính năng `screenoff` của Ngài là một ý tưởng xuất sắc để biến cỗ máy Lenovo Legion thành một **\"Eco Agentic Station\"** thực thụ:; bắt buộc phải duy trì 9; bắt buộc phải nhận tối thiểu ~9] | [Tệp tin: implementation_plan.md, walkthrough.md, system_temp.py] | [Bài học: GIẢI PHÁP ĐỂ MÁY MÁT CẢ KHI NGÀI ĐANG SỬ DỤNG (BẬT MÀN HÌNH)]",
-    "message_count": 246,
     "updated_at": "2026-09-21 19:00:14"
   },
   {
