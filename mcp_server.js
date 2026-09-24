@@ -422,7 +422,7 @@ class SecondBrainMCPServer {
                     const dbPath = path.join(__dirname, 'brain.db');
                     const dbSize = fs.existsSync(dbPath) ? `${(fs.statSync(dbPath).size / 1024).toFixed(1)} KB` : 'N/A';
 
-                    resultText = `=== ANTIGRAVITY SECOND BRAIN STATS (v2.0) ===\n` +
+                    resultText = `=== ANTIGRAVITY SECOND BRAIN STATS (v3.1.0 Production-Grade) ===\n` +
                         `• Hồ sơ người dùng (User Profile): ${profCount} mục\n` +
                         `• Tri thức dài hạn (Knowledge Items): ${knCount} mục\n` +
                         `• Bộ nhớ quy trình sửa lỗi (Solutions): ${solCount} giải pháp\n` +

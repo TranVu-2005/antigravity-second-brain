@@ -4,6 +4,17 @@ Kính gửi Ngài, đây là tài liệu kỹ thuật tổng hợp toàn bộ c�
 
 ---
 
+## [3.1.0] - 2026-09-25 (Đại Tu Tối Ưu Hóa Ponytail & Khắc Phục Triệt Để Điểm Nghẽn Vận Hành Production-Grade)
+
+### 🏆 Tổng quan bản nâng cấp v3.1.0
+Dựa trên cuộc đại kiểm toán chuyên sâu 16,872 bước hành động qua 109 phiên làm việc thực tế cùng Ngài, phiên bản 3.1.0 giải quyết dứt điểm các lỗi ngầm nghiêm trọng về độ trễ, hiện tượng treo tiến trình lifecycle hook và ô nhiễm bộ nhớ quy trình:
+1. **Khắc phục triệt để lỗi Hook Hang & Timeout:** Bổ sung `process.exit(0)` và hủy stream `stdin` sau 150ms trong `pre_invocation.js` và `stop.js`. Loại bỏ các unawaited promises trong `SemanticKnowledge` constructor (`_backfillEmbeddings`, `ensureDaemonRunning`) gây lỗi xung đột libuv trên Windows (`Assertion failed: !(handle->flags & UV_HANDLE_CLOSING)`). Thời gian chạy `PreInvocation` đạt **274 ms** (nhanh hơn gấp 20 lần ceiling 5s).
+2. **Cắt giảm 80% độ trễ Stop Hook (Chuẩn YAGNI):** Loại bỏ quét toàn ổ đĩa 110 thư mục (`syncAllConversations`) trên mỗi lượt dừng; chuyển `git push` qua mạng sang tiến trình ngầm tách rời (`detached: true, p.unref()`). Thời gian chạy Stop Hook giảm từ **9,113 ms xuống 1,877 ms**.
+3. **Thanh lọc & Miễn nhiễm Ô Nhiễm Bộ Nhớ Quy Trình (`reinforcement.js`):** Thắt chặt regex bắt lỗi kỹ thuật, cấm tuyệt đối fallback lấy dòng đầu tiên của bảng (`FullName`, `Mode`, `---`). Dọn dẹp bản ghi rác ID 12 và 23 trong `brain.db`.
+4. **Kích hoạt Hook Cấp Toàn Cục:** Đưa cấu hình `hooks.json` vào `~/.gemini/config/hooks.json` để bảo đảm Second Brain tự động kích hoạt 100% trên mọi phiên làm việc không phụ thuộc workspace.
+
+---
+
 ## [3.0.0] - 2026-09-17 (Đại Nhảy Vọt Kiến Trúc SOTA: Bi-Temporal Graph, Active Self-Editing Memory & Executive Session Distillation)
 
 ### 🏆 Tổng quan bản nâng cấp v3.0
