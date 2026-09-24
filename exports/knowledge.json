@@ -30,7 +30,7 @@
     "category": "fact",
     "tags": "location,hoang_mai",
     "source": "user",
-    "importance": 0.854,
+    "importance": 0.834,
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
@@ -42,7 +42,7 @@
     "category": "decision",
     "tags": "mcp, fetch, everything-search, optimization, tools",
     "source": "agent_mcp",
-    "importance": 1.387,
+    "importance": 1.37,
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
@@ -54,7 +54,7 @@
     "category": "decision",
     "tags": "python,uv,environment,config",
     "source": "agent_mcp",
-    "importance": 1.396,
+    "importance": 1.379,
     "project_scope": "global",
     "created_at": "2026-09-11T19:59:20.654Z",
     "updated_at": "2026-09-11T19:59:20.654Z"
@@ -66,7 +66,7 @@
     "category": "snippet",
     "tags": "hardware,temperature,quick-command,perf",
     "source": "agent_mcp",
-    "importance": 0.122,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-11T20:04:06.261Z",
     "updated_at": "2026-09-11T20:04:06.261Z"
@@ -78,7 +78,7 @@
     "category": "snippet",
     "tags": "hardware,temperature,legion,llt,upgrade",
     "source": "agent_mcp",
-    "importance": 0.303,
+    "importance": 0.236,
     "project_scope": "global",
     "created_at": "2026-09-11T20:28:18.738Z",
     "updated_at": "2026-09-11T20:28:18.738Z"
@@ -114,7 +114,7 @@
     "category": "snippet",
     "tags": "display,screenoff,llt,remote_control,hardware",
     "source": "agent_mcp",
-    "importance": 0.18,
+    "importance": 0.121,
     "project_scope": "global",
     "created_at": "2026-09-12T15:32:42.466Z",
     "updated_at": "2026-09-12T15:32:42.466Z"
@@ -126,7 +126,7 @@
     "category": "snippet",
     "tags": "temp,hardware,cpu,gpu,legion,upgrade",
     "source": "agent_mcp",
-    "importance": 0.356,
+    "importance": 0.284,
     "project_scope": "global",
     "created_at": "2026-09-13T07:01:21.884Z",
     "updated_at": "2026-09-13T07:01:21.884Z"
@@ -138,7 +138,7 @@
     "category": "decision",
     "tags": "gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp",
     "source": "agent_mcp",
-    "importance": 1.379,
+    "importance": 1.358,
     "project_scope": "global",
     "created_at": "2026-09-14T12:23:30.612Z",
     "updated_at": "2026-09-14T12:23:30.612Z"
@@ -150,7 +150,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror",
     "source": "agent_mcp",
-    "importance": 1.88,
+    "importance": 1.865,
     "project_scope": "global",
     "created_at": "2026-09-14T13:25:36.414Z",
     "updated_at": "2026-09-14T13:25:36.414Z"
@@ -162,7 +162,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap",
     "source": "agent_mcp",
-    "importance": 1.903,
+    "importance": 1.895,
     "project_scope": "global",
     "created_at": "2026-09-14T13:38:27.351Z",
     "updated_at": "2026-09-14T13:38:27.351Z"
@@ -174,7 +174,7 @@
     "category": "decision",
     "tags": "gemini_web,dual_quota,bugfix,safety_filter,v1.2.5",
     "source": "agent_mcp",
-    "importance": 1.877,
+    "importance": 1.862,
     "project_scope": "global",
     "created_at": "2026-09-14T14:08:00.642Z",
     "updated_at": "2026-09-14T14:08:00.642Z"
@@ -186,7 +186,7 @@
     "category": "decision",
     "tags": "gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture",
     "source": "agent_mcp",
-    "importance": 1.881,
+    "importance": 1.869,
     "project_scope": "global",
     "created_at": "2026-09-14T15:21:52.020Z",
     "updated_at": "2026-09-14T15:21:52.020Z"
@@ -198,7 +198,7 @@
     "category": "fact",
     "tags": "test",
     "source": "agent_remember",
-    "importance": 1.237,
+    "importance": 1.16,
     "project_scope": "global",
     "created_at": "2026-09-17T10:24:22.046Z",
     "updated_at": "2026-09-17T10:24:22.046Z"
@@ -210,7 +210,7 @@
     "category": "fact",
     "tags": "preference",
     "source": "agent_remember",
-    "importance": 1.257,
+    "importance": 1.187,
     "project_scope": "global",
     "created_at": "2026-09-17T10:25:41.282Z",
     "updated_at": "2026-09-17T10:25:41.282Z"
@@ -222,7 +222,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 0.23,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-20T09:42:57.967Z",
     "updated_at": "2026-09-20T09:42:57.967Z"
@@ -234,7 +234,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 0.172,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-20T10:39:15.478Z",
     "updated_at": "2026-09-20T10:39:15.478Z"
@@ -246,7 +246,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 0.233,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-20T15:31:41.411Z",
     "updated_at": "2026-09-20T15:31:41.411Z"
@@ -258,7 +258,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 0.237,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-20T15:46:40.656Z",
     "updated_at": "2026-09-20T15:46:40.656Z"
@@ -270,7 +270,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 0.237,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-20T15:47:26.505Z",
     "updated_at": "2026-09-20T15:47:26.505Z"
@@ -282,7 +282,7 @@
     "category": "architecture",
     "tags": "test,dual_quota,gemini_web",
     "source": "gemini_web_distillation",
-    "importance": 0.238,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-20T15:49:48.622Z",
     "updated_at": "2026-09-20T15:49:48.622Z"
@@ -294,7 +294,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,fdm,downloads,linkneverdie",
     "source": "agent_mcp",
-    "importance": 1.488,
+    "importance": 1.474,
     "project_scope": "global",
     "created_at": "2026-09-20T16:47:10.070Z",
     "updated_at": "2026-09-20T16:47:10.070Z"
@@ -306,7 +306,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,downloads,linkneverdie,extracted",
     "source": "agent_mcp",
-    "importance": 1.425,
+    "importance": 1.342,
     "project_scope": "global",
     "created_at": "2026-09-20T18:00:33.394Z",
     "updated_at": "2026-09-20T18:00:33.394Z"
@@ -318,7 +318,7 @@
     "category": "SNIPPET",
     "tags": "screenoff,screenon,display,eco,performance,llt,gemini_web_bridge,hardware",
     "source": "agent_mcp",
-    "importance": 0.579,
+    "importance": 0.194,
     "project_scope": "global",
     "created_at": "2026-09-21T16:57:14.974Z",
     "updated_at": "2026-09-21T16:57:14.974Z"
@@ -330,7 +330,7 @@
     "category": "SNIPPET",
     "tags": "screenoff,screenon,powersaver,ultimate_performance,powercfg,ponytail,eco",
     "source": "agent_mcp",
-    "importance": 0.59,
+    "importance": 0.199,
     "project_scope": "global",
     "created_at": "2026-09-21T17:25:48.253Z",
     "updated_at": "2026-09-21T17:25:48.253Z"
@@ -342,7 +342,7 @@
     "category": "SNIPPET",
     "tags": "powersave,ultimate_performance,powercfg,thermals,ryzen,perfboostmode,optimization",
     "source": "agent_mcp",
-    "importance": 0.622,
+    "importance": 0.21,
     "project_scope": "global",
     "created_at": "2026-09-21T17:29:27.131Z",
     "updated_at": "2026-09-21T17:29:27.131Z"
@@ -354,7 +354,7 @@
     "category": "SNIPPET",
     "tags": "powerplan,custom,antigravity_eco_agent,screenoff,screenon,ryzen,optimization,ponytail",
     "source": "agent_mcp",
-    "importance": 0.625,
+    "importance": 0.211,
     "project_scope": "global",
     "created_at": "2026-09-21T17:36:38.672Z",
     "updated_at": "2026-09-21T17:36:38.672Z"
@@ -366,9 +366,33 @@
     "category": "DECISION",
     "tags": "screenoff,decision,auto_wake,ponytail,second_brain,hardware",
     "source": "agent_mcp",
-    "importance": 0.598,
+    "importance": 0.205,
     "project_scope": "global",
     "created_at": "2026-09-21T18:20:32.686Z",
     "updated_at": "2026-09-21T18:20:32.686Z"
+  },
+  {
+    "id": 34,
+    "title": "Kiến trúc Screenoff Tối Giản và Tự Động Rã Đông Tuyệt Đối",
+    "content": "Quy chuẩn kiến trúc Screenoff & Auto-Wake tối ưu theo triết lý Ponytail:\n1. Gộp thống nhất thành 1 tiến trình duy nhất trong screenoff_engine.ps1 (chạy ngầm qua screenoff.cmd), loại bỏ hoàn toàn việc phân mảnh thành 2 script (engine và watcher) gây mất đồng bộ và lỗi race condition.\n2. Biên dịch Win32 P/Invoke 1 lần duy nhất ngay từ đầu khi CPU đang ở Ultimate Performance (4.5+ GHz). Tránh lỗi Add-Type biên dịch trong trạng thái Eco 2W (từng gây nghẽn 5-10s và trễ khởi động watcher).\n3. Loại bỏ hoàn toàn EmptyWorkingSet: Không ép xả RAM ra pagefile disk để tránh hiện tượng hard page fault bão hòa I/O khi thức giấc.\n4. Khi nhận diện chuyển động chuột/phím, lập tức phục hồi Power Plan (Ultimate Performance) và Legion Power Mode (Balance) TRƯỚC TIÊN (<10ms) để CPU vọt lên 4.5+ GHz, sau đó gọi NtResumeProcess x2 lần cho từng tiến trình người dùng để rã đông triệt để 100%.\n5. Loại trừ triệt để Riot Vanguard (vgtray) và các host của Windows để không bị xung đột kernel driver anti-cheat.",
+    "category": "decision",
+    "tags": "screenoff,powermanagement,ponytail,win32",
+    "source": "agent_mcp",
+    "importance": 1.794,
+    "project_scope": "global",
+    "created_at": "2026-09-23T15:52:41.091Z",
+    "updated_at": "2026-09-23T15:52:41.091Z"
+  },
+  {
+    "id": 35,
+    "title": "Quy tắc Tự động Screenoff và Khôi phục Performance Mode",
+    "content": "Quy tắc thực thi Screenoff tự động cho Antigravity Agent:\n1. Khi Ngài chat 'screenoff' hoặc yêu cầu tắt màn hình: Trợ lý BẮT BUỘC thực thi ngay lệnh qua terminal (run_command) bằng WMI để tiến trình chạy ngầm hoàn toàn độc lập khỏi Job Object:\n   cmd.exe /c \"C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\screenoff.cmd\"\n2. Quá trình tắt màn hình:\n   - Đình chỉ toàn bộ ứng dụng người dùng nặng (Brave cá nhân, Zalo, Discord, Telegram, Steam...).\n   - Giữ nguyên 100% Antigravity, Gemini Sidecar, Riot Vanguard và tiến trình hệ thống.\n   - Chuyển Power Scheme sang Antigravity Eco Agent (2W APU) và Legion sang Quiet.\n   - Tắt màn hình bằng cả PostMessage Win32 broadcast và LLT.\n3. Quá trình thức giấc (khi chạm chuột, nhấn phím hoặc đăng nhập):\n   - Phục hồi Power Scheme sang 'Ultimate Performance' ngay lập tức (<5ms).\n   - Chuyển Legion sang chế độ 'performance' (theo yêu cầu của Ngài).\n   - Rã đông toàn bộ ứng dụng với NtResumeProcess gọi 2 lần (xóa triệt để mọi suspend count).\n   - Đánh thức màn hình và tự dọn dẹp sạch sẽ.",
+    "category": "rule",
+    "tags": "screenoff,rule,power_management,automation",
+    "source": "agent_mcp",
+    "importance": 1.9,
+    "project_scope": "global",
+    "created_at": "2026-09-23T16:45:26.551Z",
+    "updated_at": "2026-09-23T16:45:26.551Z"
   }
 ]
