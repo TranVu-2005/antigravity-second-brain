@@ -127,7 +127,16 @@ class ReinforcementLearner {
                 return line.slice(0, 140);
             }
         }
-        return lines[0].slice(0, 120);
+        // Secondary pass: look for lines containing explicit error keywords, strictly ignoring table headers and dividers
+        for (const line of lines) {
+            if (/^(?:FullName|Name|Mode|Directory:|[-]{3,}|[=]{3,}|\s*$)/i.test(line)) {
+                continue;
+            }
+            if (/error|exception|fail|denied|cannot|invalid|unexpected|fatal|terminated/i.test(line)) {
+                return line.slice(0, 140);
+            }
+        }
+        return null;
     }
 }
 

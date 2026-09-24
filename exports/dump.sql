@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-24T18:29:51.143Z
+-- Generated: 2026-09-24T18:30:46.838Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -228,6 +228,7 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
    - Rã đông toàn bộ ứng dụng với NtResumeProcess gọi 2 lần (xóa triệt để mọi suspend count).
    - Đánh thức màn hình và tự dọn dẹp sạch sẽ.', 'rule', 'screenoff,rule,power_management,automation', 'agent_mcp', 1.9, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (36, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.5, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (37, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.5, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);
@@ -291,22 +292,6 @@ The command exited with code 1.
 Output:
 npm warn deprecated node-domexception@1.0.0: Use your platform''s native DOMException instead
 npm warn deprecated @modelcontextprotocol/server-github@2025.4.8: Package no longer supp', 'Lệnh khắc phục thành công: [Environment]::GetEnvironmentVariable(\"Path\", \"Machine\")', '[Environment]::GetEnvironmentVariable(\"Path\", \"Machine\")', 'global', 1, 1);
-INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (12, '---', 'Created At: 2026-09-12T00:15:33+07:00
-Completed At: 2026-09-12T00:15:34+07:00
-
-The command exited with code 1.
-Output:
----
-name: subagent-driven-development
-descrip
-tion: Use when executing implementation plans
- with independent tasks in the current sessio
-n
----
-
-# Subagent-Driven Development
-
-Ex', 'Lệnh khắc phục thành công: & \"C:\\Program Files\\GitHub CLI\\gh.exe\" api repos/obra/superpowers/contents/skills/verification-before-completion/SKILL.md --jq .content | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) } | Select-Object -First 25', '& \"C:\\Program Files\\GitHub CLI\\gh.exe\" api repos/obra/superpowers/contents/skills/verification-before-completion/SKILL.md --jq .content | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) } | Select-Object -First 25', 'global', 1, 1);
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (13, 'accepts 1 arg(s), received 3', 'Created At: 2026-09-12T00:19:55+07:00
 Completed At: 2026-09-12T00:19:55+07:00
 
@@ -368,14 +353,6 @@ Output:
 SyntaxError: unterminated string literal (detected at line 12)
 \)', 'Lệnh khắc phục thành công: python \"C:\\Users\\tvu16\\.gemini\\antigravity\\brain\\faa22add-76eb-4baa-a704-6a2228a3521f\\scratch\\check_fdm.py\"', 'python \"C:\\Users\\tvu16\\.gemini\\antigravity\\brain\\faa22add-76eb-4baa-a704-6a2228a3521f\\scratch\\check_fdm.py\"', 'global', 1, 1);
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (22, '[QUY TRÌNH] Kiểm tra tiến độ tải game Diablo 2 Resurrected qua Free Download Manager (FDM)', 'FDM pre-allocates file size trên đĩa và lưu trữ bytes đã tải (done/size) dưới dạng QDataStream binary blob trong cột files của SQLite table downloads (%LOCALAPPDATA%\Softdeluxe\Free Download Manager\db.sqlite). Không thể kiểm tra bằng Get-Item FileSize đơn thuần.', 'Quy trình 1 bước kiểm tra live progress FDM: 1. Mở CSDL SQLite FDM ở chế độ read-only mode: `file:C:/Users/tvu16/AppData/Local/Softdeluxe/Free Download Manager/db.sqlite?mode=ro`. 2. Truy vấn bảng `downloads` lọc bản ghi chứa `D2R` (hoặc tên game). 3. Bóc tách nhị phân các block QDataStream: `re.finditer(rb''s\x00i\x00z\x00e\x00\x00\x00\x04(.{8})'')` và `re.finditer(rb''d\x00o\x00n\x00e\x00\x00\x00\x04(.{8})'')` bằng `struct.unpack(''>Q'', ...)`. 4. Tính % tổng và từng part. File hoàn tất sẽ mất đuôi `.fdmdownload` và có `finishedTime > 0`.', 'python -c "import sqlite3, os, re, struct; db = os.path.expandvars(r''%LOCALAPPDATA%\Softdeluxe\Free Download Manager\db.sqlite''); conn = sqlite3.connect(f''file:{db}?mode=ro'', uri=True); c = conn.cursor(); c.execute(''SELECT id, finishedTime, files FROM downloads''); [print(f''ID {fid}: fin={fin}'') for fid, fin, blob in c.fetchall() if b''D\x002\x00R'' in blob]"', 'global', 1, 1);
-INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (23, 'FullName', 'Created At: 2026-09-20T23:09:48+07:00
-Completed At: 2026-09-20T23:09:48+07:00
-
-The command exited with code 1.
-Output:
-
-FullName                                                                                           
---------                                                                      ', 'Lệnh khắc phục thành công: Get-ChildItem \"$HOME\\AppData\\Local\\Softdeluxe\\Free Download Manager\\logs\" | Sort-Object LastWriteTime -Descending | Select-Object -First 5 Name, Length, LastWriteTime', 'Get-ChildItem \"$HOME\\AppData\\Local\\Softdeluxe\\Free Download Manager\\logs\" | Sort-Object LastWriteTime -Descending | Select-Object -First 5 Name, Length, LastWriteTime', 'global', 1, 2);
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (24, 'sqlite3.OperationalError: near "table": syntax error', 'Created At: 2026-09-20T23:09:56+07:00
 Completed At: 2026-09-20T23:09:56+07:00
 

@@ -110,17 +110,6 @@
     "created_at": "2026-09-11T17:36:38.049Z"
   },
   {
-    "id": 12,
-    "error_pattern": "---",
-    "root_cause": "Created At: 2026-09-12T00:15:33+07:00\nCompleted At: 2026-09-12T00:15:34+07:00\n\nThe command exited with code 1.\nOutput:\n---\nname: subagent-driven-development\ndescrip\r\ntion: Use when executing implementation plans\r\n with independent tasks in the current sessio\r\nn\n---\n\n# Subagent-Driven Development\n\nEx",
-    "solution_code": "Lệnh khắc phục thành công: & \\\"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\\\" api repos/obra/superpowers/contents/skills/verification-before-completion/SKILL.md --jq .content | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) } | Select-Object -First 25",
-    "command_fix": "& \\\"C:\\\\Program Files\\\\GitHub CLI\\\\gh.exe\\\" api repos/obra/superpowers/contents/skills/verification-before-completion/SKILL.md --jq .content | ForEach-Object { [System.Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_)) } | Select-Object -First 25",
-    "project_scope": "global",
-    "confidence": 1,
-    "success_count": 1,
-    "created_at": "2026-09-11T17:36:38.049Z"
-  },
-  {
     "id": 13,
     "error_pattern": "accepts 1 arg(s), received 3",
     "root_cause": "Created At: 2026-09-12T00:19:55+07:00\nCompleted At: 2026-09-12T00:19:55+07:00\n\nThe command exited with code 1.\nOutput:\naccepts 1 arg(s), received 3\n\n",
@@ -196,17 +185,6 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-09-20T16:47:02.729Z"
-  },
-  {
-    "id": 23,
-    "error_pattern": "FullName",
-    "root_cause": "Created At: 2026-09-20T23:09:48+07:00\nCompleted At: 2026-09-20T23:09:48+07:00\n\nThe command exited with code 1.\nOutput:\n\r\nFullName                                                                                           \r\n--------                                                                      ",
-    "solution_code": "Lệnh khắc phục thành công: Get-ChildItem \\\"$HOME\\\\AppData\\\\Local\\\\Softdeluxe\\\\Free Download Manager\\\\logs\\\" | Sort-Object LastWriteTime -Descending | Select-Object -First 5 Name, Length, LastWriteTime",
-    "command_fix": "Get-ChildItem \\\"$HOME\\\\AppData\\\\Local\\\\Softdeluxe\\\\Free Download Manager\\\\logs\\\" | Sort-Object LastWriteTime -Descending | Select-Object -First 5 Name, Length, LastWriteTime",
-    "project_scope": "global",
-    "confidence": 1,
-    "success_count": 2,
-    "created_at": "2026-09-20T16:47:42.897Z"
   },
   {
     "id": 24,
