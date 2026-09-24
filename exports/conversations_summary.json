@@ -1,5 +1,19 @@
 [
   {
+    "id": "47aab258-840d-45ec-9e36-6717e74c4d04",
+    "title": "check lại các cuộc trò chuyện gần đây và hệ thống hoạt động tốt chưa /second-bra",
+    "summary": null,
+    "message_count": 57,
+    "updated_at": "2026-09-24T18:04:30.581Z"
+  },
+  {
+    "id": "be6a06b6-a3dd-4674-9cdb-d83312fd143a",
+    "title": "screenoff",
+    "summary": null,
+    "message_count": 5,
+    "updated_at": "2026-09-24T18:04:30.320Z"
+  },
+  {
     "id": "d34fa786-9307-4579-9df7-b26d97bfce72",
     "title": "tôi bật màn hình lên bằng cách chạm vào phím rồi mà sao mọi thứ vẫn đóng băng ch",
     "summary": "[Mục tiêu: screenoff] | [Quyết định: yêu cầu `screenoff` trực tiếp trong khung chat với tôi, câu lệnh được Antigravity thực thi qua runner hệ thống (`run_command`)] | [Tệp tin: screenoff_engine.ps1, screenoff_watcher.ps1] | [Bài học: Khắc phục Triệt để Đã Hoàn tất]",

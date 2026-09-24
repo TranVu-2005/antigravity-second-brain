@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-24T08:03:24.722Z
+-- Generated: 2026-09-24T18:04:31.059Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -399,6 +399,8 @@ SyntaxError: unterminated string literal (detected at line 31)
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (26, 'temp thiếu nhiệt độ CPU hoặc hiển thị "Đang ở chế độ tiết kiệm điện" và "Khe tản nhiệt ACPI: N/A"', 'Trong system_temp.py, timeout của FastTemp.exe và PowerShell query_acpi bị đặt là 2 giây. Khi máy ở chế độ Eco Agent (xung CPU bị khóa trần 2.0 GHz), thời gian nạp CLR .NET của FastTemp và PowerShell bị trễ nhẹ (>2.0s), dẫn đến việc cả 2 bị timeout cùng lúc. GPU có fallback qua nvidia-smi nên vẫn hiện nhiệt độ, còn CPU bị rơi vào nhánh N/A.', 'Tăng timeout của query_fast_temp() và query_acpi() trong C:\Users\tvu16\.local\bin\system_temp.py từ 2s lên 4s. Do chạy đa luồng ThreadPoolExecutor, thời gian thực thi bình thường vẫn giữ nguyên (~1.2s), nhưng đảm bảo không bao giờ bị rớt cảm biến CPU khi máy chạy ở mức xung tiết kiệm điện.', '', 'global', 1, 1);
 
 -- Table: conversations
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('47aab258-840d-45ec-9e36-6717e74c4d04', 'check lại các cuộc trò chuyện gần đây và hệ thống hoạt động tốt chưa /second-bra', '', 57);
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('be6a06b6-a3dd-4674-9cdb-d83312fd143a', 'screenoff', '', 5);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('d34fa786-9307-4579-9df7-b26d97bfce72', 'tôi bật màn hình lên bằng cách chạm vào phím rồi mà sao mọi thứ vẫn đóng băng ch', '[Mục tiêu: screenoff] | [Quyết định: yêu cầu `screenoff` trực tiếp trong khung chat với tôi, câu lệnh được Antigravity thực thi qua runner hệ thống (`run_command`)] | [Tệp tin: screenoff_engine.ps1, screenoff_watcher.ps1] | [Bài học: Khắc phục Triệt để Đã Hoàn tất]', 310);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('2a9fbfa2-4dea-4b35-a82f-a0cb27dd9160', 'temp', '[Mục tiêu: temp] | [Kết quả: Dạ, báo cáo Ngài, hệ thống vừa hoàn tất quét nhanh cảm biến phần cứng: ```text =====================]', 3);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('33e9a0d0-d348-400c-8b50-9d0313581c2b', 'screenoff', '[Mục tiêu: screenoff] | [Kết quả: As you wish, Sir!  Giao thức **Antigravity Eco Agentic Screenoff** đã được kích hoạt thành công: - *]', 6);
