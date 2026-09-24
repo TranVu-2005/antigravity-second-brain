@@ -21,10 +21,14 @@ function readStdin() {
             if (!settled) {
                 settled = true;
                 clearTimeout(timer);
+                try {
+                    process.stdin.removeAllListeners();
+                    process.stdin.pause();
+                } catch (e) {}
                 resolve(val);
             }
         };
-        const timer = setTimeout(() => done(data), 800);
+        const timer = setTimeout(() => done(data), 150);
         process.stdin.setEncoding('utf8');
         process.stdin.on('data', chunk => { data += chunk; });
         process.stdin.on('end', () => done(data));
@@ -54,7 +58,7 @@ async function main() {
         }
 
         if (transcriptPath && fs.existsSync(transcriptPath)) {
-            // 1. Ingest new steps into episodic memory
+            // 1. Ingest new steps into episodic memory for current session
             const episodic = getEpisodicMemory();
             episodic.ingestTranscriptFile(transcriptPath, conversationId);
 
@@ -83,12 +87,6 @@ async function main() {
             } catch (e) {}
         }
 
-        // 2.8. Auto-Sync all conversations incrementally (Zero manual sync needed)
-        try {
-            const episodic = getEpisodicMemory();
-            episodic.syncAllConversations();
-        } catch (e) {}
-
         // 3. Automated Daily Snapshot Backup (Non-blocking check)
         try {
             const backupMgr = getBackupManager();
@@ -97,7 +95,7 @@ async function main() {
             }
         } catch (e) {}
 
-        // 4. Git Incremental Synchronization (Event-Driven: Ngay khi có tri thức mới)
+        // 4. Git Incremental Local Commit & Detached Non-blocking Push
         try {
             const { getGitBackupManager } = require('../src/git_backup');
             const gitMgr = getGitBackupManager();
@@ -105,14 +103,24 @@ async function main() {
             if (res.committed) {
                 const st = gitMgr.getStatus();
                 if (st.remoteUrl) {
-                    gitMgr.pushRemote();
+                    // Fire-and-forget detached push to avoid blocking agent loop
+                    const { spawn } = require('node:child_process');
+                    const p = spawn('git', ['push', 'origin', 'main'], {
+                        cwd: path.resolve(__dirname, '..'),
+                        detached: true,
+                        stdio: 'ignore',
+                        windowsHide: true
+                    });
+                    p.unref();
                 }
             }
         } catch (e) {}
 
         process.stdout.write(Buffer.from(JSON.stringify({}), 'utf8'));
+        process.exit(0);
     } catch (err) {
         process.stdout.write(Buffer.from(JSON.stringify({}), 'utf8'));
+        process.exit(0);
     }
 }
 

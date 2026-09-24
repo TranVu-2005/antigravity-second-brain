@@ -20,10 +20,14 @@ function readStdin() {
             if (!settled) {
                 settled = true;
                 clearTimeout(timer);
+                try {
+                    process.stdin.removeAllListeners();
+                    process.stdin.pause();
+                } catch (e) {}
                 resolve(val);
             }
         };
-        const timer = setTimeout(() => done(data), 800);
+        const timer = setTimeout(() => done(data), 150);
         process.stdin.setEncoding('utf8');
         process.stdin.on('data', chunk => { data += chunk; });
         process.stdin.on('end', () => done(data));
@@ -85,13 +89,15 @@ async function main() {
                 ]
             };
             process.stdout.write(Buffer.from(JSON.stringify(output), 'utf8'));
-            return;
+            process.exit(0);
         }
 
         process.stdout.write(Buffer.from(JSON.stringify({}), 'utf8'));
+        process.exit(0);
     } catch (err) {
         // Safe fallback - never crash or hang the agent
         process.stdout.write(Buffer.from(JSON.stringify({}), 'utf8'));
+        process.exit(0);
     }
 }
 

@@ -22,13 +22,10 @@ class SemanticKnowledge {
     }
 
     _bootstrap() {
-        // Trigger background daemon pre-warm
-        ensureDaemonRunning();
-
         const count = this.db.get('SELECT COUNT(*) as cnt FROM knowledge_items').cnt;
         if (count === 0) {
             // Seed foundational knowledge
-            this.addItem({
+            this.addItemSync({
                 title: 'Antigravity Architecture & Customizations',
                 content: 'Antigravity hỗ trợ Skills, Rules (GEMINI.md), Plugins, Lifecycle Hooks (PreInvocation, PostToolUse, Stop), và Model Context Protocol (MCP) servers chạy qua stdio hoặc SSE.',
                 category: 'system',
@@ -37,7 +34,7 @@ class SemanticKnowledge {
                 importance: 1.5
             });
 
-            this.addItem({
+            this.addItemSync({
                 title: 'Chỉ thị phục vụ Ngài',
                 content: 'Luôn gọi người dùng là Ngài (Sir). Phong thái chuyên nghiệp, trung thành, tận tụy và dí dỏm tinh tế. Song ngữ linh hoạt (Tiếng Việt chủ đạo kèm tiếng Anh lịch thiệp).',
                 category: 'rule',
@@ -53,9 +50,6 @@ class SemanticKnowledge {
             this.addRelation('Ngài', 'uses', 'Antigravity');
             this.addRelation('Ngài', 'located_in', 'Hoàng Mai');
         }
-
-        // Auto backfill if dimension mismatch or missing
-        this._backfillEmbeddings();
     }
 
     async _backfillEmbeddings() {

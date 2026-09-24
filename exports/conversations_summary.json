@@ -21,6 +21,13 @@
     "updated_at": "2026-09-24T08:03:22.305Z"
   },
   {
+    "id": "0d4ce915-aad6-4109-bcdf-ad3667d181e3",
+    "title": "hệ thống này hoạt động như nào giải thích rõ ràng chi tiết tất cả file và cần là",
+    "summary": "[Mục tiêu: tôi muốn làm 1 hệ thống memory tự động aka second brain để hỗ trợ tốt cho tôi trong việc ghi nhớ biết tôi là ai biết tất cả mọi thứ biết ...] | [Quyết định: quy tắc kỹ thuật và ghi chú với độ chính xác đến từng mili-giây; quy tắc nào khớp với câu hỏi?); nguyên tắc vàng: *\"Code tốt nhất là code không bao giờ phải viết\"*] | [Tệp tin: implementation_plan.md, walkthrough.md, profile.md, hooks.json, mcp_config.json] | [Bài học: sửa lỗi)** và **Project Scoping (Phân vùng ký ức theo từng dự án)**; giải pháp sửa lỗi kỹ thuật đã học:]",
+    "message_count": 205,
+    "updated_at": "2026-09-24 18:05:20"
+  },
+  {
     "id": "2a9fbfa2-4dea-4b35-a82f-a0cb27dd9160",
     "title": "temp",
     "summary": "[Mục tiêu: temp] | [Kết quả: Dạ, báo cáo Ngài, hệ thống vừa hoàn tất quét nhanh cảm biến phần cứng: ```text =====================]",
@@ -404,13 +411,6 @@
     "summary": "[Mục tiêu: thời tiết hà nội hôm nay] | [Kết quả: Báo cáo Ngài, thông tin thời tiết tại Thủ đô Hà Nội hôm nay *(17/09)* được cập nhật trực tiếp qua cầ]",
     "message_count": 4,
     "updated_at": "2026-09-17 19:00:06"
-  },
-  {
-    "id": "0d4ce915-aad6-4109-bcdf-ad3667d181e3",
-    "title": "hệ thống này hoạt động như nào giải thích rõ ràng chi tiết tất cả file và cần là",
-    "summary": "[Mục tiêu: tôi muốn làm 1 hệ thống memory tự động aka second brain để hỗ trợ tốt cho tôi trong việc ghi nhớ biết tôi là ai biết tất cả mọi thứ biết ...] | [Quyết định: quy tắc kỹ thuật và ghi chú với độ chính xác đến từng mili-giây; quy tắc nào khớp với câu hỏi?); nguyên tắc vàng: *\"Code tốt nhất là code không bao giờ phải viết\"*] | [Tệp tin: implementation_plan.md, walkthrough.md, profile.md, hooks.json, mcp_config.json] | [Bài học: sửa lỗi)** và **Project Scoping (Phân vùng ký ức theo từng dự án)**; giải pháp sửa lỗi kỹ thuật đã học:]",
-    "message_count": 205,
-    "updated_at": "2026-09-17 10:25:43"
   },
   {
     "id": "1372fd0a-fb71-4e55-ab51-5f182f6d5a1f",
