@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-25T09:13:00.968Z
+-- Generated: 2026-09-25T16:07:49.588Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -227,6 +227,11 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
    - Rã đông toàn bộ ứng dụng với NtResumeProcess gọi 2 lần (xóa triệt để mọi suspend count).
    - Đánh thức màn hình và tự dọn dẹp sạch sẽ.', 'rule', 'screenoff,rule,power_management,automation', 'agent_mcp', 1.9, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (37, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.485, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (38, '', '', 'fact', 'FACT', 'agent_remember', 1.5, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (39, 'Cấu hình Whitelist FDM và Gemini Web Bridge trong Screenoff Engine', 'Đã cấu hình ngoại trừ Free Download Manager (FDM), Antigravity và Gemini Web Bridge khỏi cơ chế ngủ đông của screenoff (tại C:\Users\tvu16\AppData\Roaming\Antigravity\bin\screenoff_engine.ps1).
+- Nguyên nhân: Trước đó ''fdm'' và ''wenativehost'' nằm trong danh sách $knownTargets cần suspend, khiến NtSuspendProcess đóng băng toàn bộ tiến trình FDM khi tắt màn hình.
+- Khắc phục: Đã chuyển ''fdm'', ''wenativehost'', ''fdm5rhwin'', ''helperservice'' sang $protectedList, loại bỏ khỏi $knownTargets, bổ sung cơ chế kiểm tra đường dẫn thư mục FDM và Gemini Web Bridge.
+- Đã rã đông toàn bộ tiến trình, đưa máy về trạng thái Normal Performance, và kích hoạt lại các luồng tải đa luồng của Horizon Forbidden West.', 'decision', 'screenoff,fdm,gemini_web_bridge,antigravity,download', 'agent_mcp', 1.5, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);

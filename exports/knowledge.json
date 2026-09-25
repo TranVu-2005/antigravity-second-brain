@@ -394,5 +394,29 @@
     "project_scope": "global",
     "created_at": "2026-09-24T18:30:36.030Z",
     "updated_at": "2026-09-24T18:30:36.030Z"
+  },
+  {
+    "id": 38,
+    "title": "",
+    "content": "",
+    "category": "fact",
+    "tags": "FACT",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-25T15:32:02.170Z",
+    "updated_at": "2026-09-25T15:32:02.170Z"
+  },
+  {
+    "id": 39,
+    "title": "Cấu hình Whitelist FDM và Gemini Web Bridge trong Screenoff Engine",
+    "content": "Đã cấu hình ngoại trừ Free Download Manager (FDM), Antigravity và Gemini Web Bridge khỏi cơ chế ngủ đông của screenoff (tại C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\screenoff_engine.ps1).\n- Nguyên nhân: Trước đó 'fdm' và 'wenativehost' nằm trong danh sách $knownTargets cần suspend, khiến NtSuspendProcess đóng băng toàn bộ tiến trình FDM khi tắt màn hình.\n- Khắc phục: Đã chuyển 'fdm', 'wenativehost', 'fdm5rhwin', 'helperservice' sang $protectedList, loại bỏ khỏi $knownTargets, bổ sung cơ chế kiểm tra đường dẫn thư mục FDM và Gemini Web Bridge.\n- Đã rã đông toàn bộ tiến trình, đưa máy về trạng thái Normal Performance, và kích hoạt lại các luồng tải đa luồng của Horizon Forbidden West.",
+    "category": "decision",
+    "tags": "screenoff,fdm,gemini_web_bridge,antigravity,download",
+    "source": "agent_mcp",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-25T15:42:56.150Z",
+    "updated_at": "2026-09-25T15:42:56.150Z"
   }
 ]
