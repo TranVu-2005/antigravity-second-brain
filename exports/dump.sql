@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-24T18:30:46.838Z
+-- Generated: 2026-09-25T09:13:00.968Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -18,15 +18,15 @@ INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) V
 -- Table: knowledge_items
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (1, 'Antigravity Architecture & Customizations', 'Antigravity hỗ trợ Skills, Rules (GEMINI.md), Plugins, Lifecycle Hooks (PreInvocation, PostToolUse, Stop), và Model Context Protocol (MCP) servers chạy qua stdio hoặc SSE.', 'system', 'antigravity,architecture,hooks,mcp', 'system', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (2, 'Chỉ thị phục vụ Ngài', 'Luôn gọi người dùng là Ngài (Sir). Phong thái chuyên nghiệp, trung thành, tận tụy và dí dỏm tinh tế. Song ngữ linh hoạt (Tiếng Việt chủ đạo kèm tiếng Anh lịch thiệp).', 'rule', 'persona,guidelines,sir,style', 'user_rule', 2, 'global');
-INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (3, 'Địa điểm cư ngụ', 'Khu vực sinh sống và làm việc chính của Ngài đặt tại quận Hoàng Mai, Hà Nội.', 'fact', 'location,hoang_mai', 'user', 0.834, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (3, 'Địa điểm cư ngụ', 'Khu vực sinh sống và làm việc chính của Ngài đặt tại quận Hoàng Mai, Hà Nội.', 'fact', 'location,hoang_mai', 'user', 0.813, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (4, 'Cài đặt & Tối ưu hóa Fetch MCP và Everything Search MCP', 'Đã cài đặt, tối ưu hóa và cấu hình 2 MCP Server mới:
 1. fetch (mcp-server-fetch qua uvx): Fetch nội dung web thành Markdown siêu nhẹ, tối ưu cờ --ignore-robots-txt và User-Agent trình duyệt hiện đại.
-2. everything-search (C:\Users\tvu16\.gemini\antigravity\everything_search\mcp_server.js): Server Node.js độc quyền tích hợp Voidtools Everything CLI (es.exe). Tìm kiếm triệu file trên Windows trong <15ms, cơ chế tự động phục hồi Self-Healing IPC nếu Everything chưa mở. Đã cấp quyền tự động trong config.json.', 'decision', 'mcp, fetch, everything-search, optimization, tools', 'agent_mcp', 1.37, 'global');
+2. everything-search (C:\Users\tvu16\.gemini\antigravity\everything_search\mcp_server.js): Server Node.js độc quyền tích hợp Voidtools Everything CLI (es.exe). Tìm kiếm triệu file trên Windows trong <15ms, cơ chế tự động phục hồi Self-Healing IPC nếu Everything chưa mở. Đã cấp quyền tự động trong config.json.', 'decision', 'mcp, fetch, everything-search, optimization, tools', 'agent_mcp', 1.352, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (5, 'Cấu hình môi trường Python 3.12 và uv trên hệ thống', 'Hệ thống của Ngài đã được cấu hình Python và Astral uv hoàn chỉnh:
 - Trình quản lý: Astral uv (v0.12.x).
 - Python mặc định: CPython 3.12.14 (tương thích tối đa với AI, PyTorch, packages).
 - Executables & Shims đặt tại C:\Users\tvu16\.local\bin và C:\Users\tvu16\AppData\Roaming\Antigravity\bin bao gồm: python, python3, pip, uv, uvx.
-- Đã đưa C:\Users\tvu16\.local\bin vào đầu User PATH để vượt qua App Execution Alias (Microsoft Store redirector) của Windows.', 'decision', 'python,uv,environment,config', 'agent_mcp', 1.379, 'global');
+- Đã đưa C:\Users\tvu16\.local\bin vào đầu User PATH để vượt qua App Execution Alias (Microsoft Store redirector) của Windows.', 'decision', 'python,uv,environment,config', 'agent_mcp', 1.361, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (6, 'Lệnh kiểm tra nhiệt độ CPU GPU tức thì (temp.cmd)', 'Để kiểm tra nhiệt độ CPU & GPU tức thì trên máy Ngài (< 1 giây):
 Chỉ cần chạy lệnh: temp
 Hoặc PowerShell one-liner:
@@ -41,14 +41,14 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
   3. CPU AMD Ryzen 7 7840H: Tải % CPU (psutil), % RAM, Cảm biến bán dẫn SoC APU (~55°C), Cụm tản nhiệt ACPI.
   4. Giải thích tương quan: Ở chế độ Quiet, quạt quay chậm/dừng nên nhiệt độ ACPI tích tụ ~80°C là phản ứng bình thường.
 - Vị trí tệp: C:\Users\tvu16\.local\bin\temp.cmd và C:\Users\tvu16\AppData\Roaming\Antigravity\bin\temp.cmd.
-- Tốc độ: ~1.5 giây. Không còn gây hiểu nhầm về nhiệt độ CPU.', 'snippet', 'hardware,temperature,legion,llt,upgrade', 'agent_mcp', 0.236, 'global');
+- Tốc độ: ~1.5 giây. Không còn gây hiểu nhầm về nhiệt độ CPU.', 'snippet', 'hardware,temperature,legion,llt,upgrade', 'agent_mcp', 0.182, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (8, 'Lệnh tắt màn hình tức thì screenoff.cmd', 'Lệnh tắt màn hình (Turn Off Display): Đã tạo script `screenoff.cmd` tại `C:\Users\tvu16\AppData\Roaming\Antigravity\bin\screenoff.cmd`. Sử dụng Windows API `user32.dll SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, 2)` qua Python ctypes với độ trễ 0.5s để tránh đánh thức màn hình ngay khi nhả phím. Chỉ cần gõ `screenoff` là màn hình tắt ngay lập tức mà không cần phụ thuộc LLT. Chạm chuột hoặc bấm phím bất kỳ sẽ sáng lại.', 'snippet', 'display,screenoff,windows,hardware', 'agent_mcp', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (9, 'Quy tắc thực thi lệnh screenoff tức thì', 'Khi Ngài nhập ''screenoff'' hoặc yêu cầu tắt màn hình / tắt màn rời: Trợ lý phải thực thi ngay lập tức lệnh `screenoff` (hoặc `offscreen.exe`) qua terminal (`run_command`) mà không cần hỏi lại hay chần chừ. Màn hình sẽ tắt ngầm trong khi các tác vụ vẫn chạy bình thường. Chạm chuột hoặc bấm phím để bật lại.', 'rule', 'screenoff,display,rule,persona', 'agent_mcp', 2, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (10, 'Nâng cấp lệnh screenoff đồng bộ qua Lenovo Legion Toolkit Quick Action', 'Lệnh tắt màn hình thông qua Lenovo Legion Toolkit (Preserves Remote Control):
 - Đã thêm Quick Action ''Turn Off Display'' vào automation.json của LLT với bước TurnOffMonitorsAutomationStep.
 - File lệnh screenoff.cmd tại C:\Users\tvu16\AppData\Roaming\Antigravity\bin\screenoff.cmd đã được cập nhật gọi `llt qa "Turn Off Display"`.
 - Cơ chế này sử dụng chính bộ điều khiển phần cứng của LLT, giúp màn hình tắt hoàn toàn mà KHÔNG làm ngắt kết nối Remote Control (WebRTC) ở Antigravity.
-- Nếu LLT chưa khởi chạy hoặc lỗi, tự động fallback sang offscreen.exe.', 'snippet', 'display,screenoff,llt,remote_control,hardware', 'agent_mcp', 0.121, 'global');
+- Nếu LLT chưa khởi chạy hoặc lỗi, tự động fallback sang offscreen.exe.', 'snippet', 'display,screenoff,llt,remote_control,hardware', 'agent_mcp', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (11, 'Nâng cấp lệnh temp: Đọc cảm biến phần cứng thực tế qua FastTemp và ThreadPoolExecutor', 'Đã nâng cấp lệnh temp thế hệ mới:
 - Biên dịch module C# FastTemp (C:\Users\tvu16\.local\bin\fast_temp\FastTemp.exe) sử dụng LibreHardwareMonitorLib.dll để đọc trực tiếp cảm biến phần cứng thời gian thực từ AMD Display Driver / ADL (nhiệt độ SoC của APU Radeon 780M trên chip Ryzen 7 7840H) và NVIDIA RTX 4050 (Core + Hotspot) trong < 0.5s không cần quyền Admin.
 - Tái cấu trúc system_temp.py sang mô hình chạy đa luồng song song (ThreadPoolExecutor) kết hợp đồng thời:
@@ -56,8 +56,8 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
   2. Lenovo Legion Toolkit CLI (Power-mode, Hybrid-mode).
   3. ACPI Heatsink Thermal Zone Counter (Cụm tản nhiệt bo mạch).
   4. psutil (CPU Load %, RAM Load %, Xung nhịp CPU MHz).
-- Xóa bỏ hoàn toàn con số gán cứng giả tạo ~55°C, mọi chỉ số báo cáo thời gian thực đều là ground-truth phần cứng 100%. Tốc độ phản hồi ~1.2s.', 'snippet', 'temp,hardware,cpu,gpu,legion,upgrade', 'agent_mcp', 0.284, 'global');
-INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (12, 'Hệ Sinh Thái Dual-Quota Bridge: Antigravity & Gemini Web', 'Đã thiết kế và triển khai hoàn tất hệ sinh thái Cầu Nối Antigravity <-> Gemini Web Bridge (Dual-Quota Strategy). Kiến trúc gồm Chrome Extension Manifest V3 bám sát tab gemini.google.com kết nối WebSocket tới MCP Server gemini-web-bridge (port 8765). Tự động phân luồng: câu hỏi thông thường/lý thuyết/brainstorm chuyển sang Web Quota, còn lập trình/thao tác tệp/terminal giữ lại cho Antigravity Agent Quota. Đạt độ trễ < 15ms và 0 token DOM.', 'decision', 'gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp', 'agent_mcp', 1.358, 'global');
+- Xóa bỏ hoàn toàn con số gán cứng giả tạo ~55°C, mọi chỉ số báo cáo thời gian thực đều là ground-truth phần cứng 100%. Tốc độ phản hồi ~1.2s.', 'snippet', 'temp,hardware,cpu,gpu,legion,upgrade', 'agent_mcp', 0.225, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (12, 'Hệ Sinh Thái Dual-Quota Bridge: Antigravity & Gemini Web', 'Đã thiết kế và triển khai hoàn tất hệ sinh thái Cầu Nối Antigravity <-> Gemini Web Bridge (Dual-Quota Strategy). Kiến trúc gồm Chrome Extension Manifest V3 bám sát tab gemini.google.com kết nối WebSocket tới MCP Server gemini-web-bridge (port 8765). Tự động phân luồng: câu hỏi thông thường/lý thuyết/brainstorm chuyển sang Web Quota, còn lập trình/thao tác tệp/terminal giữ lại cho Antigravity Agent Quota. Đạt độ trễ < 15ms và 0 token DOM.', 'decision', 'gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp', 'agent_mcp', 1.335, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (13, 'Kiến trúc hoàn thiện Antigravity Gemini Web Dual-Quota Bridge (v1.2.2)', 'Cầu nối Gemini Web Bridge (Dual-Quota Architecture) giữa Google Antigravity và Gemini Chat Web (gemini.google.com) đã hoàn thiện 100% chuẩn production:
 1. Kiến trúc phân tầng độc lập:
    - bridge_daemon.js: Tiến trình nền vĩnh viễn trên cổng 127.0.0.1:8765, sở hữu WebSocket server kết nối trực tiếp với Chrome/Brave Extension và HTTP server cho các lệnh CLI/script. Không phụ thuộc chu kỳ vòng đời Antigravity MCP (miễn nhiễm với lỗi 5 phút MCP timeout/ECONNRESET).
@@ -69,7 +69,7 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
    - Khắc phục lỗi thẻ SVG Gradient <stop> (loại trừ các biểu tượng màu chứa thẻ <stop>).
    - Bộ lọc isProcessing: Chờ qua trạng thái Đang xử lý... / Đang suy nghĩ... của Gemini trước khi chốt kết quả.
    - Cách ly lượt chat (Strict Turn Isolation): Nhận diện đúng phản hồi của từng lượt hỏi liên tiếp trong cùng một hội thoại.
-3. Tối ưu Quota kép: Ủy thác 100% các câu hỏi lý thuyết, giải thích kiến thức sang Gemini Web (0 token DOM, tốc độ < 15ms overhead), giữ trọn vẹn quota Agent của Antigravity cho việc code, test và can thiệp file máy cục bộ.', 'decision', 'gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror', 'agent_mcp', 1.865, 'global');
+3. Tối ưu Quota kép: Ủy thác 100% các câu hỏi lý thuyết, giải thích kiến thức sang Gemini Web (0 token DOM, tốc độ < 15ms overhead), giữ trọn vẹn quota Agent của Antigravity cho việc code, test và can thiệp file máy cục bộ.', 'decision', 'gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror', 'agent_mcp', 1.848, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (14, 'Tổng quan Kiến trúc & Sổ tay Vận hành Gemini Web Bridge (v1.2.3)', 'HỆ THỐNG CẦU NỐI DUAL-QUOTA BRIDGE (ANTIGRAVITY <-> GEMINI WEB) v1.2.3:
 
 1. MỤC TIÊU CỐT LÕI:
@@ -94,13 +94,13 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 - Giai đoạn 1: Tự động phát hiện phiên đăng nhập & tự động chuyển tab mới (New Chat trigger) khi hội thoại quá dài để giữ ngữ cảnh sạch.
 - Giai đoạn 2: Hỗ trợ đính kèm tệp/ảnh cục bộ chuyển tiếp lên Gemini Web qua clipboard/input file upload.
 - Giai đoạn 3: Streaming thời gian thực từng khối Markdown từ Browser qua WebSocket về terminal/agent.
-- Giai đoạn 4: Đa tab load-balancing (chia tải giữa nhiều tab Gemini Web nếu cần xử lý song song).', 'decision', 'gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap', 'agent_mcp', 1.895, 'global');
+- Giai đoạn 4: Đa tab load-balancing (chia tải giữa nhiều tab Gemini Web nếu cần xử lý song song).', 'decision', 'gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap', 'agent_mcp', 1.886, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (15, 'Khắc phục triệt để bẫy kiểm duyệt tiếng Việt và lỗi ngắt stream Gemini Web v1.2.5', 'Giải pháp v1.2.5 cho Gemini Web Bridge:
 1. Tạo normalizer.js: Chuẩn hóa bẫy kiểm duyệt tiếng Việt của Google (chạm chân -> đặt chân, lần đầu con người -> lần đầu tiên con người đặt chân lên Mặt Trăng, gán tiền tố bách khoa ''Về mặt thông tin và lịch sử: '').
 2. Khắc phục lỗi cắt dòng stream trong content.js: Bỏ mốc 800ms, yêu cầu lắng đọng 2.5s-4s sau khi nút Stop biến mất.
 3. Cơ chế Range + execCommand(''insertText'') chuẩn xác không sót văn bản cũ.
 4. Tự động phục hồi khi phát hiện câu từ chối mặc định.
-5. Cập nhật ask.js, mcp_server.js và manifest v1.2.5.', 'decision', 'gemini_web,dual_quota,bugfix,safety_filter,v1.2.5', 'agent_mcp', 1.862, 'global');
+5. Cập nhật ask.js, mcp_server.js và manifest v1.2.5.', 'decision', 'gemini_web,dual_quota,bugfix,safety_filter,v1.2.5', 'agent_mcp', 1.845, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (16, 'Kiến trúc và Quy chuẩn Vận hành Gemini Web Dual-Quota Bridge v2.0.0', '# Antigravity <-> Gemini Web Dual-Quota Bridge v2.0.0 (Bản Chuẩn Hóa Production-Grade)
 
 ## 1. Mục Đích & Vị Trí Lưu Trữ
@@ -136,9 +136,8 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 ## 3. Quy Trình Nạp Khi Sửa Code
 - Sau khi chỉnh sửa `extension/content.js` hoặc `manifest.json`:
   1. Mở `brave://extensions` -> Bấm icon 🔄 Tải lại tiện ích.
-  2. Mở tab Gemini Web (`gemini.google.com`) -> Nhấn F5.', 'decision', 'gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture', 'agent_mcp', 1.869, 'global');
-INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (17, '', '', 'fact', 'test', 'agent_remember', 1.16, 'global');
-INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (20, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.187, 'global');
+  2. Mở tab Gemini Web (`gemini.google.com`) -> Nhấn F5.', 'decision', 'gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture', 'agent_mcp', 1.856, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (17, '', '', 'fact', 'test', 'agent_remember', 1.098, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (21, 'Kiến trúc Dual-Quota Bridge v4.5 Test (1789897377941)', 'Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.', 'architecture', 'test,dual_quota,gemini_web', 'gemini_web_distillation', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (22, 'Kiến trúc Dual-Quota Bridge v4.5 Test (1789900755454)', 'Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.', 'architecture', 'test,dual_quota,gemini_web', 'gemini_web_distillation', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (23, 'Kiến trúc Dual-Quota Bridge v4.5 Test (1789918301384)', 'Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.', 'architecture', 'test,dual_quota,gemini_web', 'gemini_web_distillation', 0.1, 'global');
@@ -150,13 +149,13 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 - Cấu trúc bộ cài: Gồm 3 part dạng file RAR (Part 1: ~13GB, Part 2: ~13GB, Part 3: ~2GB, tổng ~28GB).
 - File đang tải sẽ có định dạng *.rar.fdmdownload, khi hoàn tất sẽ tự chuyển thành *.rar.
 - Quá trình tải ghi nhận: Part 1 xong trước (22:51 ngày 20/09/2026), Part 2 và Part 3 hoàn tất sau đó.
-- Công cụ kiểm tra: Truy vấn SQLite tại %LOCALAPPDATA%\Softdeluxe\Free Download Manager\db.sqlite.', 'fact', 'diablo,d2r,game,fdm,downloads,linkneverdie', 'agent_mcp', 1.474, 'global');
+- Công cụ kiểm tra: Truy vấn SQLite tại %LOCALAPPDATA%\Softdeluxe\Free Download Manager\db.sqlite.', 'fact', 'diablo,d2r,game,fdm,downloads,linkneverdie', 'agent_mcp', 1.456, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (28, 'Diablo II: Resurrected đã giải nén hoàn tất trong Downloads', 'Bộ cài đặt Diablo II: Resurrected (LinkNeverDie TCP) đã được giải nén thành công trọn vẹn vào thư mục Downloads:
 - Đường dẫn: C:\Users\tvu16\Downloads\D2R.TCP_LinkNeverDie.Com
 - Dung lượng bung nén: ~30.44 GB
 - File chạy game: "__Start game TCP + create shortcut.exe" hoặc "__Start game TCP ReMoDDeD + create shortcut.exe"
 - Mật khẩu giải nén: linkneverdie.com
-- Bộ cài gốc (RAR): C:\Users\tvu16\Downloads\D2R.TCP_LinkNeverDie.Com.part1.rar -> part3.rar (~28 GB)', 'fact', 'diablo,d2r,game,downloads,linkneverdie,extracted', 'agent_mcp', 1.342, 'global');
+- Bộ cài gốc (RAR): C:\Users\tvu16\Downloads\D2R.TCP_LinkNeverDie.Com.part1.rar -> part3.rar (~28 GB)', 'fact', 'diablo,d2r,game,downloads,linkneverdie,extracted', 'agent_mcp', 1.242, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (29, 'Nâng cấp lệnh screenoff thế hệ mới (Eco Agentic Mode) và bổ sung lệnh screenon', 'HỆ THỐNG ECO AGENTIC SCREENOFF THẾ HỆ MỚI (V2.0):
 1. Mục tiêu: Khi Ngài tắt màn hình (screenoff), toàn bộ các ứng dụng bên thứ 3 và tác vụ nền ngốn tài nguyên (Brave cá nhân, Zalo, Riot Client, Vanguard, FDM, Spotify, Widgets...) sẽ được đưa vào trạng thái ngủ đông (NtSuspendProcess) và thu hồi RAM (EmptyWorkingSet).
 2. Bảo vệ tuyệt đối (Whitelisted 100%):
@@ -167,13 +166,13 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 3. Phần cứng: Tự động đưa Legion sang Quiet Mode và tắt đèn nền bàn phím để triệt tiêu tiếng ồn quạt và nhiệt lượng.
 4. Cơ chế thức tỉnh kép (Dual-Wake):
    - Tự động: Background Watcher phát hiện cử chỉ chuột hoặc gõ phím vật lý tại bàn -> Tự động rã đông (NtResumeProcess) toàn bộ ứng dụng trong < 500ms, phục hồi profile Legion.
-   - Chủ động: Gõ ''screenon'' (hoặc ''resume'') trong terminal hoặc bảo Agent ''screenon'' / ''bật màn hình'' để đánh thức màn hình và rã đông tức thì từ xa.', 'SNIPPET', 'screenoff,screenon,display,eco,performance,llt,gemini_web_bridge,hardware', 'agent_mcp', 0.194, 'global');
+   - Chủ động: Gõ ''screenon'' (hoặc ''resume'') trong terminal hoặc bảo Agent ''screenon'' / ''bật màn hình'' để đánh thức màn hình và rã đông tức thì từ xa.', 'SNIPPET', 'screenoff,screenon,display,eco,performance,llt,gemini_web_bridge,hardware', 'agent_mcp', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (30, 'Nâng cấp screenoff v2.1: Tự động chuyển đổi Power Saver và Ultimate Performance', 'CẬP NHẬT ECO AGENTIC SCREENOFF (V2.1 - PONYTAIL COMPLIANT):
 - Bổ sung chuyển đổi gói nguồn Windows Native qua powercfg:
   1. Khi tắt màn hình (screenoff): Tự động chuyển Windows Power Scheme sang ''Power saver'' (GUID: 538df9f7-dc4f-4a30-844c-a7ce0628d803), giúp chip Ryzen 7 7840H giảm điện áp, giảm công suất tiêu thụ thêm 4-6W và hạ nhiệt độ sâu hơn.
   2. Khi bật máy / mở màn hình (screenon hoặc chạm chuột/bàn phím): Tự động khôi phục ngay lập tức về ''Ultimate Performance'' (GUID: 3a41ddd7-0eea-4292-a049-1ad7a6674099) để Ngài làm việc với toàn bộ sức mạnh phần cứng.
 - Triết lý Ponytail: Tận dụng 100% native powercfg của Windows, không thêm thư viện hay tiến trình thừa.
-- Trạng thái kiểm thử: Đã test 2 chiều thành công 100%.', 'SNIPPET', 'screenoff,screenon,powersaver,ultimate_performance,powercfg,ponytail,eco', 'agent_mcp', 0.199, 'global');
+- Trạng thái kiểm thử: Đã test 2 chiều thành công 100%.', 'SNIPPET', 'screenoff,screenon,powersaver,ultimate_performance,powercfg,ponytail,eco', 'agent_mcp', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (31, 'Giải mã & Tối ưu hóa sâu gói Power Saver: Hạ công suất APU về 2W và giảm 26 độ C cụm ACPI', 'TỐI ƯU HÓA ĐỈNH CAO POWER SAVER WINDOWS (CHÊ ĐỘ ĐÓNG BĂNG 2W):
 1. Vấn đề của Power Saver mặc định:
    - Windows mặc định để PERFBOOSTMODE = Aggressive (2) và PROCTHROTTLEMAX = 100%. CPU AMD Ryzen 7 7840H vẫn bị ép xung gián đoạn lên 4.5-5.1GHz và ăn 18W điện standby, giữ nhiệt độ ở ~53-55°C và cụm ACPI nóng 73°C.
@@ -187,7 +186,7 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
    - Nhiệt độ cụm tản nhiệt bo mạch ACPI giảm từ 73.0°C xuống 47.0°C (Hạ 26°C kỷ lục).
 4. Phối hợp với Ultimate Performance:
    - Screenoff -> Kích hoạt Power Saver tối ưu này (2W, 46°C, quạt tắt hẳn).
-   - Screenon / chạm chuột -> Lập tức bật lại Ultimate Performance 100% công suất.', 'SNIPPET', 'powersave,ultimate_performance,powercfg,thermals,ryzen,perfboostmode,optimization', 'agent_mcp', 0.21, 'global');
+   - Screenon / chạm chuột -> Lập tức bật lại Ultimate Performance 100% công suất.', 'SNIPPET', 'powersave,ultimate_performance,powercfg,thermals,ryzen,perfboostmode,optimization', 'agent_mcp', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (32, 'Khởi tạo Custom Power Plan chuyên dụng: Antigravity Eco Agent (44 độ C, Never Sleep)', 'KHỞI TẠO CUSTOM POWER PLAN CHUYÊN DỤNG: ANTIGRAVITY ECO AGENT (v2.2):
 1. GUID: 14d37a79-56ce-489c-8976-e97796598820 (Tên: ''Antigravity Eco Agent'').
 2. Các thông số vàng được đo ni đóng giày:
@@ -200,20 +199,20 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
    - Cụm tản nhiệt bo mạch ACPI giảm xuống: 45.0 °C!
 4. Cơ chế tích hợp:
    - ''screenoff'' -> Tự động kích hoạt ''Antigravity Eco Agent''.
-   - ''screenon'' (hoặc chạm chuột/phím) -> Tự động trả về ''Ultimate Performance'' 100% công suất.', 'SNIPPET', 'powerplan,custom,antigravity_eco_agent,screenoff,screenon,ryzen,optimization,ponytail', 'agent_mcp', 0.211, 'global');
+   - ''screenon'' (hoặc chạm chuột/phím) -> Tự động trả về ''Ultimate Performance'' 100% công suất.', 'SNIPPET', 'powerplan,custom,antigravity_eco_agent,screenoff,screenon,ryzen,optimization,ponytail', 'agent_mcp', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (33, 'Quy chuẩn Tối ưu tự động Screenoff: Loại bỏ screenon, chỉ thức tỉnh khi chạm chuột/phím tại bàn', 'QUY CHUẨN TỐI ƯU TỰ ĐỘNG SCREENOFF HOÀN THIỆN (LOẠI BỎ SCREENON MANUAL):
 1. Quyết định loại bỏ hoàn toàn: Đã xóa screenon.cmd và resume.cmd.
 2. Lý do: Tránh mọi sự nhầm lẫn giữa trạng thái màn hình tắt phần cứng và lệnh rã đông phần mềm. Khi Ngài ở xa hoặc dùng điện thoại điều khiển Antigravity/Remote Control, máy vẫn giữ 100% chế độ đóng băng siêu tiết kiệm điện Antigravity Eco Agent (43°C, APU 1W).
 3. Cơ chế thức tỉnh duy nhất:
    - Khi Ngài ngồi vào bàn làm việc: Chỉ cần chạm nhẹ chuột vật lý hoặc gõ 1 phím bất kỳ trên bàn phím.
    - Watcher ngầm sẽ bắt cử chỉ thực tế tại bàn trong < 500ms, tự động rã đông 65 app và trả về Ultimate Performance.
-4. Trạng thái đo đạc thực tế: Cả CPU, GPU và cụm ACPI đều đạt mốc kỷ lục: 43.0 °C!', 'DECISION', 'screenoff,decision,auto_wake,ponytail,second_brain,hardware', 'agent_mcp', 0.205, 'global');
+4. Trạng thái đo đạc thực tế: Cả CPU, GPU và cụm ACPI đều đạt mốc kỷ lục: 43.0 °C!', 'DECISION', 'screenoff,decision,auto_wake,ponytail,second_brain,hardware', 'agent_mcp', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (34, 'Kiến trúc Screenoff Tối Giản và Tự Động Rã Đông Tuyệt Đối', 'Quy chuẩn kiến trúc Screenoff & Auto-Wake tối ưu theo triết lý Ponytail:
 1. Gộp thống nhất thành 1 tiến trình duy nhất trong screenoff_engine.ps1 (chạy ngầm qua screenoff.cmd), loại bỏ hoàn toàn việc phân mảnh thành 2 script (engine và watcher) gây mất đồng bộ và lỗi race condition.
 2. Biên dịch Win32 P/Invoke 1 lần duy nhất ngay từ đầu khi CPU đang ở Ultimate Performance (4.5+ GHz). Tránh lỗi Add-Type biên dịch trong trạng thái Eco 2W (từng gây nghẽn 5-10s và trễ khởi động watcher).
 3. Loại bỏ hoàn toàn EmptyWorkingSet: Không ép xả RAM ra pagefile disk để tránh hiện tượng hard page fault bão hòa I/O khi thức giấc.
 4. Khi nhận diện chuyển động chuột/phím, lập tức phục hồi Power Plan (Ultimate Performance) và Legion Power Mode (Balance) TRƯỚC TIÊN (<10ms) để CPU vọt lên 4.5+ GHz, sau đó gọi NtResumeProcess x2 lần cho từng tiến trình người dùng để rã đông triệt để 100%.
-5. Loại trừ triệt để Riot Vanguard (vgtray) và các host của Windows để không bị xung đột kernel driver anti-cheat.', 'decision', 'screenoff,powermanagement,ponytail,win32', 'agent_mcp', 1.794, 'global');
+5. Loại trừ triệt để Riot Vanguard (vgtray) và các host của Windows để không bị xung đột kernel driver anti-cheat.', 'decision', 'screenoff,powermanagement,ponytail,win32', 'agent_mcp', 1.787, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (35, 'Quy tắc Tự động Screenoff và Khôi phục Performance Mode', 'Quy tắc thực thi Screenoff tự động cho Antigravity Agent:
 1. Khi Ngài chat ''screenoff'' hoặc yêu cầu tắt màn hình: Trợ lý BẮT BUỘC thực thi ngay lệnh qua terminal (run_command) bằng WMI để tiến trình chạy ngầm hoàn toàn độc lập khỏi Job Object:
    cmd.exe /c "C:\Users\tvu16\AppData\Roaming\Antigravity\bin\screenoff.cmd"
@@ -227,8 +226,7 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
    - Chuyển Legion sang chế độ ''performance'' (theo yêu cầu của Ngài).
    - Rã đông toàn bộ ứng dụng với NtResumeProcess gọi 2 lần (xóa triệt để mọi suspend count).
    - Đánh thức màn hình và tự dọn dẹp sạch sẽ.', 'rule', 'screenoff,rule,power_management,automation', 'agent_mcp', 1.9, 'global');
-INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (36, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.5, 'global');
-INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (37, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.5, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (37, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.485, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);
@@ -377,8 +375,8 @@ SyntaxError: unterminated string literal (detected at line 31)
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (26, 'temp thiếu nhiệt độ CPU hoặc hiển thị "Đang ở chế độ tiết kiệm điện" và "Khe tản nhiệt ACPI: N/A"', 'Trong system_temp.py, timeout của FastTemp.exe và PowerShell query_acpi bị đặt là 2 giây. Khi máy ở chế độ Eco Agent (xung CPU bị khóa trần 2.0 GHz), thời gian nạp CLR .NET của FastTemp và PowerShell bị trễ nhẹ (>2.0s), dẫn đến việc cả 2 bị timeout cùng lúc. GPU có fallback qua nvidia-smi nên vẫn hiện nhiệt độ, còn CPU bị rơi vào nhánh N/A.', 'Tăng timeout của query_fast_temp() và query_acpi() trong C:\Users\tvu16\.local\bin\system_temp.py từ 2s lên 4s. Do chạy đa luồng ThreadPoolExecutor, thời gian thực thi bình thường vẫn giữ nguyên (~1.2s), nhưng đảm bảo không bao giờ bị rớt cảm biến CPU khi máy chạy ở mức xung tiết kiệm điện.', '', 'global', 1, 1);
 
 -- Table: conversations
-INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('47aab258-840d-45ec-9e36-6717e74c4d04', 'check lại các cuộc trò chuyện gần đây và hệ thống hoạt động tốt chưa /second-bra', '', 57);
-INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('be6a06b6-a3dd-4674-9cdb-d83312fd143a', 'screenoff', '', 5);
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('be6a06b6-a3dd-4674-9cdb-d83312fd143a', 'screenoff', '[Mục tiêu: screenoff] | [Kết quả: As you wish, Sir!  Quy trình tắt màn hình sinh thái (`screenoff`) đã được kích hoạt thành công qua e]', 5);
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('47aab258-840d-45ec-9e36-6717e74c4d04', 'ok hãy xử lí triệt để tối ưu 100% tự động production-grade và phân tích các sess', '[Mục tiêu: check lại các cuộc trò chuyện gần đây và hệ thống hoạt động tốt chưa /second-brain qua các phiên làm việc và những gì đã nhớ học được lưu...] | [Tệp tin: second_brain_audit_and_plan.md, pre_invocation.js, stop.js, reinforcement.js, hooks.json] | [Bài học: Sửa lỗi Hook Hang & Timeout (`pre_invocation; Giải pháp Ponytail:* Thu hẹp timeout stdin còn 150ms và thoát tường minh bằng `process]', 136);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('d34fa786-9307-4579-9df7-b26d97bfce72', 'tôi bật màn hình lên bằng cách chạm vào phím rồi mà sao mọi thứ vẫn đóng băng ch', '[Mục tiêu: screenoff] | [Quyết định: yêu cầu `screenoff` trực tiếp trong khung chat với tôi, câu lệnh được Antigravity thực thi qua runner hệ thống (`run_command`)] | [Tệp tin: screenoff_engine.ps1, screenoff_watcher.ps1] | [Bài học: Khắc phục Triệt để Đã Hoàn tất]', 310);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('0d4ce915-aad6-4109-bcdf-ad3667d181e3', 'hệ thống này hoạt động như nào giải thích rõ ràng chi tiết tất cả file và cần là', '[Mục tiêu: tôi muốn làm 1 hệ thống memory tự động aka second brain để hỗ trợ tốt cho tôi trong việc ghi nhớ biết tôi là ai biết tất cả mọi thứ biết ...] | [Quyết định: quy tắc kỹ thuật và ghi chú với độ chính xác đến từng mili-giây; quy tắc nào khớp với câu hỏi?); nguyên tắc vàng: *"Code tốt nhất là code không bao giờ phải viết"*] | [Tệp tin: implementation_plan.md, walkthrough.md, profile.md, hooks.json, mcp_config.json] | [Bài học: sửa lỗi)** và **Project Scoping (Phân vùng ký ức theo từng dự án)**; giải pháp sửa lỗi kỹ thuật đã học:]', 205);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('2a9fbfa2-4dea-4b35-a82f-a0cb27dd9160', 'temp', '[Mục tiêu: temp] | [Kết quả: Dạ, báo cáo Ngài, hệ thống vừa hoàn tất quét nhanh cảm biến phần cứng: ```text =====================]', 3);

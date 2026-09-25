@@ -1,17 +1,17 @@
 [
   {
-    "id": "47aab258-840d-45ec-9e36-6717e74c4d04",
-    "title": "check lại các cuộc trò chuyện gần đây và hệ thống hoạt động tốt chưa /second-bra",
-    "summary": null,
-    "message_count": 57,
-    "updated_at": "2026-09-24T18:04:30.581Z"
-  },
-  {
     "id": "be6a06b6-a3dd-4674-9cdb-d83312fd143a",
     "title": "screenoff",
-    "summary": null,
+    "summary": "[Mục tiêu: screenoff] | [Kết quả: As you wish, Sir!  Quy trình tắt màn hình sinh thái (`screenoff`) đã được kích hoạt thành công qua e]",
     "message_count": 5,
-    "updated_at": "2026-09-24T18:04:30.320Z"
+    "updated_at": "2026-09-25 09:13:00"
+  },
+  {
+    "id": "47aab258-840d-45ec-9e36-6717e74c4d04",
+    "title": "ok hãy xử lí triệt để tối ưu 100% tự động production-grade và phân tích các sess",
+    "summary": "[Mục tiêu: check lại các cuộc trò chuyện gần đây và hệ thống hoạt động tốt chưa /second-brain qua các phiên làm việc và những gì đã nhớ học được lưu...] | [Tệp tin: second_brain_audit_and_plan.md, pre_invocation.js, stop.js, reinforcement.js, hooks.json] | [Bài học: Sửa lỗi Hook Hang & Timeout (`pre_invocation; Giải pháp Ponytail:* Thu hẹp timeout stdin còn 150ms và thoát tường minh bằng `process]",
+    "message_count": 136,
+    "updated_at": "2026-09-25 09:13:00"
   },
   {
     "id": "d34fa786-9307-4579-9df7-b26d97bfce72",
