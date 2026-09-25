@@ -192,90 +192,6 @@
     "updated_at": "2026-09-14T15:21:52.020Z"
   },
   {
-    "id": 17,
-    "title": "",
-    "content": "",
-    "category": "fact",
-    "tags": "test",
-    "source": "agent_remember",
-    "importance": 1.098,
-    "project_scope": "global",
-    "created_at": "2026-09-17T10:24:22.046Z",
-    "updated_at": "2026-09-17T10:24:22.046Z"
-  },
-  {
-    "id": 21,
-    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789897377941)",
-    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
-    "category": "architecture",
-    "tags": "test,dual_quota,gemini_web",
-    "source": "gemini_web_distillation",
-    "importance": 0.1,
-    "project_scope": "global",
-    "created_at": "2026-09-20T09:42:57.967Z",
-    "updated_at": "2026-09-20T09:42:57.967Z"
-  },
-  {
-    "id": 22,
-    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789900755454)",
-    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
-    "category": "architecture",
-    "tags": "test,dual_quota,gemini_web",
-    "source": "gemini_web_distillation",
-    "importance": 0.1,
-    "project_scope": "global",
-    "created_at": "2026-09-20T10:39:15.478Z",
-    "updated_at": "2026-09-20T10:39:15.478Z"
-  },
-  {
-    "id": 23,
-    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789918301384)",
-    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
-    "category": "architecture",
-    "tags": "test,dual_quota,gemini_web",
-    "source": "gemini_web_distillation",
-    "importance": 0.1,
-    "project_scope": "global",
-    "created_at": "2026-09-20T15:31:41.411Z",
-    "updated_at": "2026-09-20T15:31:41.411Z"
-  },
-  {
-    "id": 24,
-    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789919200606)",
-    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
-    "category": "architecture",
-    "tags": "test,dual_quota,gemini_web",
-    "source": "gemini_web_distillation",
-    "importance": 0.1,
-    "project_scope": "global",
-    "created_at": "2026-09-20T15:46:40.656Z",
-    "updated_at": "2026-09-20T15:46:40.656Z"
-  },
-  {
-    "id": 25,
-    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789919246478)",
-    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
-    "category": "architecture",
-    "tags": "test,dual_quota,gemini_web",
-    "source": "gemini_web_distillation",
-    "importance": 0.1,
-    "project_scope": "global",
-    "created_at": "2026-09-20T15:47:26.505Z",
-    "updated_at": "2026-09-20T15:47:26.505Z"
-  },
-  {
-    "id": 26,
-    "title": "Kiến trúc Dual-Quota Bridge v4.5 Test (1789919388599)",
-    "content": "Hệ thống kết nối trực tiếp Antigravity với Gemini Web đạt độ trễ 3-5s và tiết kiệm 100% token quota.",
-    "category": "architecture",
-    "tags": "test,dual_quota,gemini_web",
-    "source": "gemini_web_distillation",
-    "importance": 0.1,
-    "project_scope": "global",
-    "created_at": "2026-09-20T15:49:48.622Z",
-    "updated_at": "2026-09-20T15:49:48.622Z"
-  },
-  {
     "id": 27,
     "title": "Thông tin tải game Diablo II: Resurrected của Ngài",
     "content": "Ngài đang tải bộ cài đặt Diablo II: Resurrected (bản LinkNeverDie TCP) bằng phần mềm Free Download Manager (FDM).\n- Thư mục lưu trữ: C:\\Users\\tvu16\\Downloads\n- Cấu trúc bộ cài: Gồm 3 part dạng file RAR (Part 1: ~13GB, Part 2: ~13GB, Part 3: ~2GB, tổng ~28GB).\n- File đang tải sẽ có định dạng *.rar.fdmdownload, khi hoàn tất sẽ tự chuyển thành *.rar.\n- Quá trình tải ghi nhận: Part 1 xong trước (22:51 ngày 20/09/2026), Part 2 và Part 3 hoàn tất sau đó.\n- Công cụ kiểm tra: Truy vấn SQLite tại %LOCALAPPDATA%\\Softdeluxe\\Free Download Manager\\db.sqlite.",
@@ -384,30 +300,6 @@
     "updated_at": "2026-09-23T16:45:26.551Z"
   },
   {
-    "id": 37,
-    "title": "test_mcp_remember_val",
-    "content": "test_mcp_remember_val",
-    "category": "fact",
-    "tags": "preference",
-    "source": "agent_remember",
-    "importance": 1.485,
-    "project_scope": "global",
-    "created_at": "2026-09-24T18:30:36.030Z",
-    "updated_at": "2026-09-24T18:30:36.030Z"
-  },
-  {
-    "id": 38,
-    "title": "",
-    "content": "",
-    "category": "fact",
-    "tags": "FACT",
-    "source": "agent_remember",
-    "importance": 1.5,
-    "project_scope": "global",
-    "created_at": "2026-09-25T15:32:02.170Z",
-    "updated_at": "2026-09-25T15:32:02.170Z"
-  },
-  {
     "id": 39,
     "title": "Cấu hình Whitelist FDM và Gemini Web Bridge trong Screenoff Engine",
     "content": "Đã cấu hình ngoại trừ Free Download Manager (FDM), Antigravity và Gemini Web Bridge khỏi cơ chế ngủ đông của screenoff (tại C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\screenoff_engine.ps1).\n- Nguyên nhân: Trước đó 'fdm' và 'wenativehost' nằm trong danh sách $knownTargets cần suspend, khiến NtSuspendProcess đóng băng toàn bộ tiến trình FDM khi tắt màn hình.\n- Khắc phục: Đã chuyển 'fdm', 'wenativehost', 'fdm5rhwin', 'helperservice' sang $protectedList, loại bỏ khỏi $knownTargets, bổ sung cơ chế kiểm tra đường dẫn thư mục FDM và Gemini Web Bridge.\n- Đã rã đông toàn bộ tiến trình, đưa máy về trạng thái Normal Performance, và kích hoạt lại các luồng tải đa luồng của Horizon Forbidden West.",
@@ -430,5 +322,65 @@
     "project_scope": "global",
     "created_at": "2026-09-25T16:18:38.035Z",
     "updated_at": "2026-09-25T16:18:38.035Z"
+  },
+  {
+    "id": 41,
+    "title": "Thông tin tải game Horizon Forbidden West Complete Edition của Ngài",
+    "content": "Ngài đang tải bộ cài đặt Horizon Forbidden West Complete Edition (LinkNeverDie Google Drive 8 parts, tổng ~74.6 GB + gói Việt Hóa 'Horizon.Forbidden.West.VietHoa.rar') bằng phần mềm Free Download Manager (FDM).\n- Thư mục lưu trữ: C:\\Users\\tvu16\\Downloads\n- Cấu trúc: 7 part đầu mỗi part ~14.9 GB, part 8 ~4.39 MB, kèm file Việt hóa 4.91 MB.\n- Part 01 và file Việt hóa đã hoàn tất, các part còn lại đang tải đa luồng qua FDM.\n- Công cụ kiểm tra nhanh: Lệnh `fdm horizon` (< 50ms).",
+    "category": "fact",
+    "tags": "horizon,hfw,forbidden_west,game,fdm,downloads,linkneverdie",
+    "source": "conversation_history",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-25T16:42:36.522Z",
+    "updated_at": "2026-09-25T16:42:36.522Z"
+  },
+  {
+    "id": 42,
+    "title": "Thông số phần cứng chi tiết Laptop Lenovo Legion của Ngài",
+    "content": "Hạ tầng phần cứng máy tính cá nhân của Ngài:\n- Thiết bị: Laptop Lenovo Legion (Hostname: tranvu-galactic-ion, OS: Windows 11, User: tvu16).\n- CPU: AMD Ryzen 7 7840H (8 Cores, 16 Threads, Zen 4, 3.8 - 5.1 GHz).\n- GPU rời: NVIDIA GeForce RTX 4050 Laptop GPU (6GB GDDR6, TGP ~95-105W).\n- iGPU: AMD Radeon 780M (RDNA 3, Hybrid Mode ON).\n- Công cụ đo & kiểm soát: Lenovo Legion Toolkit CLI (`llt`), `FastTemp.exe` (đo SoC APU), NVIDIA SMI.\n- Lệnh kiểm tra nhiệt độ tức thời: `temp`.",
+    "category": "fact",
+    "tags": "hardware,legion,ryzen,rtx4050,cpu,gpu,fasttemp,llt",
+    "source": "system_audit",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-25T16:42:36.526Z",
+    "updated_at": "2026-09-25T16:42:36.526Z"
+  },
+  {
+    "id": 43,
+    "title": "Danh mục game & tiện ích đã tải / cài đặt trên máy Ngài",
+    "content": "Danh mục các game và phần mềm tiêu biểu Ngài đang sở hữu hoặc tải về trong `C:\\Users\\tvu16\\Downloads`:\n1. Diablo II: Resurrected (LinkNeverDie TCP, bung nén tại `C:\\Users\\tvu16\\Downloads\\D2R.TCP_LinkNeverDie.Com`, ~30.4 GB).\n2. Horizon Forbidden West Complete Edition (~74.6 GB, đang tải qua FDM).\n3. Blasphemous 2 (bản v3.0 kèm Việt Hóa và FLiNG Trainer).\n4. Wuchang: Fallen Feathers (bản Việt Hóa + Mod Enabler Steam).\n5. Tiện ích âm thanh & ngoại vi: Voicemeeter, phần mềm bàn phím WK870, DroidCam Webcam.",
+    "category": "fact",
+    "tags": "inventory,games,software,diablo,horizon,blasphemous,wuchang,downloads",
+    "source": "conversation_history",
+    "importance": 1.3,
+    "project_scope": "global",
+    "created_at": "2026-09-25T16:42:36.527Z",
+    "updated_at": "2026-09-25T16:42:36.527Z"
+  },
+  {
+    "id": 44,
+    "title": "Quy chuẩn & Lệnh Kiểm tra Tải Game Riot Games (LMHT, VALORANT, TFT)",
+    "content": "Khi Ngài hỏi về tiến độ tải, cập nhật hoặc trạng thái các game thuộc Riot Games (LMHT / League of Legends, VALORANT, Teamfight Tactics / ĐTCL):\n1. Trợ lý thực thi ngay lập tức lệnh: fdm riot (hoặc fdm lol, fdm valorant) qua terminal (run_command).\n2. Tốc độ kiểm tra < 50ms, đọc trực tiếp từ log thời gian thực của Riot Client (%LOCALAPPDATA%\\Riot Games\\Riot Client\\Logs\\Riot Client Logs\\*_Riot Client.log) và cấu hình metadata.\n3. Tuyệt đối KHÔNG chạy lệnh quét đĩa toàn hệ thống, KHÔNG Get-Process đo lường rườm rà gây chậm trễ.",
+    "category": "rule",
+    "tags": "riot,lol,lmht,valorant,tft,fdm,rule,shortcut",
+    "source": "auto_extraction",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-25T16:50:57.902Z",
+    "updated_at": "2026-09-25T16:50:57.902Z"
+  },
+  {
+    "id": 45,
+    "title": "Sở thích Game & Hồ sơ Game đã Chinh phục của Ngài",
+    "content": "Hồ sơ trải nghiệm game của Ngài:\n- Phong cách: Tựa lưng ghế sofa thư giãn chơi bằng tay cầm (gamepad/controller), ưu tiên thế giới mở đồ họa đẹp, dung lượng < 100GB.\n- Tựa game đã từng chơi / chinh phục: Elden Ring, Marvel's Spider-Man, The Witcher 3: Wild Hunt.\n- Tựa game hiện diện trên máy:\n  * Diablo II: Resurrected: Đã giải nén hoàn tất tại C:\\Users\\tvu16\\Downloads\\D2R.TCP_LinkNeverDie.Com (~28 GB, 2 bản TCP & TCP ReMoDDeD).\n  * Horizon Forbidden West Complete Edition: 11 part RAR (~137 GB) đang tải qua FDM tại C:\\Users\\tvu16\\Downloads\\Horizon.Forbidden.West.Complete.Edition-v1.4.59.0_LinkNeverDie.Com\\.\n  * VALORANT: Đã cài đặt hoàn chỉnh tại C:\\Riot Games\\VALORANT (~33.5 GB).\n  * Wuchang: Fallen Feathers, Blasphemous 2: Các bản cài/mod trong Downloads.",
+    "category": "fact",
+    "tags": "gaming,profile,preference,elden_ring,witcher3,spiderman,horizon,diablo2,valorant",
+    "source": "auto_extraction",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-25T16:50:57.902Z",
+    "updated_at": "2026-09-25T16:50:57.902Z"
   }
 ]

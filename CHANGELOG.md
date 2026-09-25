@@ -2,6 +2,42 @@
 
 Kính gửi Ngài, đây là tài liệu kỹ thuật tổng hợp toàn bộ các mốc phát triển, kiến trúc các thành phần, hợp đồng API và lộ trình nâng cấp hệ thống **Antigravity Second Brain**.
 
+## [3.3.0] - 2026-09-25 (Cognitive Continuity, Working Memory Tier 1, Unified Game Engine & Autonomous Session Distillation)
+
+### 🏆 Tổng quan bản nâng cấp v3.3.0
+Dựa trên cuộc đại rà soát 115 phiên hội thoại lịch sử, 8.992 episodes và giải quyết triệt để vấn đề mất ngữ cảnh khi Ngài gửi các câu lệnh nối tiếp hoặc chuyển đổi giữa các tác vụ game / tiện ích hệ thống:
+
+1. **Bộ Nhớ Tác Vụ Đang Chạy — Tier 1 Working Memory (`session_state`):**
+   - Khởi tạo bảng CSDL chuyên dụng `session_state` (với các trường: `conversation_id`, `active_goal`, `current_topic`, `workspace_paths`, `metadata`, `last_interaction`).
+   - Cung cấp API `updateSessionState()`, `getSessionState()`, `getLatestSessionState()` trong `src/profile.js`.
+   - Lưu trữ tức thì mục tiêu trọng tâm của phiên làm việc, không bị phân tán bởi các lượt hội thoại con.
+
+2. **Bộ Giải Mã Ý Định Nối Tiếp & Hồi Tố Ngữ Cảnh (Continuation Intent Resolver):**
+   - Bổ sung `isContinuationPrompt()` và `resolveContinuationQuery()` trong `src/retriever.js`.
+   - Giải quyết triệt để điểm mù: Khi Ngài gõ các câu ngắn như *"continue tiếp cho tôi"*, *"tiếp tục"*, *"sao rồi"*, *"làm đi"*, hệ thống không còn tìm kiếm vô nghĩa từ khóa "continue" trong FTS5, mà tự động kế thừa mục tiêu thực tế (`active_goal`) từ Working Memory hoặc episode trước đó.
+
+3. **Tự Động Chưng Cất Phiên Tại Hook Dừng (Autonomous Session Distillation on Stop):**
+   - Tích hợp `distillSession(conversationId)` vào `hooks/stop.js` (Bước 2.6).
+   - Ngay khi một phiên hoặc một lượt phản hồi kết thúc, bộ tóm tắt tự động cập nhật ngay `conversations.summary` và `key_takeaways` chuẩn Executive Format (`[Mục tiêu: ...] | [Quyết định: ...] | [Tệp tin: ...] | [Bài học: ...]`) mà không cần kích hoạt thủ công.
+
+4. **Nâng Cấp Động Cơ Game Toàn Diện Trong `fdm` (FDM + Riot Games Ecosystem):**
+   - Nâng cấp `fdm_status.py` tích hợp bộ phân tích nhật ký thời gian thực của Riot Client (`%LOCALAPPDATA%\Riot Games\Riot Client\Logs\Riot Client Logs\*_Riot Client.log`).
+   - Hỗ trợ tra cứu tức thì (< 40ms) cho cả **FDM** (Horizon Forbidden West, Diablo II...) và **Riot Games** (League of Legends / LMHT, VALORANT, Teamfight Tactics / ĐTCL).
+   - Bổ sung lệnh lọc nhanh: `fdm lol`, `fdm riot`, `fdm valorant`.
+   - Thêm banner chỉ thị thông minh trong `retriever.js` tự động định tuyến lệnh `fdm <target>` khi Ngài hỏi về tiến độ tải bất kỳ tựa game nào.
+
+5. **Làm Sạch Dữ Liệu & Làm Giàu Tri Thức Thực Tế (Cognitive Enrichment):**
+   - Rà soát toàn bộ 115 cuộc trò chuyện, làm sạch các bản ghi rác/trùng lặp trong `knowledge_items`.
+   - Cập nhật hồ sơ cốt lõi của Ngài (`user_profile`):
+     * `gaming_preferences`: Sở thích chơi tay cầm (gamepad/controller) sofa, thế giới mở đồ họa đẹp, dung lượng < 100GB. Lưu trữ lịch sử đã chơi: *Elden Ring*, *Marvel's Spider-Man*, *The Witcher 3: Wild Hunt*.
+     * `storage_specs`: Ổ cứng NVMe SSD C: tổng ~300GB, trống ~91.8GB.
+     * `riot_games_path`: `C:\Riot Games` (VALORANT 33.5GB, Riot Client).
+   - Bổ sung Knowledge Items #41 (Horizon Forbidden West), #42 (Cấu hình Lenovo Legion 7840H + RTX 4050), #43 (Game inventory), #44 (Quy chuẩn kiểm tra tải Riot Games), #45 (Hồ sơ & Gu game của Ngài).
+   - Bổ sung Solution #29 (FDM vạn năng) và #30 (Riot Games Inspector).
+   - Tái lập FTS5 toàn diện (`INSERT INTO knowledge_fts(knowledge_fts) VALUES('rebuild')`).
+
+---
+
 ## [3.2.0] - 2026-09-25 (Khắc Phục Ghost Transcript Path, Giải Phóng FDM Live Inspector & Toàn Vẹn Lifecycle Hooks)
 
 ### 🏆 Tổng quan bản nâng cấp v3.2.0

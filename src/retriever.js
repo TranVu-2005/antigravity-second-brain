@@ -29,6 +29,40 @@ class ContextRetriever {
         return path.basename(primary);
     }
 
+    isContinuationPrompt(text) {
+        if (!text || typeof text !== 'string') return false;
+        const clean = text.trim().toLowerCase();
+        return /^(?:continue|tiếp tục|tiep tuc|làm tiếp|lam tiep|tiến hành|tien hanh|làm đi|lam di|chạy tiếp|chay tiep|sao rồi|sao roi|sao r|ok|oke|oki|được rồi|duoc roi)\b/i.test(clean) && clean.length < 50;
+    }
+
+    resolveContinuationQuery(conversationId, fallbackQuery = '') {
+        if (!conversationId) return fallbackQuery;
+        try {
+            // 1. Check session_state active goal
+            const state = this.profile.getSessionState(conversationId);
+            if (state && state.active_goal && state.active_goal.length > 5) {
+                return state.active_goal;
+            }
+
+            // 2. Check last substantive user prompt in episodes for this conversation
+            const row = this.profile.db.get(`
+                SELECT content FROM episodes 
+                WHERE conversation_id = ? AND role = 'user' 
+                ORDER BY step_index DESC LIMIT 1 OFFSET 1
+            `, conversationId);
+            if (row && row.content && !this.isContinuationPrompt(row.content)) {
+                return row.content;
+            }
+
+            // 3. Fallback: conversation title
+            const conv = this.profile.db.get('SELECT title FROM conversations WHERE id = ?', conversationId);
+            if (conv && conv.title && conv.title.length > 5 && !conv.title.startsWith('Conversation ')) {
+                return conv.title;
+            }
+        } catch (e) {}
+        return fallbackQuery;
+    }
+
     async compileContext(query = '', conversationId = null, options = {}) {
         const opts = (options && typeof options === 'object') ? options : {};
         const maxTokens = opts.maxTokens || DEFAULT_MAX_TOKENS;
@@ -41,6 +75,26 @@ class ContextRetriever {
             safeQuery = typeof query === 'string' ? query.trim() : String(query).trim();
         }
 
+        // --- Continuation & Anaphoric Resolution ---
+        let effectiveQuery = safeQuery;
+        const isContinuation = this.isContinuationPrompt(safeQuery);
+        if (isContinuation && conversationId) {
+            const resolved = this.resolveContinuationQuery(conversationId, safeQuery);
+            if (resolved && resolved !== safeQuery) {
+                effectiveQuery = resolved;
+            }
+        }
+
+        // Update Tier 1 Working Memory (session_state) if substantive goal
+        if (conversationId && safeQuery && !isContinuation) {
+            try {
+                this.profile.updateSessionState(conversationId, {
+                    activeGoal: safeQuery.slice(0, 200),
+                    workspacePaths
+                });
+            } catch (e) {}
+        }
+
         const sections = [];
         let currentChars = 0;
 
@@ -51,13 +105,39 @@ class ContextRetriever {
         sections.push(profileSummary);
         currentChars += profileSummary.length;
 
-        if (safeQuery) {
+        // ---------------------------------------------------------------------
+        // Priority 1.5: Smart Directive Banner for System Shortcuts (Ponytail)
+        // ---------------------------------------------------------------------
+        const lowerEff = effectiveQuery.toLowerCase();
+        const directives = [];
+        if (/(?:temp|nhiệt độ|nhiet do|nhiệt|cảm biến|soc|gpu|cpu|quạt|quat)/i.test(lowerEff)) {
+            directives.push("• Tra cứu nhiệt độ phần cứng ➔ Thực thi ngay: `temp` qua terminal (`run_command`).");
+        }
+        if (/(?:screenoff|tắt màn|tat man|ngủ đông|ngu dong|offscreen)/i.test(lowerEff)) {
+            directives.push('• Tắt màn hình Eco ➔ Thực thi ngay: `cmd.exe /c "C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\screenoff.cmd"` qua terminal.');
+        }
+        if (/(?:tải|tai|download|tiến độ|tien do|fdm|horizon|diablo|part\d*|riot|lol|lmht|valorant|tft)/i.test(lowerEff)) {
+            let targetGame = '';
+            if (lowerEff.includes('horizon')) targetGame = ' horizon';
+            else if (lowerEff.includes('diablo')) targetGame = ' diablo';
+            else if (lowerEff.includes('riot')) targetGame = ' riot';
+            else if (lowerEff.includes('lol') || lowerEff.includes('lmht')) targetGame = ' lol';
+            else if (lowerEff.includes('valorant')) targetGame = ' valorant';
+            directives.push(`• Kiểm tra tiến độ tải file & game ➔ Thực thi ngay: \`fdm${targetGame}\` qua terminal (trả kết quả trong <50ms).`);
+        }
+        if (directives.length > 0) {
+            const banner = `[CHỈ THỊ THỰC THI PHÍM TẮT ĐƯỢC PHÁT HIỆN]\n${directives.join('\n')}`;
+            sections.push(banner);
+            currentChars += banner.length;
+        }
+
+        if (effectiveQuery) {
             // -----------------------------------------------------------------
             // Priority 2: Procedural Solutions & Learned Fixes (Proactive Reinforcement)
             // -----------------------------------------------------------------
-            const isRelevantToOperations = /(?:lỗi|error|fail|bug|exception|cannot|không thể|fix|sửa|lệnh|command|npm|git|node|powershell|sql|run|script|build|test|tải|download|cài|install|progress|tiến độ|check|status|trạng thái|fdm|diablo|legion|temp|gpu|cpu)/i.test(safeQuery);
+            const isRelevantToOperations = /(?:lỗi|error|fail|bug|exception|cannot|không thể|fix|sửa|lệnh|command|npm|git|node|powershell|sql|run|script|build|test|tải|download|cài|install|progress|tiến độ|check|status|trạng thái|fdm|diablo|horizon|legion|temp|gpu|cpu)/i.test(effectiveQuery);
             if (isRelevantToOperations) {
-                const solutions = this.solutions.searchSolutions(safeQuery, { project_scope: projectScope, limit: 3 });
+                const solutions = this.solutions.searchSolutions(effectiveQuery, { project_scope: projectScope, limit: 3 });
                 if (solutions && solutions.length > 0) {
                     const solLines = ['[BỘ NHỚ QUY TRÌNH & GIẢI PHÁP ĐÃ HỌC (PROCEDURAL SOLUTIONS)]'];
                     for (const sol of solutions) {

@@ -36,6 +36,24 @@
     "updated_at": "2026-09-11T15:54:17.017Z"
   },
   {
+    "key": "riot_games_path",
+    "category": "environment",
+    "value": "C:\\Riot Games (chứa VALORANT 33.5GB, Riot Client; log tại %LOCALAPPDATA%\\Riot Games\\Riot Client\\Logs\\Riot Client Logs).",
+    "confidence": 1,
+    "source": "system_detection",
+    "created_at": "2026-09-25T16:50:57.897Z",
+    "updated_at": "2026-09-25T16:50:57.897Z"
+  },
+  {
+    "key": "storage_specs",
+    "category": "environment",
+    "value": "Ổ cứng NVMe SSD C: dung lượng tổng ~300GB, khả dụng ~91.8GB.",
+    "confidence": 1,
+    "source": "system_detection",
+    "created_at": "2026-09-25T16:50:57.894Z",
+    "updated_at": "2026-09-25T16:50:57.894Z"
+  },
+  {
     "key": "github_username",
     "category": "identity",
     "value": "TranVu-2005",
@@ -61,6 +79,15 @@
     "source": "system",
     "created_at": "2026-09-11T15:54:16.986Z",
     "updated_at": "2026-09-11T15:54:16.986Z"
+  },
+  {
+    "key": "gaming_preferences",
+    "category": "preference",
+    "value": "Ưu tiên chơi game bằng tay cầm (gamepad/controller), đồ họa đẹp thế giới mở (open world), dung lượng dưới 100GB. Đã từng chơi / hoàn thành: Elden Ring, Marvel's Spider-Man, The Witcher 3: Wild Hunt.",
+    "confidence": 1,
+    "source": "conversation_history",
+    "created_at": "2026-09-25T16:50:57.787Z",
+    "updated_at": "2026-09-25T16:50:57.787Z"
   },
   {
     "key": "memory_goal",

@@ -87,6 +87,15 @@ async function main() {
                 const learner = getReinforcementLearner();
                 learner.mineTranscript(transcriptPath);
             } catch (e) {}
+
+            // 2.6. Autonomous Session Distillation & Tier 1 Working Memory Consolidation
+            if (conversationId) {
+                try {
+                    const { getMemoryConsolidator } = require('../src/consolidation');
+                    const consolidator = getMemoryConsolidator();
+                    consolidator.distillSession(conversationId);
+                } catch (e) {}
+            }
         }
 
         // 3. Automated Daily Snapshot Backup (Non-blocking check)

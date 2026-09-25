@@ -71,6 +71,15 @@ agy-node "C:/Users/tvu16/.gemini/antigravity/second_brain/cli.js" profile
 
 ## 4. Phím Tắt Tối Ưu Hệ Thống (Ponytail Shortcuts)
 
-- **Kiểm tra nhiệt độ CPU & GPU (`temp`):** Thực thi ngay lệnh `temp` để xuất báo cáo cảm biến thời gian thực (< 1.5s).
-- **Kiểm tra tiến độ tải file Free Download Manager (`fdm [tên_game]`):** Thực thi ngay lệnh `fdm` (hoặc `fdm <tên>`) để xuất báo cáo %, dung lượng, các part và trạng thái hoàn tất tức thì (< 50ms). Tuyệt đối không viết script tạm thời hay quét đĩa toàn cục.
+- **Kiểm tra nhiệt độ CPU & GPU (`temp`):** Thực thi ngay lệnh `temp` qua terminal để xuất báo cáo cảm biến thời gian thực (< 1.5s).
+- **Kiểm tra tiến độ tải file & Game (`fdm [tên_game]`):** Thực thi ngay lệnh `fdm` (hoặc `fdm <tên>` như `fdm horizon`, `fdm diablo`, `fdm riot`, `fdm lol`) qua terminal để xuất báo cáo %, dung lượng, các part và trạng thái hoàn tất tức thì (< 50ms) cho cả Free Download Manager và Hệ sinh thái Riot Games. Tuyệt đối không viết script tạm thời hay quét đĩa toàn cục.
+- **Tắt màn hình Eco Agentic Mode (`screenoff`):** Thực thi `screenoff` qua terminal để hạ điện năng CPU về 2W và tắt màn hình tức thì.
+
+---
+
+## 5. Phiên Bản Hiện Tại: [3.3.0] (Cognitive Continuity, Working Memory Tier 1 & Unified Game Engine)
+- Bổ sung bảng `session_state` duy trì mục tiêu phiên đang chạy.
+- Tự động hóa giải quyết câu lệnh nối tiếp (`isContinuationPrompt`, `resolveContinuationQuery`).
+- Tự động chưng cất phiên làm việc tại `stop.js` hook (`distillSession`).
+- Tích hợp kiểm tra thời gian thực Riot Games Client vào `fdm`.
 

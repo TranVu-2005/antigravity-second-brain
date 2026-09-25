@@ -121,6 +121,43 @@ class ProfileManager {
             console.error('Error syncing profile files:', err.message);
         }
     }
+
+    // -------------------------------------------------------------------------
+    // Tier 1: Working / Session Memory (session_state)
+    // -------------------------------------------------------------------------
+    updateSessionState(conversationId, { activeGoal = null, currentTopic = null, workspacePaths = [], metadata = {} } = {}) {
+        if (!conversationId) return;
+        const now = new Date().toISOString();
+        const wsStr = Array.isArray(workspacePaths) ? JSON.stringify(workspacePaths) : (workspacePaths || '[]');
+        const metaStr = typeof metadata === 'object' ? JSON.stringify(metadata) : (metadata || '{}');
+
+        const existing = this.db.get('SELECT conversation_id, active_goal, current_topic FROM session_state WHERE conversation_id = ?', conversationId);
+        if (existing) {
+            this.db.run(`
+                UPDATE session_state 
+                SET active_goal = COALESCE(?, active_goal),
+                    current_topic = COALESCE(?, current_topic),
+                    workspace_paths = COALESCE(?, workspace_paths),
+                    metadata = ?,
+                    last_interaction = ?
+                WHERE conversation_id = ?
+            `, activeGoal, currentTopic, wsStr, metaStr, now, conversationId);
+        } else {
+            this.db.run(`
+                INSERT INTO session_state (conversation_id, active_goal, current_topic, workspace_paths, metadata, last_interaction)
+                VALUES (?, ?, ?, ?, ?, ?)
+            `, conversationId, activeGoal, currentTopic, wsStr, metaStr, now);
+        }
+    }
+
+    getSessionState(conversationId) {
+        if (!conversationId) return null;
+        return this.db.get('SELECT * FROM session_state WHERE conversation_id = ?', conversationId);
+    }
+
+    getLatestSessionState() {
+        return this.db.get('SELECT * FROM session_state ORDER BY last_interaction DESC LIMIT 1');
+    }
 }
 
 let instance = null;
