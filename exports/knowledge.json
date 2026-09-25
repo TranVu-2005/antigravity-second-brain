@@ -30,7 +30,7 @@
     "category": "fact",
     "tags": "location,hoang_mai",
     "source": "user",
-    "importance": 0.813,
+    "importance": 0.792,
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
@@ -42,7 +42,7 @@
     "category": "decision",
     "tags": "mcp, fetch, everything-search, optimization, tools",
     "source": "agent_mcp",
-    "importance": 1.352,
+    "importance": 1.333,
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
@@ -54,7 +54,7 @@
     "category": "decision",
     "tags": "python,uv,environment,config",
     "source": "agent_mcp",
-    "importance": 1.361,
+    "importance": 1.342,
     "project_scope": "global",
     "created_at": "2026-09-11T19:59:20.654Z",
     "updated_at": "2026-09-11T19:59:20.654Z"
@@ -78,7 +78,7 @@
     "category": "snippet",
     "tags": "hardware,temperature,legion,llt,upgrade",
     "source": "agent_mcp",
-    "importance": 0.182,
+    "importance": 0.14,
     "project_scope": "global",
     "created_at": "2026-09-11T20:28:18.738Z",
     "updated_at": "2026-09-11T20:28:18.738Z"
@@ -126,7 +126,7 @@
     "category": "snippet",
     "tags": "temp,hardware,cpu,gpu,legion,upgrade",
     "source": "agent_mcp",
-    "importance": 0.225,
+    "importance": 0.178,
     "project_scope": "global",
     "created_at": "2026-09-13T07:01:21.884Z",
     "updated_at": "2026-09-13T07:01:21.884Z"
@@ -138,7 +138,7 @@
     "category": "decision",
     "tags": "gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp",
     "source": "agent_mcp",
-    "importance": 1.335,
+    "importance": 1.313,
     "project_scope": "global",
     "created_at": "2026-09-14T12:23:30.612Z",
     "updated_at": "2026-09-14T12:23:30.612Z"
@@ -150,7 +150,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror",
     "source": "agent_mcp",
-    "importance": 1.848,
+    "importance": 1.832,
     "project_scope": "global",
     "created_at": "2026-09-14T13:25:36.414Z",
     "updated_at": "2026-09-14T13:25:36.414Z"
@@ -162,7 +162,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap",
     "source": "agent_mcp",
-    "importance": 1.886,
+    "importance": 1.878,
     "project_scope": "global",
     "created_at": "2026-09-14T13:38:27.351Z",
     "updated_at": "2026-09-14T13:38:27.351Z"
@@ -174,7 +174,7 @@
     "category": "decision",
     "tags": "gemini_web,dual_quota,bugfix,safety_filter,v1.2.5",
     "source": "agent_mcp",
-    "importance": 1.845,
+    "importance": 1.831,
     "project_scope": "global",
     "created_at": "2026-09-14T14:08:00.642Z",
     "updated_at": "2026-09-14T14:08:00.642Z"
@@ -186,7 +186,7 @@
     "category": "decision",
     "tags": "gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture",
     "source": "agent_mcp",
-    "importance": 1.856,
+    "importance": 1.844,
     "project_scope": "global",
     "created_at": "2026-09-14T15:21:52.020Z",
     "updated_at": "2026-09-14T15:21:52.020Z"
@@ -198,7 +198,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,fdm,downloads,linkneverdie",
     "source": "agent_mcp",
-    "importance": 1.456,
+    "importance": 1.439,
     "project_scope": "global",
     "created_at": "2026-09-20T16:47:10.070Z",
     "updated_at": "2026-09-20T16:47:10.070Z"
@@ -210,7 +210,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,downloads,linkneverdie,extracted",
     "source": "agent_mcp",
-    "importance": 1.242,
+    "importance": 1.185,
     "project_scope": "global",
     "created_at": "2026-09-20T18:00:33.394Z",
     "updated_at": "2026-09-20T18:00:33.394Z"
@@ -282,7 +282,7 @@
     "category": "decision",
     "tags": "screenoff,powermanagement,ponytail,win32",
     "source": "agent_mcp",
-    "importance": 1.787,
+    "importance": 1.781,
     "project_scope": "global",
     "created_at": "2026-09-23T15:52:41.091Z",
     "updated_at": "2026-09-23T15:52:41.091Z"
@@ -306,7 +306,7 @@
     "category": "decision",
     "tags": "screenoff,fdm,gemini_web_bridge,antigravity,download",
     "source": "agent_mcp",
-    "importance": 1.5,
+    "importance": 1.499,
     "project_scope": "global",
     "created_at": "2026-09-25T15:42:56.150Z",
     "updated_at": "2026-09-25T15:42:56.150Z"
@@ -330,7 +330,7 @@
     "category": "fact",
     "tags": "horizon,hfw,forbidden_west,game,fdm,downloads,linkneverdie",
     "source": "conversation_history",
-    "importance": 1.5,
+    "importance": 1.498,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.522Z",
     "updated_at": "2026-09-25T16:42:36.522Z"
@@ -342,7 +342,7 @@
     "category": "fact",
     "tags": "hardware,legion,ryzen,rtx4050,cpu,gpu,fasttemp,llt",
     "source": "system_audit",
-    "importance": 1.5,
+    "importance": 1.498,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.526Z",
     "updated_at": "2026-09-25T16:42:36.526Z"
@@ -354,7 +354,7 @@
     "category": "fact",
     "tags": "inventory,games,software,diablo,horizon,blasphemous,wuchang,downloads",
     "source": "conversation_history",
-    "importance": 1.3,
+    "importance": 1.298,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.527Z",
     "updated_at": "2026-09-25T16:42:36.527Z"
@@ -378,9 +378,21 @@
     "category": "fact",
     "tags": "gaming,profile,preference,elden_ring,witcher3,spiderman,horizon,diablo2,valorant",
     "source": "auto_extraction",
-    "importance": 1.5,
+    "importance": 1.499,
     "project_scope": "global",
     "created_at": "2026-09-25T16:50:57.902Z",
     "updated_at": "2026-09-25T16:50:57.902Z"
+  },
+  {
+    "id": 46,
+    "title": "Sửa lỗi tính tiến độ tải FDM theo chunk ratio trong fdm_status.py",
+    "content": "Đã nâng cấp bộ parser fdm_status.py (C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\fdm_status.py) để tính tỷ lệ phần trăm tải qua chunk ratio:\n- Cơ chế cũ: Lấy trực tiếp sum(dones) làm số byte, dẫn đến việc các file lớn (14.9 GB) dùng block 256 byte bị hiển thị 0.0% và sai dung lượng thực tế đã tải.\n- Cơ chế mới: Tính chunk_ratio = sum(dones) / sizes[0], sau đó nhân với dung lượng file trên đĩa để ra dung lượng thực tế chính xác 100%. Lệnh 'fdm horizon' giờ đây hiển thị chính xác tiến độ thời gian thực của FDM.",
+    "category": "decision",
+    "tags": "fdm,fdm_status,fix,download,horizon",
+    "source": "agent_mcp",
+    "importance": 1.499,
+    "project_scope": "global",
+    "created_at": "2026-09-25T17:10:34.155Z",
+    "updated_at": "2026-09-25T17:10:34.155Z"
   }
 ]
