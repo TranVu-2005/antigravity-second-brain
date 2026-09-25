@@ -27,7 +27,7 @@ function readStdin() {
                 resolve(val);
             }
         };
-        const timer = setTimeout(() => done(data), 150);
+        const timer = setTimeout(() => done(data), 2000);
         process.stdin.setEncoding('utf8');
         process.stdin.on('data', chunk => { data += chunk; });
         process.stdin.on('end', () => done(data));
@@ -49,7 +49,9 @@ async function main() {
         const conversationId = payload.conversationId || null;
         let transcriptPath = payload.transcriptPath || null;
 
-        if (!transcriptPath && conversationId) {
+        // CRITICAL FIX: If transcriptPath is missing OR does not exist on disk,
+        // resolve to Antigravity's true session transcript location
+        if ((!transcriptPath || !fs.existsSync(transcriptPath)) && conversationId) {
             const candidate = path.join('C:/Users/tvu16/.gemini/antigravity/brain', conversationId, '.system_generated', 'logs', 'transcript.jsonl');
             if (fs.existsSync(candidate)) {
                 transcriptPath = candidate;

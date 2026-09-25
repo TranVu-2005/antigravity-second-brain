@@ -92,6 +92,25 @@ class SolutionStore {
             'is', 'are', 'was', 'were', 'the', 'a', 'an', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'and', 'or'
         ]);
         const meaningfulWords = sanitized.split(/\s+/).filter(Boolean).filter(w => w.length > 1 && !STOPWORDS.has(w.toLowerCase()));
+
+        // Domain intent expansion (Ponytail & System Shortcuts)
+        const lowerQuery = query.toLowerCase();
+        if (/(?:tải|tai|download|tiến độ|tien do|down|part\d*|fdm)/i.test(lowerQuery)) {
+            if (!meaningfulWords.some(w => /^(?:fdm|download)$/i.test(w))) {
+                meaningfulWords.push('fdm', 'download');
+            }
+        }
+        if (/(?:nhiệt độ|nhiet do|nhiệt|nhiet|temp|cpu|gpu|quạt|quat|legion)/i.test(lowerQuery)) {
+            if (!meaningfulWords.some(w => /^temp$/i.test(w))) {
+                meaningfulWords.push('temp');
+            }
+        }
+        if (/(?:màn hình|man hinh|tắt màn|tat man|screenoff|offscreen|sleep|ngủ đông|ngu dong)/i.test(lowerQuery)) {
+            if (!meaningfulWords.some(w => /^screenoff$/i.test(w))) {
+                meaningfulWords.push('screenoff');
+            }
+        }
+
         if (meaningfulWords.length === 0) return [];
 
         const ftsQuery = meaningfulWords.map(w => `"${w}"*`).join(' OR ');

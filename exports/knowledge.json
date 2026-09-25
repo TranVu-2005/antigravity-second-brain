@@ -418,5 +418,17 @@
     "project_scope": "global",
     "created_at": "2026-09-25T15:42:56.150Z",
     "updated_at": "2026-09-25T15:42:56.150Z"
+  },
+  {
+    "id": 40,
+    "title": "Quy tắc Kiểm tra Tiến độ Tải file & Game (fdm)",
+    "content": "Khi Ngài hỏi về tiến độ tải file, game (Horizon Forbidden West, Diablo 2, Blasphemous, Wuchang...), FDM hoặc gõ lệnh 'fdm' / 'download': Trợ lý BẮT BUỘC thực thi ngay lập tức lệnh 'fdm' (hoặc 'fdm <tên_game>') qua terminal ('run_command'). Lệnh 'fdm' là công cụ native CLI siêu tốc (< 50ms) đọc trực tiếp từ CSDL Free Download Manager, xuất báo cáo đầy đủ %, dung lượng, các part và trạng thái hoàn tất. Tuyệt đối KHÔNG viết script Python tạm thời, KHÔNG dò tìm file toàn ổ đĩa gây trễ hàng chục bước.",
+    "category": "rule",
+    "tags": "fdm,download,progress,game,rule,quick-command",
+    "source": "system_policy",
+    "importance": 1,
+    "project_scope": "global",
+    "created_at": "2026-09-25T16:18:38.035Z",
+    "updated_at": "2026-09-25T16:18:38.035Z"
   }
 ]

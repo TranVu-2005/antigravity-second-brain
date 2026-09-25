@@ -66,3 +66,11 @@ agy-node "C:/Users/tvu16/.gemini/antigravity/second_brain/cli.js" search "từ k
 # Xem hồ sơ của Ngài
 agy-node "C:/Users/tvu16/.gemini/antigravity/second_brain/cli.js" profile
 ```
+
+---
+
+## 4. Phím Tắt Tối Ưu Hệ Thống (Ponytail Shortcuts)
+
+- **Kiểm tra nhiệt độ CPU & GPU (`temp`):** Thực thi ngay lệnh `temp` để xuất báo cáo cảm biến thời gian thực (< 1.5s).
+- **Kiểm tra tiến độ tải file Free Download Manager (`fdm [tên_game]`):** Thực thi ngay lệnh `fdm` (hoặc `fdm <tên>`) để xuất báo cáo %, dung lượng, các part và trạng thái hoàn tất tức thì (< 50ms). Tuyệt đối không viết script tạm thời hay quét đĩa toàn cục.
+
