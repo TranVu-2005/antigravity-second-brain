@@ -48,6 +48,7 @@ class EpisodicMemory {
             `, conversationId, `Conversation ${conversationId.slice(0, 8)}`);
             conv = { last_step_index: -1, message_count: 0 };
         }
+        conv._initial_last_step_index = conv.last_step_index;
 
         const rawContent = fs.readFileSync(transcriptPath, 'utf8');
         const lines = rawContent.trim().split('\n');
@@ -104,11 +105,11 @@ class EpisodicMemory {
                 `, conversationId, stepIdx, role, content, summary, tags.join(','), timestamp);
 
                 newEpisodes++;
-                conv.last_step_index = stepIdx;
             }
+            conv.last_step_index = Math.max(conv.last_step_index, stepIdx);
         }
 
-        if (newEpisodes > 0) {
+        if (newEpisodes > 0 || conv.last_step_index > (conv._initial_last_step_index || -1)) {
             const totalCount = this.db.get('SELECT COUNT(*) as cnt FROM episodes WHERE conversation_id = ?', conversationId).cnt;
             const updateTitleSql = convTitle ? ', title = ?' : '';
             const params = convTitle 

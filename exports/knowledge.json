@@ -586,5 +586,29 @@
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
     "updated_at": "2026-09-27T15:51:20.297Z"
+  },
+  {
+    "id": 63,
+    "title": "Quyết định: kiến trúc).",
+    "content": "kiến trúc).",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-09-27T16:04:58.781Z",
+    "updated_at": "2026-09-27T16:04:58.781Z"
+  },
+  {
+    "id": 64,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-09-27T16:05:07.243Z",
+    "updated_at": "2026-09-27T16:05:07.243Z"
   }
 ]
