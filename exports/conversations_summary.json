@@ -1,17 +1,24 @@
 [
   {
-    "id": "a4a9c6ca-5d51-4719-9482-b27e9dc47d51",
-    "title": "qua các đoạn chat gần đây hãy xem hệ thống second-brain đã hoạt động như nào thu",
-    "summary": null,
-    "message_count": 36,
-    "updated_at": "2026-09-27T15:38:10.753Z"
-  },
-  {
     "id": "3eee2dcd-6529-4644-bb72-3d6fdb60cf0a",
     "title": "https://drive.usercontent.google.com/download?id=136VYlNMptTUZD0rjJjNr5Vz3drjeIa",
     "summary": "[Mục tiêu: horizon tải tới đâu r] | [Quyết định: yêu cầu tiếp tục luồng tải (`Range: bytes=23623131-23624131`):] | [Kết quả: Báo cáo Ngài, tiến độ tải bộ cài **Horizon Forbidden West** qua Free Download Manager hiện đã gần về]",
     "message_count": 175,
     "updated_at": "2026-09-27T08:49:01.301Z"
+  },
+  {
+    "id": "a4a9c6ca-5d51-4719-9482-b27e9dc47d51",
+    "title": "@[Quote] có thể lên /plan tối ưu kỹ càng và rà soát lại toàn bộ hệ thống /second",
+    "summary": "[Mục tiêu: qua các đoạn chat gần đây hãy xem hệ thống second-brain đã hoạt động như nào thu được chuẩn những cái cần chưa và đã tối ưu thông minh chưa] | [Quyết định: Quy tắc và Mẫu Workflow tham khảo từ Everything Claude Code (ECC).*; kiến trúc trong kế hoạch:] | [Tệp tin: pre_invocation.js, stop.js, consolidation.js, second_brain_production_upgrade_plan.md, test_v3_4_production.js] | [Bài học: Giải pháp kỹ thuật (Solutions):** `23 giải pháp` (FTS5 BM25 search).; Fix Bridge (`ed2a1bfa`):* Khắc phục lỗi kết nối `/gemini-web-bridge` khi switch sang tab MT5.]",
+    "message_count": 123,
+    "updated_at": "2026-09-27 15:51:31"
+  },
+  {
+    "id": "0d4ce915-aad6-4109-bcdf-ad3667d181e3",
+    "title": "hệ thống này hoạt động như nào giải thích rõ ràng chi tiết tất cả file và cần là",
+    "summary": "[Mục tiêu: tôi muốn làm 1 hệ thống memory tự động aka second brain để hỗ trợ tốt cho tôi trong việc ghi nhớ biết tôi là ai biết tất cả mọi thứ biết ...] | [Quyết định: kiến trúc chi tiết cho **Hệ thống Second Brain phân tầng chuẩn Production-Grade & Tự động 100%**.; quyết định kỹ thuật và sở thích mới sau mỗi lượt tương tác mà Ngài không cần gõ lệnh ghi nhớ thủ công.; kiến trúc hàng đầu thế giới (Mem0, Letta/MemGPT và Stanford Generative Agents).] | [Tệp tin: implementation_plan.md, walkthrough.md, profile.md, hooks.json, mcp_config.json] | [Bài học: giải pháp sửa lỗi kỹ thuật đã học:; fix một lỗi cụ thể:]",
+    "message_count": 205,
+    "updated_at": "2026-09-27 15:51:20"
   },
   {
     "id": "f1262d79-db6e-4f74-9b9a-749cdcb9b509",
@@ -159,13 +166,6 @@
     "summary": "[Mục tiêu: screenoff] | [Quyết định: yêu cầu `screenoff` trực tiếp trong khung chat với tôi, câu lệnh được Antigravity thực thi qua runner hệ thống (`run_command`)] | [Tệp tin: screenoff_engine.ps1, screenoff_watcher.ps1] | [Bài học: Khắc phục Triệt để Đã Hoàn tất]",
     "message_count": 310,
     "updated_at": "2026-09-24T08:03:22.305Z"
-  },
-  {
-    "id": "0d4ce915-aad6-4109-bcdf-ad3667d181e3",
-    "title": "hệ thống này hoạt động như nào giải thích rõ ràng chi tiết tất cả file và cần là",
-    "summary": "[Mục tiêu: tôi muốn làm 1 hệ thống memory tự động aka second brain để hỗ trợ tốt cho tôi trong việc ghi nhớ biết tôi là ai biết tất cả mọi thứ biết ...] | [Quyết định: quy tắc kỹ thuật và ghi chú với độ chính xác đến từng mili-giây; quy tắc nào khớp với câu hỏi?); nguyên tắc vàng: *\"Code tốt nhất là code không bao giờ phải viết\"*] | [Tệp tin: implementation_plan.md, walkthrough.md, profile.md, hooks.json, mcp_config.json] | [Bài học: sửa lỗi)** và **Project Scoping (Phân vùng ký ức theo từng dự án)**; giải pháp sửa lỗi kỹ thuật đã học:]",
-    "message_count": 205,
-    "updated_at": "2026-09-24 18:30:38"
   },
   {
     "id": "2a9fbfa2-4dea-4b35-a82f-a0cb27dd9160",

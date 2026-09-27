@@ -220,9 +220,29 @@ class MemoryExtractor {
             }
         }
 
+        // 4.5. Architectural & Technical Decisions (natural language patterns)
+        if (!hasRuleReversal) {
+            const decisionMatch = clean.match(/(?:quyết định|thay thế|chọn dùng|chốt phương án|decided to|replace|swapped)\s+([^,.;\n]{15,120})/i);
+            if (decisionMatch) {
+                const decSnippet = decisionMatch[0].trim();
+                if (!/^(?:quyết định đi ngủ|quyết định ăn|quyết định nghỉ|thay thế bữa)/i.test(decSnippet)) {
+                    extractions.push({
+                        type: 'knowledge',
+                        title: `Quyết định: ${decSnippet.slice(0, 45)}...`,
+                        content: clean,
+                        category: 'decision',
+                        tags: 'decision,architecture,technical',
+                        projectScope: projectScope,
+                        importance: 1.5,
+                        action: 'ADD'
+                    });
+                }
+            }
+        }
 
         // 5. Bug / Solution detection (bilingual: VN & EN, lazy pattern capture e.g. D-03)
-        const solutionMatch = clean.match(/(?:cách sửa lỗi|fix lỗi|sửa lỗi|khắc phục lỗi|how to fix|fix for|solution for)\s+([^:=➔\n]+?)\s*[:=➔]\s*([\s\S]+)/i);
+        const solutionMatch = clean.match(/(?:cách sửa lỗi|fix lỗi|sửa lỗi|khắc phục lỗi|how to fix|fix for|solution for)\s+([^:=➔\n]+?)\s*[:=➔]\s*([\s\S]+)/i)
+            || clean.match(/(?:đã\s+(?:fix|sửa|khắc phục)(?:\s+xong)?\s+lỗi|fixed|resolved)\s+([^:=➔\n]+?)\s*(?:bằng cách|bằng|via|through|[:=➔])\s*([\s\S]+)/i);
         if (solutionMatch) {
             const errPattern = solutionMatch[1].trim();
             const fixCode = solutionMatch[2].trim();

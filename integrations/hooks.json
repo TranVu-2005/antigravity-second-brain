@@ -7,6 +7,13 @@
         "timeout": 5
       }
     ],
+    "PostInvocation": [
+      {
+        "type": "command",
+        "command": "node \"C:/Users/tvu16/.gemini/antigravity/second_brain/hooks/post_invocation.js\"",
+        "timeout": 10
+      }
+    ],
     "Stop": [
       {
         "type": "command",

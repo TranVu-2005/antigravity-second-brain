@@ -59,6 +59,12 @@ class ContextRetriever {
             if (conv && conv.title && conv.title.length > 5 && !conv.title.startsWith('Conversation ')) {
                 return conv.title;
             }
+
+            // 4. Cross-Session Fallback: check latest session in Tier 1 Working Memory
+            const latestState = this.profile.getLatestSessionState();
+            if (latestState && latestState.active_goal && latestState.active_goal.length > 5) {
+                return latestState.active_goal;
+            }
         } catch (e) {}
         return fallbackQuery;
     }

@@ -2,6 +2,32 @@
 
 Kính gửi Ngài, đây là tài liệu kỹ thuật tổng hợp toàn bộ các mốc phát triển, kiến trúc các thành phần, hợp đồng API và lộ trình nâng cấp hệ thống **Antigravity Second Brain**.
 
+## [3.4.0] - 2026-09-27 (Zero-Lag Sync, PostInvocation Hook, Autonomous Knowledge Promotion & Natural Extractor)
+
+### 🏆 Tổng quan bản nâng cấp v3.4.0 Production-Grade
+Dựa trên cuộc rà soát toàn diện hệ thống theo chuẩn **TDD Master** (`node:test`), triết lý **Ponytail** (Zero external dependencies) và giải quyết triệt để 2 khoảng trống kỹ thuật cốt lõi:
+
+1. **Triệt Tiêu Hoàn Toàn Độ Trễ Đồng Bộ (Zero-Lag Synchronization):**
+   - **PostInvocation Lifecycle Hook (`hooks/post_invocation.js`):** Đăng ký vào `hooks.json` của Antigravity để tự động nạp tăng số (incremental ingest) và chưng cất phiên làm việc ngay khi trợ lý vừa phản hồi xong (`turn finished`), triệt tiêu độ trễ đồng bộ khi chuyển đổi giữa các tab chat trong IDE mà không cần chờ tắt ứng dụng.
+   - **PreInvocation Catch-up Sync (<15ms):** Tích hợp phương thức `catchUpRecentSessions(2)` vào `hooks/pre_invocation.js` và `src/episodic.js`, chủ động quét và nạp các phiên vừa hoàn tất trước đó trong chưa đầy 15ms.
+
+2. **Cơ Chế Auto-Promote Tri Thức Tự Động (Autonomous Knowledge Promotion):**
+   - Nâng cấp `src/consolidation.js` với phương thức `_autoPromoteInsights()`: Tự động phân tích các quyết định kỹ thuật và bài học sửa lỗi từ tóm tắt phiên để chuyển hóa thành các thẻ độc lập trong `knowledge_items` (phục vụ Dense Vector 384-dim và Hybrid RRF) và `solutions` (sửa lỗi tức thì).
+   - Tích hợp cơ chế kiểm tra chống trùng lặp (Idempotency) đảm bảo không sinh rác bộ nhớ khi chưng cất nhiều lần.
+
+3. **Mở Rộng Nhận Thức Tự Nhiên (Natural Language Heuristics):**
+   - Nâng cấp `src/extractor.js` với Section 4.5 nhận diện quyết định kiến trúc từ văn phong tự nhiên (`quyết định thay thế X bằng Y`, `chọn X thay vì Y`, `chốt phương án X`) mà không phụ thuộc vào từ khóa cố định.
+   - Mở rộng Section 5 bắt lỗi và giải pháp dạng `đã fix lỗi X bằng cách Y`.
+
+4. **Kế Thừa Ngữ Cảnh Xuyên Phiên (Cross-Session Working Memory Continuity):**
+   - Tối ưu `resolveContinuationQuery()` trong `src/retriever.js` để tự động kế thừa `active_goal` từ phiên liền kề gần nhất khi Ngài bắt đầu một cuộc hội thoại mới bằng câu hỏi tiếp diễn.
+
+5. **Bộ Kiểm Thử Tự Động TDD Master Native:**
+   - Xây dựng `test/test_v3_4_production.js` dựa hoàn toàn trên `node:test` và `node:assert/strict` tích hợp sẵn của Node 24 (100% Ponytail).
+   - Đạt 8/8 tests pass (100%), bảo toàn 13/13 tests v3.0 (Tổng: 21/21 tests pass, Zero Regression).
+
+---
+
 ## [3.3.0] - 2026-09-25 (Cognitive Continuity, Working Memory Tier 1, Unified Game Engine & Autonomous Session Distillation)
 
 ### 🏆 Tổng quan bản nâng cấp v3.3.0

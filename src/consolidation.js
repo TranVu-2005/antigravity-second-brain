@@ -46,7 +46,7 @@ class MemoryConsolidator {
         if (!primaryGoal) primaryGoal = 'Thực hiện tác vụ theo yêu cầu của Ngài';
 
         // 2. Extract Key Decisions & Directives
-        const decisionRegex = /(?:quy tắc|chốt|quy định|không được|từ giờ|bắt buộc|luôn luôn|tiêu chí|nguyên tắc|rule|decision|yêu cầu|chính sách)[\s:]+([^.\n\r]{10,140})/gi;
+        const decisionRegex = /(?:quyết định(?:\s+kiến trúc)?|quy tắc|chốt|quy định|không được|từ giờ|bắt buộc|luôn luôn|tiêu chí|nguyên tắc|kiến trúc|rule|decision|yêu cầu|chính sách)[\s:]+([^;\n\r]{10,160})/gi;
         const decisions = new Set();
 
         for (const ep of episodes) {
@@ -82,7 +82,7 @@ class MemoryConsolidator {
         }
 
         // 4. Extract Learned Fixes / Solutions
-        const fixRegex = /(?:fix|sửa|khắc phục|giải pháp|đã xử lý)[\s:]+([^.\n\r]{10,120})/gi;
+        const fixRegex = /(?:đã khắc phục|khắc phục|sửa lỗi|fix|sửa|giải pháp|đã xử lý)[\s:]+([^;\n\r]{10,160})/gi;
         const learnedFixes = new Set();
 
         for (const ep of episodes) {
@@ -103,6 +103,9 @@ class MemoryConsolidator {
         const decisionList = Array.from(decisions).slice(0, 3);
         const fileList = Array.from(files).slice(0, 5);
         const fixList = Array.from(learnedFixes).slice(0, 2);
+
+        // 5. Autonomous Promotion to Tier 3 Knowledge & Tier 4 Solutions
+        this._autoPromoteInsights(conversationId, primaryGoal, decisionList, fixList);
 
         // Filter meaningful assistant responses for outcome summary
         const assistantVerbal = episodes
@@ -251,6 +254,78 @@ class MemoryConsolidator {
         }
 
         return stats;
+    }
+
+    _autoPromoteInsights(conversationId, primaryGoal, decisionList, fixList) {
+        if (!decisionList && !fixList) return;
+
+        // 5.1 Auto-Promote Decisions to knowledge_items
+        if (Array.isArray(decisionList)) {
+            for (const dec of decisionList) {
+                if (!dec || typeof dec !== 'string' || dec.trim().length < 20) continue;
+                const cleanDec = dec.replace(/^\[?Quyết định[:\s]*/i, '').trim();
+                
+                const existing = this.db.get(`
+                    SELECT id FROM knowledge_items 
+                    WHERE content LIKE ? OR (source = 'auto_distillation' AND title LIKE ?)
+                    LIMIT 1
+                `, `%${cleanDec.slice(0, 40)}%`, `%${cleanDec.slice(0, 30)}%`);
+
+                if (!existing) {
+                    try {
+                        const { getSemanticKnowledge } = require('./semantic');
+                        const semantic = getSemanticKnowledge(this.db);
+                        const title = cleanDec.length > 55 ? cleanDec.slice(0, 52) + '...' : cleanDec;
+                        semantic.addItemSync({
+                            title: `Quyết định: ${title}`,
+                            content: cleanDec,
+                            category: 'decision',
+                            tags: 'decision,auto_promoted,architecture',
+                            source: 'auto_distillation',
+                            importance: 1.4
+                        });
+                    } catch (e) {}
+                }
+            }
+        }
+
+        // 5.2 Auto-Promote Learned Fixes to solutions
+        if (Array.isArray(fixList)) {
+            for (const fix of fixList) {
+                if (!fix || typeof fix !== 'string' || fix.trim().length < 15) continue;
+                const cleanFix = fix.replace(/^\[?Bài học[:\s]*/i, '').trim();
+
+                const existing = this.db.get(`
+                    SELECT id FROM solutions 
+                    WHERE solution_code LIKE ? OR error_pattern LIKE ?
+                    LIMIT 1
+                `, `%${cleanFix.slice(0, 40)}%`, `%${cleanFix.slice(0, 30)}%`);
+
+                if (!existing) {
+                    try {
+                        const { getSolutionStore } = require('./solutions');
+                        const solutionStore = getSolutionStore(this.db);
+                        let errPattern = primaryGoal ? `Lỗi trong tác vụ: ${primaryGoal.slice(0, 60)}` : 'Lỗi hệ thống';
+                        let solutionCode = cleanFix;
+
+                        if (cleanFix.includes(':')) {
+                            const parts = cleanFix.split(':');
+                            errPattern = parts[0].trim();
+                            solutionCode = parts.slice(1).join(':').trim();
+                        }
+
+                        solutionStore.storeSolution({
+                            error_pattern: errPattern,
+                            solution_code: solutionCode,
+                            command_fix: solutionCode.length <= 100 ? solutionCode : '',
+                            root_cause: `Tự động chưng cất từ phiên ${conversationId.slice(0, 8)}`,
+                            project_scope: 'global',
+                            tags: 'bugfix,auto_promoted'
+                        });
+                    } catch (e) {}
+                }
+            }
+        }
     }
 }
 

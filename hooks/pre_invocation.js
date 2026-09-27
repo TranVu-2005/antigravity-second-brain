@@ -77,6 +77,11 @@ async function main() {
             } catch (e) {}
         }
 
+        // Catch-up Sync: Ingest recent missed sessions (< 15ms)
+        try {
+            getEpisodicMemory().catchUpRecentSessions(2);
+        } catch (e) {}
+
         const retriever = getContextRetriever();
         const compiledContext = await retriever.compileContext(lastUserPrompt, conversationId, {
             workspacePaths: payload.workspacePaths || []

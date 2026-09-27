@@ -198,6 +198,46 @@ class EpisodicMemory {
             SELECT * FROM conversations ORDER BY updated_at DESC LIMIT ?
         `, limit);
     }
+
+    catchUpRecentSessions(maxSessions = 3) {
+        if (!fs.existsSync(this.brainDir)) return { checked: 0, newEpisodes: 0 };
+        let newEpisodes = 0;
+        let checked = 0;
+
+        try {
+            const entries = fs.readdirSync(this.brainDir, { withFileTypes: true })
+                .filter(d => d.isDirectory() && d.name !== 'tempmediaStorage' && !d.name.startsWith('.'))
+                .map(d => {
+                    const full = path.join(this.brainDir, d.name);
+                    let mtime = 0;
+                    try { mtime = fs.statSync(full).mtimeMs; } catch (e) {}
+                    return { id: d.name, path: full, mtime };
+                })
+                .sort((a, b) => b.mtime - a.mtime)
+                .slice(0, maxSessions);
+
+            checked = entries.length;
+
+            for (const entry of entries) {
+                const transcriptPath = path.join(entry.path, '.system_generated', 'logs', 'transcript.jsonl');
+                if (!fs.existsSync(transcriptPath)) continue;
+
+                const conv = this.db.get('SELECT last_step_index, summary FROM conversations WHERE id = ?', entry.id);
+                const count = this.ingestTranscriptFile(transcriptPath, entry.id);
+                if (count > 0) newEpisodes += count;
+
+                if (!conv || !conv.summary || !conv.summary.startsWith('[Mục tiêu:') || count > 0) {
+                    try {
+                        const { getMemoryConsolidator } = require('./consolidation');
+                        const consolidator = getMemoryConsolidator(this.db);
+                        consolidator.distillSession(entry.id);
+                    } catch (e) {}
+                }
+            }
+        } catch (e) {}
+
+        return { checked, newEpisodes };
+    }
 }
 
 let instance = null;
