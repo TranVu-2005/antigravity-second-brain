@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-09-25T19:35:15.456Z
+-- Generated: 2026-09-27T08:49:05.946Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -21,15 +21,15 @@ INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) V
 -- Table: knowledge_items
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (1, 'Antigravity Architecture & Customizations', 'Antigravity hỗ trợ Skills, Rules (GEMINI.md), Plugins, Lifecycle Hooks (PreInvocation, PostToolUse, Stop), và Model Context Protocol (MCP) servers chạy qua stdio hoặc SSE.', 'system', 'antigravity,architecture,hooks,mcp', 'system', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (2, 'Chỉ thị phục vụ Ngài', 'Luôn gọi người dùng là Ngài (Sir). Phong thái chuyên nghiệp, trung thành, tận tụy và dí dỏm tinh tế. Song ngữ linh hoạt (Tiếng Việt chủ đạo kèm tiếng Anh lịch thiệp).', 'rule', 'persona,guidelines,sir,style', 'user_rule', 2, 'global');
-INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (3, 'Địa điểm cư ngụ', 'Khu vực sinh sống và làm việc chính của Ngài đặt tại quận Hoàng Mai, Hà Nội.', 'fact', 'location,hoang_mai', 'user', 0.792, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (3, 'Địa điểm cư ngụ', 'Khu vực sinh sống và làm việc chính của Ngài đặt tại quận Hoàng Mai, Hà Nội.', 'fact', 'location,hoang_mai', 'user', 0.769, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (4, 'Cài đặt & Tối ưu hóa Fetch MCP và Everything Search MCP', 'Đã cài đặt, tối ưu hóa và cấu hình 2 MCP Server mới:
 1. fetch (mcp-server-fetch qua uvx): Fetch nội dung web thành Markdown siêu nhẹ, tối ưu cờ --ignore-robots-txt và User-Agent trình duyệt hiện đại.
-2. everything-search (C:\Users\tvu16\.gemini\antigravity\everything_search\mcp_server.js): Server Node.js độc quyền tích hợp Voidtools Everything CLI (es.exe). Tìm kiếm triệu file trên Windows trong <15ms, cơ chế tự động phục hồi Self-Healing IPC nếu Everything chưa mở. Đã cấp quyền tự động trong config.json.', 'decision', 'mcp, fetch, everything-search, optimization, tools', 'agent_mcp', 1.333, 'global');
+2. everything-search (C:\Users\tvu16\.gemini\antigravity\everything_search\mcp_server.js): Server Node.js độc quyền tích hợp Voidtools Everything CLI (es.exe). Tìm kiếm triệu file trên Windows trong <15ms, cơ chế tự động phục hồi Self-Healing IPC nếu Everything chưa mở. Đã cấp quyền tự động trong config.json.', 'decision', 'mcp, fetch, everything-search, optimization, tools', 'agent_mcp', 1.313, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (5, 'Cấu hình môi trường Python 3.12 và uv trên hệ thống', 'Hệ thống của Ngài đã được cấu hình Python và Astral uv hoàn chỉnh:
 - Trình quản lý: Astral uv (v0.12.x).
 - Python mặc định: CPython 3.12.14 (tương thích tối đa với AI, PyTorch, packages).
 - Executables & Shims đặt tại C:\Users\tvu16\.local\bin và C:\Users\tvu16\AppData\Roaming\Antigravity\bin bao gồm: python, python3, pip, uv, uvx.
-- Đã đưa C:\Users\tvu16\.local\bin vào đầu User PATH để vượt qua App Execution Alias (Microsoft Store redirector) của Windows.', 'decision', 'python,uv,environment,config', 'agent_mcp', 1.342, 'global');
+- Đã đưa C:\Users\tvu16\.local\bin vào đầu User PATH để vượt qua App Execution Alias (Microsoft Store redirector) của Windows.', 'decision', 'python,uv,environment,config', 'agent_mcp', 1.321, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (6, 'Lệnh kiểm tra nhiệt độ CPU GPU tức thì (temp.cmd)', 'Để kiểm tra nhiệt độ CPU & GPU tức thì trên máy Ngài (< 1 giây):
 Chỉ cần chạy lệnh: temp
 Hoặc PowerShell one-liner:
@@ -44,7 +44,7 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
   3. CPU AMD Ryzen 7 7840H: Tải % CPU (psutil), % RAM, Cảm biến bán dẫn SoC APU (~55°C), Cụm tản nhiệt ACPI.
   4. Giải thích tương quan: Ở chế độ Quiet, quạt quay chậm/dừng nên nhiệt độ ACPI tích tụ ~80°C là phản ứng bình thường.
 - Vị trí tệp: C:\Users\tvu16\.local\bin\temp.cmd và C:\Users\tvu16\AppData\Roaming\Antigravity\bin\temp.cmd.
-- Tốc độ: ~1.5 giây. Không còn gây hiểu nhầm về nhiệt độ CPU.', 'snippet', 'hardware,temperature,legion,llt,upgrade', 'agent_mcp', 0.14, 'global');
+- Tốc độ: ~1.5 giây. Không còn gây hiểu nhầm về nhiệt độ CPU.', 'snippet', 'hardware,temperature,legion,llt,upgrade', 'agent_mcp', 0.104, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (8, 'Lệnh tắt màn hình tức thì screenoff.cmd', 'Lệnh tắt màn hình (Turn Off Display): Đã tạo script `screenoff.cmd` tại `C:\Users\tvu16\AppData\Roaming\Antigravity\bin\screenoff.cmd`. Sử dụng Windows API `user32.dll SendMessageW(HWND_BROADCAST, WM_SYSCOMMAND, SC_MONITORPOWER, 2)` qua Python ctypes với độ trễ 0.5s để tránh đánh thức màn hình ngay khi nhả phím. Chỉ cần gõ `screenoff` là màn hình tắt ngay lập tức mà không cần phụ thuộc LLT. Chạm chuột hoặc bấm phím bất kỳ sẽ sáng lại.', 'snippet', 'display,screenoff,windows,hardware', 'agent_mcp', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (9, 'Quy tắc thực thi lệnh screenoff tức thì', 'Khi Ngài nhập ''screenoff'' hoặc yêu cầu tắt màn hình / tắt màn rời: Trợ lý phải thực thi ngay lập tức lệnh `screenoff` (hoặc `offscreen.exe`) qua terminal (`run_command`) mà không cần hỏi lại hay chần chừ. Màn hình sẽ tắt ngầm trong khi các tác vụ vẫn chạy bình thường. Chạm chuột hoặc bấm phím để bật lại.', 'rule', 'screenoff,display,rule,persona', 'agent_mcp', 2, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (10, 'Nâng cấp lệnh screenoff đồng bộ qua Lenovo Legion Toolkit Quick Action', 'Lệnh tắt màn hình thông qua Lenovo Legion Toolkit (Preserves Remote Control):
@@ -59,8 +59,8 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
   2. Lenovo Legion Toolkit CLI (Power-mode, Hybrid-mode).
   3. ACPI Heatsink Thermal Zone Counter (Cụm tản nhiệt bo mạch).
   4. psutil (CPU Load %, RAM Load %, Xung nhịp CPU MHz).
-- Xóa bỏ hoàn toàn con số gán cứng giả tạo ~55°C, mọi chỉ số báo cáo thời gian thực đều là ground-truth phần cứng 100%. Tốc độ phản hồi ~1.2s.', 'snippet', 'temp,hardware,cpu,gpu,legion,upgrade', 'agent_mcp', 0.178, 'global');
-INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (12, 'Hệ Sinh Thái Dual-Quota Bridge: Antigravity & Gemini Web', 'Đã thiết kế và triển khai hoàn tất hệ sinh thái Cầu Nối Antigravity <-> Gemini Web Bridge (Dual-Quota Strategy). Kiến trúc gồm Chrome Extension Manifest V3 bám sát tab gemini.google.com kết nối WebSocket tới MCP Server gemini-web-bridge (port 8765). Tự động phân luồng: câu hỏi thông thường/lý thuyết/brainstorm chuyển sang Web Quota, còn lập trình/thao tác tệp/terminal giữ lại cho Antigravity Agent Quota. Đạt độ trễ < 15ms và 0 token DOM.', 'decision', 'gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp', 'agent_mcp', 1.313, 'global');
+- Xóa bỏ hoàn toàn con số gán cứng giả tạo ~55°C, mọi chỉ số báo cáo thời gian thực đều là ground-truth phần cứng 100%. Tốc độ phản hồi ~1.2s.', 'snippet', 'temp,hardware,cpu,gpu,legion,upgrade', 'agent_mcp', 0.137, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (12, 'Hệ Sinh Thái Dual-Quota Bridge: Antigravity & Gemini Web', 'Đã thiết kế và triển khai hoàn tất hệ sinh thái Cầu Nối Antigravity <-> Gemini Web Bridge (Dual-Quota Strategy). Kiến trúc gồm Chrome Extension Manifest V3 bám sát tab gemini.google.com kết nối WebSocket tới MCP Server gemini-web-bridge (port 8765). Tự động phân luồng: câu hỏi thông thường/lý thuyết/brainstorm chuyển sang Web Quota, còn lập trình/thao tác tệp/terminal giữ lại cho Antigravity Agent Quota. Đạt độ trễ < 15ms và 0 token DOM.', 'decision', 'gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp', 'agent_mcp', 1.289, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (13, 'Kiến trúc hoàn thiện Antigravity Gemini Web Dual-Quota Bridge (v1.2.2)', 'Cầu nối Gemini Web Bridge (Dual-Quota Architecture) giữa Google Antigravity và Gemini Chat Web (gemini.google.com) đã hoàn thiện 100% chuẩn production:
 1. Kiến trúc phân tầng độc lập:
    - bridge_daemon.js: Tiến trình nền vĩnh viễn trên cổng 127.0.0.1:8765, sở hữu WebSocket server kết nối trực tiếp với Chrome/Brave Extension và HTTP server cho các lệnh CLI/script. Không phụ thuộc chu kỳ vòng đời Antigravity MCP (miễn nhiễm với lỗi 5 phút MCP timeout/ECONNRESET).
@@ -72,7 +72,7 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
    - Khắc phục lỗi thẻ SVG Gradient <stop> (loại trừ các biểu tượng màu chứa thẻ <stop>).
    - Bộ lọc isProcessing: Chờ qua trạng thái Đang xử lý... / Đang suy nghĩ... của Gemini trước khi chốt kết quả.
    - Cách ly lượt chat (Strict Turn Isolation): Nhận diện đúng phản hồi của từng lượt hỏi liên tiếp trong cùng một hội thoại.
-3. Tối ưu Quota kép: Ủy thác 100% các câu hỏi lý thuyết, giải thích kiến thức sang Gemini Web (0 token DOM, tốc độ < 15ms overhead), giữ trọn vẹn quota Agent của Antigravity cho việc code, test và can thiệp file máy cục bộ.', 'decision', 'gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror', 'agent_mcp', 1.832, 'global');
+3. Tối ưu Quota kép: Ủy thác 100% các câu hỏi lý thuyết, giải thích kiến thức sang Gemini Web (0 token DOM, tốc độ < 15ms overhead), giữ trọn vẹn quota Agent của Antigravity cho việc code, test và can thiệp file máy cục bộ.', 'decision', 'gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror', 'agent_mcp', 1.814, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (14, 'Tổng quan Kiến trúc & Sổ tay Vận hành Gemini Web Bridge (v1.2.3)', 'HỆ THỐNG CẦU NỐI DUAL-QUOTA BRIDGE (ANTIGRAVITY <-> GEMINI WEB) v1.2.3:
 
 1. MỤC TIÊU CỐT LÕI:
@@ -97,13 +97,13 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 - Giai đoạn 1: Tự động phát hiện phiên đăng nhập & tự động chuyển tab mới (New Chat trigger) khi hội thoại quá dài để giữ ngữ cảnh sạch.
 - Giai đoạn 2: Hỗ trợ đính kèm tệp/ảnh cục bộ chuyển tiếp lên Gemini Web qua clipboard/input file upload.
 - Giai đoạn 3: Streaming thời gian thực từng khối Markdown từ Browser qua WebSocket về terminal/agent.
-- Giai đoạn 4: Đa tab load-balancing (chia tải giữa nhiều tab Gemini Web nếu cần xử lý song song).', 'decision', 'gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap', 'agent_mcp', 1.878, 'global');
+- Giai đoạn 4: Đa tab load-balancing (chia tải giữa nhiều tab Gemini Web nếu cần xử lý song song).', 'decision', 'gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap', 'agent_mcp', 1.869, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (15, 'Khắc phục triệt để bẫy kiểm duyệt tiếng Việt và lỗi ngắt stream Gemini Web v1.2.5', 'Giải pháp v1.2.5 cho Gemini Web Bridge:
 1. Tạo normalizer.js: Chuẩn hóa bẫy kiểm duyệt tiếng Việt của Google (chạm chân -> đặt chân, lần đầu con người -> lần đầu tiên con người đặt chân lên Mặt Trăng, gán tiền tố bách khoa ''Về mặt thông tin và lịch sử: '').
 2. Khắc phục lỗi cắt dòng stream trong content.js: Bỏ mốc 800ms, yêu cầu lắng đọng 2.5s-4s sau khi nút Stop biến mất.
 3. Cơ chế Range + execCommand(''insertText'') chuẩn xác không sót văn bản cũ.
 4. Tự động phục hồi khi phát hiện câu từ chối mặc định.
-5. Cập nhật ask.js, mcp_server.js và manifest v1.2.5.', 'decision', 'gemini_web,dual_quota,bugfix,safety_filter,v1.2.5', 'agent_mcp', 1.831, 'global');
+5. Cập nhật ask.js, mcp_server.js và manifest v1.2.5.', 'decision', 'gemini_web,dual_quota,bugfix,safety_filter,v1.2.5', 'agent_mcp', 1.815, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (16, 'Kiến trúc và Quy chuẩn Vận hành Gemini Web Dual-Quota Bridge v2.0.0', '# Antigravity <-> Gemini Web Dual-Quota Bridge v2.0.0 (Bản Chuẩn Hóa Production-Grade)
 
 ## 1. Mục Đích & Vị Trí Lưu Trữ
@@ -139,19 +139,19 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 ## 3. Quy Trình Nạp Khi Sửa Code
 - Sau khi chỉnh sửa `extension/content.js` hoặc `manifest.json`:
   1. Mở `brave://extensions` -> Bấm icon 🔄 Tải lại tiện ích.
-  2. Mở tab Gemini Web (`gemini.google.com`) -> Nhấn F5.', 'decision', 'gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture', 'agent_mcp', 1.844, 'global');
+  2. Mở tab Gemini Web (`gemini.google.com`) -> Nhấn F5.', 'decision', 'gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture', 'agent_mcp', 1.83, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (27, 'Thông tin tải game Diablo II: Resurrected của Ngài', 'Ngài đang tải bộ cài đặt Diablo II: Resurrected (bản LinkNeverDie TCP) bằng phần mềm Free Download Manager (FDM).
 - Thư mục lưu trữ: C:\Users\tvu16\Downloads
 - Cấu trúc bộ cài: Gồm 3 part dạng file RAR (Part 1: ~13GB, Part 2: ~13GB, Part 3: ~2GB, tổng ~28GB).
 - File đang tải sẽ có định dạng *.rar.fdmdownload, khi hoàn tất sẽ tự chuyển thành *.rar.
 - Quá trình tải ghi nhận: Part 1 xong trước (22:51 ngày 20/09/2026), Part 2 và Part 3 hoàn tất sau đó.
-- Công cụ kiểm tra: Truy vấn SQLite tại %LOCALAPPDATA%\Softdeluxe\Free Download Manager\db.sqlite.', 'fact', 'diablo,d2r,game,fdm,downloads,linkneverdie', 'agent_mcp', 1.439, 'global');
+- Công cụ kiểm tra: Truy vấn SQLite tại %LOCALAPPDATA%\Softdeluxe\Free Download Manager\db.sqlite.', 'fact', 'diablo,d2r,game,fdm,downloads,linkneverdie', 'agent_mcp', 1.418, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (28, 'Diablo II: Resurrected đã giải nén hoàn tất trong Downloads', 'Bộ cài đặt Diablo II: Resurrected (LinkNeverDie TCP) đã được giải nén thành công trọn vẹn vào thư mục Downloads:
 - Đường dẫn: C:\Users\tvu16\Downloads\D2R.TCP_LinkNeverDie.Com
 - Dung lượng bung nén: ~30.44 GB
 - File chạy game: "__Start game TCP + create shortcut.exe" hoặc "__Start game TCP ReMoDDeD + create shortcut.exe"
 - Mật khẩu giải nén: linkneverdie.com
-- Bộ cài gốc (RAR): C:\Users\tvu16\Downloads\D2R.TCP_LinkNeverDie.Com.part1.rar -> part3.rar (~28 GB)', 'fact', 'diablo,d2r,game,downloads,linkneverdie,extracted', 'agent_mcp', 1.185, 'global');
+- Bộ cài gốc (RAR): C:\Users\tvu16\Downloads\D2R.TCP_LinkNeverDie.Com.part1.rar -> part3.rar (~28 GB)', 'fact', 'diablo,d2r,game,downloads,linkneverdie,extracted', 'agent_mcp', 1.115, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (29, 'Nâng cấp lệnh screenoff thế hệ mới (Eco Agentic Mode) và bổ sung lệnh screenon', 'HỆ THỐNG ECO AGENTIC SCREENOFF THẾ HỆ MỚI (V2.0):
 1. Mục tiêu: Khi Ngài tắt màn hình (screenoff), toàn bộ các ứng dụng bên thứ 3 và tác vụ nền ngốn tài nguyên (Brave cá nhân, Zalo, Riot Client, Vanguard, FDM, Spotify, Widgets...) sẽ được đưa vào trạng thái ngủ đông (NtSuspendProcess) và thu hồi RAM (EmptyWorkingSet).
 2. Bảo vệ tuyệt đối (Whitelisted 100%):
@@ -208,7 +208,7 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 2. Biên dịch Win32 P/Invoke 1 lần duy nhất ngay từ đầu khi CPU đang ở Ultimate Performance (4.5+ GHz). Tránh lỗi Add-Type biên dịch trong trạng thái Eco 2W (từng gây nghẽn 5-10s và trễ khởi động watcher).
 3. Loại bỏ hoàn toàn EmptyWorkingSet: Không ép xả RAM ra pagefile disk để tránh hiện tượng hard page fault bão hòa I/O khi thức giấc.
 4. Khi nhận diện chuyển động chuột/phím, lập tức phục hồi Power Plan (Ultimate Performance) và Legion Power Mode (Balance) TRƯỚC TIÊN (<10ms) để CPU vọt lên 4.5+ GHz, sau đó gọi NtResumeProcess x2 lần cho từng tiến trình người dùng để rã đông triệt để 100%.
-5. Loại trừ triệt để Riot Vanguard (vgtray) và các host của Windows để không bị xung đột kernel driver anti-cheat.', 'decision', 'screenoff,powermanagement,ponytail,win32', 'agent_mcp', 1.781, 'global');
+5. Loại trừ triệt để Riot Vanguard (vgtray) và các host của Windows để không bị xung đột kernel driver anti-cheat.', 'decision', 'screenoff,powermanagement,ponytail,win32', 'agent_mcp', 1.771, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (35, 'Quy tắc Tự động Screenoff và Khôi phục Performance Mode', 'Quy tắc thực thi Screenoff tự động cho Antigravity Agent:
 1. Khi Ngài chat ''screenoff'' hoặc yêu cầu tắt màn hình: Trợ lý BẮT BUỘC thực thi ngay lệnh qua terminal (run_command) bằng WMI để tiến trình chạy ngầm hoàn toàn độc lập khỏi Job Object:
    cmd.exe /c "C:\Users\tvu16\AppData\Roaming\Antigravity\bin\screenoff.cmd"
@@ -225,26 +225,26 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (39, 'Cấu hình Whitelist FDM và Gemini Web Bridge trong Screenoff Engine', 'Đã cấu hình ngoại trừ Free Download Manager (FDM), Antigravity và Gemini Web Bridge khỏi cơ chế ngủ đông của screenoff (tại C:\Users\tvu16\AppData\Roaming\Antigravity\bin\screenoff_engine.ps1).
 - Nguyên nhân: Trước đó ''fdm'' và ''wenativehost'' nằm trong danh sách $knownTargets cần suspend, khiến NtSuspendProcess đóng băng toàn bộ tiến trình FDM khi tắt màn hình.
 - Khắc phục: Đã chuyển ''fdm'', ''wenativehost'', ''fdm5rhwin'', ''helperservice'' sang $protectedList, loại bỏ khỏi $knownTargets, bổ sung cơ chế kiểm tra đường dẫn thư mục FDM và Gemini Web Bridge.
-- Đã rã đông toàn bộ tiến trình, đưa máy về trạng thái Normal Performance, và kích hoạt lại các luồng tải đa luồng của Horizon Forbidden West.', 'decision', 'screenoff,fdm,gemini_web_bridge,antigravity,download', 'agent_mcp', 1.499, 'global');
+- Đã rã đông toàn bộ tiến trình, đưa máy về trạng thái Normal Performance, và kích hoạt lại các luồng tải đa luồng của Horizon Forbidden West.', 'decision', 'screenoff,fdm,gemini_web_bridge,antigravity,download', 'agent_mcp', 1.494, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (40, 'Quy tắc Kiểm tra Tiến độ Tải file & Game (fdm)', 'Khi Ngài hỏi về tiến độ tải file, game (Horizon Forbidden West, Diablo 2, Blasphemous, Wuchang...), FDM hoặc gõ lệnh ''fdm'' / ''download'': Trợ lý BẮT BUỘC thực thi ngay lập tức lệnh ''fdm'' (hoặc ''fdm <tên_game>'') qua terminal (''run_command''). Lệnh ''fdm'' là công cụ native CLI siêu tốc (< 50ms) đọc trực tiếp từ CSDL Free Download Manager, xuất báo cáo đầy đủ %, dung lượng, các part và trạng thái hoàn tất. Tuyệt đối KHÔNG viết script Python tạm thời, KHÔNG dò tìm file toàn ổ đĩa gây trễ hàng chục bước.', 'rule', 'fdm,download,progress,game,rule,quick-command', 'system_policy', 1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (41, 'Thông tin tải game Horizon Forbidden West Complete Edition của Ngài', 'Ngài đang tải bộ cài đặt Horizon Forbidden West Complete Edition (LinkNeverDie Google Drive 8 parts, tổng ~74.6 GB + gói Việt Hóa ''Horizon.Forbidden.West.VietHoa.rar'') bằng phần mềm Free Download Manager (FDM).
 - Thư mục lưu trữ: C:\Users\tvu16\Downloads
 - Cấu trúc: 7 part đầu mỗi part ~14.9 GB, part 8 ~4.39 MB, kèm file Việt hóa 4.91 MB.
 - Part 01 và file Việt hóa đã hoàn tất, các part còn lại đang tải đa luồng qua FDM.
-- Công cụ kiểm tra nhanh: Lệnh `fdm horizon` (< 50ms).', 'fact', 'horizon,hfw,forbidden_west,game,fdm,downloads,linkneverdie', 'conversation_history', 1.498, 'global');
+- Công cụ kiểm tra nhanh: Lệnh `fdm horizon` (< 50ms).', 'fact', 'horizon,hfw,forbidden_west,game,fdm,downloads,linkneverdie', 'conversation_history', 1.472, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (42, 'Thông số phần cứng chi tiết Laptop Lenovo Legion của Ngài', 'Hạ tầng phần cứng máy tính cá nhân của Ngài:
 - Thiết bị: Laptop Lenovo Legion (Hostname: tranvu-galactic-ion, OS: Windows 11, User: tvu16).
 - CPU: AMD Ryzen 7 7840H (8 Cores, 16 Threads, Zen 4, 3.8 - 5.1 GHz).
 - GPU rời: NVIDIA GeForce RTX 4050 Laptop GPU (6GB GDDR6, TGP ~95-105W).
 - iGPU: AMD Radeon 780M (RDNA 3, Hybrid Mode ON).
 - Công cụ đo & kiểm soát: Lenovo Legion Toolkit CLI (`llt`), `FastTemp.exe` (đo SoC APU), NVIDIA SMI.
-- Lệnh kiểm tra nhiệt độ tức thời: `temp`.', 'fact', 'hardware,legion,ryzen,rtx4050,cpu,gpu,fasttemp,llt', 'system_audit', 1.498, 'global');
+- Lệnh kiểm tra nhiệt độ tức thời: `temp`.', 'fact', 'hardware,legion,ryzen,rtx4050,cpu,gpu,fasttemp,llt', 'system_audit', 1.464, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (43, 'Danh mục game & tiện ích đã tải / cài đặt trên máy Ngài', 'Danh mục các game và phần mềm tiêu biểu Ngài đang sở hữu hoặc tải về trong `C:\Users\tvu16\Downloads`:
 1. Diablo II: Resurrected (LinkNeverDie TCP, bung nén tại `C:\Users\tvu16\Downloads\D2R.TCP_LinkNeverDie.Com`, ~30.4 GB).
 2. Horizon Forbidden West Complete Edition (~74.6 GB, đang tải qua FDM).
 3. Blasphemous 2 (bản v3.0 kèm Việt Hóa và FLiNG Trainer).
 4. Wuchang: Fallen Feathers (bản Việt Hóa + Mod Enabler Steam).
-5. Tiện ích âm thanh & ngoại vi: Voicemeeter, phần mềm bàn phím WK870, DroidCam Webcam.', 'fact', 'inventory,games,software,diablo,horizon,blasphemous,wuchang,downloads', 'conversation_history', 1.298, 'global');
+5. Tiện ích âm thanh & ngoại vi: Voicemeeter, phần mềm bàn phím WK870, DroidCam Webcam.', 'fact', 'inventory,games,software,diablo,horizon,blasphemous,wuchang,downloads', 'conversation_history', 1.268, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (44, 'Quy chuẩn & Lệnh Kiểm tra Tải Game Riot Games (LMHT, VALORANT, TFT)', 'Khi Ngài hỏi về tiến độ tải, cập nhật hoặc trạng thái các game thuộc Riot Games (LMHT / League of Legends, VALORANT, Teamfight Tactics / ĐTCL):
 1. Trợ lý thực thi ngay lập tức lệnh: fdm riot (hoặc fdm lol, fdm valorant) qua terminal (run_command).
 2. Tốc độ kiểm tra < 50ms, đọc trực tiếp từ log thời gian thực của Riot Client (%LOCALAPPDATA%\Riot Games\Riot Client\Logs\Riot Client Logs\*_Riot Client.log) và cấu hình metadata.
@@ -256,10 +256,29 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
   * Diablo II: Resurrected: Đã giải nén hoàn tất tại C:\Users\tvu16\Downloads\D2R.TCP_LinkNeverDie.Com (~28 GB, 2 bản TCP & TCP ReMoDDeD).
   * Horizon Forbidden West Complete Edition: 11 part RAR (~137 GB) đang tải qua FDM tại C:\Users\tvu16\Downloads\Horizon.Forbidden.West.Complete.Edition-v1.4.59.0_LinkNeverDie.Com\.
   * VALORANT: Đã cài đặt hoàn chỉnh tại C:\Riot Games\VALORANT (~33.5 GB).
-  * Wuchang: Fallen Feathers, Blasphemous 2: Các bản cài/mod trong Downloads.', 'fact', 'gaming,profile,preference,elden_ring,witcher3,spiderman,horizon,diablo2,valorant', 'auto_extraction', 1.499, 'global');
+  * Wuchang: Fallen Feathers, Blasphemous 2: Các bản cài/mod trong Downloads.', 'fact', 'gaming,profile,preference,elden_ring,witcher3,spiderman,horizon,diablo2,valorant', 'auto_extraction', 1.482, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (46, 'Sửa lỗi tính tiến độ tải FDM theo chunk ratio trong fdm_status.py', 'Đã nâng cấp bộ parser fdm_status.py (C:\Users\tvu16\AppData\Roaming\Antigravity\bin\fdm_status.py) để tính tỷ lệ phần trăm tải qua chunk ratio:
 - Cơ chế cũ: Lấy trực tiếp sum(dones) làm số byte, dẫn đến việc các file lớn (14.9 GB) dùng block 256 byte bị hiển thị 0.0% và sai dung lượng thực tế đã tải.
-- Cơ chế mới: Tính chunk_ratio = sum(dones) / sizes[0], sau đó nhân với dung lượng file trên đĩa để ra dung lượng thực tế chính xác 100%. Lệnh ''fdm horizon'' giờ đây hiển thị chính xác tiến độ thời gian thực của FDM.', 'decision', 'fdm,fdm_status,fix,download,horizon', 'agent_mcp', 1.499, 'global');
+- Cơ chế mới: Tính chunk_ratio = sum(dones) / sizes[0], sau đó nhân với dung lượng file trên đĩa để ra dung lượng thực tế chính xác 100%. Lệnh ''fdm horizon'' giờ đây hiển thị chính xác tiến độ thời gian thực của FDM.', 'decision', 'fdm,fdm_status,fix,download,horizon', 'agent_mcp', 1.488, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (47, 'Trọn bộ cài đặt Horizon Forbidden West Complete Edition đã tải hoàn tất 100%', 'Bộ cài đặt Horizon Forbidden West Complete Edition (LinkNeverDie Google Drive 8 parts, tổng ~105.4 GB + gói Việt Hóa ''Horizon.Forbidden.West.VietHoa.rar'') đã hoàn tất 100% tại C:\Users\tvu16\Downloads vào lúc 03:11 AM ngày 26/09/2026.
+- Đầy đủ 8 part RAR (mỗi part 01-07 ~14.9 GB, part 08 ~1.10 GB) và file Việt Hóa (4.91 MB).
+- Quy trình tự động giám sát và tắt máy an toàn sau khi hoàn tất đã thực thi trọn vẹn.', 'note', 'horizon,hfw,forbidden_west,game,downloads,completed,shutdown', 'agent_mcp', 0.466, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (48, 'Screenoff Immunity Whitelist: Bảo vệ UXTU không bị đóng băng', 'Đã cập nhật hệ thống Screenoff (C:\Users\tvu16\AppData\Roaming\Antigravity\bin\screenoff_engine.ps1) để bảo vệ vĩnh viễn UXTU (Universal x86 Tuning Utility). 
+UXTU được Ngài cấu hình để giới hạn nhiệt độ CPU ở 89 độ C nhằm tối ưu nhiệt.
+Quy chuẩn loại trừ (Immunity Whitelist) của Screenoff hiện tại gồm:
+1. Antigravity Agent & toàn bộ mcp-* servers
+2. Gemini Web Bridge & Dedicated Profile (Chrome sidecar)
+3. FDM (Free Download Manager)
+4. UXTU (Universal x86 Tuning Utility, process name ''Universal x86 Tuning Utility'', thư mục JamesCJ60)
+Tuyệt đối không bị gọi NtSuspendProcess đóng băng khi màn hình tắt. UXTU luôn tiếp tục hoạt động ngầm để duy trì ngưỡng nhiệt 89°C.', 'decision', 'screenoff,uxtu,whitelist,hardware,cpu_temp', 'agent_mcp', 1.494, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (49, 'Thay thế UXTU bằng RyzenAdj Native Hardware Guard 89C', 'Đã gỡ bỏ và vô hiệu hóa hoàn toàn UXTU (Universal x86 Tuning Utility), giải phóng ~372 MB RAM.
+Thay thế bằng bộ giải pháp Native Ponytail siêu tối ưu:
+1. RyzenAdj v0.19.0 (C native Win32, 140KB): áp trần nhiệt 89°C và Undervolt Curve Optimizer -15 (all core) qua AMD SMU.
+2. Watcher phần cứng không tốn CPU (Zero-polling): cpu_limit_watcher.ps1 chạy ngầm qua Scheduled Task ''Antigravity_CPULimit'' (Highest Privileges).
+3. Bắt trực tiếp WMI Hardware Indication Events: LENOVO_GAMEZONE_THERMAL_MODE_EVENT (mỗi khi bấm Fn+Q chuyển Quiet/Balance/Performance/Godmode) và LENOVO_AC_PD_EVENT (cắm/rút sạc).
+4. Khắc phục triệt để hiện tượng EC firmware reset: Watcher tự động double-tap nạp lại 89°C sau 400ms settle time.
+5. Đã kiểm thử thực tế và xác nhận THM LIMIT CORE luôn giữ vững 89.000°C ở cả 4 chế độ: Quiet, Balance, Performance, Godmode.
+6. Lệnh tắt nhanh: gõ ''cpu89'' trên bất kỳ terminal nào.', 'decision', 'hardware,ryzenadj,uxtu_replacement,cpu_temp,thermal_limit,89C,ponytail', 'agent_mcp', 1.793, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);
@@ -410,9 +429,16 @@ INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, 
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (30, '[QUY TRÌNH] Kiểm tra tiến độ tải game Riot Games (LMHT, VALORANT, TFT) qua Riot Client', 'Cần báo cáo tiến độ tải hoặc cập nhật các game Riot mà không quét đĩa hay chạy script dò tìm log lâu', 'fdm riot', 'fdm riot', 'global', 1, 20);
 
 -- Table: conversations
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('3eee2dcd-6529-4644-bb72-3d6fdb60cf0a', 'https://drive.usercontent.google.com/download?id=136VYlNMptTUZD0rjJjNr5Vz3drjeIa', '[Mục tiêu: horizon tải tới đâu r] | [Quyết định: yêu cầu tiếp tục luồng tải (`Range: bytes=23623131-23624131`):] | [Kết quả: Báo cáo Ngài, tiến độ tải bộ cài **Horizon Forbidden West** qua Free Download Manager hiện đã gần về]', 175);
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('41294e1d-a128-41fd-89a3-3c7bd9968c70', 'cái hệ thống screenoff có thể loại bỏ thêm cả uxtu để cho nó ko bị đóng băng  ch', '[Mục tiêu: cái hệ thống screenoff có thể loại bỏ thêm cả uxtu để cho nó ko bị đóng băng chỉ có antigravity và bridge full hệ thống có fdm và giờ là ...] | [Quyết định: luôn luôn giới hạn ở tất cả các mode?; luôn luôn cơ chứ ko muốn áp thủ công; luôn luôn và mãi mãi bị khóa chặt ở ngưỡng **89°C tối ưu nhất**, êm mát và tiết kiệm trọn vẹn ~372 MB RAM so với UXTU trước đây!] | [Tệp tin: screenoff_engine.ps1, godmode.json, cpu_limit_watcher.ps1] | [Bài học: giải pháp tối ưu nhất để thay thế hoàn toàn UXTU, đảm bảo giữ vững 89°C ở TẤT CẢ CÁC MODE**]', 271);
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('55817029-9dcb-4dcc-8b6c-d88c3d910cec', 'tắt màn hình', '[Mục tiêu: tắt màn hình] | [Kết quả: As you wish, Sir!  Lệnh tắt màn hình đã được kích hoạt thành công qua [screenoff.cmd](file:///C:/Use]', 5);
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('8e20d693-1421-4f92-93a0-d47dc3b05ba8', 'bạn có thể trực tiếp nghiên cứu MT5 và làm chỉ báo cho XAUUSD nghiên cứu nhiều n', '[Mục tiêu: bạn có thể trực tiếp nghiên cứu MT5 và làm chỉ báo cho XAUUSD nghiên cứu nhiều nguồn trên mạng và đưa ra phương pháp ổn định và tốt nhất ...] | [Quyết định: yêu cầu chỉ báo là có điểm vào kèm lí do ngắn và SL TP1 TP2 đầy đủ và tối ưu chiến lược phù hợp với thị trường và thời đại bây giờ; Chốt lời (Risk:Reward):**; chốt 50% khối lượng và dời SL về hòa vốn - Breakeven) và **TP2 tại 1:2] | [Tệp tin: xauusd_trading_indicator_plan.md, walkthrough.md, README.md] | [Bài học: GIẢI PHÁP TỐI ƯU HÓA CHO TỪNG PHÂN KHÚC]', 84);
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('992b8e07-bb2e-4044-89fc-03fef5da6f44', 'temp', '[Mục tiêu: temp] | [Kết quả: Báo cáo tình trạng nhiệt độ và phần cứng hệ thống Lenovo Legion gửi tới Ngài: ```text ==============]', 3);
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('e9705faf-96cb-4765-a59d-2dd480f7419c', 'tôi có thể setup cho khi đang sleep mà vẫn sử dụng được antigravity và bridge ko', '[Mục tiêu: tôi có thể setup cho khi đang sleep mà vẫn sử dụng được antigravity và bridge ko?] | [Tệp tin: Node.js] | [Bài học: giải pháp hoàn hảo thay thế cho Sleep** — vừa tiết kiệm điện, vừa giữ máy mát lạnh, mà **Antigravity & Gemini Web Bridge vẫn hoạt; Giải pháp tối ưu: Sử dụng chế độ `screenoff` (Headless Eco Mode)]', 4);
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('ed2a1bfa-0b12-42c6-82c7-e4ff9a71f104', 'sao nó đang báo /gemini-web-bridge chưa được kết nối ở chat này @[conversation:"', '[Mục tiêu: sao nó đang báo /gemini-web-bridge chưa được kết nối ở chat này @[conversation:"XAUUSD MT5 Indicator Strategy"]] | [Quyết định: bắt buộc xác nhận các node tin nhắn cũ trong DOM đã biến mất hoàn toàn (`length === 0`) mới cho phép bước tiếp theo thực thi] | [Tệp tin: content.js] | [Bài học: khắc phục ngay lập tức cho Ngài như sau:; khắc phục triệt để đã triển khai]', 39);
+INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('fe8bed14-7fd8-4e80-94ea-18bfc9d89aca', 'temp', '[Mục tiêu: temp] | [Kết quả: Báo cáo tình trạng nhiệt độ và phần cứng hệ thống Lenovo Legion của Ngài: ```text ==================]', 3);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('5db950df-86d3-43ca-ab74-014b627cfb4f', 'từ giờ hệ thống hoạt động chuẩn chưa và như nào hợp lí chưa cần cải thiện gì để ', '[Mục tiêu: qua 3 cuộc trò chuyện này @[conversation:"Screenoff Download Exclusions"] @[conversation:"Horizon Forbidden Download Status"] @[conversat...] | [Quyết định: quy tắc đặc thù vào `user_global` và đồng bộ hồi tố toàn bộ ký ức các phiên chat trước vào `brain] | [Tệp tin: second_brain_optimization_plan.md, fdm_status.py] | [Bài học: khắc phục đã được đóng gói chi tiết trong bản kế hoạch triển khai:; Giải pháp đề xuất:**]', 243);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('3a0a2e14-61dd-4b08-9ff3-d13b2a9b7259', 'temp', '[Mục tiêu: temp] | [Kết quả: Báo cáo thời gian thực về nhiệt độ và trạng thái phần cứng hệ thống Lenovo Legion của Ngài: ```text ]', 3);
-INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('3eee2dcd-6529-4644-bb72-3d6fdb60cf0a', 'horizon tải tới đâu r', '[Mục tiêu: horizon tải tới đâu r] | [Quyết định: yêu cầu tiếp tục luồng tải (`Range: bytes=23623131-23624131`):] | [Kết quả: Báo cáo Ngài, tiến độ tải bộ cài **Horizon Forbidden West** qua Free Download Manager hiện đã gần về]', 136);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('5aeac2a3-0a82-48af-8738-6d66f8f81f9c', 'horizon fobidden tải như nào r', '[Mục tiêu: horizon fobidden tải như nào r] | [Quyết định: bắt buộc phải có từ `part01` mới bắt đầu giải nén lại được] | [Kết quả: Báo cáo **Ngài**, thần đã kiểm tra ngay tiến độ tải bộ cài game **Horizon Forbidden West Complete Ed]', 12);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('caa18231-881b-4fef-abca-745b37490036', 'giải nén hộ tôi file việt hóa horizon fobidden với pw là "linkneverdie.com"', '[Mục tiêu: giải nén hộ tôi file việt hóa horizon fobidden với pw là "linkneverdie.com"] | [Tệp tin: setup.bat] | [Kết quả: Báo cáo Ngài, tôi đã giải nén thành công tệp Việt Hóa cho **Horizon Forbidden West** với mật khẩu `l]', 26);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('ed546382-088c-4355-88f3-6b9f3cabdfb1', 'horizon fobidden tải tới đâu r', '[Mục tiêu: horizon fobidden tải tới đâu r] | [Kết quả: Báo cáo **Ngài**, thần vừa kiểm tra trực tiếp tiến độ tải bộ cài game **Horizon Forbidden West Compl]', 31);

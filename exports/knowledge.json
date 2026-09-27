@@ -30,7 +30,7 @@
     "category": "fact",
     "tags": "location,hoang_mai",
     "source": "user",
-    "importance": 0.792,
+    "importance": 0.769,
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
@@ -42,7 +42,7 @@
     "category": "decision",
     "tags": "mcp, fetch, everything-search, optimization, tools",
     "source": "agent_mcp",
-    "importance": 1.333,
+    "importance": 1.313,
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
@@ -54,7 +54,7 @@
     "category": "decision",
     "tags": "python,uv,environment,config",
     "source": "agent_mcp",
-    "importance": 1.342,
+    "importance": 1.321,
     "project_scope": "global",
     "created_at": "2026-09-11T19:59:20.654Z",
     "updated_at": "2026-09-11T19:59:20.654Z"
@@ -78,7 +78,7 @@
     "category": "snippet",
     "tags": "hardware,temperature,legion,llt,upgrade",
     "source": "agent_mcp",
-    "importance": 0.14,
+    "importance": 0.104,
     "project_scope": "global",
     "created_at": "2026-09-11T20:28:18.738Z",
     "updated_at": "2026-09-11T20:28:18.738Z"
@@ -126,7 +126,7 @@
     "category": "snippet",
     "tags": "temp,hardware,cpu,gpu,legion,upgrade",
     "source": "agent_mcp",
-    "importance": 0.178,
+    "importance": 0.137,
     "project_scope": "global",
     "created_at": "2026-09-13T07:01:21.884Z",
     "updated_at": "2026-09-13T07:01:21.884Z"
@@ -138,7 +138,7 @@
     "category": "decision",
     "tags": "gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp",
     "source": "agent_mcp",
-    "importance": 1.313,
+    "importance": 1.289,
     "project_scope": "global",
     "created_at": "2026-09-14T12:23:30.612Z",
     "updated_at": "2026-09-14T12:23:30.612Z"
@@ -150,7 +150,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror",
     "source": "agent_mcp",
-    "importance": 1.832,
+    "importance": 1.814,
     "project_scope": "global",
     "created_at": "2026-09-14T13:25:36.414Z",
     "updated_at": "2026-09-14T13:25:36.414Z"
@@ -162,7 +162,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap",
     "source": "agent_mcp",
-    "importance": 1.878,
+    "importance": 1.869,
     "project_scope": "global",
     "created_at": "2026-09-14T13:38:27.351Z",
     "updated_at": "2026-09-14T13:38:27.351Z"
@@ -174,7 +174,7 @@
     "category": "decision",
     "tags": "gemini_web,dual_quota,bugfix,safety_filter,v1.2.5",
     "source": "agent_mcp",
-    "importance": 1.831,
+    "importance": 1.815,
     "project_scope": "global",
     "created_at": "2026-09-14T14:08:00.642Z",
     "updated_at": "2026-09-14T14:08:00.642Z"
@@ -186,7 +186,7 @@
     "category": "decision",
     "tags": "gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture",
     "source": "agent_mcp",
-    "importance": 1.844,
+    "importance": 1.83,
     "project_scope": "global",
     "created_at": "2026-09-14T15:21:52.020Z",
     "updated_at": "2026-09-14T15:21:52.020Z"
@@ -198,7 +198,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,fdm,downloads,linkneverdie",
     "source": "agent_mcp",
-    "importance": 1.439,
+    "importance": 1.418,
     "project_scope": "global",
     "created_at": "2026-09-20T16:47:10.070Z",
     "updated_at": "2026-09-20T16:47:10.070Z"
@@ -210,7 +210,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,downloads,linkneverdie,extracted",
     "source": "agent_mcp",
-    "importance": 1.185,
+    "importance": 1.115,
     "project_scope": "global",
     "created_at": "2026-09-20T18:00:33.394Z",
     "updated_at": "2026-09-20T18:00:33.394Z"
@@ -282,7 +282,7 @@
     "category": "decision",
     "tags": "screenoff,powermanagement,ponytail,win32",
     "source": "agent_mcp",
-    "importance": 1.781,
+    "importance": 1.771,
     "project_scope": "global",
     "created_at": "2026-09-23T15:52:41.091Z",
     "updated_at": "2026-09-23T15:52:41.091Z"
@@ -306,7 +306,7 @@
     "category": "decision",
     "tags": "screenoff,fdm,gemini_web_bridge,antigravity,download",
     "source": "agent_mcp",
-    "importance": 1.499,
+    "importance": 1.494,
     "project_scope": "global",
     "created_at": "2026-09-25T15:42:56.150Z",
     "updated_at": "2026-09-25T15:42:56.150Z"
@@ -330,7 +330,7 @@
     "category": "fact",
     "tags": "horizon,hfw,forbidden_west,game,fdm,downloads,linkneverdie",
     "source": "conversation_history",
-    "importance": 1.498,
+    "importance": 1.472,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.522Z",
     "updated_at": "2026-09-25T16:42:36.522Z"
@@ -342,7 +342,7 @@
     "category": "fact",
     "tags": "hardware,legion,ryzen,rtx4050,cpu,gpu,fasttemp,llt",
     "source": "system_audit",
-    "importance": 1.498,
+    "importance": 1.464,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.526Z",
     "updated_at": "2026-09-25T16:42:36.526Z"
@@ -354,7 +354,7 @@
     "category": "fact",
     "tags": "inventory,games,software,diablo,horizon,blasphemous,wuchang,downloads",
     "source": "conversation_history",
-    "importance": 1.298,
+    "importance": 1.268,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.527Z",
     "updated_at": "2026-09-25T16:42:36.527Z"
@@ -378,7 +378,7 @@
     "category": "fact",
     "tags": "gaming,profile,preference,elden_ring,witcher3,spiderman,horizon,diablo2,valorant",
     "source": "auto_extraction",
-    "importance": 1.499,
+    "importance": 1.482,
     "project_scope": "global",
     "created_at": "2026-09-25T16:50:57.902Z",
     "updated_at": "2026-09-25T16:50:57.902Z"
@@ -390,9 +390,45 @@
     "category": "decision",
     "tags": "fdm,fdm_status,fix,download,horizon",
     "source": "agent_mcp",
-    "importance": 1.499,
+    "importance": 1.488,
     "project_scope": "global",
     "created_at": "2026-09-25T17:10:34.155Z",
     "updated_at": "2026-09-25T17:10:34.155Z"
+  },
+  {
+    "id": 47,
+    "title": "Trọn bộ cài đặt Horizon Forbidden West Complete Edition đã tải hoàn tất 100%",
+    "content": "Bộ cài đặt Horizon Forbidden West Complete Edition (LinkNeverDie Google Drive 8 parts, tổng ~105.4 GB + gói Việt Hóa 'Horizon.Forbidden.West.VietHoa.rar') đã hoàn tất 100% tại C:\\Users\\tvu16\\Downloads vào lúc 03:11 AM ngày 26/09/2026.\n- Đầy đủ 8 part RAR (mỗi part 01-07 ~14.9 GB, part 08 ~1.10 GB) và file Việt Hóa (4.91 MB).\n- Quy trình tự động giám sát và tắt máy an toàn sau khi hoàn tất đã thực thi trọn vẹn.",
+    "category": "note",
+    "tags": "horizon,hfw,forbidden_west,game,downloads,completed,shutdown",
+    "source": "agent_mcp",
+    "importance": 0.466,
+    "project_scope": "global",
+    "created_at": "2026-09-25T20:11:12.619Z",
+    "updated_at": "2026-09-25T20:11:12.619Z"
+  },
+  {
+    "id": 48,
+    "title": "Screenoff Immunity Whitelist: Bảo vệ UXTU không bị đóng băng",
+    "content": "Đã cập nhật hệ thống Screenoff (C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\screenoff_engine.ps1) để bảo vệ vĩnh viễn UXTU (Universal x86 Tuning Utility). \nUXTU được Ngài cấu hình để giới hạn nhiệt độ CPU ở 89 độ C nhằm tối ưu nhiệt.\nQuy chuẩn loại trừ (Immunity Whitelist) của Screenoff hiện tại gồm:\n1. Antigravity Agent & toàn bộ mcp-* servers\n2. Gemini Web Bridge & Dedicated Profile (Chrome sidecar)\n3. FDM (Free Download Manager)\n4. UXTU (Universal x86 Tuning Utility, process name 'Universal x86 Tuning Utility', thư mục JamesCJ60)\nTuyệt đối không bị gọi NtSuspendProcess đóng băng khi màn hình tắt. UXTU luôn tiếp tục hoạt động ngầm để duy trì ngưỡng nhiệt 89°C.",
+    "category": "decision",
+    "tags": "screenoff,uxtu,whitelist,hardware,cpu_temp",
+    "source": "agent_mcp",
+    "importance": 1.494,
+    "project_scope": "global",
+    "created_at": "2026-09-26T15:28:25.456Z",
+    "updated_at": "2026-09-26T15:28:25.456Z"
+  },
+  {
+    "id": 49,
+    "title": "Thay thế UXTU bằng RyzenAdj Native Hardware Guard 89C",
+    "content": "Đã gỡ bỏ và vô hiệu hóa hoàn toàn UXTU (Universal x86 Tuning Utility), giải phóng ~372 MB RAM.\nThay thế bằng bộ giải pháp Native Ponytail siêu tối ưu:\n1. RyzenAdj v0.19.0 (C native Win32, 140KB): áp trần nhiệt 89°C và Undervolt Curve Optimizer -15 (all core) qua AMD SMU.\n2. Watcher phần cứng không tốn CPU (Zero-polling): cpu_limit_watcher.ps1 chạy ngầm qua Scheduled Task 'Antigravity_CPULimit' (Highest Privileges).\n3. Bắt trực tiếp WMI Hardware Indication Events: LENOVO_GAMEZONE_THERMAL_MODE_EVENT (mỗi khi bấm Fn+Q chuyển Quiet/Balance/Performance/Godmode) và LENOVO_AC_PD_EVENT (cắm/rút sạc).\n4. Khắc phục triệt để hiện tượng EC firmware reset: Watcher tự động double-tap nạp lại 89°C sau 400ms settle time.\n5. Đã kiểm thử thực tế và xác nhận THM LIMIT CORE luôn giữ vững 89.000°C ở cả 4 chế độ: Quiet, Balance, Performance, Godmode.\n6. Lệnh tắt nhanh: gõ 'cpu89' trên bất kỳ terminal nào.",
+    "category": "decision",
+    "tags": "hardware,ryzenadj,uxtu_replacement,cpu_temp,thermal_limit,89C,ponytail",
+    "source": "agent_mcp",
+    "importance": 1.793,
+    "project_scope": "global",
+    "created_at": "2026-09-26T16:11:45.488Z",
+    "updated_at": "2026-09-26T16:11:45.488Z"
   }
 ]
