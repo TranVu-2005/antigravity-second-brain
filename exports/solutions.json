@@ -240,5 +240,16 @@
     "confidence": 1,
     "success_count": 20,
     "created_at": "2026-09-25T16:50:57.902Z"
+  },
+  {
+    "id": 31,
+    "error_pattern": "Gemini Web Bridge báo chưa kết nối hoặc kẹt luồng khi chuyển phiên chat",
+    "root_cause": "DOM của tab gemini.google.com chưa kịp giải phóng toàn bộ node tin nhắn của cuộc trò chuyện trước khi chuyển URL phiên mới, khiến bridge kiểm tra nhầm trạng thái hoàn tất hoặc kẹt listener.",
+    "solution_code": "Trong content.js, bắt buộc kiểm tra và xác nhận các node tin nhắn cũ trong DOM đã biến mất hoàn toàn (`document.querySelectorAll(MSG_SELECTOR).length === 0`) và khung chat mới sẵn sàng trước khi cho phép bước tiếp theo thực thi.",
+    "command_fix": "",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-27T15:41:49.476Z"
   }
 ]
