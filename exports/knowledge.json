@@ -30,7 +30,7 @@
     "category": "fact",
     "tags": "location,hoang_mai",
     "source": "user",
-    "importance": 0.722,
+    "importance": 0.698,
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
@@ -42,7 +42,7 @@
     "category": "decision",
     "tags": "mcp, fetch, everything-search, optimization, tools",
     "source": "agent_mcp",
-    "importance": 1.27,
+    "importance": 1.247,
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
@@ -54,7 +54,7 @@
     "category": "decision",
     "tags": "python,uv,environment,config",
     "source": "agent_mcp",
-    "importance": 1.277,
+    "importance": 1.254,
     "project_scope": "global",
     "created_at": "2026-09-11T19:59:20.654Z",
     "updated_at": "2026-09-11T19:59:20.654Z"
@@ -138,7 +138,7 @@
     "category": "decision",
     "tags": "gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp",
     "source": "agent_mcp",
-    "importance": 1.236,
+    "importance": 1.209,
     "project_scope": "global",
     "created_at": "2026-09-14T12:23:30.612Z",
     "updated_at": "2026-09-14T12:23:30.612Z"
@@ -150,7 +150,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror",
     "source": "agent_mcp",
-    "importance": 1.775,
+    "importance": 1.755,
     "project_scope": "global",
     "created_at": "2026-09-14T13:25:36.414Z",
     "updated_at": "2026-09-14T13:25:36.414Z"
@@ -162,7 +162,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap",
     "source": "agent_mcp",
-    "importance": 1.849,
+    "importance": 1.838,
     "project_scope": "global",
     "created_at": "2026-09-14T13:38:27.351Z",
     "updated_at": "2026-09-14T13:38:27.351Z"
@@ -174,7 +174,7 @@
     "category": "decision",
     "tags": "gemini_web,dual_quota,bugfix,safety_filter,v1.2.5",
     "source": "agent_mcp",
-    "importance": 1.782,
+    "importance": 1.764,
     "project_scope": "global",
     "created_at": "2026-09-14T14:08:00.642Z",
     "updated_at": "2026-09-14T14:08:00.642Z"
@@ -186,7 +186,7 @@
     "category": "decision",
     "tags": "gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture",
     "source": "agent_mcp",
-    "importance": 1.801,
+    "importance": 1.785,
     "project_scope": "global",
     "created_at": "2026-09-14T15:21:52.020Z",
     "updated_at": "2026-09-14T15:21:52.020Z"
@@ -198,7 +198,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,fdm,downloads,linkneverdie",
     "source": "agent_mcp",
-    "importance": 1.367,
+    "importance": 1.338,
     "project_scope": "global",
     "created_at": "2026-09-20T16:47:10.070Z",
     "updated_at": "2026-09-20T16:47:10.070Z"
@@ -210,7 +210,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,downloads,linkneverdie,extracted",
     "source": "agent_mcp",
-    "importance": 0.96,
+    "importance": 0.88,
     "project_scope": "global",
     "created_at": "2026-09-20T18:00:33.394Z",
     "updated_at": "2026-09-20T18:00:33.394Z"
@@ -282,7 +282,7 @@
     "category": "decision",
     "tags": "screenoff,powermanagement,ponytail,win32",
     "source": "agent_mcp",
-    "importance": 1.745,
+    "importance": 1.729,
     "project_scope": "global",
     "created_at": "2026-09-23T15:52:41.091Z",
     "updated_at": "2026-09-23T15:52:41.091Z"
@@ -306,7 +306,7 @@
     "category": "decision",
     "tags": "screenoff,fdm,gemini_web_bridge,antigravity,download",
     "source": "agent_mcp",
-    "importance": 1.478,
+    "importance": 1.466,
     "project_scope": "global",
     "created_at": "2026-09-25T15:42:56.150Z",
     "updated_at": "2026-09-25T15:42:56.150Z"
@@ -330,7 +330,7 @@
     "category": "fact",
     "tags": "horizon,hfw,forbidden_west,game,fdm,downloads,linkneverdie",
     "source": "conversation_history",
-    "importance": 1.379,
+    "importance": 1.316,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.522Z",
     "updated_at": "2026-09-25T16:42:36.522Z"
@@ -342,7 +342,7 @@
     "category": "fact",
     "tags": "hardware,legion,ryzen,rtx4050,cpu,gpu,fasttemp,llt",
     "source": "system_audit",
-    "importance": 1.342,
+    "importance": 1.261,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.526Z",
     "updated_at": "2026-09-25T16:42:36.526Z"
@@ -354,7 +354,7 @@
     "category": "fact",
     "tags": "inventory,games,software,diablo,horizon,blasphemous,wuchang,downloads",
     "source": "conversation_history",
-    "importance": 1.163,
+    "importance": 1.093,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.527Z",
     "updated_at": "2026-09-25T16:42:36.527Z"
@@ -378,7 +378,7 @@
     "category": "fact",
     "tags": "gaming,profile,preference,elden_ring,witcher3,spiderman,horizon,diablo2,valorant",
     "source": "auto_extraction",
-    "importance": 1.419,
+    "importance": 1.379,
     "project_scope": "global",
     "created_at": "2026-09-25T16:50:57.902Z",
     "updated_at": "2026-09-25T16:50:57.902Z"
@@ -390,7 +390,7 @@
     "category": "decision",
     "tags": "fdm,fdm_status,fix,download,horizon",
     "source": "agent_mcp",
-    "importance": 1.451,
+    "importance": 1.425,
     "project_scope": "global",
     "created_at": "2026-09-25T17:10:34.155Z",
     "updated_at": "2026-09-25T17:10:34.155Z"
@@ -414,7 +414,7 @@
     "category": "decision",
     "tags": "screenoff,uxtu,whitelist,hardware,cpu_temp",
     "source": "agent_mcp",
-    "importance": 1.472,
+    "importance": 1.456,
     "project_scope": "global",
     "created_at": "2026-09-26T15:28:25.456Z",
     "updated_at": "2026-09-26T15:28:25.456Z"
@@ -426,7 +426,7 @@
     "category": "decision",
     "tags": "hardware,ryzenadj,uxtu_replacement,cpu_temp,thermal_limit,89C,ponytail",
     "source": "agent_mcp",
-    "importance": 1.766,
+    "importance": 1.749,
     "project_scope": "global",
     "created_at": "2026-09-26T16:11:45.488Z",
     "updated_at": "2026-09-26T16:11:45.488Z"
@@ -438,7 +438,7 @@
     "category": "decision",
     "tags": "trading,mt5,xauusd,scalping,strategy,money_management",
     "source": "agent_mcp",
-    "importance": 1.681,
+    "importance": 1.664,
     "project_scope": "global",
     "created_at": "2026-09-27T15:41:45.429Z",
     "updated_at": "2026-09-27T15:41:45.429Z"
@@ -450,7 +450,7 @@
     "category": "decision",
     "tags": "screenoff,sleep,power_management,headless,architecture",
     "source": "agent_mcp",
-    "importance": 1.58,
+    "importance": 1.562,
     "project_scope": "global",
     "created_at": "2026-09-27T15:41:56.665Z",
     "updated_at": "2026-09-27T15:41:56.665Z"
@@ -462,7 +462,7 @@
     "category": "note",
     "tags": "claude_code,ecc,rules,best_practices,tooling",
     "source": "agent_mcp",
-    "importance": 0.371,
+    "importance": 0.105,
     "project_scope": "global",
     "created_at": "2026-09-27T15:42:02.363Z",
     "updated_at": "2026-09-27T15:42:02.363Z"
@@ -474,7 +474,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.382,
+    "importance": 1.363,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.091Z",
     "updated_at": "2026-09-27T15:51:08.091Z"
@@ -486,7 +486,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.382,
+    "importance": 1.363,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.092Z",
     "updated_at": "2026-09-27T15:51:08.092Z"
@@ -498,7 +498,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.382,
+    "importance": 1.363,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.093Z",
     "updated_at": "2026-09-27T15:51:08.093Z"
@@ -510,7 +510,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.382,
+    "importance": 1.363,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.123Z",
     "updated_at": "2026-09-27T15:51:08.123Z"
@@ -522,7 +522,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.382,
+    "importance": 1.363,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.123Z",
     "updated_at": "2026-09-27T15:51:08.123Z"
@@ -534,7 +534,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.382,
+    "importance": 1.363,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.296Z",
     "updated_at": "2026-09-27T15:51:20.296Z"
@@ -546,7 +546,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.382,
+    "importance": 1.363,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
     "updated_at": "2026-09-27T15:51:20.297Z"
@@ -558,7 +558,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.382,
+    "importance": 1.363,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
     "updated_at": "2026-09-27T15:51:20.297Z"
@@ -570,7 +570,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.382,
+    "importance": 1.363,
     "project_scope": "global",
     "created_at": "2026-09-27T16:04:58.781Z",
     "updated_at": "2026-09-27T16:04:58.781Z"
@@ -582,9 +582,105 @@
     "category": "fact",
     "tags": "preference",
     "source": "agent_remember",
-    "importance": 1.443,
+    "importance": 1.384,
     "project_scope": "global",
     "created_at": "2026-09-27T16:05:07.243Z",
     "updated_at": "2026-09-27T16:05:07.243Z"
+  },
+  {
+    "id": 65,
+    "title": "Kiến trúc & Cơ chế Tự khởi động Hệ thống Giới hạn Nhiệt 89C Native (Antigravity CPU Guard)",
+    "content": "KIẾN TRÚC & CƠ CHẾ BẢO VỆ TRẦN NHIỆT 89°C NATIVE (ANTIGRAVITY HARDWARE CPU GUARD):\n\n1. MỤC TIÊU & TỐI ƯU HÓA:\n- Khóa cứng trần nhiệt CPU AMD Ryzen 7 7840H ở 89.000°C (tctl-temp=89) và Undervolt All-Core Curve Optimizer -15 (set-coall=1048561) qua AMD SMU.\n- Thay thế hoàn toàn UXTU (Universal x86 Tuning Utility), giải phóng ~350-372 MB RAM và giảm CPU overhead về 0%.\n\n2. ĐƯỜNG DẪN CẤU TRÚC HỆ THỐNG:\n- Binary thực thi: `C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\ryzenadj\\ryzenadj.exe` (v0.19.0 native C Win32, 140KB).\n- Daemon giám sát: `C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\cpu_limit_watcher.ps1`.\n- Lệnh tắt/kích hoạt nhanh: `cpu89` (`C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\cpu89.cmd`).\n- File nhật ký: `C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\run\\cpu_limit_watcher.log`.\n\n3. CƠ CHẾ TỰ ĐỘNG KHỞI ĐỘNG KHI TẮT MÁY / BẬT LẠI (BOOT & LOGON PERSISTENCE):\n- Quản lý qua Windows Task Scheduler: Task `Antigravity_CPULimit`.\n- Quyền thực thi: `RunLevel: HighestAvailable` (Administrator) dưới tài khoản của Ngài (`InteractiveToken`), cho phép điều khiển trực tiếp Ring-0 driver AMD SMU.\n- Bộ kích hoạt (Triggers):\n  + `<LogonTrigger>`: Tự động khởi chạy ngay khi bật máy và đăng nhập vào Windows.\n  + `<SessionStateChangeTrigger>` (SessionUnlock): Tự kích hoạt khi mở khóa màn hình.\n  + `<StartWhenAvailable>true</StartWhenAvailable>`: Bù tác vụ ngay lập tức nếu lỡ lịch lúc khởi động.\n  + `DisallowStartIfOnBatteries=false` & `StopIfGoingOnBatteries=false`: Hoạt động bền bỉ cả khi cắm sạc lẫn dùng pin.\n  + `ExecutionTimeLimit=PT0S`: Không giới hạn thời gian (chạy vĩnh viễn không bị Windows ngắt sau 72h).\n- Hành vi khi vừa khởi động (Line 43): Kích hoạt ngay `Apply-CpuLimit -reason \"Startup\"` để khóa trần 89°C từ giây đầu tiên trước khi người dùng kịp mở bất kỳ ứng dụng nặng nào.\n\n4. CƠ CHẾ ĐIỀU KHIỂN & BẮT SỰ KIỆN PHẦN CỨNG (ZERO-POLLING WMI & DOUBLE-TAP):\n- Bắt sự kiện trực tiếp từ ACPI/WMI của Lenovo:\n  + `LENOVO_GAMEZONE_THERMAL_MODE_EVENT`: Bắt sự kiện khi Ngài nhấn Fn+Q chuyển giữa Quiet, Balance, Performance, Custom.\n  + `LENOVO_GAMEZONE_SMART_FAN_MODE_EVENT`: Bắt sự kiện điều tốc quạt thông minh.\n  + `LENOVO_AC_PD_EVENT`: Bắt sự kiện cắm hoặc rút sạc laptop.\n- Cơ chế Double-tap chống EC Firmware ghi đè: Firmware EC của Lenovo luôn cố gắng nạp lại trần nhiệt mặc định (100°C) khi đổi chế độ. Watcher giải quyết triệt để bằng cách bắn lệnh SMU lần 1, đợi 400ms (settle time để EC hoàn tất ghi đè) rồi bắn tiếp lần 2 để khóa chết 89°C.\n- Safety Heartbeat 10s: Nếu không có sự kiện phần cứng nào trong 10 giây, Win32 Event Loop tự động gửi nhịp tim bảo vệ giữ trần 89°C liên tục trong nền với 0% CPU.",
+    "category": "decision",
+    "tags": "hardware,ryzenadj,cpu_limit,89C,thermal_guard,persistence,boot,antigravity_cpulimit,ponytail",
+    "source": "agent_mcp",
+    "importance": 1.496,
+    "project_scope": "global",
+    "created_at": "2026-09-29T15:06:56.534Z",
+    "updated_at": "2026-09-29T15:06:56.534Z"
+  },
+  {
+    "id": 68,
+    "title": "",
+    "content": "",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.489,
+    "project_scope": "global",
+    "created_at": "2026-09-29T17:31:33.200Z",
+    "updated_at": "2026-09-29T17:31:33.200Z"
+  },
+  {
+    "id": 69,
+    "title": "Cấu trúc phân vùng ổ cứng và tối ưu hóa Game cho Lenovo G5000",
+    "content": "# Cấu trúc Ổ đĩa & Chiến lược Lưu trữ Game: Lenovo GeekPro G5000 APH8\n\n1. CẤU HÌNH PHẦN CỨNG Ổ ĐĨA:\n- Máy: Lenovo GeekPro G5000 APH8 (Ryzen 7 7840H, 16GB RAM).\n- SSD gốc: 1 x 512GB NVMe (UMIS RPJYJ512MKN1QWY). Có sẵn khe M.2 NVMe PCIe 4.0 thứ 2 còn trống.\n- Phân vùng đĩa:\n  + Partition 3: 175.02 GB (Dual-boot Linux ext4/btrfs, GPT GUID {0fc63daf-...}) - BẢO LƯU NGUYÊN VẸN THEO YÊU CẦU CỦA NGÀI.\n  + Partition 2 (Ổ C:): 300.92 GB (Windows 11).\n\n2. TỐI ƯU HÓA ĐÃ THỰC HIỆN (NGÀY 30/09/2026):\n- Gỡ bỏ game Clair Obscur: Expedition 33 trong Downloads (4 file rar 42.3GB + thư mục giải nén 43.8GB): Giải phóng +86.13 GB.\n- Dọn dẹp bộ cài driver OTA cũ của NVIDIA App (ProgramData): Giải phóng +1.52 GB.\n- Tắt chế độ ngủ đông (powercfg /h off): Xóa hiberfil.sys (15.19 GB), vừa thu hồi dung lượng vừa bảo vệ dữ liệu NTFS chống lock dirty khi boot sang Linux.\n- Tổng dung lượng trống thu hồi: +108.86 GB (Tăng từ 60.40 GB lên 169.26 GB trống, tức 56.2% dung lượng ổ C).\n\n3. ĐỊNH HƯỚNG GAME TRÊN Ổ C:\n- Ổ C chỉ dành riêng cho Windows 11 + Valorant (~33.6 GB, sẵn có) + Forza Horizon 6 (bản base dự kiến 160-170 GB khi ra mắt).\n- Mức trống 169.26 GB hiện tại đảm bảo sẵn sàng nạp Forza Horizon 6 mà không cần đụng tới phân vùng Linux.",
+    "category": "architecture",
+    "tags": "storage,disk_cleanup,lenovo_g5000,dual_boot,linux,valorant,forza_horizon_6,hibernation",
+    "source": "agent_mcp",
+    "importance": 0.837,
+    "project_scope": "global",
+    "created_at": "2026-09-29T19:55:16.827Z",
+    "updated_at": "2026-09-29T19:55:16.827Z"
+  },
+  {
+    "id": 70,
+    "title": "Cập nhật tối ưu hóa ổ cứng sâu lần 2 - 185GB trống",
+    "content": "# Tiến độ Tối ưu hóa Ổ cứng Lần 2 (Lenovo GeekPro G5000 APH8)\n\n1. CÁC HẠNG MỤC ĐÃ GỠ BỎ & DỌN DẸP THEO CHỈ THỊ CỦA NGÀI (30/09/2026):\n- Đã gỡ bỏ an toàn WSL (Windows Subsystem for Linux): Thu hồi ~1.2 GB (bao gồm cả system.vhd).\n- Đã gỡ bỏ AMD Privacy View qua MSIExec: Thu hồi ~535 MB.\n- Đã gỡ bỏ DLSS 5 MANAGER qua silent uninstaller: Thu hồi ~442 MB.\n- BẢO TOÀN NGUYÊN VẸN: DLSS ENABLER MANAGER (giữ nguyên theo đúng chỉ thị).\n- Đã xóa sạch thư mục file tạm cập nhật Windows Recovery (C:\\$WinREAgent): Thu hồi 1.47 GB.\n- Đã dọn dẹp sạch sẽ bộ nhớ cache cập nhật Delivery Optimization (dosvc).\n- Đã xóa 12.3 GB bộ đệm đồ họa cũ NVIDIA DXCache (giảm từ 12.31 GB xuống còn 1.83 MB).\n\n2. TÌNH TRẠNG Ổ C SAU KHI TỐI ƯU SÂU:\n- Tổng dung lượng: 300.92 GB.\n- Đã dùng: 115.37 GB (38.3%).\n- Dung lượng TRỐNG: 185.55 GB (61.7% ổ C).\n- Tăng từ 60.40 GB ban đầu lên 185.55 GB (Tổng dung lượng giải phóng: +125.15 GB).\n\n3. CÁC THÀNH PHẦN BẢO TOÀN TUYỆT ĐỐI:\n- Phân vùng Linux Dual-Boot (Partition 3 - 175.02 GB): Giữ nguyên vẹn 100%.\n- Game VALORANT (C:\\Riot Games\\VALORANT): Giữ nguyên vẹn 100%.\n- DLSS ENABLER MANAGER: Giữ nguyên vẹn 100%.\n- Compact OS: Chưa can thiệp theo yêu cầu, chỉ giải thích chi tiết cho Ngài.",
+    "category": "architecture",
+    "tags": "storage,disk_cleanup,lenovo_g5000,wsl,amd_privacy,dlss5,dxcache,compact_os,forza_horizon_6",
+    "source": "agent_mcp",
+    "importance": 0.843,
+    "project_scope": "global",
+    "created_at": "2026-09-29T20:14:13.666Z",
+    "updated_at": "2026-09-29T20:14:13.666Z"
+  },
+  {
+    "id": 71,
+    "title": "Quyết định: kiến trúc **Zero-Maintenance Persistence** (Vận hành...",
+    "content": "kiến trúc **Zero-Maintenance Persistence** (Vận hành tự quản vĩnh viễn):",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-09-30T04:27:13.049Z",
+    "updated_at": "2026-09-30T04:27:13.049Z"
+  },
+  {
+    "id": 72,
+    "title": "Quyết định: kiến trúc cũng như quy trình kỹ thuật này vào cả 2 t...",
+    "content": "kiến trúc cũng như quy trình kỹ thuật này vào cả 2 tầng bộ nhớ dài hạn của Second Brain:",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-09-30T04:27:13.049Z",
+    "updated_at": "2026-09-30T04:27:13.049Z"
+  },
+  {
+    "id": 73,
+    "title": "Quyết định: Kiến trúc (Knowledge Memory):**",
+    "content": "Kiến trúc (Knowledge Memory):**",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-09-30T04:27:13.050Z",
+    "updated_at": "2026-09-30T04:27:13.050Z"
+  },
+  {
+    "id": 74,
+    "title": "Quyết định: Bắt buộc ổ cứng SSD:** Tận dụng triệt để kiến trúc D...",
+    "content": "Bắt buộc ổ cứng SSD:** Tận dụng triệt để kiến trúc DirectStorage để load tài nguyên siêu tốc.",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-09-30T04:27:13.052Z",
+    "updated_at": "2026-09-30T04:27:13.052Z"
   }
 ]

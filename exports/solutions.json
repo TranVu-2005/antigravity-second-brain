@@ -251,5 +251,16 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-09-27T15:41:49.476Z"
+  },
+  {
+    "id": 35,
+    "error_pattern": "CPU AMD Ryzen 7 nóng quá nhiệt trên laptop Lenovo Legion / EC firmware reset trần nhiệt độ 100°C khi đổi Fn+Q hoặc khởi động lại máy",
+    "root_cause": "Lenovo EC firmware tự động nạp lại bảng xung nhịp và trần nhiệt mặc định (100°C) mỗi khi đổi chế độ Fn+Q hoặc cắm/rút sạc; các công cụ bên thứ ba như UXTU quá nặng (~372MB RAM) và dễ bị treo khi tắt màn hình.",
+    "solution_code": "1. Dùng RyzenAdj v0.19.0 (140KB C native) áp trần nhiệt 89°C (--tctl-temp=89) và Curve Optimizer -15 (--set-coall=1048561).\n2. Tạo Scheduled Task 'Antigravity_CPULimit' (Highest Privileges) chạy script 'cpu_limit_watcher.ps1'.\n3. Sử dụng LogonTrigger và SessionUnlockTrigger để tự động chạy khi khởi động máy hoặc mở khóa.\n4. Lắng nghe trực tiếp các sự kiện WMI: LENOVO_GAMEZONE_THERMAL_MODE_EVENT, LENOVO_AC_PD_EVENT và áp dụng kỹ thuật Double-tap (độ trễ 400ms) để ghi đè lại firmware EC.\n5. Vòng lặp Win32 Event Loop tĩnh kết hợp nhịp tim 10s để bảo đảm mức tiêu thụ CPU 0% và RAM ~22MB.",
+    "command_fix": "schtasks /run /tn \"Antigravity_CPULimit\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-09-29T15:07:03.973Z"
   }
 ]
