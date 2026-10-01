@@ -116,9 +116,10 @@ async function main() {
             if (res.committed) {
                 const st = gitMgr.getStatus();
                 if (st.remoteUrl) {
-                    // Fire-and-forget detached push to avoid blocking agent loop
+                    // Fire-and-forget detached full sync (pull rebase + push) to avoid blocking agent loop
                     const { spawn } = require('node:child_process');
-                    const p = spawn('git', ['push', 'origin', 'main'], {
+                    const cliPath = path.join(__dirname, '..', 'cli.js');
+                    const p = spawn('node', [cliPath, 'git-sync'], {
                         cwd: path.resolve(__dirname, '..'),
                         detached: true,
                         stdio: 'ignore',

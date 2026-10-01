@@ -240,9 +240,12 @@ Mọi thao tác có thể thực hiện thông qua `node cli.js <lệnh>`:
 | `node cli.js dashboard` | Kết xuất và mở giao diện Interactive HTML Dashboard trên trình duyệt web. |
 | `node cli.js reembed` | Tính toán lại toàn bộ vector 384-dim cho tất cả tri thức. |
 | `node cli.js git-backup [msg]` | Xuất text diff sạch, tạo snapshot CSDL, tự động commit và đẩy lên Git Remote. |
+| `node cli.js git-pull` | Kéo cập nhật mới nhất từ Git Remote về máy và checkpoint WAL. |
+| `node cli.js git-sync [msg]` | Đồng bộ hai chiều trọn vẹn tức thì (Commit ➔ Pull ➔ Push). |
+| `node cli.js import-dump [file]`| Nạp / hồi phục toàn bộ dữ liệu từ dump.sql vào CSDL SQLite. |
 | `node cli.js git-status` | Kiểm tra trạng thái Git repository, nhánh, commit mới nhất và remote URL. |
 | `node cli.js git-remote <url>` | Cấu hình địa chỉ Git Remote (GitHub/GitLab). |
-| `node cli.js git-push` | Đẩy commit lên Remote Repository. |
+| `node cli.js git-push` | Đẩy toàn bộ commit lên Remote Repository. |
 
 ---
 

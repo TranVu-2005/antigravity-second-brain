@@ -84,6 +84,31 @@ async function main() {
             getEpisodicMemory().catchUpRecentSessions(2);
         } catch (e) {}
 
+        // Throttled non-blocking background git pull (every 5 mins) to sync memories across Windows & Linux
+        try {
+            const pullStampFile = path.join(__dirname, '..', '.last_pull');
+            const now = Date.now();
+            let shouldPull = true;
+            if (fs.existsSync(pullStampFile)) {
+                const last = parseInt(fs.readFileSync(pullStampFile, 'utf8'), 10);
+                if (now - last < 5 * 60 * 1000) {
+                    shouldPull = false;
+                }
+            }
+            if (shouldPull) {
+                fs.writeFileSync(pullStampFile, now.toString(), 'utf8');
+                const { spawn } = require('node:child_process');
+                const cliPath = path.join(__dirname, '..', 'cli.js');
+                const p = spawn('node', [cliPath, 'git-pull'], {
+                    cwd: path.resolve(__dirname, '..'),
+                    detached: true,
+                    stdio: 'ignore',
+                    windowsHide: true
+                });
+                p.unref();
+            }
+        } catch (e) {}
+
         const retriever = getContextRetriever();
         const compiledContext = await retriever.compileContext(lastUserPrompt, conversationId, {
             workspacePaths: payload.workspacePaths || []

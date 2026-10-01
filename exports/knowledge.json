@@ -766,5 +766,17 @@
     "project_scope": "global",
     "created_at": "2026-10-01T17:19:15.962Z",
     "updated_at": "2026-10-01T17:19:15.962Z"
+  },
+  {
+    "id": 82,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-01T18:39:00.314Z",
+    "updated_at": "2026-10-01T18:39:00.314Z"
   }
 ]
