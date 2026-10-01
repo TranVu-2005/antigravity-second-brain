@@ -30,7 +30,7 @@
     "category": "fact",
     "tags": "location,hoang_mai",
     "source": "user",
-    "importance": 0.698,
+    "importance": 0.673,
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
@@ -42,7 +42,7 @@
     "category": "decision",
     "tags": "mcp, fetch, everything-search, optimization, tools",
     "source": "agent_mcp",
-    "importance": 1.247,
+    "importance": 1.223,
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
@@ -54,7 +54,7 @@
     "category": "decision",
     "tags": "python,uv,environment,config",
     "source": "agent_mcp",
-    "importance": 1.254,
+    "importance": 1.23,
     "project_scope": "global",
     "created_at": "2026-09-11T19:59:20.654Z",
     "updated_at": "2026-09-11T19:59:20.654Z"
@@ -138,7 +138,7 @@
     "category": "decision",
     "tags": "gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp",
     "source": "agent_mcp",
-    "importance": 1.209,
+    "importance": 1.181,
     "project_scope": "global",
     "created_at": "2026-09-14T12:23:30.612Z",
     "updated_at": "2026-09-14T12:23:30.612Z"
@@ -150,7 +150,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror",
     "source": "agent_mcp",
-    "importance": 1.755,
+    "importance": 1.734,
     "project_scope": "global",
     "created_at": "2026-09-14T13:25:36.414Z",
     "updated_at": "2026-09-14T13:25:36.414Z"
@@ -162,7 +162,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap",
     "source": "agent_mcp",
-    "importance": 1.838,
+    "importance": 1.827,
     "project_scope": "global",
     "created_at": "2026-09-14T13:38:27.351Z",
     "updated_at": "2026-09-14T13:38:27.351Z"
@@ -174,7 +174,7 @@
     "category": "decision",
     "tags": "gemini_web,dual_quota,bugfix,safety_filter,v1.2.5",
     "source": "agent_mcp",
-    "importance": 1.764,
+    "importance": 1.744,
     "project_scope": "global",
     "created_at": "2026-09-14T14:08:00.642Z",
     "updated_at": "2026-09-14T14:08:00.642Z"
@@ -186,7 +186,7 @@
     "category": "decision",
     "tags": "gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture",
     "source": "agent_mcp",
-    "importance": 1.785,
+    "importance": 1.768,
     "project_scope": "global",
     "created_at": "2026-09-14T15:21:52.020Z",
     "updated_at": "2026-09-14T15:21:52.020Z"
@@ -198,7 +198,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,fdm,downloads,linkneverdie",
     "source": "agent_mcp",
-    "importance": 1.338,
+    "importance": 1.306,
     "project_scope": "global",
     "created_at": "2026-09-20T16:47:10.070Z",
     "updated_at": "2026-09-20T16:47:10.070Z"
@@ -210,7 +210,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,downloads,linkneverdie,extracted",
     "source": "agent_mcp",
-    "importance": 0.88,
+    "importance": 0.797,
     "project_scope": "global",
     "created_at": "2026-09-20T18:00:33.394Z",
     "updated_at": "2026-09-20T18:00:33.394Z"
@@ -282,7 +282,7 @@
     "category": "decision",
     "tags": "screenoff,powermanagement,ponytail,win32",
     "source": "agent_mcp",
-    "importance": 1.729,
+    "importance": 1.711,
     "project_scope": "global",
     "created_at": "2026-09-23T15:52:41.091Z",
     "updated_at": "2026-09-23T15:52:41.091Z"
@@ -306,7 +306,7 @@
     "category": "decision",
     "tags": "screenoff,fdm,gemini_web_bridge,antigravity,download",
     "source": "agent_mcp",
-    "importance": 1.466,
+    "importance": 1.452,
     "project_scope": "global",
     "created_at": "2026-09-25T15:42:56.150Z",
     "updated_at": "2026-09-25T15:42:56.150Z"
@@ -330,7 +330,7 @@
     "category": "fact",
     "tags": "horizon,hfw,forbidden_west,game,fdm,downloads,linkneverdie",
     "source": "conversation_history",
-    "importance": 1.316,
+    "importance": 1.24,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.522Z",
     "updated_at": "2026-09-25T16:42:36.522Z"
@@ -342,7 +342,7 @@
     "category": "fact",
     "tags": "hardware,legion,ryzen,rtx4050,cpu,gpu,fasttemp,llt",
     "source": "system_audit",
-    "importance": 1.261,
+    "importance": 1.165,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.526Z",
     "updated_at": "2026-09-25T16:42:36.526Z"
@@ -354,7 +354,7 @@
     "category": "fact",
     "tags": "inventory,games,software,diablo,horizon,blasphemous,wuchang,downloads",
     "source": "conversation_history",
-    "importance": 1.093,
+    "importance": 1.021,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.527Z",
     "updated_at": "2026-09-25T16:42:36.527Z"
@@ -378,7 +378,7 @@
     "category": "fact",
     "tags": "gaming,profile,preference,elden_ring,witcher3,spiderman,horizon,diablo2,valorant",
     "source": "auto_extraction",
-    "importance": 1.379,
+    "importance": 1.33,
     "project_scope": "global",
     "created_at": "2026-09-25T16:50:57.902Z",
     "updated_at": "2026-09-25T16:50:57.902Z"
@@ -390,7 +390,7 @@
     "category": "decision",
     "tags": "fdm,fdm_status,fix,download,horizon",
     "source": "agent_mcp",
-    "importance": 1.425,
+    "importance": 1.397,
     "project_scope": "global",
     "created_at": "2026-09-25T17:10:34.155Z",
     "updated_at": "2026-09-25T17:10:34.155Z"
@@ -414,7 +414,7 @@
     "category": "decision",
     "tags": "screenoff,uxtu,whitelist,hardware,cpu_temp",
     "source": "agent_mcp",
-    "importance": 1.456,
+    "importance": 1.435,
     "project_scope": "global",
     "created_at": "2026-09-26T15:28:25.456Z",
     "updated_at": "2026-09-26T15:28:25.456Z"
@@ -426,7 +426,7 @@
     "category": "decision",
     "tags": "hardware,ryzenadj,uxtu_replacement,cpu_temp,thermal_limit,89C,ponytail",
     "source": "agent_mcp",
-    "importance": 1.749,
+    "importance": 1.726,
     "project_scope": "global",
     "created_at": "2026-09-26T16:11:45.488Z",
     "updated_at": "2026-09-26T16:11:45.488Z"
@@ -438,7 +438,7 @@
     "category": "decision",
     "tags": "trading,mt5,xauusd,scalping,strategy,money_management",
     "source": "agent_mcp",
-    "importance": 1.664,
+    "importance": 1.642,
     "project_scope": "global",
     "created_at": "2026-09-27T15:41:45.429Z",
     "updated_at": "2026-09-27T15:41:45.429Z"
@@ -450,7 +450,7 @@
     "category": "decision",
     "tags": "screenoff,sleep,power_management,headless,architecture",
     "source": "agent_mcp",
-    "importance": 1.562,
+    "importance": 1.535,
     "project_scope": "global",
     "created_at": "2026-09-27T15:41:56.665Z",
     "updated_at": "2026-09-27T15:41:56.665Z"
@@ -462,7 +462,7 @@
     "category": "note",
     "tags": "claude_code,ecc,rules,best_practices,tooling",
     "source": "agent_mcp",
-    "importance": 0.105,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-27T15:42:02.363Z",
     "updated_at": "2026-09-27T15:42:02.363Z"
@@ -474,7 +474,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.363,
+    "importance": 1.335,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.091Z",
     "updated_at": "2026-09-27T15:51:08.091Z"
@@ -486,7 +486,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.363,
+    "importance": 1.335,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.092Z",
     "updated_at": "2026-09-27T15:51:08.092Z"
@@ -498,7 +498,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.363,
+    "importance": 1.335,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.093Z",
     "updated_at": "2026-09-27T15:51:08.093Z"
@@ -510,7 +510,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.363,
+    "importance": 1.335,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.123Z",
     "updated_at": "2026-09-27T15:51:08.123Z"
@@ -522,7 +522,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.363,
+    "importance": 1.335,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.123Z",
     "updated_at": "2026-09-27T15:51:08.123Z"
@@ -534,7 +534,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.363,
+    "importance": 1.335,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.296Z",
     "updated_at": "2026-09-27T15:51:20.296Z"
@@ -546,7 +546,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.363,
+    "importance": 1.335,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
     "updated_at": "2026-09-27T15:51:20.297Z"
@@ -558,7 +558,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.363,
+    "importance": 1.335,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
     "updated_at": "2026-09-27T15:51:20.297Z"
@@ -570,7 +570,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.363,
+    "importance": 1.335,
     "project_scope": "global",
     "created_at": "2026-09-27T16:04:58.781Z",
     "updated_at": "2026-09-27T16:04:58.781Z"
@@ -582,7 +582,7 @@
     "category": "fact",
     "tags": "preference",
     "source": "agent_remember",
-    "importance": 1.384,
+    "importance": 1.301,
     "project_scope": "global",
     "created_at": "2026-09-27T16:05:07.243Z",
     "updated_at": "2026-09-27T16:05:07.243Z"
@@ -594,7 +594,7 @@
     "category": "decision",
     "tags": "hardware,ryzenadj,cpu_limit,89C,thermal_guard,persistence,boot,antigravity_cpulimit,ponytail",
     "source": "agent_mcp",
-    "importance": 1.496,
+    "importance": 1.484,
     "project_scope": "global",
     "created_at": "2026-09-29T15:06:56.534Z",
     "updated_at": "2026-09-29T15:06:56.534Z"
@@ -606,7 +606,7 @@
     "category": "fact",
     "tags": "preference",
     "source": "agent_remember",
-    "importance": 1.489,
+    "importance": 1.46,
     "project_scope": "global",
     "created_at": "2026-09-29T17:31:33.200Z",
     "updated_at": "2026-09-29T17:31:33.200Z"
@@ -618,7 +618,7 @@
     "category": "architecture",
     "tags": "storage,disk_cleanup,lenovo_g5000,dual_boot,linux,valorant,forza_horizon_6,hibernation",
     "source": "agent_mcp",
-    "importance": 0.837,
+    "importance": 0.541,
     "project_scope": "global",
     "created_at": "2026-09-29T19:55:16.827Z",
     "updated_at": "2026-09-29T19:55:16.827Z"
@@ -630,7 +630,7 @@
     "category": "architecture",
     "tags": "storage,disk_cleanup,lenovo_g5000,wsl,amd_privacy,dlss5,dxcache,compact_os,forza_horizon_6",
     "source": "agent_mcp",
-    "importance": 0.843,
+    "importance": 0.518,
     "project_scope": "global",
     "created_at": "2026-09-29T20:14:13.666Z",
     "updated_at": "2026-09-29T20:14:13.666Z"
@@ -642,7 +642,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.391,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.049Z",
     "updated_at": "2026-09-30T04:27:13.049Z"
@@ -654,7 +654,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.391,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.049Z",
     "updated_at": "2026-09-30T04:27:13.049Z"
@@ -666,7 +666,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.391,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.050Z",
     "updated_at": "2026-09-30T04:27:13.050Z"
@@ -678,9 +678,57 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.391,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.052Z",
     "updated_at": "2026-09-30T04:27:13.052Z"
+  },
+  {
+    "id": 75,
+    "title": "Trạng thái Savegame và Tiến trình Tải Forza Horizon 6 v403.798",
+    "content": "Trạng thái Savegame và Tiến trình Tải bản Forza Horizon 6 (LinkNeverDie v403.798 RUNE):\n1. Vị trí Savegame cũ (Tháng 8/2026) còn nguyên vẹn 100%:\n- Save chính (RUNE emulator): C:\\Users\\Public\\Documents\\MicrosoftStore\\RUNE\\Forza Horizon 6 [7BF69384]\\1337133713371337\\SaveGames (Bao gồm C_ProfileData 226KB, EstateData 263KB, C_ProfileBackup, liveries).\n- Config & Cache: C:\\Users\\tvu16\\AppData\\Local\\ForzaHorizon6 (Bao gồm UserConfigSelections, phím gán, 35 thumbnail xe webp).\n2. Tiến trình tải FDM (Bộ cài LinkNeverDie 12 parts):\n- Part 01: Đã hoàn tất 100% (13.00 GB).\n- Part 02-05: Đang đồng thời tải (~7-10 MB/s).\n- Part 06-12: Nằm trong hàng đợi tự động của FDM.\n- Đã nâng cấp fdm_status.py để tự động đo dung lượng sparse file trên NTFS qua Windows API GetCompressedFileSizeW và làm sạch prefix ký tự lạ.",
+    "category": "fact",
+    "tags": "forza,savegame,downloads,fdm,linkneverdie",
+    "source": "agent_mcp",
+    "importance": 1.481,
+    "project_scope": "global",
+    "created_at": "2026-09-30T04:53:30.543Z",
+    "updated_at": "2026-09-30T04:53:30.543Z"
+  },
+  {
+    "id": 76,
+    "title": "Tiến độ tải Forza Horizon 6 cập nhật 30/09/2026 14:00",
+    "content": "Cập nhật tiến độ tải Forza Horizon 6 (LinkNeverDie v403.798 RUNE 12 parts) lúc 14:00 ngày 30/09/2026:\n- Part 01 - 04: Đã hoàn tất 100% (4 x 13.00 GB = 52.00 GB).\n- Part 05: Đạt 97.6% (12.69 GB / 13.00 GB).\n- Part 06: Đạt 30.0% (3.90 GB / 13.00 GB).\n- Part 07: 8.64 MB / 13.00 GB (0.1%).\n- Part 08: 51.06 MB / 13.00 GB (0.4%).\n- Part 09 - 12: Đang trong hàng chờ FDM.\n- Tổng tiến độ tải: ~66.0% (69.02 GB / 104.52 GB).\n- Ổ C hiện còn trống: 110.36 GB (rất an toàn cho toàn bộ bộ cài và bung nén sau này).",
+    "category": "note",
+    "tags": "",
+    "source": "agent_mcp",
+    "importance": 0.673,
+    "project_scope": "global",
+    "created_at": "2026-09-30T07:01:02.303Z",
+    "updated_at": "2026-09-30T07:01:02.303Z"
+  },
+  {
+    "id": 77,
+    "title": "Tiến độ tải Forza Horizon 6 cập nhật 30/09/2026 16:17",
+    "content": "Cập nhật tiến độ tải Forza Horizon 6 (LinkNeverDie v403.798 RUNE 12 parts) lúc 16:17 ngày 30/09/2026:\n- Part 01, 02, 03, 04, 05, 11, 12: Đã hoàn tất 100% (7/12 parts).\n- Part 06: Đạt 92.3% (12.00 GB / 13.00 GB).\n- Part 07: Đạt 75.1% (9.77 GB / 13.00 GB).\n- Part 08: Đạt 62.7% (8.15 GB / 13.00 GB).\n- Part 09: Đạt 37.9% (4.93 GB / 13.00 GB).\n- Part 10: Đạt 97.7% (12.70 GB / 13.00 GB).\n- Tổng tiến độ bộ cài FH6: ~87.9% (~126.30 GB / 143.75 GB).\n- Ổ C hiện còn trống: 59.14 GB.",
+    "category": "note",
+    "tags": "forza,downloads,fdm,progress",
+    "source": "agent_mcp",
+    "importance": 0.655,
+    "project_scope": "global",
+    "created_at": "2026-09-30T09:17:45.150Z",
+    "updated_at": "2026-09-30T09:17:45.150Z"
+  },
+  {
+    "id": 78,
+    "title": "Tiến độ tải Forza Horizon 6 cập nhật 30/09/2026 17:00 - Còn 1 part cuối",
+    "content": "Cập nhật tiến độ tải Forza Horizon 6 (LinkNeverDie v403.798 RUNE 12 parts) lúc 17:00 ngày 30/09/2026:\n- Part 01 - 07, 10, 11, 12: Đã hoàn tất 100%.\n- Part 08: Vừa hoàn tất 100% (13.00 GB). Tổng 11/12 parts đã xong.\n- Part 09: Đang tải nốt những GB cuối cùng (~8.92 GB / 13.00 GB, đạt 68.6%). Tốc độ tải dồn lực đạt ~7.8 - 8.5 MB/s. Còn lại ~4.08 GB.\n- Dự kiến hoàn tất toàn bộ bộ cài 12 parts: ~8 - 9 phút nữa.\n- Ổ C còn trống: 45.54 GB.",
+    "category": "NOTE",
+    "tags": "forza,downloads,fdm,progress",
+    "source": "agent_mcp",
+    "importance": 0.611,
+    "project_scope": "global",
+    "created_at": "2026-09-30T10:00:46.261Z",
+    "updated_at": "2026-09-30T10:00:46.261Z"
   }
 ]
