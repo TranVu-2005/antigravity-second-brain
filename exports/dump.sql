@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-10-01T19:04:13.803Z
+-- Generated: 2026-10-01T19:33:29.275Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -11,7 +11,6 @@ INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) V
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('identity', 'github_username', 'TranVu-2005', 1, 'user_update');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('identity', 'honorific', 'Ngài (Sir)', 1, 'user_directive');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('identity', 'role', 'Master / Primary Developer & System Architect', 1, 'system');
-INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('preference', '', '', 1, 'agent_remember');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('preference', 'gaming_preferences', 'Ưu tiên chơi game bằng tay cầm (gamepad/controller), đồ họa đẹp thế giới mở (open world), dung lượng dưới 100GB. Đã từng chơi / hoàn thành: Elden Ring, Marvel''s Spider-Man, The Witcher 3: Wild Hunt.', 1, 'conversation_history');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('preference', 'memory_goal', 'Hệ thống Second Brain phân tầng chuẩn production-grade, tự động 100%, ghi nhớ toàn diện danh tính, kiến thức và lịch sử hội thoại.', 1, 'user_request');
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('principle', 'honesty_policy', 'Chuẩn chỉ, trung thực tuyệt đối, không dối trá, không bịa đặt, có sao nói vậy, biết thì nói biết, chưa biết hoặc chưa làm thì thẳng thắn báo cáo.', 1, 'user_directive');
@@ -416,6 +415,7 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (80, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.5, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (81, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.5, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (82, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.5, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (83, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.5, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);

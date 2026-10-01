@@ -1,6 +1,6 @@
 # Hồ Sơ Cá Nhân & Phong Cách Phục Vụ Của Ngài (Core Profile)
 
-> Tự động đồng bộ với Antigravity Second Brain. Cập nhật lần cuối: 10/2/2026, 1:39:00 AM
+> Tự động đồng bộ với Antigravity Second Brain. Cập nhật lần cuối: 10/2/2026, 2:32:50 AM
 
 ### Phân mục: ENVIRONMENT
 - **hostname**: tranvu-galactic-ion *(Độ tin cậy: 100% | Nguồn: system_detection)*
@@ -16,7 +16,6 @@
 - **role**: Master / Primary Developer & System Architect *(Độ tin cậy: 100% | Nguồn: system)*
 
 ### Phân mục: PREFERENCE
-- ****:  *(Độ tin cậy: 100% | Nguồn: agent_remember)*
 - **gaming_preferences**: Ưu tiên chơi game bằng tay cầm (gamepad/controller), đồ họa đẹp thế giới mở (open world), dung lượng dưới 100GB. Đã từng chơi / hoàn thành: Elden Ring, Marvel's Spider-Man, The Witcher 3: Wild Hunt. *(Độ tin cậy: 100% | Nguồn: conversation_history)*
 - **memory_goal**: Hệ thống Second Brain phân tầng chuẩn production-grade, tự động 100%, ghi nhớ toàn diện danh tính, kiến thức và lịch sử hội thoại. *(Độ tin cậy: 100% | Nguồn: user_request)*
 

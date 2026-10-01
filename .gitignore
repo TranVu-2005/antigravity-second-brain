@@ -1,12 +1,25 @@
 # ==============================================================================
-# Antigravity Second Brain: Git Ignore Rules
+# Antigravity Second Brain: Git Ignore Rules (Production-Grade)
 # ==============================================================================
 
 # SQLite temporary journal and shared memory lock files
 brain.db-wal
 brain.db-shm
+*.db-wal
+*.db-shm
 *.tmp
 *.log
+.last_pull
+
+# Ephemeral agent work directories and sandboxes
+.agents/
+
+# Test databases and evaluation sandboxes
+test/*.db
+test/*.db-wal
+test/*.db-shm
+test/*test_brain.db*
+eval/eval_temp_brain.db*
 
 # Dependency directories
 node_modules/
@@ -16,5 +29,5 @@ node_modules/
 Thumbs.db
 desktop.ini
 
-# Temporary backup snapshots (we track diffable exports in exports/ instead)
+# Hot backup snapshots (diffable text snapshots are tracked in exports/ instead)
 backups/*.db

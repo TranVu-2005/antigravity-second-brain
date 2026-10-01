@@ -1,287 +1,292 @@
-# 🧠 Antigravity Second Brain: Multi-Platform Cognitive Long-Term Memory
+# 🧠 Antigravity Second Brain: Enterprise Multi-Platform Cognitive Architecture
 
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20WSL2-blue.svg)](https://github.com/TranVu-2005/antigravity-second-brain)
-[![Node Runtime](https://img.shields.io/badge/Node.js-%3E%3D%2022.5.0%20(node%3Asqlite)-green.svg)](https://nodejs.org)
-[![Database](https://img.shields.io/badge/Database-SQLite%203%20(WAL%20%2B%20FTS5)-orange.svg)](https://sqlite.org)
-[![Vectors](https://img.shields.io/badge/Embeddings-384--dim%20FastEmbed%20(Transformer)-purple.svg)](https://github.com/qdrant/fastembed)
-[![Engineering](https://img.shields.io/badge/Philosophy-Ponytail%20Minimalism-black.svg)](#triết-lý-thiết-kế-ponytail-engineering)
+[![Platform](https://img.shields.io/badge/Platform-Windows%2011%20%7C%20Linux%20(Ubuntu%20%2F%20Debian%20%2F%20Arch%20%2F%20Fedora)%20%7C%20WSL2-blue.svg)](https://github.com/TranVu-2005/antigravity-second-brain)
+[![Runtime](https://img.shields.io/badge/Node.js-%3E%3D%2022.5.0%20(Native%20node%3Asqlite)-green.svg)](https://nodejs.org)
+[![Database](https://img.shields.io/badge/Engine-SQLite%203%20(WAL%20%2B%20FTS5%20%2B%20CTE)-orange.svg)](https://sqlite.org)
+[![Vectors](https://img.shields.io/badge/Embeddings-384--dim%20FastEmbed%20(MiniLM--L12--v2)-purple.svg)](https://github.com/qdrant/fastembed)
+[![Engineering](https://img.shields.io/badge/Standard-Ponytail%20Minimalism%20(Zero%20Dependencies)-black.svg)](#-engineering-philosophy--security)
+[![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
 
-**Antigravity Second Brain** là hệ thống bộ nhớ nhận thức phân tầng tự động 100% (Autonomous Multi-Tiered Cognitive Architecture) được phát triển riêng cho trợ lý lập trình **Antigravity AI Agent**. Hệ thống hoạt động độc lập, bảo toàn danh tính, lưu trữ tri thức kỹ thuật dài hạn, tra cứu lịch sử hội thoại và tự động học hỏi từ lỗi lệnh (Self-Correction & Procedural Memory) mà không làm lãng phí token ngữ cảnh.
+**Antigravity Second Brain** is an autonomous, production-grade cognitive long-term memory engine engineered specifically for the **Antigravity AI Agent**. It operates as an ephemeral, zero-overhead memory injection layer that preserves agent identity, retains technical architectural decisions (ADRs), indexes complete conversational history, and autonomously learns from terminal error resolutions (Procedural Memory & Self-Correction).
 
-Hệ thống được thiết kế theo chuẩn **Universal Multi-Platform**, hoạt động đồng bộ và mượt mà trên cả môi trường **Windows 11** và các phân vùng **Linux (Ubuntu, Debian, Fedora, Arch, WSL2)**.
+Designed under the **Universal Multi-Platform Standard**, it ensures seamless, continuous cognitive parity across **Windows 11** and **Linux distributions (Ubuntu, Debian, Fedora, Arch, WSL2)**.
 
 ---
 
-## 🏛️ Kiến Trúc Bộ Nhớ Phân Tầng (5 Cognitive Tiers)
+## 🏛️ Cognitive Architecture: The 5-Tier Memory Hierarchy
 
 ```mermaid
 flowchart TD
-    subgraph INVOCATION["Chu Trình Giao Tiếp Antigravity"]
-        UserPrompt["Prompt của Ngài"] --> PreHook["PreInvocation Hook (Inject < 20ms)"]
-        PreHook --> Agent["Antigravity Agent (Model)"]
-        Agent --> PostHook["PostInvocation Hook (Extract & Distill)"]
-        PostHook --> StopHook["Stop Hook (Snapshot & Auto Git Commit)"]
+    subgraph INVOCATION["Antigravity Invocation Lifecycle"]
+        UserPrompt["User Prompt"] --> PreHook["PreInvocation Hook (< 20ms)"]
+        PreHook --> Agent["Antigravity AI Agent"]
+        Agent --> PostHook["PostInvocation Hook (< 10ms)"]
+        PostHook --> StopHook["Stop Hook (Background Sync)"]
     end
 
     subgraph BRAIN["Antigravity Second Brain (SQLite WAL Engine)"]
         direction TB
-        T0["Tier 0: Core Identity & Profile\n(user_profile - Biết tôi là ai)"]
-        T1["Tier 1: Working Memory & Session State\n(session_state - Kế thừa ngữ cảnh nối tiếp)"]
-        T2["Tier 2: Episodic Memory\n(episodes & episodes_fts - BM25 10,000+ transcripts)"]
-        T3["Tier 3: Semantic Store & Temporal Graph\n(knowledge_items & entity_relations - Hybrid Vectors)"]
-        T4["Tier 4: Procedural Memory & Reflection\n(solutions & solutions_fts - Tự động sửa lỗi)"]
+        T0["Tier 0: Core Identity & Profile\n(user_profile - Persistent Persona & Boundaries)"]
+        T1["Tier 1: Working Memory & Session State\n(session_state - Cross-Session Anaphoric Continuity)"]
+        T2["Tier 2: Episodic Memory\n(episodes & episodes_fts - BM25 Indexing >10,000 steps)"]
+        T3["Tier 3: Semantic Store & Bi-Temporal Graph\n(knowledge_items & entity_relations - Hybrid RRF)"]
+        T4["Tier 4: Procedural Memory & Self-Correction\n(solutions & solutions_fts - Trajectory Mining)"]
     end
 
-    PreHook -.->|"Biên dịch & Tiêm Ngữ cảnh"| T0
-    PreHook -.->|"Truy vấn mục tiêu"| T1
-    PreHook -.->|"FTS5 BM25 Search"| T2
-    PreHook -.->|"Dense Vector + CTE Graph"| T3
-    PreHook -.->|"Bơm quy trình & lỗi"| T4
+    PreHook -.->|"Inject Core Identity"| T0
+    PreHook -.->|"Resolve Active Goal"| T1
+    PreHook -.->|"FTS5 BM25 Historic Search"| T2
+    PreHook -.->|"Dense Vector + CTE Graph Traversal"| T3
+    PreHook -.->|"Proactive Fix Injection"| T4
 
-    PostHook -.->|"Lưu trữ sự kiện mới"| T2
-    PostHook -.->|"Chưng cất tri thức"| T1
-    StopHook -.->|"Auto-extraction & Git Push"| T3
-    StopHook -.->|"Mining command fix"| T4
+    PostHook -.->|"Ingest Recent Steps"| T2
+    PostHook -.->|"Distill Session"| T1
+    StopHook -.->|"Extract Knowledge & Graph"| T3
+    StopHook -.->|"Mine Error Fixes & Git Sync"| T4
 ```
 
-### 1. Phân Tầng Nhận Thức Chi Tiết
+### Cognitive Tiers Breakdown
+
 * **Tier 0: Core Identity & User Profile (`user_profile`):**
-  Lưu trữ danh tính của Ngài, quy chuẩn xưng hô ("Ngài" / Sir), vị trí địa lý, cấu hình phần cứng, thói quen kỹ thuật và tôn chỉ trung thực tuyệt đối. Luôn được tiêm đầu tiên vào ngữ cảnh.
+  Maintains master identity, honorifics ("Ngài" / Sir), communication style, physical location, hardware specifications, and the Absolute Honesty Policy. Automatically compiled into a high-density, token-budgeted prompt header before every turn.
 * **Tier 1: Working Memory & Session State (`session_state`):**
-  Quản lý mục tiêu hiện tại (Active Goal), dự án đang chạy và khả năng kế thừa ngữ cảnh khi Ngài mở một hội thoại mới (Cross-Session Continuity & Anaphoric Resolution).
+  Tracks active objectives (`active_goal`), working directories, and cross-session context continuity. Enables anaphoric resolution (e.g., resuming prior tasks when opening a new chat window across OS reboots).
 * **Tier 2: Episodic Memory (`conversations`, `episodes`, `episodes_fts`):**
-  Chỉ mục hóa toàn bộ lịch sử trò chuyện `transcript.jsonl` từ Antigravity Brain bằng thuật toán SQLite FTS5 BM25.
+  Full-text search engine powered by SQLite FTS5 with Porter stemmer and BM25 ranking, indexing over 10,600 interaction turns across 150+ historical sessions.
 * **Tier 3: Semantic Knowledge Store & Bi-Temporal Knowledge Graph:**
-  Lưu trữ tri thức dài hạn, quyết định kiến trúc (ADR), snippet. Tích hợp thuật toán **True Hybrid Search** kết hợp giữa Sparse BM25 và Dense 384-dimensional Multilingual Transformer Vector (Cosine Similarity), kèm đồ thị tri thức Bi-Temporal hỗ trợ Recursive CTE 2-hop traversal.
+  Long-term knowledge repository utilizing **True Hybrid Search**—fusing Sparse BM25 and 384-dimensional Dense Multilingual Transformer Vectors (Cosine Similarity). Accompanied by a Bi-Temporal Knowledge Graph supporting SQLite Recursive CTE 2-hop traversal with temporal validity ranges (`valid_from`, `valid_until`).
 * **Tier 4 & 4.5: Procedural Memory & Self-Correction Engine (`solutions`):**
-  Bộ nhớ quy trình vận hành và thư viện giải pháp sửa lỗi kỹ thuật. Hệ thống tự động khai phá (mine) trajectory transcripts khi lệnh terminal thất bại rồi được sửa thành công để lưu lại kinh nghiệm vĩnh viễn.
+  Case-based reasoning store recording technical fixes, shell idioms, and operational recipes. Autonomously inspects terminal execution transcripts to capture failed commands followed by successful remediation, preserving correct solutions permanently.
 
 ---
 
-## 📂 Cấu Trúc Thư Mục Hệ Thống (Repository Structure)
+## 📂 Repository Directory Layout
 
 ```
 antigravity-second-brain/
 ├── db/
-│   └── schema.sql              # CSDL SQLite chuẩn hóa: WAL, FTS5, Bi-Temporal Graph, Indices
-├── exports/                    # Bản kết xuất dữ liệu văn bản sạch phục vụ Git diff
+│   └── schema.sql              # Production schema: WAL pragmas, FTS5, Bi-Temporal graph, indices
+├── exports/                    # Clean UTF-8 diffable snapshots for Git version control
 │   ├── conversations_summary.json
-│   ├── dump.sql                # SQL dump toàn diện có thể phục hồi ngay lập tức
+│   ├── dump.sql                # Complete idempotent SQL dump (INSERT OR REPLACE)
 │   ├── episodes_log.json
 │   ├── knowledge.json
 │   ├── profile.json
 │   └── solutions.json
-├── hooks/                      # Bộ 3 Lifecycle Hooks cắm trực tiếp vào Antigravity
-│   ├── pre_invocation.js       # Tiêm hồ sơ và tri thức liên quan trước khi Agent phản hồi
-│   ├── post_invocation.js      # Nạp tức thì các bước hội thoại mới (< 10ms)
-│   └── stop.js                 # Chạy ngầm: trích xuất tri thức, backup snapshot và đẩy Git
-├── integrations/               # Cấu hình sẵn sàng phân phối cho môi trường mới
-│   ├── hooks.json              # Hook definition template
-│   ├── mcp_config.json         # MCP server definition template (đã khử trùng secrets)
-│   ├── mcp_schemas/            # 14 tệp JSON Schema công cụ MCP
-│   └── skills/                 # Thư mục skill /second-brain
-├── scripts/                    # Scripts tiện ích bảo trì & quản trị tiến trình nền
-│   ├── auto_backup.sh          # Linux daily backup & Git runner (hỗ trợ crontab)
-│   ├── auto_backup.ps1         # Windows daily backup runner
-│   ├── start_daemon.sh         # Linux background embedding micro-daemon launcher
+├── hooks/                      # Direct Antigravity Lifecycle Hook integrations
+│   ├── pre_invocation.js       # Dynamic context retrieval & background sync launcher
+│   ├── post_invocation.js      # Zero-lag episodic ingestion & session distillation
+│   └── stop.js                 # Background extraction, hot-backup & detached git sync
+├── integrations/               # Distribution templates for new environments
+│   ├── hooks.json              # Hook registration template with {{BRAIN_DIR}}
+│   ├── mcp_config.json         # Sanitized MCP server config template
+│   ├── mcp_schemas/            # 14 RFC-compliant MCP Tool schemas
+│   └── skills/                 # Second Brain native skill definition
+├── scripts/                    # Platform-specific utilities & background daemons
+│   ├── auto_backup.sh          # Linux daily maintenance & Git sync runner
+│   ├── auto_backup.ps1         # Windows maintenance & backup runner
+│   ├── start_daemon.sh         # Linux headless embedding micro-daemon launcher
 │   └── start_daemon.ps1        # Windows hidden WMI embedding micro-daemon launcher
-├── src/                        # Lõi mã nguồn chính (Engine)
-│   ├── backup.js               # SQLite VACUUM INTO live hot-backup engine
-│   ├── consolidation.js        # Executive session distillation & working memory
+├── src/                        # Core architectural subsystem engines
+│   ├── backup.js               # SQLite VACUUM INTO atomic hot-backup manager
+│   ├── consolidation.js        # Executive session distillation & insight promotion
 │   ├── db.js                   # Node 24 native node:sqlite connection manager
-│   ├── embedding.js            # Dense vector engine, L2 norm & daemon client
+│   ├── embedding.js            # Dense vector engine, L2 normalization & fallback client
 │   ├── embedding_daemon.py     # Python FastEmbed microservice (port 49152)
-│   ├── episodic.js             # Transcript parser & FTS5 episodic memory
-│   ├── export_dashboard.js     # Trình kết xuất Dashboard trực quan độc lập
-│   ├── extractor.js            # Heuristic autonomous memory extractor
-│   ├── git_backup.js           # Git automated backup & version control manager
-│   ├── profile.js              # User Profile & Core Identity manager
-│   ├── reinforcement.js        # Trajectory mining & error-to-fix learner
+│   ├── episodic.js             # Transcript parser & FTS5 episodic memory engine
+│   ├── export_dashboard.js     # Standalone visual dashboard renderer
+│   ├── extractor.js            # Natural language heuristic memory extractor
+│   ├── git_backup.js           # Git automated backup, diff exporter & sync manager
+│   ├── profile.js              # Core Identity & profile state manager
+│   ├── reinforcement.js        # Trajectory transcript mining & procedural learner
 │   ├── retriever.js            # Token-budgeted context compiler & hybrid ranker
 │   ├── semantic.js             # Semantic knowledge, Hybrid Search & Knowledge Graph
 │   └── solutions.js            # Procedural solution store (Case-Based Reasoning)
-├── test/                       # Bộ kiểm thử tự động toàn diện
-│   ├── test_brain.js           # Unit tests 9 chức năng cốt lõi
-│   ├── test_mcp.js             # Kiểm thử kết nối MCP Stdio
-│   ├── test_v3_production_grade.js # SOTA Breakthrough test suite (13/13 Pass)
-│   └── test_v3_4_production.js # Working memory & distillation test suite
-├── brain.db                    # CSDL nhị phân SQLite chính thức
-├── cli.js                      # Giao diện dòng lệnh CLI quản trị đầy đủ
-├── dashboard.html              # Visual Interactive Dashboard
-├── install.sh                  # Bộ cài đặt 1-Click cho Linux / macOS
-├── install.ps1                 # Bộ cài đặt 1-Click cho Windows
-├── mcp_server.js               # Máy chủ MCP Stdio JSON-RPC 2.0
-├── setup.js                    # Trình cài đặt đa nền tảng thông minh (Universal Setup Engine)
-└── README.md                   # Cẩm nang kiến trúc và vận hành hệ thống
+├── test/                       # Automated test suites (Zero external dependencies)
+│   ├── test_brain.js           # Comprehensive 9-point unit test suite
+│   ├── test_mcp.js             # Stdio MCP protocol validator
+│   └── test_v3_production_grade.js # SOTA Breakthrough validation suite (13/13 Pass)
+├── brain.db                    # Production SQLite database (WAL mode)
+├── cli.js                      # Full-featured administration CLI interface
+├── dashboard.html              # Interactive visual dashboard
+├── install.sh                  # 1-Click installer for Linux / macOS / WSL
+├── install.ps1                 # 1-Click installer for Windows PowerShell
+├── mcp_server.js               # Model Context Protocol Stdio Server (JSON-RPC 2.0)
+├── package.json                # Standard Node.js package specification
+├── setup.js                    # Universal cross-platform zero-clobber setup engine
+└── README.md                   # Enterprise architecture documentation
 ```
 
 ---
 
-## 🐧 Hướng Dẫn Cài Đặt Trên Linux (Ubuntu / Debian / Arch / Fedora / WSL2)
+## 🚀 Quick Start & Installation
 
-### 1. Yêu cầu tiên quyết (Prerequisites)
-* **Node.js >= 22.5.0** (Khuyến nghị **Node 24 LTS**): Second Brain sử dụng thư viện chuẩn tích hợp `node:sqlite` của Node.js, hoàn toàn không cần biên dịch node-gyp hay cài đặt dependencies bên thứ ba.
-  ```bash
-  # Kiểm tra phiên bản Node
-  node -v  # Kết quả phải từ v22.5.0 trở lên
-  ```
-* **Git:**
-  ```bash
-  sudo apt update && sudo apt install -y git
-  ```
-* **Python 3 & uv (Tùy chọn - Phục vụ Vector Embedding):**
-  Second Brain tích hợp sẵn cơ chế Fallback L2 Vector (Zero-Crash Guarantee). Nếu muốn sử dụng mô hình Transformer đa ngôn ngữ cục bộ tốc độ cao:
+### Prerequisites
+* **Node.js >= 22.5.0** (Recommended: **Node 24 LTS**): Second Brain leverages the native `node:sqlite` standard library module. **Zero npm compilation (`node-gyp`) or third-party dependencies required.**
+* **Git:** Installed and available in system `$PATH`.
+* **Python 3 & uv (Optional - For Local Transformer Embeddings):**
+  Second Brain contains a built-in deterministic L2 vector generator (Zero-Crash Guarantee). To enable local neural transformer embeddings:
   ```bash
   curl -LsSf https://astral.sh/uv/install.sh | sh
   ```
 
-### 2. Cài đặt 1-Click tự động
-Mở terminal trên phân vùng Linux và thực thi:
+---
+
+### 🐧 1-Click Installation on Linux (Ubuntu / Debian / Fedora / Arch / WSL2)
+
+Execute in your Linux terminal:
 
 ```bash
-# 1. Clone repository về đúng thư mục Antigravity
+# 1. Clone into the Antigravity configuration directory
 git clone https://github.com/TranVu-2005/antigravity-second-brain.git ~/.gemini/antigravity/second_brain
 
-# 2. Di chuyển vào thư mục
+# 2. Navigate and run the installer
 cd ~/.gemini/antigravity/second_brain
-
-# 3. Cấp quyền thực thi và chạy bộ cài đặt
 chmod +x install.sh
 ./install.sh
 ```
 
-Trình cài đặt `setup.js` sẽ tự động:
-1. Gộp cấu hình MCP Server vào `~/.gemini/config/mcp_config.json` (giữ nguyên toàn bộ các server khác như `gemini-web-bridge`, `github`...).
-2. Đăng ký 3 Lifecycle Hooks (`PreInvocation`, `PostInvocation`, `Stop`) vào `~/.gemini/config/hooks.json` với đường dẫn chuẩn POSIX.
-3. Nạp 14 tệp MCP Tool Schemas vào `~/.gemini/antigravity/mcp/second-brain/`.
-4. Cài đặt tài liệu Skill vào `~/.gemini/config/skills/second-brain/SKILL.md`.
-
-### 3. Kiểm tra cài đặt
-```bash
-node cli.js stats
-```
-
 ---
 
-## 🪟 Hướng Dẫn Cài Đặt Trên Windows
+### 🪟 1-Click Installation on Windows (PowerShell)
 
-### 1. Cài đặt 1-Click qua PowerShell
-Mở PowerShell (không cần quyền Administrator) và thực thi:
+Execute in PowerShell:
 
 ```powershell
-# 1. Clone repository
+# 1. Clone into the Antigravity directory
 git clone https://github.com/TranVu-2005/antigravity-second-brain.git "$env:USERPROFILE\.gemini\antigravity\second_brain"
 
-# 2. Di chuyển vào thư mục và chạy cài đặt
+# 2. Navigate and execute installer
 cd "$env:USERPROFILE\.gemini\antigravity\second_brain"
 .\install.ps1
 ```
 
 ---
 
-## 🔄 Chiến Lược Đồng Bộ Khi Dùng Song Song Windows & Linux (Dual-Boot Sync)
-
-Khi Ngài sử dụng máy tính cài đặt song song cả Windows và Linux, có 2 phương án đồng bộ:
-
-### ⭐ Phương Án A: Đồng Bộ Qua Git Remote (Khuyến Nghị - An Toàn Tuyệt Đối 100%)
-Đây là phương án chuẩn production, loại trừ hoàn toàn nguy cơ tranh chấp khóa tệp (file lock starvation) của SQLite WAL giữa hai hệ điều hành:
-
-1. **Cơ chế hoạt động:**
-   * Mỗi hệ điều hành (Windows và Linux) duy trì một bản clone độc lập tại thư mục `~/.gemini/antigravity/second_brain`.
-   * Khi Ngài kết thúc phiên làm việc trên bất kỳ OS nào, `hooks/stop.js` sẽ **tự động commit và đẩy dữ liệu lên GitHub** (`git-backup`) ở chế độ background không nghẽn.
-   * Khi khởi động vào OS kia, Ngài chỉ cần kéo cập nhật mới nhất:
-     ```bash
-     cd ~/.gemini/antigravity/second_brain
-     git pull
-     node cli.js sync
-     ```
-2. **Thiết lập Remote một lần duy nhất:**
-   ```bash
-   node cli.js git-remote https://github.com/TranVu-2005/antigravity-second-brain.git
-   ```
-
-### ⚡ Phương Án B: Chia Sẻ Trực Tiếp Phân Vùng NTFS (Direct Shared Mount)
-Nếu Ngài muốn cả Windows và Linux cùng đọc ghi chung 1 thư mục Second Brain trên phân vùng Windows:
-
-1. **Mount phân vùng Windows trên Linux:**
-   Giả sử phân vùng Windows được mount tại `/mnt/c`:
-   ```bash
-   ln -s /mnt/c/Users/tvu16/.gemini/antigravity/second_brain ~/.gemini/antigravity/second_brain
-   ```
-2. **Lưu ý tối quan trọng khi chia sẻ phân vùng NTFS:**
-   * **Quyền hạn mount:** Cần mount với tùy chọn `uid=1000,gid=1000,umask=022` để user Linux có toàn quyền đọc ghi.
-   * **Tránh Sleep/Fast Startup:** Ngài **BẮT BUỘC phải tắt tính năng Fast Startup** trên Windows (Power Options -> Choose what the power buttons do -> Turn off Fast Startup). Nếu Fast Startup bật, Windows sẽ khóa phân vùng NTFS ở trạng thái hibernate read-only, gây lỗi ghi CSDL trên Linux.
-   * **WAL Checkpoint:** Trước khi shutdown OS này để chuyển sang OS kia, chạy lệnh:
-     ```bash
-     node cli.js backup
-     ```
-     Lệnh này sẽ thực thi `PRAGMA wal_checkpoint(TRUNCATE)` gom toàn bộ log WAL vào tệp `brain.db` an toàn.
+### What the Universal Installer (`setup.js`) Does Automatically
+1. **Zero-Clobber MCP Merge:** Safely registers the `second-brain` MCP server into `~/.gemini/config/mcp_config.json` while preserving all existing MCP configurations intact.
+2. **Lifecycle Hooks Registration:** Registers `PreInvocation`, `PostInvocation`, and `Stop` hooks into `~/.gemini/config/hooks.json` using normalized POSIX paths.
+3. **MCP Tool Schemas:** Installs all 14 RFC-compliant tool schemas into `~/.gemini/antigravity/mcp/second-brain/`.
+4. **Skill Deployment:** Copies `SKILL.md` to `~/.gemini/config/skills/second-brain/SKILL.md`.
+5. **Database Initialization:** Verifies `brain.db` health, applies schema migrations, and confirms WAL mode.
 
 ---
 
-## 🛠️ Cẩm Nang Quản Trị Hệ Thống Bằng Dòng Lệnh (CLI Reference)
+## 🔄 Cross-OS Dual-Boot Synchronization Engine
 
-Mọi thao tác có thể thực hiện thông qua `node cli.js <lệnh>`:
+When alternating between **Windows** and **Linux** on the same machine, Second Brain guarantees continuous cognitive parity without state divergence or data loss.
 
-| Lệnh | Ý nghĩa & Tác vụ |
+### 🛡️ Strategy 1: Automated Bidirectional Git Synchronization (Recommended)
+This approach eliminates SQLite WAL lock starvation and cross-filesystem corruption:
+
+```
+[Windows Session]
+   │
+   ├── User chats with Antigravity
+   └── On Session Exit: Stop Hook executes detached `git-sync` (Commit ➔ Rebase ➔ Push)
+                                 │
+                            [GitHub Remote]
+                                 │
+[Linux Session (Boot into Ubuntu)]
+   │
+   ├── User sends initial prompt: PreInvocation Hook triggers background detached `git-pull`
+   ├── Local `brain.db` is checkpointed and updated seamlessly (< 0ms prompt latency)
+   └── On Session Exit: Stop Hook commits Linux progress and pushes back to Remote
+```
+
+#### Binary Conflict Immunity (`exports/dump.sql`)
+SQLite `.db` files are binary. If branches ever diverge, Git cannot perform a 3-way merge on raw databases. To guarantee absolute resilience:
+* Every commit automatically writes human-readable diffs and [`exports/dump.sql`](exports/dump.sql).
+* Every SQL statement uses **`INSERT OR REPLACE`**.
+* In case of any merge anomaly, running:
+  ```bash
+  node cli.js import-dump
+  ```
+  instantly reconciles all tables (`user_profile`, `session_state`, `conversations`, `knowledge_items`, `solutions`, `entity_relations`) with **zero data loss**.
+
+---
+
+## 🛠️ CLI Administration Reference
+
+Manage and inspect your Second Brain via `node cli.js <command>` (or `npm run <script>`):
+
+| Command | Description |
 |---|---|
-| `node cli.js stats` | Xem bảng điều khiển thống kê tổng thể số lượng tri thức, profile, phiên chat, vector và dung lượng CSDL. |
-| `node cli.js sync` | Quét và đồng bộ hóa toàn bộ các cuộc hội thoại từ Antigravity Brain vào FTS5 Episodic Memory. |
-| `node cli.js search <từ_khóa>` | Tìm kiếm đồng thời cả trong tri thức kỹ thuật và lịch sử trò chuyện. |
-| `node cli.js solutions` | Liệt kê toàn bộ các giải pháp sửa lỗi kỹ thuật đã được hệ thống ghi nhớ. |
-| `node cli.js solution <lỗi>` | Tra cứu cách sửa lỗi và câu lệnh tương ứng khi gặp lỗi cụ thể. |
-| `node cli.js profile` | Hiển thị hồ sơ cốt lõi của Ngài (sở thích, hạ tầng, phong cách, tôn chỉ). |
-| `node cli.js graph [thực_thể]` | Xuất đồ thị tri thức dạng ASCII Tree trực quan 2-hop cho thực thể (mặc định: "Ngài"). |
-| `node cli.js summarize [conv_id]`| Chắt lọc tri thức cấp cao (Mục tiêu, Quyết định, Tệp tin, Bài học) từ một phiên hội thoại. |
-| `node cli.js store <title> <text>`| Lưu nhanh một ghi chú hoặc kiến thức mới vào bộ nhớ dài hạn. |
-| `node cli.js backup` | Tạo ngay lập tức một bản snapshot CSDL an toàn bằng `VACUUM INTO` (< 50ms). |
-| `node cli.js backups` | Xem danh sách các bản sao lưu đã tạo kèm dung lượng và thời gian. |
-| `node cli.js compact` | Tinh biến bộ nhớ, dọn dẹp dữ liệu rác, tối ưu hóa SQLite index và PRAGMA optimize. |
-| `node cli.js dashboard` | Kết xuất và mở giao diện Interactive HTML Dashboard trên trình duyệt web. |
-| `node cli.js reembed` | Tính toán lại toàn bộ vector 384-dim cho tất cả tri thức. |
-| `node cli.js git-backup [msg]` | Xuất text diff sạch, tạo snapshot CSDL, tự động commit và đẩy lên Git Remote. |
-| `node cli.js git-pull` | Kéo cập nhật mới nhất từ Git Remote về máy và checkpoint WAL. |
-| `node cli.js git-sync [msg]` | Đồng bộ hai chiều trọn vẹn tức thì (Commit ➔ Pull ➔ Push). |
-| `node cli.js import-dump [file]`| Nạp / hồi phục toàn bộ dữ liệu từ dump.sql vào CSDL SQLite. |
-| `node cli.js git-status` | Kiểm tra trạng thái Git repository, nhánh, commit mới nhất và remote URL. |
-| `node cli.js git-remote <url>` | Cấu hình địa chỉ Git Remote (GitHub/GitLab). |
-| `node cli.js git-push` | Đẩy toàn bộ commit lên Remote Repository. |
+| `node cli.js stats` | Displays comprehensive database analytics (items, profiles, episodes, vector dimensions, DB size). |
+| `node cli.js sync` | Parses and synchronizes all historical conversation transcripts into FTS5 episodic storage. |
+| `node cli.js search <query>` | Performs dual-search across semantic knowledge and conversation logs simultaneously. |
+| `node cli.js solutions` | Lists all learned procedural error-resolution solutions and operational recipes. |
+| `node cli.js solution <error>`| Searches for matched solutions and exact remediation commands for a specific error. |
+| `node cli.js profile` | Displays the master core identity and persistent user profile facts. |
+| `node cli.js graph [entity]` | Generates an interactive 2-hop ASCII Knowledge Graph traversal tree for an entity. |
+| `node cli.js summarize [id]` | Autonomously distills executive takeaways (Goal, Decisions, Files, Lessons) from a session. |
+| `node cli.js store <title> <text>` | Manually records a knowledge note directly into long-term memory. |
+| `node cli.js backup` | Generates an atomic, zero-downtime hot-backup using SQLite `VACUUM INTO` (< 50ms). |
+| `node cli.js backups` | Lists all stored local snapshot archives with timestamps and file sizes. |
+| `node cli.js compact` | Prunes ephemeral records, consolidates redundant items, and optimizes SQLite indices. |
+| `node cli.js dashboard` | Generates and launches the visual HTML analytics dashboard in your default browser. |
+| `node cli.js reembed` | Recalculates 384-dimensional dense vectors for all stored knowledge items. |
+| `node cli.js git-backup [msg]` | Checkpoints WAL, exports clean text diffs, commits, and pushes to Git. |
+| `node cli.js git-pull` | Pulls latest remote updates and checkpoints SQLite WAL storage. |
+| `node cli.js git-sync [msg]` | Executes full two-way synchronization: Commit ➔ Rebase Pull ➔ Remote Push. |
+| `node cli.js import-dump [path]`| Rehydrates/reconciles all database tables from `exports/dump.sql`. |
+| `node cli.js git-status` | Displays repository status, current branch, last commit, and remote connection. |
+| `node cli.js git-remote <url>` | Configures or updates the remote Git repository URL. |
+| `node cli.js git-push` | Manually pushes all committed changes to the configured Git remote. |
 
 ---
 
-## 🔌 Danh Sách 14 Công Cụ MCP (Model Context Protocol Tools)
+## 🔌 Model Context Protocol (MCP) Tools Reference
 
-Khi Antigravity khởi động, MCP Server tự động cung cấp 14 công cụ chuyên sâu cho Agent:
+When Antigravity initiates, the MCP Server exposes 14 specialized cognitive tools to the Agent over stdio JSON-RPC 2.0:
 
-1. `brain_search(query, scope, limit)`: Tìm kiếm đa tầng (tri thức kỹ thuật, ghi chú, quyết định, lịch sử chat).
-2. `brain_store(title, content, category, tags, importance)`: Lưu kiến thức, quyết định mới.
-3. `brain_delete(id)`: Xóa một mục kiến thức theo ID.
-4. `brain_profile_get()`: Đọc toàn bộ hồ sơ nhận thức của Ngài.
-5. `brain_profile_set(key, value, category)`: Cập nhật hoặc bổ sung một mục hồ sơ.
-6. `brain_conversation_history(query, limit)`: Tra cứu các cuộc trao đổi trong quá khứ.
-7. `brain_solution_search(error_query, project_scope)`: Tra cứu giải pháp khắc phục lỗi kỹ thuật.
-8. `brain_solution_store(error_pattern, solution_code, command_fix, root_cause)`: Lưu giải pháp sửa lỗi.
-9. `brain_stats()`: Báo cáo trạng thái bộ nhớ thời gian thực.
-10. `brain_git_backup(message)`: Tạo commit sao lưu tức thời kèm trích xuất text diff sạch.
-11. `brain_git_status()`: Kiểm tra trạng thái đồng bộ kho lưu trữ Git và Remote.
-12. `brain_remember(text, category, importance)`: Ghi nhớ phát biểu hoặc sự kiện tức thì.
-13. `brain_forget(query, scope)`: Vô hiệu hóa hoặc thu hồi ký ức theo thời gian.
-14. `brain_learn_fix(error_text, fix_applied, root_cause)`: Học tập cách sửa lỗi và ghi nhận vào Procedural Memory.
-
----
-
-## 🔒 Bảo Mật & Tiêu Chuẩn Production (Security & Engineering)
-
-1. **Khử trùng thông tin nhạy cảm (Zero Token / Secret Leakage):**
-   * Tệp `integrations/mcp_config.json` chỉ chứa template mẫu cho `second-brain`. Tuyệt đối không sao lưu hay đồng bộ các khóa API, PAT (Personal Access Token) của các MCP server khác (`github`, `fetch`...) vào repository.
-2. **Toàn vẹn dữ liệu SQLite (ACID Guarantees):**
-   * Sử dụng `PRAGMA journal_mode = WAL` (Write-Ahead Logging) cho phép đọc ghi đồng thời với tốc độ cao (< 1ms).
-   * Lệnh `backup` dùng `VACUUM INTO`, tạo snapshot nhất quán mà không khóa bảng hay ngắt quãng quá trình chat.
-3. **Quy tắc dọn dẹp sao lưu (Backup Rotation):**
-   * Hệ thống tự động giới hạn tối đa 10 bản snapshot mới nhất, tự động thu hồi các bản ghi cũ nhằm tiết kiệm dung lượng ổ đĩa.
-4. **Ponytail Standard Library Preference:**
-   * 100% mã nguồn JavaScript sử dụng module chuẩn của Node.js (`node:sqlite`, `node:fs`, `node:path`, `node:os`, `node:child_process`). Không cài đặt gói npm bên ngoài vào thư mục gốc.
+| Tool Name | Parameters | Purpose |
+|---|---|---|
+| `brain_search` | `query`, `scope`, `limit` | Multi-tier retrieval across semantic knowledge, rules, and episodic chat logs. |
+| `brain_store` | `title`, `content`, `category`, `tags`, `importance` | Stores a permanent architectural decision, snippet, or knowledge entry. |
+| `brain_delete` | `id` | Permanently deletes a specific knowledge record by its primary ID. |
+| `brain_profile_get` | *None* | Retrieves the full master profile, persona guidelines, and hardware specifications. |
+| `brain_profile_set` | `key`, `value`, `category` | Creates or updates a verified fact within the master core identity. |
+| `brain_conversation_history`| `query`, `limit` | Searches and retrieves full transcripts and summaries of past sessions. |
+| `brain_solution_search` | `error_query`, `project_scope` | Case-based reasoning search for verified error fixes and operational commands. |
+| `brain_solution_store` | `error_pattern`, `solution_code`, `command_fix`, `root_cause` | Stores a proven technical fix into procedural memory. |
+| `brain_stats` | *None* | Returns real-time health metrics, record counts, and database storage statistics. |
+| `brain_git_backup` | `message` | Triggers a clean text snapshot export and commits state to version control. |
+| `brain_git_status` | *None* | Inspects local Git repository status and remote synchronization health. |
+| `brain_remember` | `text`, `category`, `importance` | Instantaneous natural-language fact and directive memorization. |
+| `brain_forget` | `query`, `scope` | Soft-deletes or marks temporal relations as expired. |
+| `brain_learn_fix` | `error_text`, `fix_applied`, `root_cause` | Autonomously promotes an applied fix into procedural memory. |
 
 ---
 
-*Hệ thống được phát triển với lòng tận tụy và tinh thần trách nhiệm cao nhất để phụng sự Ngài (Sir).*
+## 🛡️ Engineering Philosophy & Security
+
+### 1. Ponytail Minimalist Engineering (Dietrich Gebert's 7-Rung Ladder)
+* **Standard Library Dominance:** Built entirely on Node.js built-ins (`node:sqlite`, `node:fs`, `node:path`, `node:os`, `node:child_process`). Zero npm runtime dependencies.
+* **Platform-First Design:** Direct SQLite WAL storage instead of heavy ORM abstractions. Native POSIX and Windows shell adapters.
+* **Delete Over Refactor:** Unused agent artifacts and test sandboxes are aggressively purged to maintain repository cleanliness.
+
+### 2. Enterprise Security & Secret Hygiene
+* **Zero Credential Exposure:** Templates in `integrations/` are parameterized. Third-party tokens (e.g., GitHub PATs, API keys) are strictly barred from export manifests.
+* **Deterministic Fallback:** If the neural embedding daemon is unreachable or uninstalled, the system transitions to a deterministic L2-normalized vector generator, ensuring the agent never crashes or hangs.
+* **Transaction Safety:** All multi-step write operations utilize SQLite ACID transactions (`BEGIN TRANSACTION ... COMMIT`).
+
+---
+
+## 🧪 Testing & Verification
+
+Run the automated test suite natively with Node 24:
+
+```bash
+# Run unit & breakthrough tests
+npm test
+
+# Run all test tracks including MCP stdio verification
+npm run test:all
+```
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE) — engineered with fidelity, technical precision, and dedication.

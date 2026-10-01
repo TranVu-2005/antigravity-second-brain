@@ -1,0 +1,33 @@
+{
+  "name": "antigravity-second-brain",
+  "version": "3.5.0",
+  "description": "Universal Multi-Platform Cognitive Long-Term Memory Engine for Antigravity AI Agent",
+  "main": "mcp_server.js",
+  "bin": {
+    "brain": "./cli.js"
+  },
+  "scripts": {
+    "test": "node test/test_brain.js && node test/test_v3_production_grade.js",
+    "test:all": "node test/test_brain.js && node test/test_mcp.js && node test/test_v3_production_grade.js",
+    "setup": "node setup.js",
+    "sync": "node cli.js sync",
+    "stats": "node cli.js stats",
+    "git-sync": "node cli.js git-sync"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "keywords": [
+    "antigravity",
+    "second-brain",
+    "cognitive-memory",
+    "sqlite",
+    "fts5",
+    "mcp",
+    "model-context-protocol",
+    "fastembed",
+    "ai-agent"
+  ],
+  "author": "TranVu-2005",
+  "license": "MIT"
+}

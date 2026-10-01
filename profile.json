@@ -81,15 +81,6 @@
     "updated_at": "2026-09-11T15:54:16.986Z"
   },
   {
-    "key": "",
-    "category": "preference",
-    "value": "",
-    "confidence": 1,
-    "source": "agent_remember",
-    "created_at": "2026-09-29T15:36:52.735Z",
-    "updated_at": "2026-09-29T17:31:33.197Z"
-  },
-  {
     "key": "gaming_preferences",
     "category": "preference",
     "value": "Ưu tiên chơi game bằng tay cầm (gamepad/controller), đồ họa đẹp thế giới mở (open world), dung lượng dưới 100GB. Đã từng chơi / hoàn thành: Elden Ring, Marvel's Spider-Man, The Witcher 3: Wild Hunt.",
