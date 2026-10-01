@@ -38,6 +38,9 @@ Lệnh khả dụng:
   dashboard            Mở giao diện trực quan Visual Dashboard trên trình duyệt
   reembed              Nâng cấp và tính toán lại vector 384-dim cho toàn bộ tri thức
   git-backup [msg]     Sao lưu dữ liệu, xuất text diff và commit lên Git
+  git-pull             Kéo cập nhật mới nhất từ Remote và cập nhật WAL
+  git-sync             Đồng bộ hai chiều trọn vẹn (Commit -> Pull -> Push)
+  import-dump [file]   Nạp/hồi phục toàn bộ dữ liệu từ dump.sql vào CSDL SQLite
   git-status           Xem trạng thái Git repo và kết nối Remote
   git-remote <url>     Cấu hình địa chỉ Remote Repository (GitHub/GitLab)
   git-push             Đẩy toàn bộ commit lên Remote Repository
@@ -383,6 +386,46 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
                 console.log(`✅ ${res.message}`);
             } else {
                 console.error(`❌ Lỗi đẩy Remote: ${res.error}`);
+            }
+            break;
+        }
+
+        case 'git-pull': {
+            console.log('📥 Đang kéo cập nhật mới nhất từ Remote repository...');
+            const gitBackup = getGitBackupManager();
+            const res = gitBackup.pullRemote();
+            if (res.success) {
+                console.log(`✅ ${res.message}`);
+            } else {
+                console.error(`❌ Lỗi kéo Remote: ${res.error}`);
+            }
+            break;
+        }
+
+        case 'git-sync': {
+            console.log('🔄 Đang tiến hành đồng bộ hai chiều trọn vẹn (Commit ➔ Pull ➔ Push)...');
+            const gitBackup = getGitBackupManager();
+            const msg = args.slice(1).join(' ') || null;
+            const res = gitBackup.syncRemote(msg);
+            if (res.success) {
+                console.log(`✅ Đồng bộ thành công hoàn toàn giữa các môi trường!`);
+            } else {
+                if (res.commit && res.commit.error) console.error(`⚠️ Lỗi commit: ${res.commit.error}`);
+                if (res.pull && !res.pull.success) console.error(`⚠️ Lỗi pull: ${res.pull.error}`);
+                if (res.push && !res.push.success) console.error(`⚠️ Lỗi push: ${res.push.error}`);
+            }
+            break;
+        }
+
+        case 'import-dump': {
+            const dumpPath = args[1] || null;
+            console.log('📥 Đang phục hồi/nạp dữ liệu từ tệp SQL dump vào CSDL...');
+            const gitBackup = getGitBackupManager();
+            const res = gitBackup.importDump(dumpPath);
+            if (res.success) {
+                console.log(`✅ ${res.message}`);
+            } else {
+                console.error(`❌ Lỗi nạp dump: ${res.error}`);
             }
             break;
         }

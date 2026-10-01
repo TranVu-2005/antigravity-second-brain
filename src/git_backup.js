@@ -279,6 +279,71 @@ class GitBackupManager {
         }
     }
 
+    pullRemote() {
+        if (!this.isRepoInitialized()) {
+            return { success: false, error: 'Kho lưu trữ Git chưa được khởi tạo.' };
+        }
+
+        try {
+            const remoteUrl = this._execGit('remote get-url origin');
+            if (!remoteUrl) {
+                return { success: false, error: 'Chưa cấu hình remote origin.' };
+            }
+
+            // Pull latest commits from remote
+            const pullResult = this._execGit('pull origin main');
+
+            // Force SQLite to checkpoint newly pulled DB changes
+            try {
+                const db = getDB();
+                db.exec('PRAGMA wal_checkpoint(TRUNCATE);');
+            } catch (e) {}
+
+            return { success: true, message: 'Đã kéo cập nhật thành công từ remote origin.', details: pullResult };
+        } catch (err) {
+            return { success: false, error: err.message };
+        }
+    }
+
+    importDump(dumpFilePath = null) {
+        const targetPath = dumpFilePath || path.join(this.exportsDir, 'dump.sql');
+        if (!fs.existsSync(targetPath)) {
+            return { success: false, error: 'Không tìm thấy tệp dump.sql' };
+        }
+
+        try {
+            const db = getDB();
+            const sql = fs.readFileSync(targetPath, 'utf8');
+            db.exec(sql);
+            db.exec('PRAGMA wal_checkpoint(TRUNCATE);');
+            return { success: true, message: 'Đã nạp thành công toàn bộ dữ liệu từ dump.sql vào CSDL SQLite.' };
+        } catch (err) {
+            return { success: false, error: err.message };
+        }
+    }
+
+    syncRemote(customMessage = null) {
+        if (!this.isRepoInitialized()) {
+            return { success: false, error: 'Kho lưu trữ Git chưa được khởi tạo.' };
+        }
+
+        // 1. Commit local changes if any
+        const commitRes = this.commitBackup(customMessage);
+
+        // 2. Pull remote updates
+        const pullRes = this.pullRemote();
+
+        // 3. Push to remote
+        const pushRes = this.pushRemote();
+
+        return {
+            success: (commitRes.success !== false) && pullRes.success && pushRes.success,
+            commit: commitRes,
+            pull: pullRes,
+            push: pushRes
+        };
+    }
+
     setRemote(url) {
         if (!this.isRepoInitialized()) {
             this.initRepo();
