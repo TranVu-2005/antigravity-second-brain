@@ -151,6 +151,38 @@ class GitBackupManager {
             sqlDump += `INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('${row.id}', '${title}', '${sum}', ${row.message_count});\n`;
         }
 
+        // Session state inserts (Tier 1 Working Memory)
+        try {
+            const sessionRows = db.all('SELECT conversation_id, active_goal, current_topic, workspace_paths, metadata, last_interaction FROM session_state');
+            if (sessionRows && sessionRows.length > 0) {
+                sqlDump += `\n-- Table: session_state\n`;
+                for (const row of sessionRows) {
+                    const cid = (row.conversation_id || '').replace(/'/g, "''");
+                    const goal = (row.active_goal || '').replace(/'/g, "''");
+                    const topic = (row.current_topic || '').replace(/'/g, "''");
+                    const wp = (row.workspace_paths || '[]').replace(/'/g, "''");
+                    const meta = (row.metadata || '{}').replace(/'/g, "''");
+                    sqlDump += `INSERT OR REPLACE INTO session_state (conversation_id, active_goal, current_topic, workspace_paths, metadata, last_interaction) VALUES ('${cid}', '${goal}', '${topic}', '${wp}', '${meta}', '${row.last_interaction}');\n`;
+                }
+            }
+        } catch (e) {}
+
+        // Entity relations inserts (Knowledge Graph)
+        try {
+            const relationRows = db.all('SELECT source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata FROM entity_relations');
+            if (relationRows && relationRows.length > 0) {
+                sqlDump += `\n-- Table: entity_relations\n`;
+                for (const row of relationRows) {
+                    const src = (row.source_entity || '').replace(/'/g, "''");
+                    const rel = (row.relation || '').replace(/'/g, "''");
+                    const tgt = (row.target_entity || '').replace(/'/g, "''");
+                    const meta = (row.metadata || '{}').replace(/'/g, "''");
+                    const vUntil = row.valid_until ? `'${row.valid_until}'` : 'NULL';
+                    sqlDump += `INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('${src}', '${rel}', '${tgt}', ${row.confidence}, '${row.valid_from}', ${vUntil}, '${meta}');\n`;
+                }
+            }
+        } catch (e) {}
+
         const sqlDumpPath = path.join(this.exportsDir, 'dump.sql');
         fs.writeFileSync(sqlDumpPath, sqlDump, 'utf8');
 

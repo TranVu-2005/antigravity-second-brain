@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-10-01T18:39:10.458Z
+-- Generated: 2026-10-01T19:04:13.803Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -722,3 +722,36 @@ INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES 
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('f6430f00-c4dc-4786-8e08-e97290335d50', 'You are challenger_1, an Adversarial Challenger for the Second Brain optimizatio', '[Mục tiêu: You are challenger_1, an Adversarial Challenger for the Second Brain optimization project. Your working directory is: C:\Users\tvu16\.gem...] | [Tệp tin: ORIGINAL_REQUEST.md, PROJECT.md, semantic.js, retriever.js, handoff.md] | [Bài học: khắc phục đến Orchestrator (`parent`)]', 70);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('f912f9bf-5269-42ea-b8ff-c3544d953208', 'You are explorer_eval_1, a Benchmark & Evaluation Explorer for the Second Brain ', '[Mục tiêu: You are explorer_eval_1, a Benchmark & Evaluation Explorer for the Second Brain optimization project. Your working directory is: C:\Users...] | [Quyết định: quy tắc vĩnh viễn, học lệnh sửa lỗi, kiểm soát âm tính (chống trích xuất bừa bãi khi tán gẫu), và giải quyết xung đột/cập nhật thông tin (conflict r; yêu cầu tiếp theo của Ngài!] | [Tệp tin: ORIGINAL_REQUEST.md, run_eval.py, handoff.md, retrieval_benchmark.json, run_eval.js] | [Bài học: sửa lỗi, kiểm soát âm tính (chống trích xuất bừa bãi khi tán gẫu), và giải quyết xung đột/cập nhật thông tin (conflict resol]', 50);
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('ffcc3229-aedc-4d2c-9116-17c8b48bc137', 'You are explorer_codebase_1, a Codebase Architecture Explorer for the Second Bra', '[Mục tiêu: You are explorer_codebase_1, a Codebase Architecture Explorer for the Second Brain optimization project. Your working directory is: C:\Us...] | [Tệp tin: ORIGINAL_REQUEST.md, handoff.md] | [Kết quả: Tôi đã hoàn thành quá trình khảo sát toàn diện mã nguồn kiến trúc của hệ thống **Second Brain** tại ]', 77);
+
+-- Table: session_state
+INSERT OR REPLACE INTO session_state (conversation_id, active_goal, current_topic, workspace_paths, metadata, last_interaction) VALUES ('5db950df-86d3-43ca-ab74-014b627cfb4f', 'tôi muốn chơi game gì đó đồ họa đẹp cho tay cầm', '', '[]', '{}', '2026-09-25T16:51:41.999Z');
+INSERT OR REPLACE INTO session_state (conversation_id, active_goal, current_topic, workspace_paths, metadata, last_interaction) VALUES ('a4a9c6ca-5d51-4719-9482-b27e9dc47d51', 'ok thực hiện kỹ càng và chuẩn xác đi
+rồi báo cáo chi tiết cho tôi với dữ liệu thực tế chứ ko được bốc phét', '', '[]', '{}', '2026-09-27T15:51:31.439Z');
+
+-- Table: entity_relations
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'uses', 'Antigravity', 1, '2026-09-17 10:18:24', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'located_in', 'Hoàng Mai', 1, '2026-09-17 10:18:24', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'uses', 'Antigravity 2.0', 1, '2026-09-17T10:19:01.459Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'owns', 'Second Brain', 1, '2026-09-17T10:19:01.459Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Antigravity 2.0', 'runs_on', 'Windows 11', 1, '2026-09-17T10:19:01.459Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Antigravity 2.0', 'integrates', 'Second Brain', 1, '2026-09-17T10:19:01.459Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Antigravity 2.0', 'bridges_to', 'Gemini Web', 1, '2026-09-17T10:19:01.459Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Gemini Web', 'powered_by', 'Dual-Quota Bridge', 1, '2026-09-17T10:19:01.459Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Second Brain', 'monitors_via', 'FastTemp', 1, '2026-09-17T10:19:01.459Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Second Brain', 'automates_via', 'Lenovo Legion Toolkit', 1, '2026-09-17T10:19:01.460Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Second Brain', 'persists_to', 'GitHub Backup', 1, '2026-09-17T10:19:01.460Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'downloads', 'Horizon Forbidden West', 1, '2026-09-25T16:42:36.529Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'plays', 'Diablo II: Resurrected', 1, '2026-09-25T16:42:36.531Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'uses', 'Free Download Manager', 1, '2026-09-25T16:42:36.532Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Horizon Forbidden West', 'managed_by', 'Free Download Manager', 1, '2026-09-25T16:42:36.532Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Diablo II: Resurrected', 'managed_by', 'Free Download Manager', 1, '2026-09-25T16:42:36.533Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Second Brain', 'inspects_via', 'fdm', 1, '2026-09-25T16:42:36.533Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'owns', 'Lenovo Legion', 1, '2026-09-25T16:42:36.534Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Lenovo Legion', 'has_cpu', 'AMD Ryzen 7 7840H', 1, '2026-09-25T16:42:36.534Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Lenovo Legion', 'has_gpu', 'NVIDIA RTX 4050 Laptop', 1, '2026-09-25T16:42:36.535Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'has_played', 'Elden Ring', 1, '2026-09-25T16:50:57.902Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'has_played', 'The Witcher 3', 1, '2026-09-25T16:50:57.902Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'has_played', 'Spider-Man', 1, '2026-09-25T16:50:57.902Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Ngài', 'owns', 'VALORANT', 1, '2026-09-25T16:50:57.902Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Riot Client', 'manages', 'VALORANT', 1, '2026-09-25T16:50:57.902Z', NULL, '{}');
+INSERT OR REPLACE INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata) VALUES ('Riot Client', 'manages', 'League of Legends', 1, '2026-09-25T16:50:57.902Z', NULL, '{}');
