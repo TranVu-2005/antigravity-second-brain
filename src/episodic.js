@@ -7,7 +7,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { getDB } = require('./db');
 
-const DEFAULT_ANTIGRAVITY_BRAIN_DIR = 'C:/Users/tvu16/.gemini/antigravity/brain';
+const os = require('node:os');
+const DEFAULT_ANTIGRAVITY_BRAIN_DIR = process.env.ANTIGRAVITY_BRAIN_DIR || path.join(os.homedir(), '.gemini', 'antigravity', 'brain');
 
 class EpisodicMemory {
     constructor(db = getDB(), brainDir = DEFAULT_ANTIGRAVITY_BRAIN_DIR) {

@@ -3,15 +3,47 @@
 // Powered by 384-dimensional Multilingual Transformer with Auto-Daemon & Fallback
 // ==============================================================================
 
+const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
-const { spawn, exec } = require('node:child_process');
+const { spawn, exec, execSync } = require('node:child_process');
 
 const VECTOR_DIM = 384;
 const DAEMON_PORT = 49152;
 const DAEMON_HOST = '127.0.0.1';
 const DAEMON_URL = `http://${DAEMON_HOST}:${DAEMON_PORT}`;
-const UV_PATH = 'C:\\Users\\tvu16\\AppData\\Local\\Microsoft\\WinGet\\Packages\\astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe\\uv.exe';
 const DAEMON_SCRIPT = path.join(__dirname, 'embedding_daemon.py');
+
+/**
+ * Dynamically resolves uv executable path across Windows and Linux
+ */
+function resolveUvCommand() {
+    try {
+        execSync('uv --version', { stdio: 'ignore' });
+        return 'uv';
+    } catch (e) {}
+
+    const candidates = process.platform === 'win32' ? [
+        path.join(process.env.LOCALAPPDATA || '', 'Microsoft', 'WinGet', 'Packages', 'astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe', 'uv.exe'),
+        path.join(process.env.USERPROFILE || '', '.cargo', 'bin', 'uv.exe'),
+        'C:\\Program Files\\uv\\uv.exe'
+    ] : [
+        path.join(os.homedir(), '.cargo', 'bin', 'uv'),
+        path.join(os.homedir(), '.local', 'bin', 'uv'),
+        '/usr/local/bin/uv',
+        '/usr/bin/uv'
+    ];
+
+    for (const c of candidates) {
+        if (c && fs.existsSync(c)) {
+            return process.platform === 'win32' ? `"${c}"` : c;
+        }
+    }
+
+    return 'uv';
+}
+
+const UV_PATH = resolveUvCommand();
 
 // High-speed In-Memory LRU-style Embedding Cache
 const _embeddingCache = new Map();
@@ -57,7 +89,7 @@ async function isDaemonHealthy() {
 
 /**
  * Automatically launches the embedding daemon in the background if not active.
- * Uses WMI Win32_Process.Create on Windows to break away from Job Objects cleanly.
+ * Uses WMI on Windows or POSIX nohup/spawn on Linux.
  */
 function ensureDaemonRunning() {
     if (_daemonSpawnAttempted) return;
@@ -66,10 +98,27 @@ function ensureDaemonRunning() {
     isDaemonHealthy().then((healthy) => {
         if (!healthy) {
             try {
-                const startScript = path.resolve(__dirname, '../scripts/start_daemon.ps1');
-                exec(`powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File "${startScript}"`, { windowsHide: true });
+                if (process.platform === 'win32') {
+                    const startScript = path.resolve(__dirname, '../scripts/start_daemon.ps1');
+                    if (fs.existsSync(startScript)) {
+                        exec(`powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File "${startScript}"`, { windowsHide: true });
+                    }
+                } else {
+                    // Linux / macOS environment
+                    const startScript = path.resolve(__dirname, '../scripts/start_daemon.sh');
+                    if (fs.existsSync(startScript)) {
+                        exec(`bash "${startScript}" &`, { stdio: 'ignore' });
+                    } else {
+                        const uvCmd = resolveUvCommand();
+                        const p = spawn(uvCmd, ['run', '--with', 'fastembed', 'python3', DAEMON_SCRIPT], {
+                            detached: true,
+                            stdio: 'ignore'
+                        });
+                        p.unref();
+                    }
+                }
             } catch (err) {
-                // Ignore spawn errors
+                // Ignore spawn errors; fallback deterministic embedding remains active
             }
         }
     }).catch(() => {});

@@ -1,60 +1,9 @@
 {
   "mcpServers": {
     "second-brain": {
-      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "command": "node",
       "args": [
-        "C:\\Users\\tvu16\\.gemini\\antigravity\\second_brain\\mcp_server.js"
-      ]
-    },
-    "gemini-web-bridge": {
-      "command": "C:\\Program Files\\nodejs\\node.exe",
-      "args": [
-        "C:\\Users\\tvu16\\.gemini\\antigravity\\gemini_web_bridge\\mcp_server.js"
-      ]
-    },
-    "github": {
-      "command": "C:\\Program Files\\nodejs\\node.exe",
-      "args": [
-        "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-github\\dist\\index.js"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
-      }
-    },
-    "puppeteer": {
-      "command": "C:\\Program Files\\nodejs\\node.exe",
-      "args": [
-        "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-puppeteer\\dist\\index.js"
-      ]
-    },
-    "sequential-thinking": {
-      "command": "C:\\Program Files\\nodejs\\node.exe",
-      "args": [
-        "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-sequential-thinking\\dist\\index.js"
-      ]
-    },
-    "chrome-devtools-mcp": {
-      "command": "C:\\Program Files\\nodejs\\node.exe",
-      "args": [
-        "C:\\Users\\tvu16\\AppData\\Roaming\\npm\\node_modules\\chrome-devtools-mcp\\build\\src\\bin\\chrome-devtools-mcp.js"
-      ]
-    },
-    "fetch": {
-      "command": "C:\\Users\\tvu16\\AppData\\Local\\Microsoft\\WinGet\\Packages\\astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe\\uvx.exe",
-      "args": [
-        "mcp-server-fetch",
-        "--ignore-robots-txt",
-        "--user-agent",
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
-      ],
-      "env": {
-        "PATH": "C:\\Program Files\\nodejs;C:\\Users\\tvu16\\AppData\\Local\\Microsoft\\WinGet\\Packages\\astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe;C:\\WINDOWS\\system32;C:\\WINDOWS"
-      }
-    },
-    "everything-search": {
-      "command": "C:\\Program Files\\nodejs\\node.exe",
-      "args": [
-        "C:\\Users\\tvu16\\.gemini\\antigravity\\everything_search\\mcp_server.js"
+        "{{BRAIN_DIR}}/mcp_server.js"
       ]
     }
   }

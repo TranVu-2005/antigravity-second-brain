@@ -28,17 +28,21 @@ class GitBackupManager {
             return 'git';
         } catch (e) {}
 
-        // Check common Windows installation locations
-        const candidatePaths = [
+        // Check common OS installation locations
+        const candidatePaths = process.platform === 'win32' ? [
             'C:\\Program Files\\Git\\cmd\\git.exe',
             'C:\\Program Files (x86)\\Git\\cmd\\git.exe',
             path.join(process.env.LOCALAPPDATA || '', 'Programs', 'Git', 'cmd', 'git.exe'),
             path.join(process.env.LOCALAPPDATA || '', 'Microsoft', 'WinGet', 'Links', 'git.exe')
+        ] : [
+            '/usr/bin/git',
+            '/usr/local/bin/git',
+            '/opt/homebrew/bin/git'
         ];
 
         for (const p of candidatePaths) {
             if (fs.existsSync(p)) {
-                return `"${p}"`;
+                return process.platform === 'win32' ? `"${p}"` : p;
             }
         }
 
@@ -173,19 +177,34 @@ class GitBackupManager {
         const intDir = path.join(this.brainDir, 'integrations');
         if (!fs.existsSync(intDir)) fs.mkdirSync(intDir, { recursive: true });
 
-        // Copy Antigravity configs if they exist
-        const geminiDir = path.resolve(this.brainDir, '..', '..'); // C:\Users\tvu16\.gemini
-        const mcpConfig = path.join(geminiDir, 'config', 'mcp_config.json');
-        const hooksConfig = path.join(geminiDir, 'config', 'hooks.json');
+        // Maintain clean, portable templates for mcp_config.json and hooks.json without secrets
+        const mcpTemplatePath = path.join(intDir, 'mcp_config.json');
+        const mcpTemplate = {
+            mcpServers: {
+                "second-brain": {
+                    command: "node",
+                    args: ["{{BRAIN_DIR}}/mcp_server.js"]
+                }
+            }
+        };
+        fs.writeFileSync(mcpTemplatePath, JSON.stringify(mcpTemplate, null, 2), 'utf8');
+
+        const hooksTemplatePath = path.join(intDir, 'hooks.json');
+        const hooksTemplate = {
+            "second-brain": {
+                "PreInvocation": [{ "type": "command", "command": "node \"{{BRAIN_DIR}}/hooks/pre_invocation.js\"", "timeout": 5 }],
+                "PostInvocation": [{ "type": "command", "command": "node \"{{BRAIN_DIR}}/hooks/post_invocation.js\"", "timeout": 10 }],
+                "Stop": [{ "type": "command", "command": "node \"{{BRAIN_DIR}}/hooks/stop.js\"", "timeout": 15 }]
+            }
+        };
+        fs.writeFileSync(hooksTemplatePath, JSON.stringify(hooksTemplate, null, 2), 'utf8');
+
+        // Copy Antigravity skill and mcp schemas if they exist
+        const os = require('node:os');
+        const geminiDir = path.resolve(this.brainDir, '..', '..');
         const skillPath = path.join(geminiDir, 'config', 'skills', 'second-brain', 'SKILL.md');
         const mcpSchemasDir = path.join(geminiDir, 'antigravity', 'mcp', 'second-brain');
 
-        if (fs.existsSync(mcpConfig)) {
-            fs.copyFileSync(mcpConfig, path.join(intDir, 'mcp_config.json'));
-        }
-        if (fs.existsSync(hooksConfig)) {
-            fs.copyFileSync(hooksConfig, path.join(intDir, 'hooks.json'));
-        }
         if (fs.existsSync(skillPath)) {
             const intSkillDir = path.join(intDir, 'skills', 'second-brain');
             if (!fs.existsSync(intSkillDir)) fs.mkdirSync(intSkillDir, { recursive: true });

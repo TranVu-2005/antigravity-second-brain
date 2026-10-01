@@ -3,21 +3,21 @@
     "PreInvocation": [
       {
         "type": "command",
-        "command": "node \"C:/Users/tvu16/.gemini/antigravity/second_brain/hooks/pre_invocation.js\"",
+        "command": "node \"{{BRAIN_DIR}}/hooks/pre_invocation.js\"",
         "timeout": 5
       }
     ],
     "PostInvocation": [
       {
         "type": "command",
-        "command": "node \"C:/Users/tvu16/.gemini/antigravity/second_brain/hooks/post_invocation.js\"",
+        "command": "node \"{{BRAIN_DIR}}/hooks/post_invocation.js\"",
         "timeout": 10
       }
     ],
     "Stop": [
       {
         "type": "command",
-        "command": "node \"C:/Users/tvu16/.gemini/antigravity/second_brain/hooks/stop.js\"",
+        "command": "node \"{{BRAIN_DIR}}/hooks/stop.js\"",
         "timeout": 15
       }
     ]

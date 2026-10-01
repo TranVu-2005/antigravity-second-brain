@@ -50,9 +50,11 @@ async function main() {
         let transcriptPath = payload.transcriptPath || null;
 
         // CRITICAL FIX: If transcriptPath is missing OR does not exist on disk,
-        // resolve to Antigravity's true session transcript location
+        // resolve to Antigravity's true session transcript location across Windows & Linux
         if ((!transcriptPath || !fs.existsSync(transcriptPath)) && conversationId) {
-            const candidate = path.join('C:/Users/tvu16/.gemini/antigravity/brain', conversationId, '.system_generated', 'logs', 'transcript.jsonl');
+            const os = require('node:os');
+            const brainBase = process.env.ANTIGRAVITY_BRAIN_DIR || path.join(os.homedir(), '.gemini', 'antigravity', 'brain');
+            const candidate = path.join(brainBase, conversationId, '.system_generated', 'logs', 'transcript.jsonl');
             if (fs.existsSync(candidate)) {
                 transcriptPath = candidate;
             }

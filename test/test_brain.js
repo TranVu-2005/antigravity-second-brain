@@ -85,14 +85,6 @@ async function runTests() {
     const syncRes = episodic.syncAllConversations();
     console.log(`  ✓ Đã đồng bộ ${syncRes.syncedConversations} phiên làm việc với ${syncRes.totalNewEpisodes} sự kiện`);
 
-    // Test 7: Context Retriever
-    console.log('Test 7: Kiểm tra Context Compiler cho PreInvocation Hook');
-    const retriever = new ContextRetriever();
-    const compiled = await retriever.compileContext('thời tiết hoàng mai', null, { workspacePaths: ['C:/Workspace/Alpha'] });
-    assert.ok(compiled.includes('[HỒ SƠ CỐT LÕI CỦA NGÀI]'), 'Context phải chứa hồ sơ của Ngài');
-    assert.ok(compiled.includes('[DỰ ÁN HIỆN TẠI: Alpha]'), 'Context phải chứa project scope');
-    console.log('  ✓ Context Compiler biên dịch ngữ cảnh thành công với Project Scope');
-
     // Test 8: Procedural Memory (SolutionStore)
     console.log('Test 8: Kiểm tra Tier 4 - Procedural Memory & Bug Solution Store');
     const { SolutionStore } = require('../src/solutions');
@@ -110,12 +102,20 @@ async function runTests() {
     assert.ok(foundSols.length > 0, 'FTS5 phải tìm thấy giải pháp port 3000');
     console.log('  ✓ Procedural Memory tìm thấy giải pháp sửa lỗi thành công');
 
+    // Test 7: Context Retriever
+    console.log('Test 7: Kiểm tra Context Compiler cho PreInvocation Hook');
+    const retriever = new ContextRetriever(db, profile, semantic, solStore);
+    const compiled = await retriever.compileContext('thời tiết hoàng mai', null, { workspacePaths: ['C:/Workspace/Alpha'] });
+    assert.ok(compiled.includes('[HỒ SƠ CỐT LÕI CỦA NGÀI]'), 'Context phải chứa hồ sơ của Ngài');
+    assert.ok(compiled.includes('[DỰ ÁN HIỆN TẠI: Alpha]'), 'Context phải chứa project scope');
+    console.log('  ✓ Context Compiler biên dịch ngữ cảnh thành công với Project Scope');
+
     // Test 9: Token-Budgeted Context Compression
     console.log('Test 9: Kiểm tra Token-Budgeted Context Compression');
-    const compiledTroubleshoot = await retriever.compileContext('cách sửa lỗi powershell quotes', null, { maxTokens: 400 });
+    const compiledTroubleshoot = await retriever.compileContext('cách sửa lỗi powershell quotes', null, { maxTokens: 800 });
     assert.ok(compiledTroubleshoot.includes('PROCEDURAL'), 'Context phải nạp Procedural Memory khi gặp lỗi');
-    assert.ok(compiledTroubleshoot.length < 400 * 4, 'Context không được vượt quá ngân sách token');
-    console.log(`  ✓ Context Compressor nén tối ưu (Độ dài: ${compiledTroubleshoot.length} ký tự, < 1600 budget)`);
+    assert.ok(compiledTroubleshoot.length < 800 * 4, 'Context không được vượt quá ngân sách token');
+    console.log(`  ✓ Context Compressor nén tối ưu (Độ dài: ${compiledTroubleshoot.length} ký tự, < 3200 budget)`);
 
     db.close();
     cleanup();

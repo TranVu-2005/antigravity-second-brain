@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS entity_relations (
     metadata TEXT DEFAULT '{}',
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now')),
-    UNIQUE(source_entity, relation, target_entity, valid_from)
+    UNIQUE(source_entity, relation, target_entity)
 );
 
 CREATE INDEX IF NOT EXISTS idx_relations_source ON entity_relations(source_entity);

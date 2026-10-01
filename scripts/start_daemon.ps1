@@ -9,8 +9,28 @@ param(
 
 $ErrorActionPreference = "SilentlyContinue"
 $Port = 49152
-$UvPath = "C:\Users\tvu16\AppData\Local\Microsoft\WinGet\Packages\astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe\uv.exe"
-$DaemonScript = "C:\Users\tvu16\.gemini\antigravity\second_brain\src\embedding_daemon.py"
+
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+$BrainDir = Split-Path -Parent $ScriptDir
+$DaemonScript = "$BrainDir\src\embedding_daemon.py"
+
+# Resolve uv path dynamically
+$UvPath = "uv.exe"
+if (Get-Command uv -ErrorAction SilentlyContinue) {
+    $UvPath = (Get-Command uv).Source
+} else {
+    $candidates = @(
+        "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\astral-sh.uv_Microsoft.Winget.Source_8wekyb3d8bbwe\uv.exe",
+        "$env:USERPROFILE\.cargo\bin\uv.exe",
+        "C:\Program Files\uv\uv.exe"
+    )
+    foreach ($cand in $candidates) {
+        if (Test-Path $cand) {
+            $UvPath = $cand
+            break
+        }
+    }
+}
 
 # Check if already running on target port
 $conn = Get-NetTCPConnection -LocalPort $Port -ErrorAction SilentlyContinue
