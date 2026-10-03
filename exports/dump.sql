@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-10-02T19:00:16.020Z
+-- Generated: 2026-10-03T13:17:34.624Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -412,6 +412,13 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 - Ổ C còn trống: 45.54 GB.', 'NOTE', 'forza,downloads,fdm,progress', 'agent_mcp', 0.1, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (83, 'test_mcp_remember_val', 'test_mcp_remember_val', 'fact', 'preference', 'agent_remember', 1.468, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (84, 'Quyết định: Tiêu chí | Linux Ubuntu (Native) | Windows 11 (Nativ...', 'Tiêu chí | Linux Ubuntu (Native) | Windows 11 (Native & WSL2) |', 'decision', 'decision,auto_promoted,architecture', 'auto_distillation', 1.395, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (85, 'Tự động hóa chuyển chế độ pin Lenovo Legion Toolkit (Rapid Charge -> 100% -> Conservation)', 'Quy trình tự động hóa chuyển chế độ sạc Lenovo Legion Toolkit (LLT):
+1. Công cụ điều khiển: `C:\Program Files\LenovoLegionToolkit\llt.exe feature set battery <mode>` (rapidcharge | conservation | normal).
+2. Lệnh kiểm tra: `llt feature get battery`.
+3. Script giám sát tự động: `C:\Users\tvu16\AppData\Roaming\Antigravity\bin\battery_charge_watcher.py`.
+   - Cơ chế: Đọc % pin thời gian thực qua psutil, kích hoạt Power Assertion (SetThreadExecutionState) chống sleep trong lúc sạc.
+   - Khi pin chạm 100%, tự động gọi LLT CLI chuyển sang ''conservation'' mode, phát âm thanh và gửi Windows Toast.
+   - Log đường dẫn: `C:\Users\tvu16\AppData\Roaming\Antigravity\run\battery_charge_watcher.log`.', 'note', 'battery,llt,rapidcharge,conservation,automation', 'agent_mcp', 1, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);
