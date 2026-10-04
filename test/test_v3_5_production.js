@@ -226,10 +226,10 @@ async function runTests() {
     }
     console.log('═════════════════════════════════════════════════════════════════════\n');
 
-    process.exit(passed === total ? 0 : 1);
+    process.exitCode = passed === total ? 0 : 1;
 }
 
 runTests().catch(err => {
     console.error('Fatal test error:', err);
-    process.exit(1);
+    process.exitCode = 1;
 });

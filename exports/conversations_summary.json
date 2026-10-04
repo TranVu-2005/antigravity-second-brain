@@ -1,10 +1,10 @@
 [
   {
     "id": "6b935a81-c4b7-4950-8434-8d79801b872f",
-    "title": "@[conversation:\"Forza Motorsport 6 Discussion\"] sao mất nhiều thời gian thế?",
+    "title": "@[conversation:\"Second Brain Git Sync\"] sau khi cập nhật có cần phải chỉnh lại g",
     "summary": "[Mục tiêu: /second-brain] | [Quyết định: kiến trúc | 🟢 Đã lập chỉ mục |; Yêu Cầu 1. **Tra cứu & Tìm kiếm tri thức:**] | [Bài học: giải pháp (`solutions`)** | **24** giải pháp kỹ thuật đã học | 🟢 Tự động match |]",
-    "message_count": 132,
-    "updated_at": "2026-10-04T16:28:02.170Z"
+    "message_count": 200,
+    "updated_at": "2026-10-04T17:09:52.176Z"
   },
   {
     "id": "3256d8e9-40c9-4054-a34c-dfbf361b9433",
@@ -25,7 +25,7 @@
     "title": "hệ thống này hoạt động như nào giải thích rõ ràng chi tiết tất cả file và cần là",
     "summary": "[Mục tiêu: tôi muốn làm 1 hệ thống memory tự động aka second brain để hỗ trợ tốt cho tôi trong việc ghi nhớ biết tôi là ai biết tất cả mọi thứ biết ...] | [Quyết định: kiến trúc chi tiết cho **Hệ thống Second Brain phân tầng chuẩn Production-Grade & Tự động 100%**.; quyết định kỹ thuật và sở thích mới sau mỗi lượt tương tác mà Ngài không cần gõ lệnh ghi nhớ thủ công.; kiến trúc hàng đầu thế giới (Mem0, Letta/MemGPT và Stanford Generative Agents).] | [Tệp tin: implementation_plan.md, walkthrough.md, profile.md, hooks.json, mcp_config.json] | [Bài học: giải pháp sửa lỗi kỹ thuật đã học:; fix một lỗi cụ thể:]",
     "message_count": 205,
-    "updated_at": "2026-10-04 16:28:10"
+    "updated_at": "2026-10-04 17:09:51"
   },
   {
     "id": "3d58241a-d28b-4632-8176-afb5b527b782",

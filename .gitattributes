@@ -1,0 +1,36 @@
+# ==============================================================================
+# Antigravity Second Brain: Git Attributes & Line-Ending Rules
+# Guarantees seamless cross-platform parity between Windows 11 & Linux Ubuntu
+# ==============================================================================
+
+# Default behavior: auto-normalize text files to LF in git repo
+* text=auto eol=lf
+
+# JavaScript, JSON, Markdown, Configs: Always LF
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.sql text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.py text eol=lf
+
+# Linux / Unix shell scripts: Always LF (crucial for Linux execution)
+*.sh text eol=lf
+
+# Windows PowerShell & Batch scripts: CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary files: Never normalize or modify line endings
+*.db binary
+*.db-wal binary
+*.db-shm binary
+*.png binary
+*.jpg binary
+*.ico binary
+*.tar.gz binary
+*.zip binary

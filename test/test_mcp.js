@@ -2,15 +2,11 @@ const { spawn } = require('child_process');
 const path = require('path');
 
 const serverPath = path.join(__dirname, '..', 'mcp_server.js');
-const child = spawn('agy-node', [serverPath], { shell: true });
+const child = spawn(process.execPath, [serverPath], { stdio: ['pipe', 'pipe', 'ignore'] });
 
 let output = '';
 child.stdout.on('data', (d) => {
     output += d.toString();
-});
-
-child.stderr.on('data', (d) => {
-    // stderr can contain experimental warnings, ignore
 });
 
 function send(msg) {

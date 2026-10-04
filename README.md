@@ -39,8 +39,8 @@ flowchart TD
     PreHook -.->|"Dense Vector + CTE Graph Traversal"| T3
     PreHook -.->|"Proactive Fix Injection"| T4
 
-    PostHook -.->|"Ingest Recent Steps"| T2
-    PostHook -.->|"Distill Session"| T1
+    PostHook -.->|"Ingest Recent Steps (Batch)"| T2
+    PostHook -.->|"Distill Session & Spaced Reinforcement"| T1
     StopHook -.->|"Extract Knowledge & Graph"| T3
     StopHook -.->|"Mine Error Fixes & Git Sync"| T4
 ```
@@ -50,13 +50,13 @@ flowchart TD
 * **Tier 0: Core Identity & User Profile (`user_profile`):**
   Maintains master identity, honorifics ("Ngài" / Sir), communication style, physical location, hardware specifications, and the Absolute Honesty Policy. Automatically compiled into a high-density, token-budgeted prompt header before every turn.
 * **Tier 1: Working Memory & Session State (`session_state`):**
-  Tracks active objectives (`active_goal`), working directories, and cross-session context continuity. Enables anaphoric resolution (e.g., resuming prior tasks when opening a new chat window across OS reboots).
+  Tracks active objectives (`active_goal`), working directories, and cross-session context continuity. Enables anaphoric resolution and spaced cognitive reinforcement during session distillation.
 * **Tier 2: Episodic Memory (`conversations`, `episodes`, `episodes_fts`):**
-  Full-text search engine powered by SQLite FTS5 with Porter stemmer and BM25 ranking, indexing over 10,600 interaction turns across 150+ historical sessions.
+  High-speed batch transaction parser and full-text search engine powered by SQLite FTS5 with BM25 ranking, indexing over 11,000 interaction turns across 165+ historical sessions (< 20ms).
 * **Tier 3: Semantic Knowledge Store & Bi-Temporal Knowledge Graph:**
-  Long-term knowledge repository utilizing **True Hybrid Search**—fusing Sparse BM25 and 384-dimensional Dense Multilingual Transformer Vectors (Cosine Similarity). Accompanied by a Bi-Temporal Knowledge Graph supporting SQLite Recursive CTE 2-hop traversal with temporal validity ranges (`valid_from`, `valid_until`).
+  Long-term knowledge repository utilizing **True Hybrid Search**—fusing Sparse BM25 and 384-dimensional Dense Multilingual Transformer Vectors. Accompanied by a Bi-Temporal Knowledge Graph supporting SQLite Recursive CTE 2-hop traversal.
 * **Tier 4 & 4.5: Procedural Memory & Self-Correction Engine (`solutions`):**
-  Case-based reasoning store recording technical fixes, shell idioms, and operational recipes. Autonomously inspects terminal execution transcripts to capture failed commands followed by successful remediation, preserving correct solutions permanently.
+  Case-based reasoning store recording technical fixes, shell idioms, and operational recipes. Autonomously inspects terminal execution transcripts to capture failed commands followed by successful remediation.
 
 ---
 
@@ -64,8 +64,13 @@ flowchart TD
 
 ```
 antigravity-second-brain/
+├── .github/                    # GitHub Community standards & Issue/PR templates
+│   ├── ISSUE_TEMPLATE/         # Structured YAML bug & feature templates
+│   └── PULL_REQUEST_TEMPLATE.md# Production PR checklist & verification gate
+├── ci/                         # Cross-platform matrix CI workflow template
+│   └── ci.yml                  # GitHub Actions: Ubuntu & Windows on Node 22 & 24
 ├── db/
-│   └── schema.sql              # Production schema: WAL pragmas, FTS5, Bi-Temporal graph, indices
+│   └── schema.sql              # Production schema: WAL pragmas, FTS5, Bi-Temporal graph
 ├── exports/                    # Clean UTF-8 diffable snapshots for Git version control
 │   ├── conversations_summary.json
 │   ├── dump.sql                # Complete idempotent SQL dump (INSERT OR REPLACE)
@@ -85,15 +90,16 @@ antigravity-second-brain/
 ├── scripts/                    # Platform-specific utilities & background daemons
 │   ├── auto_backup.sh          # Linux daily maintenance & Git sync runner
 │   ├── auto_backup.ps1         # Windows maintenance & backup runner
+│   ├── lint.js                 # Zero-dependency syntax validator (node --check)
 │   ├── start_daemon.sh         # Linux headless embedding micro-daemon launcher
 │   └── start_daemon.ps1        # Windows hidden WMI embedding micro-daemon launcher
 ├── src/                        # Core architectural subsystem engines
 │   ├── backup.js               # SQLite VACUUM INTO atomic hot-backup manager
-│   ├── consolidation.js        # Executive session distillation & insight promotion
+│   ├── consolidation.js        # Executive session distillation & spaced reinforcement
 │   ├── db.js                   # Node 24 native node:sqlite connection manager
 │   ├── embedding.js            # Dense vector engine, L2 normalization & fallback client
 │   ├── embedding_daemon.py     # Python FastEmbed microservice (port 49152)
-│   ├── episodic.js             # Transcript parser & FTS5 episodic memory engine
+│   ├── episodic.js             # High-speed batch transcript parser & FTS5 engine
 │   ├── export_dashboard.js     # Standalone visual dashboard renderer
 │   ├── extractor.js            # Natural language heuristic memory extractor
 │   ├── git_backup.js           # Git automated backup, diff exporter & sync manager
@@ -103,16 +109,25 @@ antigravity-second-brain/
 │   ├── semantic.js             # Semantic knowledge, Hybrid Search & Knowledge Graph
 │   └── solutions.js            # Procedural solution store (Case-Based Reasoning)
 ├── test/                       # Automated test suites (Zero external dependencies)
+│   ├── run_all_tests.js        # Master CI/CD test runner across all suites
 │   ├── test_brain.js           # Comprehensive 9-point unit test suite
 │   ├── test_mcp.js             # Stdio MCP protocol validator
-│   └── test_v3_production_grade.js # SOTA Breakthrough validation suite (13/13 Pass)
+│   ├── test_v3_production_grade.js # SOTA Breakthrough validation suite (13/13 Pass)
+│   ├── test_v3_4_production.js # v3.4 Regression & graph validation suite
+│   └── test_v3_5_production.js # v3.5 Batch ingestion & sanitization suite (9/9 Pass)
+├── .editorconfig               # Universal indentation & whitespace rules
+├── .gitattributes              # Cross-platform line-ending & binary file rules
+├── .gitignore                  # Production SQLite WAL & temporary lock excludes
 ├── brain.db                    # Production SQLite database (WAL mode)
 ├── cli.js                      # Full-featured administration CLI interface
+├── CONTRIBUTING.md             # Developer workflow, Ponytail & PR guidelines
 ├── dashboard.html              # Interactive visual dashboard
 ├── install.sh                  # 1-Click installer for Linux / macOS / WSL
 ├── install.ps1                 # 1-Click installer for Windows PowerShell
+├── LICENSE                     # Official MIT License
 ├── mcp_server.js               # Model Context Protocol Stdio Server (JSON-RPC 2.0)
-├── package.json                # Standard Node.js package specification
+├── package.json                # Standard Node.js package specification & scripts
+├── SECURITY.md                 # Security guardrails & vulnerability disclosure policy
 ├── setup.js                    # Universal cross-platform zero-clobber setup engine
 └── README.md                   # Enterprise architecture documentation
 ```
@@ -275,15 +290,31 @@ When Antigravity initiates, the MCP Server exposes 14 specialized cognitive tool
 
 ## 🧪 Testing & Verification
 
-Run the automated test suite natively with Node 24:
+Second Brain adopts a strict **TDD & Zero External Dependencies** standard. All test suites run natively with Node 24 standard library:
 
 ```bash
-# Run unit & breakthrough tests
+# Validate JavaScript syntax & AST across the codebase (node --check)
+npm run lint
+
+# Execute Master CI/CD Test Runner (All 5 test suites)
 npm test
 
-# Run all test tracks including MCP stdio verification
-npm run test:all
+# Run individual test tracks
+npm run test:v3.5     # v3.5 Batch ingestion & SQLite parameter sanitization
+npm run test:v3.4     # v3.4 Regression & Bi-Temporal graph tests
+npm run test:v3       # v3.0 SOTA Breakthrough suite
+npm run test:unit     # v2.0 Architecture unit tests
+npm run test:mcp      # Stdio MCP protocol validator
 ```
+
+---
+
+## 🤝 Community & Contributing
+
+We welcome contributions adhering to the **Ponytail Minimalist Philosophy** and strict TDD guidelines:
+- Read [CONTRIBUTING.md](CONTRIBUTING.md) for local development workflows and PR checklists.
+- Review our [SECURITY.md](SECURITY.md) policy for vulnerability reporting and secret hygiene standards.
+- File bugs and feature proposals using the structured GitHub Issue templates under `.github/ISSUE_TEMPLATE/`.
 
 ---
 

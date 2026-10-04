@@ -477,7 +477,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.091Z",
-    "updated_at": "2026-10-04 16:28:02"
+    "updated_at": "2026-10-04 17:09:52"
   },
   {
     "id": 55,
@@ -489,7 +489,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.092Z",
-    "updated_at": "2026-10-04 16:28:02"
+    "updated_at": "2026-10-04 17:09:52"
   },
   {
     "id": 56,
@@ -501,7 +501,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.093Z",
-    "updated_at": "2026-10-04 16:28:02"
+    "updated_at": "2026-10-04 17:09:52"
   },
   {
     "id": 57,
@@ -537,7 +537,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.296Z",
-    "updated_at": "2026-10-04 16:28:10"
+    "updated_at": "2026-10-04 17:09:51"
   },
   {
     "id": 61,
@@ -549,7 +549,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
-    "updated_at": "2026-10-04 16:28:10"
+    "updated_at": "2026-10-04 17:09:51"
   },
   {
     "id": 62,
@@ -561,7 +561,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
-    "updated_at": "2026-10-04 16:28:10"
+    "updated_at": "2026-10-04 17:09:51"
   },
   {
     "id": 63,
@@ -886,5 +886,53 @@
     "project_scope": "global",
     "created_at": "2026-10-04T16:28:08.408Z",
     "updated_at": "2026-10-04T16:28:08.408Z"
+  },
+  {
+    "id": 97,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-04T17:05:45.144Z",
+    "updated_at": "2026-10-04T17:05:45.144Z"
+  },
+  {
+    "id": 98,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-04T17:07:42.094Z",
+    "updated_at": "2026-10-04T17:07:42.094Z"
+  },
+  {
+    "id": 99,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-04T17:09:28.777Z",
+    "updated_at": "2026-10-04T17:09:28.777Z"
+  },
+  {
+    "id": 100,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-04T17:09:49.771Z",
+    "updated_at": "2026-10-04T17:09:49.771Z"
   }
 ]

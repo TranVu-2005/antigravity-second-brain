@@ -92,6 +92,7 @@ async function isDaemonHealthy() {
  * Uses WMI on Windows or POSIX nohup/spawn on Linux.
  */
 function ensureDaemonRunning() {
+    if (process.env.NODE_ENV === 'test') return;
     if (_daemonSpawnAttempted) return;
     _daemonSpawnAttempted = true;
 
@@ -161,6 +162,10 @@ async function computeEmbedding(text) {
     const trimmed = text.trim();
     if (_embeddingCache.has(trimmed)) {
         return _embeddingCache.get(trimmed);
+    }
+
+    if (process.env.NODE_ENV === 'test') {
+        return computeFallbackVector(trimmed);
     }
 
     try {

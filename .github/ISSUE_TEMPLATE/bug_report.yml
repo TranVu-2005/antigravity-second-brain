@@ -1,0 +1,54 @@
+name: 🐛 Bug Report
+description: Create a report to help improve Second Brain reliability
+title: "[BUG]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report an issue! Please ensure you are running on Node.js >= 22.5.0 with native `node:sqlite`.
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating System
+      description: Which operating system is experiencing the issue?
+      options:
+        - Windows 11 / 10
+        - Linux Ubuntu / Debian
+        - Linux Fedora / Arch
+        - WSL2
+        - macOS
+    validations:
+      required: true
+  - type: input
+    id: node_version
+    attributes:
+      label: Node.js Version
+      description: Run `node -v` and paste the output.
+      placeholder: "v24.19.0"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Minimal reproducible command or code sequence.
+      placeholder: |
+        1. Run `node cli.js ...`
+        2. Inspect output
+        3. See error
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs / Terminal Output
+      description: Paste any terminal error logs or stack traces.
+      render: shell
