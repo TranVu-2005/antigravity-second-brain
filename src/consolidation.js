@@ -285,6 +285,14 @@ class MemoryConsolidator {
                             importance: 1.4
                         });
                     } catch (e) {}
+                } else {
+                    try {
+                        this.db.run(`
+                            UPDATE knowledge_items
+                            SET importance = MAX(importance, 1.4), access_count = access_count + 1, updated_at = datetime('now')
+                            WHERE id = ?
+                        `, existing.id);
+                    } catch (e) {}
                 }
             }
         }
@@ -322,6 +330,14 @@ class MemoryConsolidator {
                             project_scope: 'global',
                             tags: 'bugfix,auto_promoted'
                         });
+                    } catch (e) {}
+                } else {
+                    try {
+                        this.db.run(`
+                            UPDATE solutions
+                            SET success_count = success_count + 1, confidence = MIN(1.0, confidence + 0.05), updated_at = datetime('now')
+                            WHERE id = ?
+                        `, existing.id);
                     } catch (e) {}
                 }
             }

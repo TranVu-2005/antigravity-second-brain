@@ -474,10 +474,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.22,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.091Z",
-    "updated_at": "2026-09-27T15:51:08.091Z"
+    "updated_at": "2026-10-04 16:28:02"
   },
   {
     "id": 55,
@@ -486,10 +486,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.22,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.092Z",
-    "updated_at": "2026-09-27T15:51:08.092Z"
+    "updated_at": "2026-10-04 16:28:02"
   },
   {
     "id": 56,
@@ -498,10 +498,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.22,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.093Z",
-    "updated_at": "2026-09-27T15:51:08.093Z"
+    "updated_at": "2026-10-04 16:28:02"
   },
   {
     "id": 57,
@@ -534,10 +534,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.22,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.296Z",
-    "updated_at": "2026-09-27T15:51:20.296Z"
+    "updated_at": "2026-10-04 16:28:10"
   },
   {
     "id": 61,
@@ -546,10 +546,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.22,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
-    "updated_at": "2026-09-27T15:51:20.297Z"
+    "updated_at": "2026-10-04 16:28:10"
   },
   {
     "id": 62,
@@ -558,10 +558,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.22,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
-    "updated_at": "2026-09-27T15:51:20.297Z"
+    "updated_at": "2026-10-04 16:28:10"
   },
   {
     "id": 63,
@@ -850,5 +850,41 @@
     "project_scope": "global",
     "created_at": "2026-10-04T16:07:55.730Z",
     "updated_at": "2026-10-04T16:07:55.730Z"
+  },
+  {
+    "id": 94,
+    "title": "Quyết định: kiến trúc **Ada Lovelace**, trang bị nhân Optical Fl...",
+    "content": "kiến trúc **Ada Lovelace**, trang bị nhân Optical Flow Accelerator thế hệ mới:*",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-04T16:18:10.032Z",
+    "updated_at": "2026-10-04T16:18:10.032Z"
+  },
+  {
+    "id": 95,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-04T16:18:10.379Z",
+    "updated_at": "2026-10-04T16:18:10.379Z"
+  },
+  {
+    "id": 96,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-04T16:28:08.408Z",
+    "updated_at": "2026-10-04T16:28:08.408Z"
   }
 ]

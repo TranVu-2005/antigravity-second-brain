@@ -73,6 +73,11 @@ class BrainDB {
         }
     }
 
+    _sanitizeParams(params) {
+        if (!params || params.length === 0) return [];
+        return params.map(p => (p === undefined ? null : p));
+    }
+
     prepare(sql) {
         return this.db.prepare(sql);
     }
@@ -83,17 +88,17 @@ class BrainDB {
 
     get(sql, ...params) {
         const stmt = this.db.prepare(sql);
-        return stmt.get(...params);
+        return stmt.get(...this._sanitizeParams(params));
     }
 
     all(sql, ...params) {
         const stmt = this.db.prepare(sql);
-        return stmt.all(...params);
+        return stmt.all(...this._sanitizeParams(params));
     }
 
     run(sql, ...params) {
         const stmt = this.db.prepare(sql);
-        return stmt.run(...params);
+        return stmt.run(...this._sanitizeParams(params));
     }
 
     transaction(fn) {
@@ -122,9 +127,14 @@ function getDB(dbPath = DB_PATH) {
     return defaultInstance;
 }
 
+function createTestDB(customPath = ':memory:') {
+    return new BrainDB(customPath);
+}
+
 module.exports = {
     BrainDB,
     getDB,
+    createTestDB,
     BRAIN_DIR,
     DB_PATH
 };

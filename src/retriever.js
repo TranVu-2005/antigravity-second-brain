@@ -120,16 +120,16 @@ class ContextRetriever {
             directives.push("• Tra cứu nhiệt độ phần cứng ➔ Thực thi ngay: `temp` qua terminal (`run_command`).");
         }
         if (/(?:screenoff|tắt màn|tat man|ngủ đông|ngu dong|offscreen)/i.test(lowerEff)) {
-            directives.push('• Tắt màn hình Eco ➔ Thực thi ngay: `cmd.exe /c "C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\screenoff.cmd"` qua terminal.');
+            directives.push("• Tắt màn hình Eco ➔ Thực thi ngay: `screenoff` qua terminal (`run_command`).");
         }
-        if (/(?:tải|tai|download|tiến độ|tien do|fdm|horizon|diablo|part\d*|riot|lol|lmht|valorant|tft)/i.test(lowerEff)) {
+        if (/(?:tải|tai|download|tiến độ|tien do|fdm|horizon|forza|fh\d*|diablo|d2r|part\d*|riot|lol|lmht|valorant|tft|game)/i.test(lowerEff)) {
             let targetGame = '';
-            if (lowerEff.includes('horizon')) targetGame = ' horizon';
-            else if (lowerEff.includes('diablo')) targetGame = ' diablo';
+            if (lowerEff.includes('forza') || lowerEff.includes('horizon') || lowerEff.includes('fh6') || lowerEff.includes('fh5') || lowerEff.includes('forza6')) targetGame = ' forza';
+            else if (lowerEff.includes('diablo') || lowerEff.includes('d2r')) targetGame = ' diablo';
             else if (lowerEff.includes('riot')) targetGame = ' riot';
             else if (lowerEff.includes('lol') || lowerEff.includes('lmht')) targetGame = ' lol';
             else if (lowerEff.includes('valorant')) targetGame = ' valorant';
-            directives.push(`• Kiểm tra tiến độ tải file & game ➔ Thực thi ngay: \`fdm${targetGame}\` qua terminal (trả kết quả trong <50ms).`);
+            directives.push(`• Kiểm tra tiến độ tải file & game ➔ Thực thi ngay: \`fdm${targetGame}\` qua terminal (trả kết quả trong <50ms). Tuyệt đối tuân thủ Fast-Path Non-Blocking SLA, không chặn luồng debug code.`);
         }
         if (directives.length > 0) {
             const banner = `[CHỈ THỊ THỰC THI PHÍM TẮT ĐƯỢC PHÁT HIỆN]\n${directives.join('\n')}`;

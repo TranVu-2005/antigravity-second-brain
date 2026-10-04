@@ -56,6 +56,7 @@ class EpisodicMemory {
         let newEpisodes = 0;
         let convTitle = null;
 
+        const pendingEpisodes = [];
         for (const line of lines) {
             if (!line.trim()) continue;
             let step;
@@ -100,14 +101,22 @@ class EpisodicMemory {
 
             if (content) {
                 const timestamp = step.created_at || new Date().toISOString();
-                this.db.run(`
-                    INSERT INTO episodes (conversation_id, step_index, role, content, summary, tags, timestamp)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
-                `, conversationId, stepIdx, role, content, summary, tags.join(','), timestamp);
-
-                newEpisodes++;
+                pendingEpisodes.push([conversationId, stepIdx, role, content, summary, tags.join(','), timestamp]);
             }
             conv.last_step_index = Math.max(conv.last_step_index, stepIdx);
+        }
+
+        if (pendingEpisodes.length > 0) {
+            const insertStmt = this.db.prepare(`
+                INSERT INTO episodes (conversation_id, step_index, role, content, summary, tags, timestamp)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            `);
+            this.db.transaction(() => {
+                for (const p of pendingEpisodes) {
+                    insertStmt.run(...p);
+                }
+            });
+            newEpisodes = pendingEpisodes.length;
         }
 
         if (newEpisodes > 0 || conv.last_step_index > (conv._initial_last_step_index || -1)) {
@@ -201,7 +210,7 @@ class EpisodicMemory {
         `, limit);
     }
 
-    catchUpRecentSessions(maxSessions = 3) {
+    catchUpRecentSessions(maxSessions = 3, autoDistill = false) {
         if (!fs.existsSync(this.brainDir)) return { checked: 0, newEpisodes: 0 };
         let newEpisodes = 0;
         let checked = 0;
@@ -224,16 +233,18 @@ class EpisodicMemory {
                 const transcriptPath = path.join(entry.path, '.system_generated', 'logs', 'transcript.jsonl');
                 if (!fs.existsSync(transcriptPath)) continue;
 
-                const conv = this.db.get('SELECT last_step_index, summary FROM conversations WHERE id = ?', entry.id);
                 const count = this.ingestTranscriptFile(transcriptPath, entry.id);
                 if (count > 0) newEpisodes += count;
 
-                if (!conv || !conv.summary || !conv.summary.startsWith('[Mục tiêu:') || count > 0) {
-                    try {
-                        const { getMemoryConsolidator } = require('./consolidation');
-                        const consolidator = getMemoryConsolidator(this.db);
-                        consolidator.distillSession(entry.id);
-                    } catch (e) {}
+                if (autoDistill) {
+                    const conv = this.db.get('SELECT last_step_index, summary FROM conversations WHERE id = ?', entry.id);
+                    if (!conv || !conv.summary || !conv.summary.startsWith('[Mục tiêu:') || count > 0) {
+                        try {
+                            const { getMemoryConsolidator } = require('./consolidation');
+                            const consolidator = getMemoryConsolidator(this.db);
+                            consolidator.distillSession(entry.id);
+                        } catch (e) {}
+                    }
                 }
             }
         } catch (e) {}
