@@ -4,7 +4,84 @@
     "title": "screenofd",
     "summary": null,
     "message_count": 1,
-    "updated_at": "2026-10-02T19:00:09.129Z"
+    "updated_at": "2026-10-04T03:46:06.596Z"
+  },
+  {
+    "id": "133e7ecf-d3c9-4445-811e-326ccf9a582b",
+    "title": "game clair 33 tôi tới đâu rồi",
+    "summary": null,
+    "message_count": 1,
+    "updated_at": "2026-10-04T03:46:05.382Z"
+  },
+  {
+    "id": "016dd454-8b1e-479d-a23b-de4cf6a37b31",
+    "title": "bật sạc nhanh cho máy rồi baoh đủ 100% thì lại cho về mode conversation ở llt",
+    "summary": "[Mục tiêu: bật sạc nhanh cho máy rồi baoh đủ 100% thì lại cho về mode conversation ở llt] | [Kết quả: Thưa Ngài, **Rapid Charge** đã được kích hoạt thành công trên Lenovo Legion Toolkit và tiến trình gi]",
+    "message_count": 55,
+    "updated_at": "2026-10-04 03:46:11"
+  },
+  {
+    "id": "074b099b-b104-45ef-a9b9-c90d68653142",
+    "title": "temp",
+    "summary": "[Mục tiêu: temp] | [Kết quả: Báo cáo trạng thái nhiệt độ phần cứng hệ thống gửi tới Ngài: --- ### 📊 **Báo cáo Thời gian thực: Le]",
+    "message_count": 3,
+    "updated_at": "2026-10-04 03:46:11"
+  },
+  {
+    "id": "16360aa3-ee9a-4640-93d5-c1e9e33f4e57",
+    "title": "temp",
+    "summary": "[Mục tiêu: temp] | [Kết quả: Báo cáo trạng thái phần cứng thời gian thực cho Ngài: ```text ======================================]",
+    "message_count": 3,
+    "updated_at": "2026-10-04 03:46:11"
+  },
+  {
+    "id": "17684054-0a70-4a78-b6a3-7b93c0814ae0",
+    "title": "tôi install youtube từ brave giờ nó thành 1 app riêng icon youtube vậy có cách n",
+    "summary": "[Mục tiêu: tôi install youtube từ brave giờ nó thành 1 app riêng icon youtube vậy có cách nào làm cho màn hình này tràn ko ko hiển thị cái thanh ở t...] | [Bài học: giải pháp nguyên bản và mượt mà nhất!]",
+    "message_count": 34,
+    "updated_at": "2026-10-04 03:46:11"
+  },
+  {
+    "id": "3dd6319c-2569-48f4-b8ed-47e428168432",
+    "title": "screenoff",
+    "summary": "[Mục tiêu: screenoff] | [Kết quả: As you wish, Sir!  Lệnh tắt màn hình tiết kiệm điện (`screenoff`) đã được kích hoạt thành công trong]",
+    "message_count": 5,
+    "updated_at": "2026-10-04 03:46:11"
+  },
+  {
+    "id": "6b935a81-c4b7-4950-8434-8d79801b872f",
+    "title": "/second-brain",
+    "summary": "[Mục tiêu: /second-brain] | [Quyết định: kiến trúc | 🟢 Đã lập chỉ mục |; Yêu Cầu 1. **Tra cứu & Tìm kiếm tri thức:**] | [Bài học: giải pháp (`solutions`)** | **24** giải pháp kỹ thuật đã học | 🟢 Tự động match |]",
+    "message_count": 6,
+    "updated_at": "2026-10-04 03:46:11"
+  },
+  {
+    "id": "708a21d0-c464-4ac0-a986-f7651d9fca5b",
+    "title": "tìm hiểu chi tiết về deepseek harness so với các harness khác ví dụ flow của tôi",
+    "summary": "[Mục tiêu: tìm hiểu chi tiết về deepseek harness so với các harness khác ví dụ flow của tôi là dùng free tier của 9router nối với deepseek harness t...] | [Quyết định: kiến trúc **9Router (Free Tier) ➔ DeepSeek Harness**.; Tiêu chí | **DeepSeek Harness (`dsh`)** | **Claude Code / Aider** | **Cline / Roo Code / Cursor** | **Eval Harness (lm-eval, SWE-bench)** |; yêu cầu mô hình phải tuân thủ nghiêm ngặt cấu trúc gọi công cụ và suy luận logic sâu.] | [Kết quả: Thưa Ngài, đây là bản phân tích toàn diện về **DeepSeek Harness (`dsh`)** trong tương quan với các h]",
+    "message_count": 8,
+    "updated_at": "2026-10-04 03:46:11"
+  },
+  {
+    "id": "b7966323-629c-46b0-a92c-9f41d4ad739d",
+    "title": "screenoff",
+    "summary": "[Mục tiêu: screenoff] | [Kết quả: As you wish, Sir!  Lệnh tắt màn hình (`screenoff.cmd`) đã được kích hoạt thành công qua tiến trình n]",
+    "message_count": 5,
+    "updated_at": "2026-10-04 03:46:11"
+  },
+  {
+    "id": "da5f35f9-51e6-4091-8784-d807b312eeab",
+    "title": "temp",
+    "summary": "[Mục tiêu: temp] | [Kết quả: Báo cáo nhiệt độ hệ thống thời gian thực gửi tới Ngài: ```text =====================================]",
+    "message_count": 3,
+    "updated_at": "2026-10-04 03:46:11"
+  },
+  {
+    "id": "e2fc384d-55ae-4265-a607-11e9ef343cf8",
+    "title": "chức năng này có nên dùng ko và dùng như nào theo spec của tôi setup như nào cho",
+    "summary": "[Mục tiêu: chức năng này có nên dùng ko và dùng như nào theo spec của tôi setup như nào cho tối ưu và tốt nhất] | [Quyết định: kiến trúc phần cứng:; kiến trúc Zen 4 (Ryzen 7 7840H 4nm Phoenix) đều vượt qua mọi bài stress-test mà không hề bị sập nguồn.] | [Kết quả: Thưa Ngài, bức ảnh Ngài gửi là cửa sổ **Overclock GPU Settings** (Ép xung & Can thiệp điện áp GPU) c]",
+    "message_count": 15,
+    "updated_at": "2026-10-04 03:46:11"
   },
   {
     "id": "1b3a8597-646a-4c87-a6af-c1abf1ea7c99",
@@ -12,13 +89,6 @@
     "summary": "[Mục tiêu: hình như win defend vừa xóa 1 file gì đó của forza6 hãy khôi phục lại đi vì tôi cài thêm optiscaler mà h ko có cái FSR hooks với cả dlss ...] | [Tệp tin: Restore_From_Defender.bat] | [Kết quả: Bẩm **Ngài**, thần xin báo cáo chi tiết sự cố vừa xảy ra trên hệ thống của Ngài: --- ### 1. File bị ]",
     "message_count": 107,
     "updated_at": "2026-10-02T19:00:08.654Z"
-  },
-  {
-    "id": "133e7ecf-d3c9-4445-811e-326ccf9a582b",
-    "title": "game clair 33 tôi tới đâu rồi",
-    "summary": null,
-    "message_count": 1,
-    "updated_at": "2026-10-02T19:00:08.292Z"
   },
   {
     "id": "04c70644-9e19-4cfd-b7de-69fc66d34640",

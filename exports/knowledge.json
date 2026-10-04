@@ -30,7 +30,7 @@
     "category": "fact",
     "tags": "location,hoang_mai",
     "source": "user",
-    "importance": 0.629,
+    "importance": 0.606,
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
@@ -42,7 +42,7 @@
     "category": "decision",
     "tags": "mcp, fetch, everything-search, optimization, tools",
     "source": "agent_mcp",
-    "importance": 1.174,
+    "importance": 1.148,
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
@@ -54,7 +54,7 @@
     "category": "decision",
     "tags": "python,uv,environment,config",
     "source": "agent_mcp",
-    "importance": 1.18,
+    "importance": 1.154,
     "project_scope": "global",
     "created_at": "2026-09-11T19:59:20.654Z",
     "updated_at": "2026-09-11T19:59:20.654Z"
@@ -138,7 +138,7 @@
     "category": "decision",
     "tags": "gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp",
     "source": "agent_mcp",
-    "importance": 1.123,
+    "importance": 1.093,
     "project_scope": "global",
     "created_at": "2026-09-14T12:23:30.612Z",
     "updated_at": "2026-09-14T12:23:30.612Z"
@@ -150,7 +150,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror",
     "source": "agent_mcp",
-    "importance": 1.689,
+    "importance": 1.665,
     "project_scope": "global",
     "created_at": "2026-09-14T13:25:36.414Z",
     "updated_at": "2026-09-14T13:25:36.414Z"
@@ -162,7 +162,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap",
     "source": "agent_mcp",
-    "importance": 1.803,
+    "importance": 1.79,
     "project_scope": "global",
     "created_at": "2026-09-14T13:38:27.351Z",
     "updated_at": "2026-09-14T13:38:27.351Z"
@@ -174,7 +174,7 @@
     "category": "decision",
     "tags": "gemini_web,dual_quota,bugfix,safety_filter,v1.2.5",
     "source": "agent_mcp",
-    "importance": 1.709,
+    "importance": 1.69,
     "project_scope": "global",
     "created_at": "2026-09-14T14:08:00.642Z",
     "updated_at": "2026-09-14T14:08:00.642Z"
@@ -186,7 +186,7 @@
     "category": "decision",
     "tags": "gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture",
     "source": "agent_mcp",
-    "importance": 1.737,
+    "importance": 1.72,
     "project_scope": "global",
     "created_at": "2026-09-14T15:21:52.020Z",
     "updated_at": "2026-09-14T15:21:52.020Z"
@@ -198,7 +198,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,fdm,downloads,linkneverdie",
     "source": "agent_mcp",
-    "importance": 1.239,
+    "importance": 1.202,
     "project_scope": "global",
     "created_at": "2026-09-20T16:47:10.070Z",
     "updated_at": "2026-09-20T16:47:10.070Z"
@@ -210,7 +210,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,downloads,linkneverdie,extracted",
     "source": "agent_mcp",
-    "importance": 0.641,
+    "importance": 0.566,
     "project_scope": "global",
     "created_at": "2026-09-20T18:00:33.394Z",
     "updated_at": "2026-09-20T18:00:33.394Z"
@@ -282,7 +282,7 @@
     "category": "decision",
     "tags": "screenoff,powermanagement,ponytail,win32",
     "source": "agent_mcp",
-    "importance": 1.682,
+    "importance": 1.665,
     "project_scope": "global",
     "created_at": "2026-09-23T15:52:41.091Z",
     "updated_at": "2026-09-23T15:52:41.091Z"
@@ -306,7 +306,7 @@
     "category": "decision",
     "tags": "screenoff,fdm,gemini_web_bridge,antigravity,download",
     "source": "agent_mcp",
-    "importance": 1.427,
+    "importance": 1.412,
     "project_scope": "global",
     "created_at": "2026-09-25T15:42:56.150Z",
     "updated_at": "2026-09-25T15:42:56.150Z"
@@ -330,7 +330,7 @@
     "category": "fact",
     "tags": "horizon,hfw,forbidden_west,game,fdm,downloads,linkneverdie",
     "source": "conversation_history",
-    "importance": 1.076,
+    "importance": 0.985,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.522Z",
     "updated_at": "2026-09-25T16:42:36.522Z"
@@ -342,7 +342,7 @@
     "category": "fact",
     "tags": "hardware,legion,ryzen,rtx4050,cpu,gpu,fasttemp,llt",
     "source": "system_audit",
-    "importance": 0.965,
+    "importance": 0.858,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.526Z",
     "updated_at": "2026-09-25T16:42:36.526Z"
@@ -354,7 +354,7 @@
     "category": "fact",
     "tags": "inventory,games,software,diablo,horizon,blasphemous,wuchang,downloads",
     "source": "conversation_history",
-    "importance": 0.869,
+    "importance": 0.786,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.527Z",
     "updated_at": "2026-09-25T16:42:36.527Z"
@@ -378,7 +378,7 @@
     "category": "fact",
     "tags": "gaming,profile,preference,elden_ring,witcher3,spiderman,horizon,diablo2,valorant",
     "source": "auto_extraction",
-    "importance": 1.219,
+    "importance": 1.155,
     "project_scope": "global",
     "created_at": "2026-09-25T16:50:57.902Z",
     "updated_at": "2026-09-25T16:50:57.902Z"
@@ -390,7 +390,7 @@
     "category": "decision",
     "tags": "fdm,fdm_status,fix,download,horizon",
     "source": "agent_mcp",
-    "importance": 1.362,
+    "importance": 1.341,
     "project_scope": "global",
     "created_at": "2026-09-25T17:10:34.155Z",
     "updated_at": "2026-09-25T17:10:34.155Z"
@@ -414,7 +414,7 @@
     "category": "decision",
     "tags": "screenoff,uxtu,whitelist,hardware,cpu_temp",
     "source": "agent_mcp",
-    "importance": 1.402,
+    "importance": 1.381,
     "project_scope": "global",
     "created_at": "2026-09-26T15:28:25.456Z",
     "updated_at": "2026-09-26T15:28:25.456Z"
@@ -426,7 +426,7 @@
     "category": "decision",
     "tags": "hardware,ryzenadj,uxtu_replacement,cpu_temp,thermal_limit,89C,ponytail",
     "source": "agent_mcp",
-    "importance": 1.671,
+    "importance": 1.642,
     "project_scope": "global",
     "created_at": "2026-09-26T16:11:45.488Z",
     "updated_at": "2026-09-26T16:11:45.488Z"
@@ -438,7 +438,7 @@
     "category": "decision",
     "tags": "trading,mt5,xauusd,scalping,strategy,money_management",
     "source": "agent_mcp",
-    "importance": 1.61,
+    "importance": 1.589,
     "project_scope": "global",
     "created_at": "2026-09-27T15:41:45.429Z",
     "updated_at": "2026-09-27T15:41:45.429Z"
@@ -450,7 +450,7 @@
     "category": "decision",
     "tags": "screenoff,sleep,power_management,headless,architecture",
     "source": "agent_mcp",
-    "importance": 1.468,
+    "importance": 1.431,
     "project_scope": "global",
     "created_at": "2026-09-27T15:41:56.665Z",
     "updated_at": "2026-09-27T15:41:56.665Z"
@@ -474,7 +474,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.265,
+    "importance": 1.22,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.091Z",
     "updated_at": "2026-09-27T15:51:08.091Z"
@@ -486,7 +486,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.265,
+    "importance": 1.22,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.092Z",
     "updated_at": "2026-09-27T15:51:08.092Z"
@@ -498,7 +498,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.265,
+    "importance": 1.22,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.093Z",
     "updated_at": "2026-09-27T15:51:08.093Z"
@@ -510,7 +510,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.265,
+    "importance": 1.22,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.123Z",
     "updated_at": "2026-09-27T15:51:08.123Z"
@@ -522,7 +522,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.265,
+    "importance": 1.22,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.123Z",
     "updated_at": "2026-09-27T15:51:08.123Z"
@@ -534,7 +534,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.265,
+    "importance": 1.22,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.296Z",
     "updated_at": "2026-09-27T15:51:20.296Z"
@@ -546,7 +546,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.265,
+    "importance": 1.22,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
     "updated_at": "2026-09-27T15:51:20.297Z"
@@ -558,7 +558,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.265,
+    "importance": 1.22,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
     "updated_at": "2026-09-27T15:51:20.297Z"
@@ -570,7 +570,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.265,
+    "importance": 1.22,
     "project_scope": "global",
     "created_at": "2026-09-27T16:04:58.781Z",
     "updated_at": "2026-09-27T16:04:58.781Z"
@@ -582,7 +582,7 @@
     "category": "decision",
     "tags": "hardware,ryzenadj,cpu_limit,89C,thermal_guard,persistence,boot,antigravity_cpulimit,ponytail",
     "source": "agent_mcp",
-    "importance": 1.47,
+    "importance": 1.46,
     "project_scope": "global",
     "created_at": "2026-09-29T15:06:56.534Z",
     "updated_at": "2026-09-29T15:06:56.534Z"
@@ -594,7 +594,7 @@
     "category": "fact",
     "tags": "preference",
     "source": "agent_remember",
-    "importance": 1.368,
+    "importance": 1.298,
     "project_scope": "global",
     "created_at": "2026-09-29T17:31:33.200Z",
     "updated_at": "2026-09-29T17:31:33.200Z"
@@ -606,7 +606,7 @@
     "category": "architecture",
     "tags": "storage,disk_cleanup,lenovo_g5000,dual_boot,linux,valorant,forza_horizon_6,hibernation",
     "source": "agent_mcp",
-    "importance": 0.125,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-29T19:55:16.827Z",
     "updated_at": "2026-09-29T19:55:16.827Z"
@@ -618,7 +618,7 @@
     "category": "architecture",
     "tags": "storage,disk_cleanup,lenovo_g5000,wsl,amd_privacy,dlss5,dxcache,compact_os,forza_horizon_6",
     "source": "agent_mcp",
-    "importance": 0.101,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-29T20:14:13.666Z",
     "updated_at": "2026-09-29T20:14:13.666Z"
@@ -630,7 +630,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.356,
+    "importance": 1.326,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.049Z",
     "updated_at": "2026-09-30T04:27:13.049Z"
@@ -642,7 +642,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.356,
+    "importance": 1.326,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.049Z",
     "updated_at": "2026-09-30T04:27:13.049Z"
@@ -654,7 +654,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.356,
+    "importance": 1.326,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.050Z",
     "updated_at": "2026-09-30T04:27:13.050Z"
@@ -666,7 +666,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.356,
+    "importance": 1.326,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.052Z",
     "updated_at": "2026-09-30T04:27:13.052Z"
@@ -678,7 +678,7 @@
     "category": "fact",
     "tags": "forza,savegame,downloads,fdm,linkneverdie",
     "source": "agent_mcp",
-    "importance": 1.442,
+    "importance": 1.408,
     "project_scope": "global",
     "created_at": "2026-09-30T04:53:30.543Z",
     "updated_at": "2026-09-30T04:53:30.543Z"
@@ -690,7 +690,7 @@
     "category": "note",
     "tags": "",
     "source": "agent_mcp",
-    "importance": 0.143,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-30T07:01:02.303Z",
     "updated_at": "2026-09-30T07:01:02.303Z"
@@ -702,7 +702,7 @@
     "category": "note",
     "tags": "forza,downloads,fdm,progress",
     "source": "agent_mcp",
-    "importance": 0.116,
+    "importance": 0.1,
     "project_scope": "global",
     "created_at": "2026-09-30T09:17:45.150Z",
     "updated_at": "2026-09-30T09:17:45.150Z"
@@ -726,7 +726,7 @@
     "category": "fact",
     "tags": "preference",
     "source": "agent_remember",
-    "importance": 1.468,
+    "importance": 1.412,
     "project_scope": "global",
     "created_at": "2026-10-01T19:32:50.917Z",
     "updated_at": "2026-10-01T19:32:50.917Z"
@@ -738,7 +738,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.395,
+    "importance": 1.379,
     "project_scope": "global",
     "created_at": "2026-10-02T03:24:35.319Z",
     "updated_at": "2026-10-02T03:24:35.319Z"
@@ -750,9 +750,93 @@
     "category": "note",
     "tags": "battery,llt,rapidcharge,conservation,automation",
     "source": "agent_mcp",
-    "importance": 1,
+    "importance": 0.726,
     "project_scope": "global",
     "created_at": "2026-10-03T12:22:07.225Z",
     "updated_at": "2026-10-03T12:22:07.225Z"
+  },
+  {
+    "id": 86,
+    "title": "Quyết định: kiến trúc phần cứng:",
+    "content": "kiến trúc phần cứng:",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-04T03:46:11.418Z",
+    "updated_at": "2026-10-04T03:46:11.418Z"
+  },
+  {
+    "id": 87,
+    "title": "Quyết định: kiến trúc Zen 4 (Ryzen 7 7840H 4nm Phoenix) đều vượt...",
+    "content": "kiến trúc Zen 4 (Ryzen 7 7840H 4nm Phoenix) đều vượt qua mọi bài stress-test mà không hề bị sập nguồn.",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-04T03:46:11.418Z",
+    "updated_at": "2026-10-04T03:46:11.418Z"
+  },
+  {
+    "id": 88,
+    "title": "Quyết định: kiến trúc **9Router (Free Tier) ➔ DeepSeek Harness**.",
+    "content": "kiến trúc **9Router (Free Tier) ➔ DeepSeek Harness**.",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-04T03:46:11.419Z",
+    "updated_at": "2026-10-04T03:46:11.419Z"
+  },
+  {
+    "id": 89,
+    "title": "Quyết định: Tiêu chí | **DeepSeek Harness (`dsh`)** | **Claude C...",
+    "content": "Tiêu chí | **DeepSeek Harness (`dsh`)** | **Claude Code / Aider** | **Cline / Roo Code / Cursor** | **Eval Harness (lm-eval, SWE-bench)** |",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-04T03:46:11.420Z",
+    "updated_at": "2026-10-04T03:46:11.420Z"
+  },
+  {
+    "id": 90,
+    "title": "Quyết định: yêu cầu mô hình phải tuân thủ nghiêm ngặt cấu trúc g...",
+    "content": "yêu cầu mô hình phải tuân thủ nghiêm ngặt cấu trúc gọi công cụ và suy luận logic sâu.",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-04T03:46:11.420Z",
+    "updated_at": "2026-10-04T03:46:11.420Z"
+  },
+  {
+    "id": 91,
+    "title": "Quyết định: kiến trúc | 🟢 Đã lập chỉ mục |",
+    "content": "kiến trúc | 🟢 Đã lập chỉ mục |",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-04T03:46:11.420Z",
+    "updated_at": "2026-10-04T03:46:11.420Z"
+  },
+  {
+    "id": 92,
+    "title": "Quyết định: Yêu Cầu 1. **Tra cứu & Tìm kiếm tri thức:**",
+    "content": "Yêu Cầu 1. **Tra cứu & Tìm kiếm tri thức:**",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-04T03:46:11.421Z",
+    "updated_at": "2026-10-04T03:46:11.421Z"
   }
 ]
