@@ -838,5 +838,17 @@
     "project_scope": "global",
     "created_at": "2026-10-04T03:46:11.421Z",
     "updated_at": "2026-10-04T03:46:11.421Z"
+  },
+  {
+    "id": 93,
+    "title": "Tiến độ tải Forza Horizon 6 cập nhật 04/10/2026 23:07",
+    "content": "Tiến độ tải lại bộ cài Forza Horizon 6 (LinkNeverDie v403.798 RUNE 12 parts) lúc 23:07 ngày 04/10/2026:\n- Part 01: Đã hoàn tất 100% (13.00 GB).\n- Part 02: 66.9% (8.69 GB / 13.00 GB).\n- Part 03: 47.5% (6.17 GB / 13.00 GB).\n- Part 04: 50.8% (6.60 GB / 13.00 GB).\n- Part 05: 23.3% (3.03 GB / 13.00 GB).\n- Part 06 - 12: Nằm trong hàng đợi tự động của FDM.\n- Tổng tiến độ tải: 26.2% (37.50 GB / ~143.75 GB).\n- Tốc độ tải tổng cộng: ~9.3 MB/s.\n- Dung lượng ổ C còn trống: 132.57 GB (an toàn tuyệt đối cho toàn bộ bộ cài).\n- Đã nâng cấp fdm_status.py để tự động strip đuôi .fdmdownload và suy luận dung lượng chuẩn xác cho multi-part archive.",
+    "category": "NOTE",
+    "tags": "forza,downloads,fdm,progress",
+    "source": "agent_mcp",
+    "importance": 1,
+    "project_scope": "global",
+    "created_at": "2026-10-04T16:07:55.730Z",
+    "updated_at": "2026-10-04T16:07:55.730Z"
   }
 ]

@@ -1,5 +1,5 @@
 -- Antigravity Second Brain SQL Dump
--- Generated: 2026-10-04T03:46:12.055Z
+-- Generated: 2026-10-04T16:15:13.020Z
 
 -- Table: user_profile
 INSERT OR REPLACE INTO user_profile (category, key, value, confidence, source) VALUES ('environment', 'hostname', 'tranvu-galactic-ion', 1, 'system_detection');
@@ -426,6 +426,17 @@ INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, sour
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (90, 'Quyết định: yêu cầu mô hình phải tuân thủ nghiêm ngặt cấu trúc g...', 'yêu cầu mô hình phải tuân thủ nghiêm ngặt cấu trúc gọi công cụ và suy luận logic sâu.', 'decision', 'decision,auto_promoted,architecture', 'auto_distillation', 1.4, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (91, 'Quyết định: kiến trúc | 🟢 Đã lập chỉ mục |', 'kiến trúc | 🟢 Đã lập chỉ mục |', 'decision', 'decision,auto_promoted,architecture', 'auto_distillation', 1.4, 'global');
 INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (92, 'Quyết định: Yêu Cầu 1. **Tra cứu & Tìm kiếm tri thức:**', 'Yêu Cầu 1. **Tra cứu & Tìm kiếm tri thức:**', 'decision', 'decision,auto_promoted,architecture', 'auto_distillation', 1.4, 'global');
+INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (93, 'Tiến độ tải Forza Horizon 6 cập nhật 04/10/2026 23:07', 'Tiến độ tải lại bộ cài Forza Horizon 6 (LinkNeverDie v403.798 RUNE 12 parts) lúc 23:07 ngày 04/10/2026:
+- Part 01: Đã hoàn tất 100% (13.00 GB).
+- Part 02: 66.9% (8.69 GB / 13.00 GB).
+- Part 03: 47.5% (6.17 GB / 13.00 GB).
+- Part 04: 50.8% (6.60 GB / 13.00 GB).
+- Part 05: 23.3% (3.03 GB / 13.00 GB).
+- Part 06 - 12: Nằm trong hàng đợi tự động của FDM.
+- Tổng tiến độ tải: 26.2% (37.50 GB / ~143.75 GB).
+- Tốc độ tải tổng cộng: ~9.3 MB/s.
+- Dung lượng ổ C còn trống: 132.57 GB (an toàn tuyệt đối cho toàn bộ bộ cài).
+- Đã nâng cấp fdm_status.py để tự động strip đuôi .fdmdownload và suy luận dung lượng chuẩn xác cho multi-part archive.', 'NOTE', 'forza,downloads,fdm,progress', 'agent_mcp', 1, 'global');
 
 -- Table: solutions
 INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (1, 'SyntaxError: missing ) after argument list / PowerShell quoting', 'PowerShell handles single and double quotes differently in commandline execution (-e ''...''). Double quotes are stripped or escaped incorrectly.', 'Write script to temporary .js file or execute via cmd /c with properly escaped quotes, or use shell: true in child_process.spawnSync.', 'agy-node script.js OR cmd /c "agy-node -e \"...\""', 'global', 1, 1);
@@ -580,6 +591,7 @@ INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, 
 3. Sử dụng LogonTrigger và SessionUnlockTrigger để tự động chạy khi khởi động máy hoặc mở khóa.
 4. Lắng nghe trực tiếp các sự kiện WMI: LENOVO_GAMEZONE_THERMAL_MODE_EVENT, LENOVO_AC_PD_EVENT và áp dụng kỹ thuật Double-tap (độ trễ 400ms) để ghi đè lại firmware EC.
 5. Vòng lặp Win32 Event Loop tĩnh kết hợp nhịp tim 10s để bảo đảm mức tiêu thụ CPU 0% và RAM ~22MB.', 'schtasks /run /tn "Antigravity_CPULimit"', 'global', 1, 1);
+INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (41, '[QUY TRÌNH] Kiểm tra tiến độ tải game và tập tin qua Free Download Manager (FDM) & Fast-Path SLA', 'Agent trong các phiên trước tự ý sa đà vào điều tra CSDL FDM và refactor mã nguồn trong lúc phục vụ lệnh tải file, gây trễ hơn 2 phút. Đồng thời fdm_status.py thiếu fuzzy matching cho các từ khóa gộp như forza6 hay fh6.', 'Công cụ fdm_status.py đã được nâng cấp toàn diện: 1. Tự động nhận diện token & alias (fh6, forza6, d2r, lol, etc.). 2. Báo cáo tốc độ MB/s thời gian thực và thời gian dự kiến hoàn tất (ETA). 3. Tự động kiểm tra dung lượng trống ổ đĩa đích và đưa ra cảnh báo an toàn. 4. Tự động khử trùng lặp download cũ/mới và chuẩn hóa dung lượng multi-part archive (.part01..12). 5. Áp dụng nghiêm ngặt Fast-Path Non-Blocking SLA: chạy ngay ở Turn 1 (< 3s), tuyệt đối không chặn luồng sửa code ngầm.', 'fdm [tên_game]', 'global', 1, 1);
 
 -- Table: conversations
 INSERT OR REPLACE INTO conversations (id, title, summary, message_count) VALUES ('3256d8e9-40c9-4054-a34c-dfbf361b9433', 'screenofd', '', 1);

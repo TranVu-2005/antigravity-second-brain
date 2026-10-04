@@ -262,5 +262,16 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-09-29T15:07:03.973Z"
+  },
+  {
+    "id": 41,
+    "error_pattern": "[QUY TRÌNH] Kiểm tra tiến độ tải game và tập tin qua Free Download Manager (FDM) & Fast-Path SLA",
+    "root_cause": "Agent trong các phiên trước tự ý sa đà vào điều tra CSDL FDM và refactor mã nguồn trong lúc phục vụ lệnh tải file, gây trễ hơn 2 phút. Đồng thời fdm_status.py thiếu fuzzy matching cho các từ khóa gộp như forza6 hay fh6.",
+    "solution_code": "Công cụ fdm_status.py đã được nâng cấp toàn diện: 1. Tự động nhận diện token & alias (fh6, forza6, d2r, lol, etc.). 2. Báo cáo tốc độ MB/s thời gian thực và thời gian dự kiến hoàn tất (ETA). 3. Tự động kiểm tra dung lượng trống ổ đĩa đích và đưa ra cảnh báo an toàn. 4. Tự động khử trùng lặp download cũ/mới và chuẩn hóa dung lượng multi-part archive (.part01..12). 5. Áp dụng nghiêm ngặt Fast-Path Non-Blocking SLA: chạy ngay ở Turn 1 (< 3s), tuyệt đối không chặn luồng sửa code ngầm.",
+    "command_fix": "fdm [tên_game]",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-04T16:15:09.516Z"
   }
 ]
