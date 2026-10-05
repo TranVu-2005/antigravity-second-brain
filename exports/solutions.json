@@ -524,7 +524,7 @@
     "command_fix": "python3 -c \"\nimport subprocess\n\ndef run(cmd):\n    try:\n        return subprocess.check_output(cmd, shell=True, text=True, stderr=subprocess.STDOUT).strip()\n    except Exception as e:\n        return f'ERROR: {e}'\n\nprint('=== CPU FREQUENCIES ===')\nprint(run('cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq | sort -n'))\n\nprint('\\n=== AUDIO POWER SAVE ===')\nprint('snd_hda_intel power_save:', run('cat /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null'))\nprint('snd_hda_intel power_save_controller:', run('cat /sys/module/snd_hda_intel/parameters/power_save_controller 2>/dev/null'))\n\nprint('\\n=== PCIE ASPM ===')\nprint('ASPM policy:', run('cat /sys/module/pcie_aspm/parameters/policy 2>/dev/null'))\n\nprint('\\n=== BLUETOOTH STATUS ===')\nprint(run('rfkill list bluetooth 2>/dev/null'))\n\nprint('\\n=== WIFI INTERFACE & POWER SAVE ===')\nprint(run('iw dev 2>/dev/null'))\nprint(run('cat /etc/NetworkManager/conf.d/* 2>/dev/null'))\n\nprint('\\n=== RYZENADJ CURRENT LIMITS ===')\nprint(run('/usr/local/bin/ryzenadj -i 2>/dev/null | grep -E \\\"STAPM|FAST|SLOW|Actual\\\" | head -n 20'))\n\"",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 4,
+    "success_count": 5,
     "created_at": "2026-10-05T18:35:15.888Z"
   },
   {
@@ -535,7 +535,7 @@
     "command_fix": "powertop --auto-tune 2>&1 | tail -n 20",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 4,
+    "success_count": 5,
     "created_at": "2026-10-05T18:35:15.890Z"
   },
   {
@@ -548,5 +548,38 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-10-05T18:59:36.903Z"
+  },
+  {
+    "id": 80,
+    "error_pattern": "tranvu    264390 31.5  0.0  24164 13268 pts/0    Ss+  02:02   0:00 python3 -c  import subprocess  def run(cmd):     try:         return subp",
+    "root_cause": "Created At: 2026-10-06T02:02:25+07:00\nCompleted At: 2026-10-06T02:02:26+07:00\n\nThe command exited with code 0.\nOutput:\n<truncated 21 lines>\ntranvu    264390 31.5  0.0  24164 13268 pts/0    Ss+  02:02   0:00 python3 -c  import subprocess  def run(cmd):     try:         return subprocess.check_output(",
+    "solution_code": "Lệnh khắc phục thành công: python3 -c \"\nimport subprocess\nprint('=== GPU RUNTIME STATUS ===')\nprint('runtime_status:', open('/sys/bus/pci/devices/0000:01:00.0/power/runtime_status').read().strip())\nprint('runtime_usage:', open('/sys/bus/pci/devices/0000:01:00.0/power/runtime_usage').read().strip())\nprint('control:', open('/sys/bus/pci/devices/0000:01:00.0/power/control').read().strip())\ntry:\n    print('nvidia-smi:', subprocess.check_output('nvidia-smi --query-gpu=power.draw,pstate --format=csv', shell=True, text=True).strip())\nexcept Exception as e:\n    print('nvidia-smi error:', e)\n\"",
+    "command_fix": "python3 -c \"\nimport subprocess\nprint('=== GPU RUNTIME STATUS ===')\nprint('runtime_status:', open('/sys/bus/pci/devices/0000:01:00.0/power/runtime_status').read().strip())\nprint('runtime_usage:', open('/sys/bus/pci/devices/0000:01:00.0/power/runtime_usage').read().strip())\nprint('control:', open('/sys/bus/pci/devices/0000:01:00.0/power/control').read().strip())\ntry:\n    print('nvidia-smi:', subprocess.check_output('nvidia-smi --query-gpu=power.draw,pstate --format=csv', shell=True, text=True).strip())\nexcept Exception as e:\n    print('nvidia-smi error:', e)\n\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T19:04:33.482Z"
+  },
+  {
+    "id": 81,
+    "error_pattern": "tranvu    265685 33.3  0.0  22912 12612 pts/0    Ss+  02:02   0:00 python3 -c  import subprocess def run(cmd):     try:         return subpr",
+    "root_cause": "Created At: 2026-10-06T02:02:59+07:00\nCompleted At: 2026-10-06T02:02:59+07:00\n\nThe command exited with code 0.\nOutput:\nBAT1 power_now (W): 28.449\r\nCPU Package Power (W): 9.067\r\nGPU power.draw (W): power.draw [W], pstate\r\n11.60 W, P3\r\nTop 5 CPU processes:\r\nUSER         PID %CPU %MEM    VSZ   RSS TTY ",
+    "solution_code": "Lệnh khắc phục thành công: fuser -v /dev/nvidia* /dev/dri/card1 2>&1",
+    "command_fix": "fuser -v /dev/nvidia* /dev/dri/card1 2>&1",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T19:04:33.482Z"
+  },
+  {
+    "id": 82,
+    "error_pattern": "tranvu    267624 20.0  0.0  22928 12568 pts/0    Ss+  02:03   0:00 python3 -c  import subprocess def run(cmd):     try:         return subpr",
+    "root_cause": "Created At: 2026-10-06T02:03:50+07:00\nCompleted At: 2026-10-06T02:03:51+07:00\n\nThe command exited with code 0.\nOutput:\n1. Current Battery Power Now (W): 29.029\r\n2. CPU Package Power (W): 6.039\r\n3. GPU Power Draw: power.draw [W], pstate\r\n11.66 W, P3\r\n4. Packagekit running? 258202 /usr/libexec/package",
+    "solution_code": "Lệnh khắc phục thành công: python3 -c \"\nimport subprocess\nprint('BAT1 power_now (W):', float(open('/sys/class/power_supply/BAT1/power_now').read().strip()) / 1e6)\nprint('CPU Package Power (W):', float(open('/sys/class/hwmon/hwmon6/power1_input').read().strip()) / 1e6)\nprint('Nvidia SMI:', subprocess.check_output('nvidia-smi --query-gpu=power.draw,pstate --format=csv', shell=True, text=True).strip())\n\"",
+    "command_fix": "python3 -c \"\nimport subprocess\nprint('BAT1 power_now (W):', float(open('/sys/class/power_supply/BAT1/power_now').read().strip()) / 1e6)\nprint('CPU Package Power (W):', float(open('/sys/class/hwmon/hwmon6/power1_input').read().strip()) / 1e6)\nprint('Nvidia SMI:', subprocess.check_output('nvidia-smi --query-gpu=power.draw,pstate --format=csv', shell=True, text=True).strip())\n\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T19:04:33.482Z"
   }
 ]
