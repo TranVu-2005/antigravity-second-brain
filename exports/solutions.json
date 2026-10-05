@@ -524,7 +524,7 @@
     "command_fix": "python3 -c \"\nimport subprocess\n\ndef run(cmd):\n    try:\n        return subprocess.check_output(cmd, shell=True, text=True, stderr=subprocess.STDOUT).strip()\n    except Exception as e:\n        return f'ERROR: {e}'\n\nprint('=== CPU FREQUENCIES ===')\nprint(run('cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq | sort -n'))\n\nprint('\\n=== AUDIO POWER SAVE ===')\nprint('snd_hda_intel power_save:', run('cat /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null'))\nprint('snd_hda_intel power_save_controller:', run('cat /sys/module/snd_hda_intel/parameters/power_save_controller 2>/dev/null'))\n\nprint('\\n=== PCIE ASPM ===')\nprint('ASPM policy:', run('cat /sys/module/pcie_aspm/parameters/policy 2>/dev/null'))\n\nprint('\\n=== BLUETOOTH STATUS ===')\nprint(run('rfkill list bluetooth 2>/dev/null'))\n\nprint('\\n=== WIFI INTERFACE & POWER SAVE ===')\nprint(run('iw dev 2>/dev/null'))\nprint(run('cat /etc/NetworkManager/conf.d/* 2>/dev/null'))\n\nprint('\\n=== RYZENADJ CURRENT LIMITS ===')\nprint(run('/usr/local/bin/ryzenadj -i 2>/dev/null | grep -E \\\"STAPM|FAST|SLOW|Actual\\\" | head -n 20'))\n\"",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 9,
+    "success_count": 10,
     "created_at": "2026-10-05T18:35:15.888Z"
   },
   {
@@ -535,7 +535,7 @@
     "command_fix": "powertop --auto-tune 2>&1 | tail -n 20",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 9,
+    "success_count": 10,
     "created_at": "2026-10-05T18:35:15.890Z"
   },
   {
@@ -557,7 +557,7 @@
     "command_fix": "python3 -c \"\nimport subprocess\nprint('=== GPU RUNTIME STATUS ===')\nprint('runtime_status:', open('/sys/bus/pci/devices/0000:01:00.0/power/runtime_status').read().strip())\nprint('runtime_usage:', open('/sys/bus/pci/devices/0000:01:00.0/power/runtime_usage').read().strip())\nprint('control:', open('/sys/bus/pci/devices/0000:01:00.0/power/control').read().strip())\ntry:\n    print('nvidia-smi:', subprocess.check_output('nvidia-smi --query-gpu=power.draw,pstate --format=csv', shell=True, text=True).strip())\nexcept Exception as e:\n    print('nvidia-smi error:', e)\n\"",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 5,
+    "success_count": 6,
     "created_at": "2026-10-05T19:04:33.482Z"
   },
   {
@@ -568,7 +568,7 @@
     "command_fix": "fuser -v /dev/nvidia* /dev/dri/card1 2>&1",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 5,
+    "success_count": 6,
     "created_at": "2026-10-05T19:04:33.482Z"
   },
   {
@@ -579,7 +579,7 @@
     "command_fix": "python3 -c \"\nimport subprocess\nprint('BAT1 power_now (W):', float(open('/sys/class/power_supply/BAT1/power_now').read().strip()) / 1e6)\nprint('CPU Package Power (W):', float(open('/sys/class/hwmon/hwmon6/power1_input').read().strip()) / 1e6)\nprint('Nvidia SMI:', subprocess.check_output('nvidia-smi --query-gpu=power.draw,pstate --format=csv', shell=True, text=True).strip())\n\"",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 5,
+    "success_count": 6,
     "created_at": "2026-10-05T19:04:33.482Z"
   },
   {
@@ -590,7 +590,18 @@
     "command_fix": "ps -fp 285392 || true",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 4,
+    "success_count": 5,
     "created_at": "2026-10-05T19:15:28.769Z"
+  },
+  {
+    "id": 84,
+    "error_pattern": "Lenovo G5000 dual-GPU Linux pin tụt nhanh 26W-30W, NVIDIA RTX 4050 không ngủ D3cold, udev ac-transition CPU loop 80%",
+    "root_cause": "SecureBoot lockdown chặn sysfs remove gây deadlock kernel D-state; NVIDIA unbind trôi nổi hardware D0 rò rỉ 9W; udev trigger thiếu flock gây process loop 80% CPU; thiếu biến môi trường EGL ép apps dùng NVIDIA.",
+    "solution_code": "1. /usr/local/bin/ac-transition v4 dùng flock -n, bỏ ryzenadj, tích hợp auto-cpufreq powersave/never on bat. 2. /etc/environment thêm __EGL_VENDOR_LIBRARY_FILENAMES=/usr/share/glvnd/egl_vendor.d/50_mesa.json và DRI_PRIME=0. 3. /etc/modprobe.d/nvidia-runtime-pm.conf bật NVreg_DynamicPowerManagement=0x02. 4. /etc/udev/rules.d/80-nvidia-pm.rules bật d3cold_allowed=1. 5. Sau khi cài xong reboot để flush kernel PCI mutex, công suất giảm còn ~7W-9W.",
+    "command_fix": "sudo /usr/local/bin/ac-transition",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T19:38:00.328Z"
   }
 ]
