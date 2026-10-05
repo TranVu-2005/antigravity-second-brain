@@ -474,10 +474,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.399,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.091Z",
-    "updated_at": "2026-10-04 17:13:27"
+    "updated_at": "2026-10-05 16:36:17"
   },
   {
     "id": 55,
@@ -486,10 +486,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.399,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.092Z",
-    "updated_at": "2026-10-04 17:13:27"
+    "updated_at": "2026-10-05 16:36:17"
   },
   {
     "id": 56,
@@ -498,10 +498,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.399,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.093Z",
-    "updated_at": "2026-10-04 17:13:27"
+    "updated_at": "2026-10-05 16:36:17"
   },
   {
     "id": 57,
@@ -534,10 +534,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.399,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.296Z",
-    "updated_at": "2026-10-04 17:13:27"
+    "updated_at": "2026-10-05 16:36:17"
   },
   {
     "id": 61,
@@ -546,10 +546,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.399,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
-    "updated_at": "2026-10-04 17:13:27"
+    "updated_at": "2026-10-05 16:36:17"
   },
   {
     "id": 62,
@@ -558,10 +558,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.399,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
-    "updated_at": "2026-10-04 17:13:27"
+    "updated_at": "2026-10-05 16:36:17"
   },
   {
     "id": 63,
@@ -886,5 +886,41 @@
     "project_scope": "global",
     "created_at": "2026-10-05T03:18:17.485Z",
     "updated_at": "2026-10-05T03:18:17.485Z"
+  },
+  {
+    "id": 105,
+    "title": "Antigravity Valorant NetGuard Tự động Tối ưu Mạng 100%",
+    "content": "# Antigravity Valorant NetGuard: Hệ thống Tối ưu & Hoàn nguyên Mạng Tự động 100%\n\n1. MỤC TIÊU & KIẾN TRÚC:\n- Tự động nhận diện tiến trình Valorant (VALORANT-Win64-Shipping.exe).\n- Kích hoạt chế độ Gaming Network Mode trong < 500ms:\n  1. Đóng băng Wi-Fi Background Scanning (netsh wlan set autoconfig enabled=no interface=\"Wi-Fi\") -> triệt tiêu hiện tượng ping spike 60s/lần trên card Realtek RTL8852BE WiFi 6.\n  2. Gỡ bỏ giới hạn điều tiết gói tin Windows MMCSS (NetworkThrottlingIndex = 0xFFFFFFFF, SystemResponsiveness = 0, Priority = 6, Scheduling Category = High).\n  3. Chính sách QoS DSCP 46 (Expedited Forwarding -> Wi-Fi WMM Voice Queue).\n  4. Giảm độ trễ TCP/UDP (TcpAckFrequency = 1, TCPNoDelay = 1 trên interface Wi-Fi).\n  5. Tạm dừng Windows Update Delivery Optimization (DoSvc) và hạ FDM xuống Idle priority chống bufferbloat.\n  6. Gửi Toast notification Windows.\n- Tự động hoàn nguyên 100% về cài đặt mặc định của Windows trong < 700ms khi thoát game hoặc game crash.\n\n2. FILE HỆ THỐNG & ĐIỀU KHIỂN:\n- Cốt lõi: C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\valorant_net_guard.ps1.\n- Quản lý ngầm: Tích hợp trực tiếp vào Scheduled Task Antigravity_CPULimit (Highest Privileges) qua cpu_limit_watcher.ps1, kiểm tra mỗi 2 giây, CPU overhead ~0.001%.\n- Lệnh phím tắt: valonet (C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\bin\\valonet.cmd).\n  + valonet hoặc valonet status: Xem dashboard mạng và game thời gian thực.\n  + valonet on: Ép kích hoạt Gaming Mode bằng tay.\n  + valonet off: Ép hoàn nguyên về Normal Mode bằng tay.\n  + valonet test: Chạy kiểm thử tự động 100% toàn bộ chu trình apply và restore.\n  + valonet log: Xem 30 dòng nhật ký gần nhất.\n- File log: C:\\Users\\tvu16\\AppData\\Roaming\\Antigravity\\run\\valorant_net_guard.log.",
+    "category": "decision",
+    "tags": "valorant,network,gaming,netguard,wifi,ping,ponytail",
+    "source": "agent_mcp",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-05T14:02:14.159Z",
+    "updated_at": "2026-10-05T14:02:14.159Z"
+  },
+  {
+    "id": 106,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-05T16:28:46.943Z",
+    "updated_at": "2026-10-05T16:28:46.943Z"
+  },
+  {
+    "id": 107,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-05T16:36:15.457Z",
+    "updated_at": "2026-10-05T16:36:15.457Z"
   }
 ]

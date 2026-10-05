@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# Antigravity Linux Eco Agent: Screenoff Mode
+# Blazing fast display blanking across Wayland, X11 and TTY (< 50ms)
+# ==============================================================================
+
+echo "💤 Kích hoạt tắt màn hình Eco Agentic Mode (Linux)..."
+
+# 1. Wayland environments (Hyprland, Sway, GNOME, KDE)
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    if command -v hyprctl >/dev/null 2>&1; then
+        hyprctl dispatch dpms off && echo "✔ Đã tắt màn hình qua hyprctl." && exit 0
+    elif command -v swaymsg >/dev/null 2>&1; then
+        swaymsg output "*" dpms off && echo "✔ Đã tắt màn hình qua swaymsg." && exit 0
+    elif command -v wlopm >/dev/null 2>&1; then
+        wlopm --off "*" && echo "✔ Đã tắt màn hình qua wlopm." && exit 0
+    fi
+fi
+
+# 2. X11 environments
+if [ -n "$DISPLAY" ]; then
+    if command -v xset >/dev/null 2>&1; then
+        xset dpms force off && echo "✔ Đã tắt màn hình qua xset DPMS." && exit 0
+    fi
+fi
+
+# 3. Brightnessctl fallback (hạ độ sáng về 0)
+if command -v brightnessctl >/dev/null 2>&1; then
+    brightnessctl set 0% >/dev/null 2>&1 && echo "✔ Đã hạ độ sáng màn hình về 0% qua brightnessctl." && exit 0
+fi
+
+# 4. Generic sysfs backlight fallback
+for b in /sys/class/backlight/*/brightness; do
+    if [ -w "$b" ]; then
+        echo 0 > "$b" && echo "✔ Đã tắt đèn nền qua sysfs backlight." && exit 0
+    fi
+done
+
+echo "⚠️ Không tìm thấy công cụ DPMS phù hợp cho môi trường hiện tại (hãy cài xset, brightnessctl hoặc dùng compositor hỗ trợ dpms)."

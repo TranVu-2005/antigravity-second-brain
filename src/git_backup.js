@@ -231,17 +231,44 @@ class GitBackupManager {
         };
         fs.writeFileSync(hooksTemplatePath, JSON.stringify(hooksTemplate, null, 2), 'utf8');
 
-        // Copy Antigravity skill and mcp schemas if they exist
+        // Copy all Antigravity skills (including superpowers, second-brain, ponytail...)
         const os = require('node:os');
-        const geminiDir = path.resolve(this.brainDir, '..', '..');
-        const skillPath = path.join(geminiDir, 'config', 'skills', 'second-brain', 'SKILL.md');
-        const mcpSchemasDir = path.join(geminiDir, 'antigravity', 'mcp', 'second-brain');
+        const geminiDir = process.env.GEMINI_DIR || path.join(os.homedir(), '.gemini');
+        const skillsSrcDir = path.join(geminiDir, 'config', 'skills');
+        const intSkillsDir = path.join(intDir, 'skills');
 
-        if (fs.existsSync(skillPath)) {
-            const intSkillDir = path.join(intDir, 'skills', 'second-brain');
-            if (!fs.existsSync(intSkillDir)) fs.mkdirSync(intSkillDir, { recursive: true });
-            fs.copyFileSync(skillPath, path.join(intSkillDir, 'SKILL.md'));
+        const copyDirRecursive = (src, dest) => {
+            if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
+            const entries = fs.readdirSync(src, { withFileTypes: true });
+            for (const entry of entries) {
+                const s = path.join(src, entry.name);
+                const d = path.join(dest, entry.name);
+                if (entry.isDirectory()) {
+                    copyDirRecursive(s, d);
+                } else {
+                    fs.copyFileSync(s, d);
+                }
+            }
+        };
+
+        if (fs.existsSync(skillsSrcDir)) {
+            if (!fs.existsSync(intSkillsDir)) fs.mkdirSync(intSkillsDir, { recursive: true });
+            const skillEntries = fs.readdirSync(skillsSrcDir, { withFileTypes: true });
+            for (const entry of skillEntries) {
+                if (entry.isDirectory()) {
+                    copyDirRecursive(path.join(skillsSrcDir, entry.name), path.join(intSkillsDir, entry.name));
+                }
+            }
         }
+
+        // Copy GEMINI.md global rules
+        const rulesPath = path.join(geminiDir, 'config', 'GEMINI.md');
+        if (fs.existsSync(rulesPath)) {
+            fs.copyFileSync(rulesPath, path.join(intDir, 'GEMINI.md'));
+        }
+
+        // Copy MCP schemas
+        const mcpSchemasDir = path.join(geminiDir, 'antigravity', 'mcp', 'second-brain');
         if (fs.existsSync(mcpSchemasDir)) {
             const intSchemasDir = path.join(intDir, 'mcp_schemas');
             if (!fs.existsSync(intSchemasDir)) fs.mkdirSync(intSchemasDir, { recursive: true });
@@ -322,8 +349,13 @@ class GitBackupManager {
                 return { success: false, error: 'Chưa cấu hình remote origin.' };
             }
 
-            // Pull latest commits from remote
-            const pullResult = this._execGit('pull origin main');
+            // Pull latest commits with rebase to cleanly fast-forward dual-boot commits
+            let pullResult = '';
+            try {
+                pullResult = this._execGit('pull --rebase origin main');
+            } catch (e) {
+                pullResult = this._execGit('pull origin main');
+            }
 
             // Force SQLite to checkpoint newly pulled DB changes
             try {

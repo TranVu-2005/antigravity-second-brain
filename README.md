@@ -182,8 +182,10 @@ cd "$env:USERPROFILE\.gemini\antigravity\second_brain"
 1. **Zero-Clobber MCP Merge:** Safely registers the `second-brain` MCP server into `~/.gemini/config/mcp_config.json` while preserving all existing MCP configurations intact.
 2. **Lifecycle Hooks Registration:** Registers `PreInvocation`, `PostInvocation`, and `Stop` hooks into `~/.gemini/config/hooks.json` using normalized POSIX paths.
 3. **MCP Tool Schemas:** Installs all 14 RFC-compliant tool schemas into `~/.gemini/antigravity/mcp/second-brain/`.
-4. **Skill Deployment:** Copies `SKILL.md` to `~/.gemini/config/skills/second-brain/SKILL.md`.
-5. **Database Initialization:** Verifies `brain.db` health, applies schema migrations, and confirms WAL mode.
+4. **Full Cognitive Skills Suite Deployment:** Installs the full suite of 24 cognitive skills into `~/.gemini/config/skills/` (including `/superpowers`, `/second-brain`, `/ponytail`, `/tdd-master`, `/verification-before-completion`, `/subagent-driven-development`...).
+5. **Global Persona & Rules Synchronization:** Installs and synchronizes `GEMINI.md` to guarantee identical persona ("Ngài" / Sir), zero-hallucination policies, and dual-quota bridge routing.
+6. **Database Verification & Auto-Recovery:** Verifies SQLite WAL and auto-restores from `exports/dump.sql` on fresh clone.
+7. **POSIX Linux Optimization:** Automatically configures executable permissions and installs fast-path system utilities (`temp`, `screenoff`, `agy-brain`) to `~/.local/bin/`.
 
 ---
 

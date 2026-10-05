@@ -2,6 +2,31 @@
 
 Kính gửi Ngài, đây là tài liệu kỹ thuật tổng hợp toàn bộ các mốc phát triển, kiến trúc các thành phần, hợp đồng API và lộ trình nâng cấp hệ thống **Antigravity Second Brain**.
 
+## [3.6.0] - 2026-10-05 (Universal Dual-Boot Parity, Full Superpowers Suite & 1-Click Linux Deploy Engine)
+
+### 🏆 Tổng quan bản nâng cấp v3.6.0 Cross-Platform Masterpiece
+Dựa trên yêu cầu đồng bộ tối ưu song song hoàn hảo giữa Windows 11 và Linux cho Antigravity AI Agent:
+
+1. **Đóng Gói Toàn Diện Bộ Kỹ Năng Siêu Năng Lực (Full Superpowers Suite):**
+   - Đưa `/superpowers` và toàn bộ 24 kỹ năng nhận thức chuẩn công nghiệp (`/second-brain`, `/ponytail`, `/tdd-master`, `/verification-before-completion`, `/subagent-driven-development`, `/software-architect`...) vào `integrations/skills/`.
+   - Nâng cấp `_bundleIntegrations()` trong `src/git_backup.js`: Tự động đồng bộ toàn bộ bộ skills và quy tắc toàn cục `GEMINI.md` mỗi khi tạo snapshot sao lưu.
+
+2. **Cơ Chế Khởi Tạo Toàn Cầu 1-Click (`setup.js` & `install.sh`):**
+   - Trí tuệ nhận diện OS: Tự động phân luồng triển khai trên Windows hoặc Linux/POSIX.
+   - Cài đặt toàn bộ 24 skills vào `~/.gemini/config/skills/`.
+   - Đồng bộ `GEMINI.md` bảo toàn Persona ("Ngài" / Sir), quy chuẩn phục vụ và Dual-Quota Bridge.
+   - Tự động khôi phục cơ sở dữ liệu `brain.db` từ `exports/dump.sql` nếu clone trên môi trường mới tinh.
+
+3. **Tối Ưu Song Song Linux (Dual-Boot Optimization):**
+   - Tự động phân quyền `chmod 755` trên Linux cho mọi script (`install.sh`, `setup.js`, `cli.js`, `mcp_server.js`, `hooks/*.js`).
+   - Cung cấp phím tắt tốc độ cao trên Linux tại `~/.local/bin/`:
+     - `temp`: Báo cáo cảm biến nhiệt độ CPU, GPU NVIDIA, mức tải và Legion Platform Profile (< 30ms).
+     - `screenoff`: Blank màn hình tức thì trên Wayland (Hyprland, Sway), X11 (DPMS) hoặc sysfs backlight.
+     - `agy-brain`: CLI wrapper thực thi Second Brain toàn cục.
+   - Cải tiến `pullRemote()` sang `git pull --rebase origin main` chống đứt đoạn hoặc tạo commit merge rác khi nhảy giữa 2 hệ điều hành.
+
+---
+
 ## [3.5.0] - 2026-10-04 (Zero-Crash Parameter Sanitization, Batch Transaction Ingestion, Shortcuts SLA & Isolated TDD Fortress)
 
 ### 🏆 Tổng quan bản nâng cấp v3.5.0 Production-Grade

@@ -1,11 +1,13 @@
 {
   "name": "antigravity-second-brain",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "Universal Multi-Platform Cognitive Long-Term Memory Engine for Antigravity AI Agent",
   "main": "mcp_server.js",
   "type": "commonjs",
   "bin": {
-    "brain": "./cli.js"
+    "brain": "./cli.js",
+    "second-brain": "./cli.js",
+    "agy-brain": "./cli.js"
   },
   "repository": {
     "type": "git",

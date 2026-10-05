@@ -77,7 +77,10 @@ agy-node "C:/Users/tvu16/.gemini/antigravity/second_brain/cli.js" profile
 
 ---
 
-## 5. Phiên Bản Hiện Tại: [3.5.0] (Zero-Crash Sanitization, Batch Transaction Ingestion & TDD Fortress)
+## 5. Phiên Bản Hiện Tại: [3.6.0] (Universal Dual-Boot Parity, Full Superpowers Suite & 1-Click Linux Deploy Engine)
+- **Đóng gói toàn diện bộ kỹ năng Superpowers:** Tự động triển khai 24 kỹ năng nhận thức chuẩn công nghiệp (/superpowers, /ponytail, /tdd-master, /verification-before-completion...) trên cả Windows và Linux.
+- **Tối ưu song song Linux hoàn hảo:** Tự động phân quyền 755, cài đặt phím tắt Linux (`temp`, `screenoff`, `agy-brain`) vào `~/.local/bin/`.
+- **Đồng bộ quy tắc Persona & Rules:** Bảo toàn phong cách phục vụ ("Ngài" / Sir) và routing Quota kép qua `GEMINI.md`.
 - **Triệt tiêu 100% lỗi SQLite Binding Crash:** Tự động chuyển đổi `undefined` sang `null` tại tầng driver cốt lõi `src/db.js`.
 - **Tăng tốc nạp lịch sử (Batch Transaction Ingestion):** Nạp 50 steps trong < 15ms qua transaction chuẩn thay vì 50 transactions đơn lẻ.
 - **Tách rời PreInvocation & Background Distillation:** Đảm bảo độ trễ hook trước mỗi lượt chat luôn < 15ms.

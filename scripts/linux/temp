@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# Antigravity Linux System Telemetry & Temperature Monitor
+# Fast-path non-blocking sensor reporter (< 50ms) for Lenovo Legion & AMD/NVIDIA
+# ==============================================================================
+
+echo "======================================================================="
+echo "  📊 BÁO CÁO THỜI GIAN THỰC: HỆ THỐNG LINUX (LENOVO LEGION)"
+echo "======================================================================="
+
+# 1. Legion Power Profile / Platform Profile
+POWER_PROFILE="N/A"
+if [ -f /sys/firmware/acpi/platform_profile ]; then
+    POWER_PROFILE=$(cat /sys/firmware/acpi/platform_profile 2>/dev/null)
+elif [ -f /sys/devices/platform/ideapad_acpi/platform_profile ]; then
+    POWER_PROFILE=$(cat /sys/devices/platform/ideapad_acpi/platform_profile 2>/dev/null)
+fi
+if [ -n "$POWER_PROFILE" ] && [ "$POWER_PROFILE" != "N/A" ]; then
+    echo "  ⚙️ Chế độ quạt (Legion): ${POWER_PROFILE^}"
+else
+    echo "  ⚙️ Chế độ quạt (Legion): Tự động / Cân bằng"
+fi
+
+# 2. CPU Governor
+CPU_GOV="N/A"
+if [ -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ]; then
+    CPU_GOV=$(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor 2>/dev/null)
+fi
+echo "  🔋 Trạng thái nguồn CPU : ${CPU_GOV}"
+
+# 3. NVIDIA dGPU
+echo "-----------------------------------------------------------------------"
+echo "  🎮 [1] GPU RỜI (NVIDIA):"
+if command -v nvidia-smi >/dev/null 2>&1; then
+    GPU_DATA=$(nvidia-smi --query-gpu=name,temperature.gpu,power.draw,utilization.gpu,clocks.current.graphics --format=csv,noheader,nounits 2>/dev/null)
+    if [ -n "$GPU_DATA" ]; then
+        IFS=',' read -r GPU_NAME GPU_TEMP GPU_PWR GPU_UTIL GPU_CLK <<< "$GPU_DATA"
+        echo "      • GPU               : $(echo $GPU_NAME | xargs)"
+        echo "      • Nhiệt độ nhân GPU : $(echo $GPU_TEMP | xargs) °C"
+        echo "      • Công suất / Tải   : $(echo $GPU_PWR | xargs) W (Mức tải: $(echo $GPU_UTIL | xargs) %)"
+        echo "      • Xung nhịp GPU     : $(echo $GPU_CLK | xargs) MHz"
+    else
+        echo "      • dGPU đang ngủ tiết kiệm điện."
+    fi
+else
+    echo "      • dGPU đang ngủ hoặc chưa kích hoạt driver độc quyền."
+fi
+
+# 4. CPU & RAM
+echo "-----------------------------------------------------------------------"
+echo "  ⚡ [2] CPU & BỘ NHỚ RAM:"
+
+CPU_TEMP="N/A"
+# Try lm-sensors first
+if command -v sensors >/dev/null 2>&1; then
+    SENS_TEMP=$(sensors 2>/dev/null | awk '/Tctl|Package id|temp1/ {print $2; exit}' | tr -d '+')
+    if [ -n "$SENS_TEMP" ]; then
+        CPU_TEMP="$SENS_TEMP"
+    fi
+fi
+
+# Fallback to sysfs thermal zone
+if [ "$CPU_TEMP" = "N/A" ]; then
+    for tz in /sys/class/thermal/thermal_zone*/temp; do
+        if [ -f "$tz" ]; then
+            RAW_TEMP=$(cat "$tz" 2>/dev/null)
+            if [ "$RAW_TEMP" -gt 0 ] 2>/dev/null; then
+                CPU_TEMP=$(awk "BEGIN {printf \"%.1f°C\", $RAW_TEMP / 1000}")
+                break
+            fi
+        fi
+    done
+fi
+
+CPU_LOAD=$(awk '{print $1, $2, $3}' /proc/loadavg 2>/dev/null)
+MEM_INFO=$(free -m 2>/dev/null | awk '/Mem:/ {printf "%.1f%% (%dMB / %dMB)", ($3/$2)*100, $3, $2}')
+
+echo "      • Nhiệt độ CPU      : ${CPU_TEMP}"
+echo "      • Tải hệ thống      : Load Average [${CPU_LOAD}]"
+echo "      • Bộ nhớ RAM        : ${MEM_INFO}"
+echo "======================================================================="
