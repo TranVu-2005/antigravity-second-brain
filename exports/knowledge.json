@@ -2877,6 +2877,30 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-10-05T18:35:15.758Z",
-    "updated_at": "2026-10-05 18:49:40"
+    "updated_at": "2026-10-05 18:54:23"
+  },
+  {
+    "id": 271,
+    "title": "Quyết định: yêu cầu xác thực quyền quản trị.**",
+    "content": "yêu cầu xác thực quyền quản trị.**",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-05T18:54:23.101Z",
+    "updated_at": "2026-10-05 18:54:23"
+  },
+  {
+    "id": 272,
+    "title": "Quyết định: quy tắc udev, modprobe và cấp quyền chạy ngầm cho `a...",
+    "content": "quy tắc udev, modprobe và cấp quyền chạy ngầm cho `ac-transition`.",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-05T18:54:23.102Z",
+    "updated_at": "2026-10-05 18:54:23"
   }
 ]
