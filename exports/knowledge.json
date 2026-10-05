@@ -30,7 +30,7 @@
     "category": "fact",
     "tags": "location,hoang_mai",
     "source": "user",
-    "importance": 0.606,
+    "importance": 0.586,
     "project_scope": "global",
     "created_at": "2026-09-11T16:02:51.185Z",
     "updated_at": "2026-09-11T16:02:51.185Z"
@@ -42,7 +42,7 @@
     "category": "decision",
     "tags": "mcp, fetch, everything-search, optimization, tools",
     "source": "agent_mcp",
-    "importance": 1.148,
+    "importance": 1.122,
     "project_scope": "global",
     "created_at": "2026-09-11T18:07:50.239Z",
     "updated_at": "2026-09-11T18:07:50.239Z"
@@ -54,7 +54,7 @@
     "category": "decision",
     "tags": "python,uv,environment,config",
     "source": "agent_mcp",
-    "importance": 1.154,
+    "importance": 1.128,
     "project_scope": "global",
     "created_at": "2026-09-11T19:59:20.654Z",
     "updated_at": "2026-09-11T19:59:20.654Z"
@@ -138,7 +138,7 @@
     "category": "decision",
     "tags": "gemini-web-bridge,dual-quota,architecture,chrome-extension,mcp",
     "source": "agent_mcp",
-    "importance": 1.093,
+    "importance": 1.065,
     "project_scope": "global",
     "created_at": "2026-09-14T12:23:30.612Z",
     "updated_at": "2026-09-14T12:23:30.612Z"
@@ -150,7 +150,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,extension,websocket,prosemirror",
     "source": "agent_mcp",
-    "importance": 1.665,
+    "importance": 1.641,
     "project_scope": "global",
     "created_at": "2026-09-14T13:25:36.414Z",
     "updated_at": "2026-09-14T13:25:36.414Z"
@@ -162,7 +162,7 @@
     "category": "decision",
     "tags": "gemini_web_bridge,dual_quota,architecture,optimization,second_brain,roadmap",
     "source": "agent_mcp",
-    "importance": 1.79,
+    "importance": 1.777,
     "project_scope": "global",
     "created_at": "2026-09-14T13:38:27.351Z",
     "updated_at": "2026-09-14T13:38:27.351Z"
@@ -174,7 +174,7 @@
     "category": "decision",
     "tags": "gemini_web,dual_quota,bugfix,safety_filter,v1.2.5",
     "source": "agent_mcp",
-    "importance": 1.69,
+    "importance": 1.672,
     "project_scope": "global",
     "created_at": "2026-09-14T14:08:00.642Z",
     "updated_at": "2026-09-14T14:08:00.642Z"
@@ -186,7 +186,7 @@
     "category": "decision",
     "tags": "gemini-web,bridge,dual-quota,chrome-extension,v2.0.0,architecture",
     "source": "agent_mcp",
-    "importance": 1.72,
+    "importance": 1.704,
     "project_scope": "global",
     "created_at": "2026-09-14T15:21:52.020Z",
     "updated_at": "2026-09-14T15:21:52.020Z"
@@ -198,7 +198,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,fdm,downloads,linkneverdie",
     "source": "agent_mcp",
-    "importance": 1.202,
+    "importance": 1.164,
     "project_scope": "global",
     "created_at": "2026-09-20T16:47:10.070Z",
     "updated_at": "2026-09-20T16:47:10.070Z"
@@ -210,7 +210,7 @@
     "category": "fact",
     "tags": "diablo,d2r,game,downloads,linkneverdie,extracted",
     "source": "agent_mcp",
-    "importance": 0.566,
+    "importance": 0.495,
     "project_scope": "global",
     "created_at": "2026-09-20T18:00:33.394Z",
     "updated_at": "2026-09-20T18:00:33.394Z"
@@ -282,7 +282,7 @@
     "category": "decision",
     "tags": "screenoff,powermanagement,ponytail,win32",
     "source": "agent_mcp",
-    "importance": 1.665,
+    "importance": 1.651,
     "project_scope": "global",
     "created_at": "2026-09-23T15:52:41.091Z",
     "updated_at": "2026-09-23T15:52:41.091Z"
@@ -306,7 +306,7 @@
     "category": "decision",
     "tags": "screenoff,fdm,gemini_web_bridge,antigravity,download",
     "source": "agent_mcp",
-    "importance": 1.412,
+    "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-25T15:42:56.150Z",
     "updated_at": "2026-09-25T15:42:56.150Z"
@@ -330,7 +330,7 @@
     "category": "fact",
     "tags": "horizon,hfw,forbidden_west,game,fdm,downloads,linkneverdie",
     "source": "conversation_history",
-    "importance": 0.985,
+    "importance": 0.893,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.522Z",
     "updated_at": "2026-09-25T16:42:36.522Z"
@@ -342,7 +342,7 @@
     "category": "fact",
     "tags": "hardware,legion,ryzen,rtx4050,cpu,gpu,fasttemp,llt",
     "source": "system_audit",
-    "importance": 0.858,
+    "importance": 0.811,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.526Z",
     "updated_at": "2026-09-25T16:42:36.526Z"
@@ -354,7 +354,7 @@
     "category": "fact",
     "tags": "inventory,games,software,diablo,horizon,blasphemous,wuchang,downloads",
     "source": "conversation_history",
-    "importance": 0.786,
+    "importance": 0.702,
     "project_scope": "global",
     "created_at": "2026-09-25T16:42:36.527Z",
     "updated_at": "2026-09-25T16:42:36.527Z"
@@ -378,7 +378,7 @@
     "category": "fact",
     "tags": "gaming,profile,preference,elden_ring,witcher3,spiderman,horizon,diablo2,valorant",
     "source": "auto_extraction",
-    "importance": 1.155,
+    "importance": 1.087,
     "project_scope": "global",
     "created_at": "2026-09-25T16:50:57.902Z",
     "updated_at": "2026-09-25T16:50:57.902Z"
@@ -390,7 +390,7 @@
     "category": "decision",
     "tags": "fdm,fdm_status,fix,download,horizon",
     "source": "agent_mcp",
-    "importance": 1.341,
+    "importance": 1.326,
     "project_scope": "global",
     "created_at": "2026-09-25T17:10:34.155Z",
     "updated_at": "2026-09-25T17:10:34.155Z"
@@ -414,7 +414,7 @@
     "category": "decision",
     "tags": "screenoff,uxtu,whitelist,hardware,cpu_temp",
     "source": "agent_mcp",
-    "importance": 1.381,
+    "importance": 1.363,
     "project_scope": "global",
     "created_at": "2026-09-26T15:28:25.456Z",
     "updated_at": "2026-09-26T15:28:25.456Z"
@@ -426,7 +426,7 @@
     "category": "decision",
     "tags": "hardware,ryzenadj,uxtu_replacement,cpu_temp,thermal_limit,89C,ponytail",
     "source": "agent_mcp",
-    "importance": 1.642,
+    "importance": 1.61,
     "project_scope": "global",
     "created_at": "2026-09-26T16:11:45.488Z",
     "updated_at": "2026-09-26T16:11:45.488Z"
@@ -438,7 +438,7 @@
     "category": "decision",
     "tags": "trading,mt5,xauusd,scalping,strategy,money_management",
     "source": "agent_mcp",
-    "importance": 1.589,
+    "importance": 1.571,
     "project_scope": "global",
     "created_at": "2026-09-27T15:41:45.429Z",
     "updated_at": "2026-09-27T15:41:45.429Z"
@@ -450,7 +450,7 @@
     "category": "decision",
     "tags": "screenoff,sleep,power_management,headless,architecture",
     "source": "agent_mcp",
-    "importance": 1.431,
+    "importance": 1.389,
     "project_scope": "global",
     "created_at": "2026-09-27T15:41:56.665Z",
     "updated_at": "2026-09-27T15:41:56.665Z"
@@ -474,10 +474,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.399,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.091Z",
-    "updated_at": "2026-10-04 17:09:52"
+    "updated_at": "2026-10-04 17:13:27"
   },
   {
     "id": 55,
@@ -486,10 +486,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.399,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.092Z",
-    "updated_at": "2026-10-04 17:09:52"
+    "updated_at": "2026-10-04 17:13:27"
   },
   {
     "id": 56,
@@ -498,10 +498,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.399,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.093Z",
-    "updated_at": "2026-10-04 17:09:52"
+    "updated_at": "2026-10-04 17:13:27"
   },
   {
     "id": 57,
@@ -510,7 +510,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.22,
+    "importance": 1.17,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.123Z",
     "updated_at": "2026-09-27T15:51:08.123Z"
@@ -522,7 +522,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.22,
+    "importance": 1.17,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.123Z",
     "updated_at": "2026-09-27T15:51:08.123Z"
@@ -534,10 +534,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.399,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.296Z",
-    "updated_at": "2026-10-04 17:09:51"
+    "updated_at": "2026-10-04 17:13:27"
   },
   {
     "id": 61,
@@ -546,10 +546,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.399,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
-    "updated_at": "2026-10-04 17:09:51"
+    "updated_at": "2026-10-04 17:13:27"
   },
   {
     "id": 62,
@@ -558,10 +558,10 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.399,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
-    "updated_at": "2026-10-04 17:09:51"
+    "updated_at": "2026-10-04 17:13:27"
   },
   {
     "id": 63,
@@ -570,7 +570,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.22,
+    "importance": 1.17,
     "project_scope": "global",
     "created_at": "2026-09-27T16:04:58.781Z",
     "updated_at": "2026-09-27T16:04:58.781Z"
@@ -582,7 +582,7 @@
     "category": "decision",
     "tags": "hardware,ryzenadj,cpu_limit,89C,thermal_guard,persistence,boot,antigravity_cpulimit,ponytail",
     "source": "agent_mcp",
-    "importance": 1.46,
+    "importance": 1.453,
     "project_scope": "global",
     "created_at": "2026-09-29T15:06:56.534Z",
     "updated_at": "2026-09-29T15:06:56.534Z"
@@ -594,7 +594,7 @@
     "category": "fact",
     "tags": "preference",
     "source": "agent_remember",
-    "importance": 1.298,
+    "importance": 1.227,
     "project_scope": "global",
     "created_at": "2026-09-29T17:31:33.200Z",
     "updated_at": "2026-09-29T17:31:33.200Z"
@@ -630,7 +630,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.326,
+    "importance": 1.296,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.049Z",
     "updated_at": "2026-09-30T04:27:13.049Z"
@@ -642,7 +642,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.326,
+    "importance": 1.29,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.049Z",
     "updated_at": "2026-09-30T04:27:13.049Z"
@@ -654,7 +654,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.326,
+    "importance": 1.29,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.050Z",
     "updated_at": "2026-09-30T04:27:13.050Z"
@@ -666,7 +666,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.326,
+    "importance": 1.29,
     "project_scope": "global",
     "created_at": "2026-09-30T04:27:13.052Z",
     "updated_at": "2026-09-30T04:27:13.052Z"
@@ -678,7 +678,7 @@
     "category": "fact",
     "tags": "forza,savegame,downloads,fdm,linkneverdie",
     "source": "agent_mcp",
-    "importance": 1.408,
+    "importance": 1.381,
     "project_scope": "global",
     "created_at": "2026-09-30T04:53:30.543Z",
     "updated_at": "2026-09-30T04:53:30.543Z"
@@ -720,25 +720,13 @@
     "updated_at": "2026-09-30T10:00:46.261Z"
   },
   {
-    "id": 83,
-    "title": "test_mcp_remember_val",
-    "content": "test_mcp_remember_val",
-    "category": "fact",
-    "tags": "preference",
-    "source": "agent_remember",
-    "importance": 1.412,
-    "project_scope": "global",
-    "created_at": "2026-10-01T19:32:50.917Z",
-    "updated_at": "2026-10-01T19:32:50.917Z"
-  },
-  {
     "id": 84,
     "title": "Quyết định: Tiêu chí | Linux Ubuntu (Native) | Windows 11 (Nativ...",
     "content": "Tiêu chí | Linux Ubuntu (Native) | Windows 11 (Native & WSL2) |",
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.379,
+    "importance": 1.356,
     "project_scope": "global",
     "created_at": "2026-10-02T03:24:35.319Z",
     "updated_at": "2026-10-02T03:24:35.319Z"
@@ -750,7 +738,7 @@
     "category": "note",
     "tags": "battery,llt,rapidcharge,conservation,automation",
     "source": "agent_mcp",
-    "importance": 0.726,
+    "importance": 0.463,
     "project_scope": "global",
     "created_at": "2026-10-03T12:22:07.225Z",
     "updated_at": "2026-10-03T12:22:07.225Z"
@@ -762,7 +750,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.392,
     "project_scope": "global",
     "created_at": "2026-10-04T03:46:11.418Z",
     "updated_at": "2026-10-04T03:46:11.418Z"
@@ -774,7 +762,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.392,
     "project_scope": "global",
     "created_at": "2026-10-04T03:46:11.418Z",
     "updated_at": "2026-10-04T03:46:11.418Z"
@@ -786,7 +774,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.392,
     "project_scope": "global",
     "created_at": "2026-10-04T03:46:11.419Z",
     "updated_at": "2026-10-04T03:46:11.419Z"
@@ -798,7 +786,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.392,
     "project_scope": "global",
     "created_at": "2026-10-04T03:46:11.420Z",
     "updated_at": "2026-10-04T03:46:11.420Z"
@@ -810,7 +798,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.392,
     "project_scope": "global",
     "created_at": "2026-10-04T03:46:11.420Z",
     "updated_at": "2026-10-04T03:46:11.420Z"
@@ -822,7 +810,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.394,
     "project_scope": "global",
     "created_at": "2026-10-04T03:46:11.420Z",
     "updated_at": "2026-10-04T03:46:11.420Z"
@@ -834,7 +822,7 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.392,
     "project_scope": "global",
     "created_at": "2026-10-04T03:46:11.421Z",
     "updated_at": "2026-10-04T03:46:11.421Z"
@@ -846,7 +834,7 @@
     "category": "NOTE",
     "tags": "forza,downloads,fdm,progress",
     "source": "agent_mcp",
-    "importance": 1,
+    "importance": 0.824,
     "project_scope": "global",
     "created_at": "2026-10-04T16:07:55.730Z",
     "updated_at": "2026-10-04T16:07:55.730Z"
@@ -858,81 +846,45 @@
     "category": "decision",
     "tags": "decision,auto_promoted,architecture",
     "source": "auto_distillation",
-    "importance": 1.4,
+    "importance": 1.396,
     "project_scope": "global",
     "created_at": "2026-10-04T16:18:10.032Z",
     "updated_at": "2026-10-04T16:18:10.032Z"
   },
   {
-    "id": 95,
+    "id": 102,
     "title": "test_mcp_remember_val",
     "content": "test_mcp_remember_val",
     "category": "fact",
     "tags": "preference",
     "source": "agent_remember",
-    "importance": 1.5,
+    "importance": 1.49,
     "project_scope": "global",
-    "created_at": "2026-10-04T16:18:10.379Z",
-    "updated_at": "2026-10-04T16:18:10.379Z"
+    "created_at": "2026-10-04T17:13:25.293Z",
+    "updated_at": "2026-10-04T17:13:25.293Z"
   },
   {
-    "id": 96,
-    "title": "test_mcp_remember_val",
-    "content": "test_mcp_remember_val",
-    "category": "fact",
-    "tags": "preference",
-    "source": "agent_remember",
-    "importance": 1.5,
+    "id": 103,
+    "title": "Quyết định: yêu cầu tải dữ liệu, Google đã từ chối và trả về tra...",
+    "content": "yêu cầu tải dữ liệu, Google đã từ chối và trả về trang lỗi:",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
     "project_scope": "global",
-    "created_at": "2026-10-04T16:28:08.408Z",
-    "updated_at": "2026-10-04T16:28:08.408Z"
+    "created_at": "2026-10-05T03:18:17.481Z",
+    "updated_at": "2026-10-05T03:18:17.481Z"
   },
   {
-    "id": 97,
-    "title": "test_mcp_remember_val",
-    "content": "test_mcp_remember_val",
-    "category": "fact",
-    "tags": "preference",
-    "source": "agent_remember",
-    "importance": 1.5,
+    "id": 104,
+    "title": "Quyết định: yêu cầu kiểm tra tiến độ), hệ thống sẽ phản hồi **si...",
+    "content": "yêu cầu kiểm tra tiến độ), hệ thống sẽ phản hồi **siêu tốc (< 250ms)** với đầy đủ tốc độ và thời gian hoàn tất (ETA) cho từng tập tin.",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
     "project_scope": "global",
-    "created_at": "2026-10-04T17:05:45.144Z",
-    "updated_at": "2026-10-04T17:05:45.144Z"
-  },
-  {
-    "id": 98,
-    "title": "test_mcp_remember_val",
-    "content": "test_mcp_remember_val",
-    "category": "fact",
-    "tags": "preference",
-    "source": "agent_remember",
-    "importance": 1.5,
-    "project_scope": "global",
-    "created_at": "2026-10-04T17:07:42.094Z",
-    "updated_at": "2026-10-04T17:07:42.094Z"
-  },
-  {
-    "id": 99,
-    "title": "test_mcp_remember_val",
-    "content": "test_mcp_remember_val",
-    "category": "fact",
-    "tags": "preference",
-    "source": "agent_remember",
-    "importance": 1.5,
-    "project_scope": "global",
-    "created_at": "2026-10-04T17:09:28.777Z",
-    "updated_at": "2026-10-04T17:09:28.777Z"
-  },
-  {
-    "id": 100,
-    "title": "test_mcp_remember_val",
-    "content": "test_mcp_remember_val",
-    "category": "fact",
-    "tags": "preference",
-    "source": "agent_remember",
-    "importance": 1.5,
-    "project_scope": "global",
-    "created_at": "2026-10-04T17:09:49.771Z",
-    "updated_at": "2026-10-04T17:09:49.771Z"
+    "created_at": "2026-10-05T03:18:17.485Z",
+    "updated_at": "2026-10-05T03:18:17.485Z"
   }
 ]
