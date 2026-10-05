@@ -53,6 +53,7 @@ class GitBackupManager {
         return execSync(`${this.gitCmd} ${cmd}`, {
             cwd: this.brainDir,
             encoding: 'utf8',
+            env: { ...process.env, GIT_TERMINAL_PROMPT: '0', GIT_PAGER: 'cat' },
             stdio: ['ignore', 'pipe', 'pipe']
         }).trim();
     }

@@ -5,6 +5,7 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const os = require('node:os');
 const { getDB, BRAIN_DIR } = require('./db');
 
 const PROFILE_MD_PATH = path.join(BRAIN_DIR, 'profile.md');
@@ -48,6 +49,10 @@ class ProfileManager {
     }
 
     setFact(key, value, category = 'general', confidence = 1.0, source = 'system') {
+        if (!key || typeof key !== 'string' || !key.trim()) return;
+        if (!value || typeof value !== 'string' || !value.trim()) return;
+        key = key.trim();
+        value = value.trim();
         const existing = this.db.get('SELECT * FROM user_profile WHERE key = ?', key);
         const now = new Date().toISOString();
         if (existing) {
@@ -66,6 +71,7 @@ class ProfileManager {
     }
 
     deleteFact(key) {
+        if (!key) return;
         this.db.run('DELETE FROM user_profile WHERE key = ?', key);
         this.syncFiles();
     }
@@ -73,8 +79,22 @@ class ProfileManager {
     getProfileSummary() {
         const facts = this.getAll();
         const lines = ['[HỒ SƠ CỐT LÕI CỦA NGÀI]'];
+
+        // Runtime environment awareness (Dual-Boot & Multi-Platform Parity)
+        const currentOS = process.platform === 'win32' ? 'Windows 11' : `Linux (${os.type()} ${os.release()})`;
+        const currentHost = os.hostname();
+        const currentUser = os.userInfo().username;
+        lines.push(`• current_runtime: ${currentOS} (Host: ${currentHost}, User: ${currentUser})`);
+
         for (const f of facts) {
-            lines.push(`• ${f.key}: ${f.value}`);
+            if (!f.key || !f.key.trim() || !f.value || !f.value.trim()) continue;
+            if (f.key === 'os') {
+                lines.push(`• dual_boot_os: ${f.value}`);
+            } else if (f.key === 'hostname') {
+                lines.push(`• dual_boot_hostname: ${f.value}`);
+            } else {
+                lines.push(`• ${f.key}: ${f.value}`);
+            }
         }
         return lines.join('\n');
     }
