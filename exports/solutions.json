@@ -449,5 +449,71 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-08-24T15:26:01.128699"
+  },
+  {
+    "id": 71,
+    "error_pattern": "fatal: your current branch appears to be broken",
+    "root_cause": "Created At: 2026-10-06T00:22:56+07:00\nCompleted At: 2026-10-06T00:22:57+07:00\n\nThe command exited with code 128.\nOutput:\n\r\nNo commits yet\r\n\r\nnothing to commit (create/copy files and use \"git add\" to track)\r\nfatal: your current branch appears to be broken\r\n\n",
+    "solution_code": "Lệnh khắc phục thành công: ls -la /tmp/antigravity-second-brain",
+    "command_fix": "ls -la /tmp/antigravity-second-brain",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T17:42:16.016Z"
+  },
+  {
+    "id": 72,
+    "error_pattern": "except Exception:",
+    "root_cause": "Created At: 2026-10-06T00:25:36+07:00\nCompleted At: 2026-10-06T00:25:36+07:00\n\nThe command exited with code 0.\nOutput:\n<truncated 41 lines>\nfi\r\n# ── Session JSONL extraction (V2.2.4) ──\r\n# Đọc ~/.claude/projects/<slug>/*.jsonl — bắt user intent thật (preference) mà\r\n# hooks không thấy. Chạy cùng cro",
+    "solution_code": "Lệnh khắc phục thành công: node -v && python3 --version",
+    "command_fix": "node -v && python3 --version",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T17:42:16.017Z"
+  },
+  {
+    "id": 73,
+    "error_pattern": "bash: line 1: ./install.sh: Permission denied",
+    "root_cause": "Created At: 2026-10-06T00:31:56+07:00\nCompleted At: 2026-10-06T00:31:56+07:00\n\nThe command exited with code 126.\nOutput:\nbash: line 1: ./install.sh: Permission denied\r\n\n",
+    "solution_code": "Lệnh khắc phục thành công: chmod +x install.sh setup.js cli.js mcp_server.js && ./install.sh",
+    "command_fix": "chmod +x install.sh setup.js cli.js mcp_server.js && ./install.sh",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T17:42:16.018Z"
+  },
+  {
+    "id": 74,
+    "error_pattern": "• [#15] Lỗi: \"SyntaxError: Invalid or unexpected token\"",
+    "root_cause": "Created At: 2026-10-06T00:33:46+07:00\nCompleted At: 2026-10-06T00:33:46+07:00\n\nThe command exited with code 0.\nOutput:\n<truncated 149 lines>\n  Lệnh fix   : Get-ChildItem \\\"C:\\\\Users\\\\tvu16\\\\AppData\\\\Roaming\\\\npm\\\\\\\"\r\n  (Phạm vi: global | Tự tin: 100% | Đã sửa: 1 lần)\r\n\r\n• [#15] Lỗi: \"SyntaxError: In",
+    "solution_code": "Lệnh khắc phục thành công: echo '{\"conversationId\":\"89954efc-8159-4ab6-9b86-53f3bb32bc88\",\"userPrompt\":\"kiểm tra tiến độ và kiến trúc\"}' | node /home/tranvu/.gemini/antigravity/second_brain/hooks/pre_invocation.js",
+    "command_fix": "echo '{\"conversationId\":\"89954efc-8159-4ab6-9b86-53f3bb32bc88\",\"userPrompt\":\"kiểm tra tiến độ và kiến trúc\"}' | node /home/tranvu/.gemini/antigravity/second_brain/hooks/pre_invocation.js",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T17:42:16.018Z"
+  },
+  {
+    "id": 75,
+    "error_pattern": "fatal: not a git repository (or any of the parent directories): .git",
+    "root_cause": "Created At: 2026-10-06T00:34:52+07:00\nCompleted At: 2026-10-06T00:34:52+07:00\n\nThe command exited with code 128.\nOutput:\nfatal: not a git repository (or any of the parent directories): .git\r\n\n",
+    "solution_code": "Lệnh khắc phục thành công: git -C /home/tranvu/.gemini/antigravity/second_brain log -n 1 --format=\"%an <%ae>\"",
+    "command_fix": "git -C /home/tranvu/.gemini/antigravity/second_brain log -n 1 --format=\"%an <%ae>\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T17:42:16.019Z"
+  },
+  {
+    "id": 76,
+    "error_pattern": "ERROR: Permission to TranVu-2005/antigravity-second-brain.git denied to seta-vutran.",
+    "root_cause": "Created At: 2026-10-06T00:36:12+07:00\nCompleted At: 2026-10-06T00:36:15+07:00\n\nThe command exited with code 128.\nOutput:\nERROR: Permission to TranVu-2005/antigravity-second-brain.git denied to seta-vutran.\r\nfatal: Could not read from remote repository.\r\n\r\nPlease make sure you have the correct access",
+    "solution_code": "Lệnh khắc phục thành công: git -C /home/tranvu/.gemini/antigravity/second_brain remote set-url origin https://github.com/TranVu-2005/antigravity-second-brain.git && gh auth setup-git",
+    "command_fix": "git -C /home/tranvu/.gemini/antigravity/second_brain remote set-url origin https://github.com/TranVu-2005/antigravity-second-brain.git && gh auth setup-git",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T17:42:16.019Z"
   }
 ]
