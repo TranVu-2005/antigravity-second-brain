@@ -524,7 +524,7 @@
     "command_fix": "python3 -c \"\nimport subprocess\n\ndef run(cmd):\n    try:\n        return subprocess.check_output(cmd, shell=True, text=True, stderr=subprocess.STDOUT).strip()\n    except Exception as e:\n        return f'ERROR: {e}'\n\nprint('=== CPU FREQUENCIES ===')\nprint(run('cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq | sort -n'))\n\nprint('\\n=== AUDIO POWER SAVE ===')\nprint('snd_hda_intel power_save:', run('cat /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null'))\nprint('snd_hda_intel power_save_controller:', run('cat /sys/module/snd_hda_intel/parameters/power_save_controller 2>/dev/null'))\n\nprint('\\n=== PCIE ASPM ===')\nprint('ASPM policy:', run('cat /sys/module/pcie_aspm/parameters/policy 2>/dev/null'))\n\nprint('\\n=== BLUETOOTH STATUS ===')\nprint(run('rfkill list bluetooth 2>/dev/null'))\n\nprint('\\n=== WIFI INTERFACE & POWER SAVE ===')\nprint(run('iw dev 2>/dev/null'))\nprint(run('cat /etc/NetworkManager/conf.d/* 2>/dev/null'))\n\nprint('\\n=== RYZENADJ CURRENT LIMITS ===')\nprint(run('/usr/local/bin/ryzenadj -i 2>/dev/null | grep -E \\\"STAPM|FAST|SLOW|Actual\\\" | head -n 20'))\n\"",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 3,
+    "success_count": 4,
     "created_at": "2026-10-05T18:35:15.888Z"
   },
   {
@@ -535,7 +535,18 @@
     "command_fix": "powertop --auto-tune 2>&1 | tail -n 20",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 3,
+    "success_count": 4,
     "created_at": "2026-10-05T18:35:15.890Z"
+  },
+  {
+    "id": 79,
+    "error_pattern": "Lenovo G5000 AMD + NVIDIA RTX 4050 Linux Ubuntu tụt pin nhanh, NVIDIA kẹt ở P3 11W không vào D3cold, cắm HDMI hoặc cắm sạc không tự nhận diện",
+    "root_cause": "",
+    "solution_code": "bash /home/tranvu/apply-power-optimizations.sh",
+    "command_fix": "",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T18:59:36.903Z"
   }
 ]
