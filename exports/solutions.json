@@ -524,7 +524,7 @@
     "command_fix": "python3 -c \"\nimport subprocess\n\ndef run(cmd):\n    try:\n        return subprocess.check_output(cmd, shell=True, text=True, stderr=subprocess.STDOUT).strip()\n    except Exception as e:\n        return f'ERROR: {e}'\n\nprint('=== CPU FREQUENCIES ===')\nprint(run('cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq | sort -n'))\n\nprint('\\n=== AUDIO POWER SAVE ===')\nprint('snd_hda_intel power_save:', run('cat /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null'))\nprint('snd_hda_intel power_save_controller:', run('cat /sys/module/snd_hda_intel/parameters/power_save_controller 2>/dev/null'))\n\nprint('\\n=== PCIE ASPM ===')\nprint('ASPM policy:', run('cat /sys/module/pcie_aspm/parameters/policy 2>/dev/null'))\n\nprint('\\n=== BLUETOOTH STATUS ===')\nprint(run('rfkill list bluetooth 2>/dev/null'))\n\nprint('\\n=== WIFI INTERFACE & POWER SAVE ===')\nprint(run('iw dev 2>/dev/null'))\nprint(run('cat /etc/NetworkManager/conf.d/* 2>/dev/null'))\n\nprint('\\n=== RYZENADJ CURRENT LIMITS ===')\nprint(run('/usr/local/bin/ryzenadj -i 2>/dev/null | grep -E \\\"STAPM|FAST|SLOW|Actual\\\" | head -n 20'))\n\"",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 7,
+    "success_count": 8,
     "created_at": "2026-10-05T18:35:15.888Z"
   },
   {
@@ -535,7 +535,7 @@
     "command_fix": "powertop --auto-tune 2>&1 | tail -n 20",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 7,
+    "success_count": 8,
     "created_at": "2026-10-05T18:35:15.890Z"
   },
   {
@@ -557,7 +557,7 @@
     "command_fix": "python3 -c \"\nimport subprocess\nprint('=== GPU RUNTIME STATUS ===')\nprint('runtime_status:', open('/sys/bus/pci/devices/0000:01:00.0/power/runtime_status').read().strip())\nprint('runtime_usage:', open('/sys/bus/pci/devices/0000:01:00.0/power/runtime_usage').read().strip())\nprint('control:', open('/sys/bus/pci/devices/0000:01:00.0/power/control').read().strip())\ntry:\n    print('nvidia-smi:', subprocess.check_output('nvidia-smi --query-gpu=power.draw,pstate --format=csv', shell=True, text=True).strip())\nexcept Exception as e:\n    print('nvidia-smi error:', e)\n\"",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 3,
+    "success_count": 4,
     "created_at": "2026-10-05T19:04:33.482Z"
   },
   {
@@ -568,7 +568,7 @@
     "command_fix": "fuser -v /dev/nvidia* /dev/dri/card1 2>&1",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 3,
+    "success_count": 4,
     "created_at": "2026-10-05T19:04:33.482Z"
   },
   {
@@ -579,7 +579,7 @@
     "command_fix": "python3 -c \"\nimport subprocess\nprint('BAT1 power_now (W):', float(open('/sys/class/power_supply/BAT1/power_now').read().strip()) / 1e6)\nprint('CPU Package Power (W):', float(open('/sys/class/hwmon/hwmon6/power1_input').read().strip()) / 1e6)\nprint('Nvidia SMI:', subprocess.check_output('nvidia-smi --query-gpu=power.draw,pstate --format=csv', shell=True, text=True).strip())\n\"",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 3,
+    "success_count": 4,
     "created_at": "2026-10-05T19:04:33.482Z"
   },
   {
@@ -590,7 +590,7 @@
     "command_fix": "ps -fp 285392 || true",
     "project_scope": "global",
     "confidence": 1,
-    "success_count": 2,
+    "success_count": 3,
     "created_at": "2026-10-05T19:15:28.769Z"
   }
 ]
