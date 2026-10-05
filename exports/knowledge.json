@@ -2866,5 +2866,17 @@
     "project_scope": "global",
     "created_at": "2026-10-05T17:41:22.745Z",
     "updated_at": "2026-10-05T17:41:22.745Z"
+  },
+  {
+    "id": 270,
+    "title": "Quyết định: kỹ thuật cần xin ý kiến chỉ đạo của Ngài:",
+    "content": "kỹ thuật cần xin ý kiến chỉ đạo của Ngài:",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-05T18:35:15.758Z",
+    "updated_at": "2026-10-05 18:35:15"
   }
 ]

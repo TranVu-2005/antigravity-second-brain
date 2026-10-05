@@ -515,5 +515,27 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-10-05T17:42:16.019Z"
+  },
+  {
+    "id": 77,
+    "error_pattern": "cat: /sys/bus/pci/devices/0000:01:00.0/power/autosuspend_delay_ms: Input/output error",
+    "root_cause": "Created At: 2026-10-06T01:31:51+07:00\nCompleted At: 2026-10-06T01:31:51+07:00\n\nThe command exited with code 1.\nOutput:\n1\r\ncat: /sys/bus/pci/devices/0000:01:00.0/power/autosuspend_delay_ms: Input/output error\r\n\n",
+    "solution_code": "Lệnh khắc phục thành công: python3 -c \"\nimport subprocess\n\ndef run(cmd):\n    try:\n        return subprocess.check_output(cmd, shell=True, text=True, stderr=subprocess.STDOUT).strip()\n    except Exception as e:\n        return f'ERROR: {e}'\n\nprint('=== CPU FREQUENCIES ===')\nprint(run('cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq | sort -n'))\n\nprint('\\n=== AUDIO POWER SAVE ===')\nprint('snd_hda_intel power_save:', run('cat /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null'))\nprint('snd_hda_intel power_save_controller:', run('cat /sys/module/snd_hda_intel/parameters/power_save_controller 2>/dev/null'))\n\nprint('\\n=== PCIE ASPM ===')\nprint('ASPM policy:', run('cat /sys/module/pcie_aspm/parameters/policy 2>/dev/null'))\n\nprint('\\n=== BLUETOOTH STATUS ===')\nprint(run('rfkill list bluetooth 2>/dev/null'))\n\nprint('\\n=== WIFI INTERFACE & POWER SAVE ===')\nprint(run('iw dev 2>/dev/null'))\nprint(run('cat /etc/NetworkManager/conf.d/* 2>/dev/null'))\n\nprint('\\n=== RYZENADJ CURRENT LIMITS ===')\nprint(run('/usr/local/bin/ryzenadj -i 2>/dev/null | grep -E \\\"STAPM|FAST|SLOW|Actual\\\" | head -n 20'))\n\"",
+    "command_fix": "python3 -c \"\nimport subprocess\n\ndef run(cmd):\n    try:\n        return subprocess.check_output(cmd, shell=True, text=True, stderr=subprocess.STDOUT).strip()\n    except Exception as e:\n        return f'ERROR: {e}'\n\nprint('=== CPU FREQUENCIES ===')\nprint(run('cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_cur_freq | sort -n'))\n\nprint('\\n=== AUDIO POWER SAVE ===')\nprint('snd_hda_intel power_save:', run('cat /sys/module/snd_hda_intel/parameters/power_save 2>/dev/null'))\nprint('snd_hda_intel power_save_controller:', run('cat /sys/module/snd_hda_intel/parameters/power_save_controller 2>/dev/null'))\n\nprint('\\n=== PCIE ASPM ===')\nprint('ASPM policy:', run('cat /sys/module/pcie_aspm/parameters/policy 2>/dev/null'))\n\nprint('\\n=== BLUETOOTH STATUS ===')\nprint(run('rfkill list bluetooth 2>/dev/null'))\n\nprint('\\n=== WIFI INTERFACE & POWER SAVE ===')\nprint(run('iw dev 2>/dev/null'))\nprint(run('cat /etc/NetworkManager/conf.d/* 2>/dev/null'))\n\nprint('\\n=== RYZENADJ CURRENT LIMITS ===')\nprint(run('/usr/local/bin/ryzenadj -i 2>/dev/null | grep -E \\\"STAPM|FAST|SLOW|Actual\\\" | head -n 20'))\n\"",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T18:35:15.888Z"
+  },
+  {
+    "id": 78,
+    "error_pattern": "ls: cannot access '/home/tranvu/.gemini/antigravity/gemini_web_bridge/': No such file or directory",
+    "root_cause": "Created At: 2026-10-06T01:33:58+07:00\nCompleted At: 2026-10-06T01:33:58+07:00\n\nThe command exited with code 2.\nOutput:\nls: cannot access '/home/tranvu/.gemini/antigravity/gemini_web_bridge/': No such file or directory\r\n\n",
+    "solution_code": "Lệnh khắc phục thành công: powertop --auto-tune 2>&1 | tail -n 20",
+    "command_fix": "powertop --auto-tune 2>&1 | tail -n 20",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-05T18:35:15.890Z"
   }
 ]
