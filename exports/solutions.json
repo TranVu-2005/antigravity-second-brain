@@ -273,5 +273,181 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-10-04T16:15:09.516Z"
+  },
+  {
+    "id": 52,
+    "error_pattern": "[general] Root cause: `set -euo pipefail` + `grep <pattern> | head -N`...",
+    "root_cause": "Root cause: `set -euo pipefail` + `grep <pattern> | head -N` (without `|| true`) = script exits 1 when grep finds no match, because `grep` returns 1 on no match and `pipefail` propagates last non-zero exit.",
+    "solution_code": "Root cause: `set -euo pipefail` + `grep <pattern> | head -N` (without `|| true`) = script exits 1 when grep finds no match, because `grep` returns 1 on no match and `pipefail` propagates last non-zero exit.",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-02T22:12:20.481911"
+  },
+  {
+    "id": 53,
+    "error_pattern": "[general] Root cause: In `.disagree-report.md`, content was `# ⚡ Phản ...",
+    "root_cause": "Root cause: In `.disagree-report.md`, content was `# ⚡ Phản bác — no issues` — no `|` character → `grep '|'` exits 1 → pipefail kills resume.sh.",
+    "solution_code": "Root cause: In `.disagree-report.md`, content was `# ⚡ Phản bác — no issues` — no `|` character → `grep '|'` exits 1 → pipefail kills resume.sh.",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-02T22:12:20.481911"
+  },
+  {
+    "id": 54,
+    "error_pattern": "[general] Root cause: # Verify the fixed memory-mcp is light + fast to...",
+    "root_cause": "Root cause: # Verify the fixed memory-mcp is light + fast to cold-start",
+    "solution_code": "Root cause: # Verify the fixed memory-mcp is light + fast to cold-start",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-03T09:33:15.215617"
+  },
+  {
+    "id": 55,
+    "error_pattern": "[people] Root cause: DB \"disk image is malformed\" = WAL writer race (...",
+    "root_cause": "Root cause: DB \"disk image is malformed\" = WAL writer race (concurrent cron+Stop+daemon)",
+    "solution_code": "Root cause: DB \"disk image is malformed\" = WAL writer race (concurrent cron+Stop+daemon)",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-11T09:42:01.645098"
+  },
+  {
+    "id": 56,
+    "error_pattern": "[people] Root cause: semantic MCP 22.9s = per-call subprocess loading...",
+    "root_cause": "Root cause: semantic MCP 22.9s = per-call subprocess loading model each time",
+    "solution_code": "Root cause: semantic MCP 22.9s = per-call subprocess loading model each time",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-11T09:42:01.645098"
+  },
+  {
+    "id": 57,
+    "error_pattern": "[hiring] Root cause: ToastViewportWrapper was re-promoting popover (c...",
+    "root_cause": "Root cause: ToastViewportWrapper was re-promoting popover (calling hidePopover() then showPopover()) whenever toast childList mutations occurred. Calling hidePopover() mid-interaction momentarily unmounted the popover from Top Layer, causing click/mouseup events to fall through to underlying <dialog> backdrop handlers (closing detail drawers). Fix: restrict re-promotion strictly to when a modal <dialog open> is opened.",
+    "solution_code": "Root cause: ToastViewportWrapper was re-promoting popover (calling hidePopover() then showPopover()) whenever toast childList mutations occurred. Calling hidePopover() mid-interaction momentarily unmounted the popover from Top Layer, causing click/mouseup events to fall through to underlying <dialog> backdrop handlers (closing detail drawers). Fix: restrict re-promotion strictly to when a modal <dialog open> is opened.",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-14T09:46:34.879471"
+  },
+  {
+    "id": 58,
+    "error_pattern": "[hiring] Root cause: Toast dismiss button (X) click inside modal dial...",
+    "root_cause": "Root cause: Toast dismiss button (X) click inside modal dialogs collapsed toast height before click propagation completed, causing the click to fall through to the underlying modal backdrop and close the modal. Fixed by tracking toast interaction timestamps (lastToastInteractionTime) and capturing/cancelling fall-through click events targeting dialog backdrops within 500ms of a toast interaction in ToastViewportWrapper.",
+    "solution_code": "Root cause: Toast dismiss button (X) click inside modal dialogs collapsed toast height before click propagation completed, causing the click to fall through to the underlying modal backdrop and close the modal. Fixed by tracking toast interaction timestamps (lastToastInteractionTime) and capturing/cancelling fall-through click events targeting dialog backdrops within 500ms of a toast interaction in ToastViewportWrapper.",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-14T09:55:57.370315"
+  },
+  {
+    "id": 59,
+    "error_pattern": "[hiring] Root cause for FUT-830 Toast Modal hover/cursor bug: Astryx ...",
+    "root_cause": "Root cause for FUT-830 Toast Modal hover/cursor bug: Astryx ToastViewport used popover=\"manual\" which placed it in Top Layer #1 on mount. When candidate detail <dialog showModal()> opened, it became Top Layer #2 (above Top Layer #1). Manual showPopover re-promotion didn't enable native :hover or cursor:pointer across top layers. Solution: React createPortal into the active <dialog> element with isTopLayer={false}. Rendering Toast inside the active dialog top layer context restores 100% native hover, cursor:pointer, and single-click dismissal cleanly without hacky event listeners.",
+    "solution_code": "Root cause for FUT-830 Toast Modal hover/cursor bug: Astryx ToastViewport used popover=\"manual\" which placed it in Top Layer #1 on mount. When candidate detail <dialog showModal()> opened, it became Top Layer #2 (above Top Layer #1). Manual showPopover re-promotion didn't enable native :hover or cursor:pointer across top layers. Solution: React createPortal into the active <dialog> element with isTopLayer={false}. Rendering Toast inside the active dialog top layer context restores 100% native hover, cursor:pointer, and single-click dismissal cleanly without hacky event listeners.",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-14T11:07:15.559490"
+  },
+  {
+    "id": 60,
+    "error_pattern": "[hiring] FUT-830 Toast Modal Conflict Final Fix: Implemented window c...",
+    "root_cause": "FUT-830 Toast Modal Conflict Final Fix: Implemented window capture-phase click & pointer handlers combined with MutationObserver popover re-promotion in ToastViewport. This guarantees: 1) Clicking candidate cards enters detail modal cleanly, 2) Clicking Toast X button dismisses toast instantly without modal double-clicks, 3) Cursor pointer & hover state are preserved.",
+    "solution_code": "FUT-830 Toast Modal Conflict Final Fix: Implemented window capture-phase click & pointer handlers combined with MutationObserver popover re-promotion in ToastViewport. This guarantees: 1) Clicking candidate cards enters detail modal cleanly, 2) Clicking Toast X button dismisses toast instantly without modal double-clicks, 3) Cursor pointer & hover state are preserved.",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-14T11:11:57.545158"
+  },
+  {
+    "id": 61,
+    "error_pattern": "[hiring] Root cause: 1. `e.preventDefault()` on `onSelect` kept the d...",
+    "root_cause": "Root cause: 1. `e.preventDefault()` on `onSelect` kept the dropdown open (Radix default behavior is to close on select, prevented to avoid race with Dialog focus-trap opening synchronously)",
+    "solution_code": "Root cause: 1. `e.preventDefault()` on `onSelect` kept the dropdown open (Radix default behavior is to close on select, prevented to avoid race with Dialog focus-trap opening synchronously)",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-14T13:44:13.907006"
+  },
+  {
+    "id": 62,
+    "error_pattern": "[people] Root cause: 14GB box + 36 vitest tasks × 4 forks (`maxWorker...",
+    "root_cause": "Root cause: 14GB box + 36 vitest tasks × 4 forks (`maxWorkers:4` in",
+    "solution_code": "Root cause: 14GB box + 36 vitest tasks × 4 forks (`maxWorkers:4` in",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-19T23:02:33.790124"
+  },
+  {
+    "id": 63,
+    "error_pattern": "[people] Root cause: `db-test-defaults.ts`) + Postgres clones → RAM e...",
+    "root_cause": "Root cause: `db-test-defaults.ts`) + Postgres clones → RAM exhaustion → lag/crash.",
+    "solution_code": "Root cause: `db-test-defaults.ts`) + Postgres clones → RAM exhaustion → lag/crash.",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-19T23:02:33.790124"
+  },
+  {
+    "id": 64,
+    "error_pattern": "[general] Root cause: # Root cause: _trend.py không còn tạo key bug_fi...",
+    "root_cause": "Root cause: # Root cause: _trend.py không còn tạo key bug_fixes (tu�",
+    "solution_code": "Root cause: # Root cause: _trend.py không còn tạo key bug_fixes (tu�",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-23T16:56:01.253727"
+  },
+  {
+    "id": 65,
+    "error_pattern": "[general] Root cause: grep -n 'Root cause:' scripts/memory-db.py | hea...",
+    "root_cause": "Root cause: grep -n 'Root cause:' scripts/memory-db.py | head -10",
+    "solution_code": "Root cause: grep -n 'Root cause:' scripts/memory-db.py | head -10",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-24T15:24:01.542491"
+  },
+  {
+    "id": 66,
+    "error_pattern": "[general] Root cause: grep -n 'root cause' /home/tranvu/.claude/projec...",
+    "root_cause": "Root cause: grep -n 'root cause' /home/tranvu/.claude/projects/-home-tra",
+    "solution_code": "Root cause: grep -n 'root cause' /home/tranvu/.claude/projects/-home-tra",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-24T15:26:01.128699"
+  },
+  {
+    "id": 67,
+    "error_pattern": "[general] Root cause: grep -in 'root.cause\\\\|fixed\\\\|bug' /home/tranvu...",
+    "root_cause": "Root cause: grep -in 'root.cause\\\\|fixed\\\\|bug' /home/tranvu/.claude/pro",
+    "solution_code": "Root cause: grep -in 'root.cause\\\\|fixed\\\\|bug' /home/tranvu/.claude/pro",
+    "command_fix": "",
+    "project_scope": "home-tranvu-agent-platform",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-08-24T15:26:01.128699"
   }
 ]
