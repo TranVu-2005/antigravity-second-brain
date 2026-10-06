@@ -141,14 +141,20 @@ class GitBackupManager {
         }
         try {
             this._execGit(['init', '-b', 'main'], { cwd: targetDir });
-            return { initialized: true, alreadyExisted: false };
         } catch (e) {
             this._execGit(['init'], { cwd: targetDir });
             try {
                 this._execGit(['branch', '-M', 'main'], { cwd: targetDir });
             } catch (err) {}
-            return { initialized: true, alreadyExisted: false };
         }
+
+        // Configure fallback local Git identity for headless CI and new environments
+        try {
+            this._execGit(['config', 'user.name', 'Antigravity Second Brain'], { cwd: targetDir });
+            this._execGit(['config', 'user.email', 'second-brain@antigravity.local'], { cwd: targetDir });
+        } catch (idErr) {}
+
+        return { initialized: true, alreadyExisted: false };
     }
 
     exportDataSnapshot() {

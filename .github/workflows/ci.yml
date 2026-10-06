@@ -41,6 +41,11 @@ jobs:
       - name: Security & Command Injection Audit
         run: node scripts/security_check.js
 
+      - name: Configure Git Identity for CI Runner
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Execute Full TDD & Architecture Test Suites
         run: node test/run_all_tests.js
         env:
