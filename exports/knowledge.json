@@ -477,7 +477,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.091Z",
-    "updated_at": "2026-10-05 17:41:24"
+    "updated_at": "2026-10-06 10:19:48"
   },
   {
     "id": 55,
@@ -489,7 +489,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.092Z",
-    "updated_at": "2026-10-05 17:41:24"
+    "updated_at": "2026-10-06 10:19:48"
   },
   {
     "id": 56,
@@ -501,7 +501,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:08.093Z",
-    "updated_at": "2026-10-05 17:41:24"
+    "updated_at": "2026-10-06 10:19:48"
   },
   {
     "id": 57,
@@ -537,7 +537,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.296Z",
-    "updated_at": "2026-10-05 17:41:24"
+    "updated_at": "2026-10-06 10:19:48"
   },
   {
     "id": 61,
@@ -549,7 +549,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
-    "updated_at": "2026-10-05 17:41:24"
+    "updated_at": "2026-10-06 10:19:48"
   },
   {
     "id": 62,
@@ -561,7 +561,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-09-27T15:51:20.297Z",
-    "updated_at": "2026-10-05 17:41:24"
+    "updated_at": "2026-10-06 10:19:48"
   },
   {
     "id": 63,
@@ -2877,7 +2877,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-10-05T18:35:15.758Z",
-    "updated_at": "2026-10-05 19:38:18"
+    "updated_at": "2026-10-06 10:25:08"
   },
   {
     "id": 271,
@@ -2889,7 +2889,7 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-10-05T18:54:23.101Z",
-    "updated_at": "2026-10-05 19:38:18"
+    "updated_at": "2026-10-06 10:25:08"
   },
   {
     "id": 272,
@@ -2901,6 +2901,42 @@
     "importance": 1.4,
     "project_scope": "global",
     "created_at": "2026-10-05T18:54:23.102Z",
-    "updated_at": "2026-10-05 19:38:18"
+    "updated_at": "2026-10-06 10:25:08"
+  },
+  {
+    "id": 273,
+    "title": "Quyết định: Kiến trúc: đây là phần mạnh nhất 🚀",
+    "content": "Kiến trúc: đây là phần mạnh nhất 🚀",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-06T10:15:56.106Z",
+    "updated_at": "2026-10-06 10:33:19"
+  },
+  {
+    "id": 274,
+    "title": "Quyết định: kiến trúc tương đối rõ:",
+    "content": "kiến trúc tương đối rõ:",
+    "category": "decision",
+    "tags": "decision,auto_promoted,architecture",
+    "source": "auto_distillation",
+    "importance": 1.4,
+    "project_scope": "global",
+    "created_at": "2026-10-06T10:15:56.107Z",
+    "updated_at": "2026-10-06 10:33:19"
+  },
+  {
+    "id": 275,
+    "title": "test_mcp_remember_val",
+    "content": "test_mcp_remember_val",
+    "category": "fact",
+    "tags": "preference",
+    "source": "agent_remember",
+    "importance": 1.5,
+    "project_scope": "global",
+    "created_at": "2026-10-06T10:19:46.523Z",
+    "updated_at": "2026-10-06T10:19:46.523Z"
   }
 ]
