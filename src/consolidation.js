@@ -92,7 +92,7 @@ class MemoryConsolidator {
                 let match;
                 while ((match = fixRegex.exec(ep.content || '')) !== null) {
                     const clean = match[0].replace(/[\r\n]+/g, ' ').trim();
-                    if (clean.length >= 15 && clean.length <= 130) {
+                    if (clean.length >= 15 && clean.length <= 200) {
                         learnedFixes.add(clean);
                     }
                     if (learnedFixes.size >= 3) break;
