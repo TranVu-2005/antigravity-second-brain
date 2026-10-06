@@ -1,0 +1,42 @@
+[
+  {
+    "category": "identity",
+    "key": "honorific",
+    "value": "Sir",
+    "confidence": 1.0,
+    "source": "template",
+    "updated_at": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "category": "identity",
+    "key": "role",
+    "value": "System Architect / Developer",
+    "confidence": 1.0,
+    "source": "template",
+    "updated_at": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "category": "preferences",
+    "key": "language_preference",
+    "value": "Tiếng Việt làm chủ đạo, khéo léo đan xen tiếng Anh tự nhiên",
+    "confidence": 1.0,
+    "source": "template",
+    "updated_at": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "category": "preferences",
+    "key": "tone_and_style",
+    "value": "Chuyên nghiệp, chính xác tuyệt đối, lịch lãm, hóm hỉnh tinh tế",
+    "confidence": 1.0,
+    "source": "template",
+    "updated_at": "2026-01-01T00:00:00.000Z"
+  },
+  {
+    "category": "preferences",
+    "key": "honesty_policy",
+    "value": "Chuẩn chỉ, trung thực tuyệt đối, không dối trá, không bịa đặt, có sao nói vậy",
+    "confidence": 1.0,
+    "source": "template",
+    "updated_at": "2026-01-01T00:00:00.000Z"
+  }
+]

@@ -1,8 +1,9 @@
 # ==============================================================================
-# Antigravity Second Brain: Git Ignore Rules (Production-Grade)
+# Antigravity Second Brain: Git Ignore Rules (v3.7 Hardened Production-Grade)
 # ==============================================================================
 
-# SQLite temporary journal and shared memory lock files
+# SQLite live runtime database & journal files
+brain.db
 brain.db-wal
 brain.db-shm
 *.db-wal
@@ -10,6 +11,27 @@ brain.db-shm
 *.tmp
 *.log
 .last_pull
+.last_auto_commit
+logs/
+
+# Personal Cognitive Data Store (Decoupled to private repo: antigravity-second-brain-data)
+exports/
+profile.json
+profile.md
+dashboard.html
+
+
+
+# Security, Secret & Credential Guards
+.env
+.env.*
+*.pem
+*.key
+credentials*
+secrets*
+token*
+*.dump
+private*
 
 # Ephemeral agent work directories and sandboxes
 .agents/

@@ -102,13 +102,22 @@ function ensureDaemonRunning() {
                 if (process.platform === 'win32') {
                     const startScript = path.resolve(__dirname, '../scripts/start_daemon.ps1');
                     if (fs.existsSync(startScript)) {
-                        exec(`powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden -File "${startScript}"`, { windowsHide: true });
+                        const p = spawn('powershell.exe', ['-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-WindowStyle', 'Hidden', '-File', startScript], {
+                            detached: true,
+                            stdio: 'ignore',
+                            windowsHide: true
+                        });
+                        p.unref();
                     }
                 } else {
                     // Linux / macOS environment
                     const startScript = path.resolve(__dirname, '../scripts/start_daemon.sh');
                     if (fs.existsSync(startScript)) {
-                        exec(`bash "${startScript}" &`, { stdio: 'ignore' });
+                        const p = spawn('bash', [startScript], {
+                            detached: true,
+                            stdio: 'ignore'
+                        });
+                        p.unref();
                     } else {
                         const uvCmd = resolveUvCommand();
                         const p = spawn(uvCmd, ['run', '--with', 'fastembed', 'python3', DAEMON_SCRIPT], {
@@ -241,12 +250,46 @@ function bufferToVector(buf) {
     return new Float32Array(buf.buffer, buf.byteOffset, buf.byteLength / 4);
 }
 
+/**
+ * Reports structured health state of the vector embedding subsystem.
+ */
+async function getEmbeddingHealth() {
+    if (process.env.NODE_ENV === 'test') {
+        return {
+            status: 'READY',
+            mode: 'test_fallback',
+            dimension: VECTOR_DIM,
+            message: 'Môi trường kiểm thử (Deterministic 384-dim fallback).'
+        };
+    }
+
+    const healthy = await isDaemonHealthy();
+    if (healthy) {
+        return {
+            status: 'READY',
+            mode: 'neural_daemon',
+            daemonUrl: DAEMON_URL,
+            dimension: VECTOR_DIM,
+            message: 'FastEmbed Multilingual Daemon đang hoạt động hoàn hảo.'
+        };
+    }
+
+    return {
+        status: 'DEGRADED',
+        mode: 'deterministic_fallback',
+        daemonUrl: DAEMON_URL,
+        dimension: VECTOR_DIM,
+        message: 'Daemon chưa kết nối, tự động fallback về Deterministic Hash Vectors.'
+    };
+}
+
 module.exports = {
     VECTOR_DIM,
     computeEmbedding,
     computeEmbeddingSync,
     ensureDaemonRunning,
     isDaemonHealthy,
+    getEmbeddingHealth,
     cosineSimilarity,
     vectorToBuffer,
     bufferToVector

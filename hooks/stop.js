@@ -37,6 +37,16 @@ function readStdin() {
     });
 }
 
+function logEvent(component, message, severity = 'INFO') {
+    try {
+        const logDir = path.join(__dirname, '..', 'logs');
+        if (!fs.existsSync(logDir)) fs.mkdirSync(logDir, { recursive: true });
+        const logPath = path.join(logDir, 'second_brain.log');
+        const entry = `[${new Date().toISOString()}] [${severity}] [${component}] ${message}\n`;
+        fs.appendFileSync(logPath, entry, 'utf8');
+    } catch (e) {}
+}
+
 async function main() {
     try {
         const raw = await readStdin();
@@ -105,34 +115,62 @@ async function main() {
             const backupMgr = getBackupManager();
             if (backupMgr.shouldAutoBackup(24)) {
                 backupMgr.createBackup();
+                logEvent('SnapshotBackup', 'Đã tạo snapshot định kỳ 24h.');
             }
-        } catch (e) {}
+        } catch (e) {
+            logEvent('SnapshotBackup', `Lỗi tạo snapshot: ${e.message}`, 'WARN');
+        }
 
-        // 4. Git Incremental Local Commit & Detached Non-blocking Push
+        // 4. Git Incremental Local Commit & Detached Push with Smart Throttling
         try {
-            const { getGitBackupManager } = require('../src/git_backup');
-            const gitMgr = getGitBackupManager();
-            const res = gitMgr.commitBackup();
-            if (res.committed) {
-                const st = gitMgr.getStatus();
-                if (st.remoteUrl) {
-                    // Fire-and-forget detached full sync (pull rebase + push) to avoid blocking agent loop
-                    const { spawn } = require('node:child_process');
-                    const cliPath = path.join(__dirname, '..', 'cli.js');
-                    const p = spawn('node', [cliPath, 'git-sync'], {
-                        cwd: path.resolve(__dirname, '..'),
-                        detached: true,
-                        stdio: 'ignore',
-                        windowsHide: true
-                    });
-                    p.unref();
+            const lastCommitFile = path.join(__dirname, '..', '.last_auto_commit');
+            const THROTTLE_MS = 30 * 60 * 1000; // 30 minutes throttle
+            let shouldCommit = false;
+            const now = Date.now();
+
+            if (!fs.existsSync(lastCommitFile)) {
+                shouldCommit = true;
+            } else {
+                try {
+                    const lastTime = parseInt(fs.readFileSync(lastCommitFile, 'utf8').trim(), 10);
+                    if (isNaN(lastTime) || now - lastTime >= THROTTLE_MS) {
+                        shouldCommit = true;
+                    }
+                } catch (e) {
+                    shouldCommit = true;
                 }
             }
-        } catch (e) {}
+
+            if (shouldCommit) {
+                const { getGitBackupManager } = require('../src/git_backup');
+                const gitMgr = getGitBackupManager();
+                const res = gitMgr.commitBackup();
+                if (res.committed) {
+                    fs.writeFileSync(lastCommitFile, String(now), 'utf8');
+                    logEvent('GitBackup', `Thành công commit sao lưu: ${res.commit}`);
+                    const st = gitMgr.getStatus();
+                    if (st.remoteUrl) {
+                        // Fire-and-forget detached full sync (pull rebase + push) to avoid blocking agent loop
+                        const { spawn } = require('node:child_process');
+                        const cliPath = path.join(__dirname, '..', 'cli.js');
+                        const p = spawn('node', [cliPath, 'git-sync'], {
+                            cwd: path.resolve(__dirname, '..'),
+                            detached: true,
+                            stdio: 'ignore',
+                            windowsHide: true
+                        });
+                        p.unref();
+                    }
+                }
+            }
+        } catch (e) {
+            logEvent('GitBackup', `Lỗi auto commit: ${e.message}`, 'WARN');
+        }
 
         process.stdout.write(Buffer.from(JSON.stringify({}), 'utf8'));
         process.exit(0);
     } catch (err) {
+        logEvent('StopHook', `Lỗi nghiêm trọng: ${err.message}`, 'ERROR');
         process.stdout.write(Buffer.from(JSON.stringify({}), 'utf8'));
         process.exit(0);
     }

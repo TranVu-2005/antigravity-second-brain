@@ -110,13 +110,13 @@ CREATE TABLE IF NOT EXISTS entity_relations (
     valid_until TEXT DEFAULT NULL,
     metadata TEXT DEFAULT '{}',
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
-    updated_at TEXT NOT NULL DEFAULT (datetime('now')),
-    UNIQUE(source_entity, relation, target_entity)
+    updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
 CREATE INDEX IF NOT EXISTS idx_relations_source ON entity_relations(source_entity);
 CREATE INDEX IF NOT EXISTS idx_relations_target ON entity_relations(target_entity);
 CREATE INDEX IF NOT EXISTS idx_relations_validity ON entity_relations(source_entity, valid_until);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_relations_active ON entity_relations(source_entity, relation, target_entity) WHERE valid_until IS NULL;
 
 -- 6. Full-Text Search (FTS5) Virtual Tables
 CREATE VIRTUAL TABLE IF NOT EXISTS knowledge_fts USING fts5(

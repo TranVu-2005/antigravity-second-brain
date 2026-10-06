@@ -64,72 +64,93 @@ flowchart TD
 
 ```
 antigravity-second-brain/
-├── .github/                    # GitHub Community standards & Issue/PR templates
+├── .github/                    # GitHub Community standards & templates
 │   ├── ISSUE_TEMPLATE/         # Structured YAML bug & feature templates
 │   └── PULL_REQUEST_TEMPLATE.md# Production PR checklist & verification gate
 ├── ci/                         # Cross-platform matrix CI workflow template
-│   └── ci.yml                  # GitHub Actions: Ubuntu & Windows on Node 22 & 24
+│   └── ci.yml                  # Matrix CI: Ubuntu & Windows on Node 22 & 24
 ├── db/
 │   └── schema.sql              # Production schema: WAL pragmas, FTS5, Bi-Temporal graph
-├── exports/                    # Clean UTF-8 diffable snapshots for Git version control
-│   ├── conversations_summary.json
+├── templates/                  # Generic, sanitized templates for clean installations
+│   ├── profile.template.json   # Identity & Persona generic template
+│   └── seed.sql                # Clean initial schema & knowledge seed
+├── exports/                    # [DECOUPLED] Private Data Store (antigravity-second-brain-data)
 │   ├── dump.sql                # Complete idempotent SQL dump (INSERT OR REPLACE)
-│   ├── episodes_log.json
-│   ├── knowledge.json
-│   ├── profile.json
-│   └── solutions.json
+│   ├── profile.json            # User profile snapshot
+│   ├── knowledge.json          # Semantic knowledge items
+│   ├── solutions.json          # Procedural error solutions
+│   ├── episodes_log.json       # Full conversation episodes
+│   ├── entities.json           # Knowledge graph entities
+│   └── conversations_summary.json
 ├── hooks/                      # Direct Antigravity Lifecycle Hook integrations
 │   ├── pre_invocation.js       # Dynamic context retrieval & background sync launcher
 │   ├── post_invocation.js      # Zero-lag episodic ingestion & session distillation
-│   └── stop.js                 # Background extraction, hot-backup & detached git sync
+│   └── stop.js                 # Throttled auto-backup, snapshot exporter & git sync
 ├── integrations/               # Distribution templates for new environments
 │   ├── hooks.json              # Hook registration template with {{BRAIN_DIR}}
 │   ├── mcp_config.json         # Sanitized MCP server config template
 │   ├── mcp_schemas/            # 14 RFC-compliant MCP Tool schemas
 │   └── skills/                 # Second Brain native skill definition
-├── scripts/                    # Platform-specific utilities & background daemons
-│   ├── auto_backup.sh          # Linux daily maintenance & Git sync runner
-│   ├── auto_backup.ps1         # Windows maintenance & backup runner
+├── scripts/                    # Platform utilities & security audits
+│   ├── security_check.js       # Pre-commit zero-shell-injection audit runner
 │   ├── lint.js                 # Zero-dependency syntax validator (node --check)
-│   ├── start_daemon.sh         # Linux headless embedding micro-daemon launcher
-│   └── start_daemon.ps1        # Windows hidden WMI embedding micro-daemon launcher
+│   ├── auto_backup.sh          # Linux daily maintenance & Git sync runner
+│   └── auto_backup.ps1         # Windows maintenance & backup runner
 ├── src/                        # Core architectural subsystem engines
 │   ├── backup.js               # SQLite VACUUM INTO atomic hot-backup manager
 │   ├── consolidation.js        # Executive session distillation & spaced reinforcement
-│   ├── db.js                   # Node 24 native node:sqlite connection manager
-│   ├── embedding.js            # Dense vector engine, L2 normalization & fallback client
-│   ├── embedding_daemon.py     # Python FastEmbed microservice (port 49152)
+│   ├── db.js                   # Node 24 native node:sqlite connection & migration manager
+│   ├── embedding.js            # Dense vector engine, L2 normalization & health observability
 │   ├── episodic.js             # High-speed batch transcript parser & FTS5 engine
 │   ├── export_dashboard.js     # Standalone visual dashboard renderer
 │   ├── extractor.js            # Natural language heuristic memory extractor
-│   ├── git_backup.js           # Git automated backup, diff exporter & sync manager
+│   ├── git_backup.js           # Decoupled Git sync, allowlist staging & secret scanner
 │   ├── profile.js              # Core Identity & profile state manager
 │   ├── reinforcement.js        # Trajectory transcript mining & procedural learner
 │   ├── retriever.js            # Token-budgeted context compiler & hybrid ranker
 │   ├── semantic.js             # Semantic knowledge, Hybrid Search & Knowledge Graph
 │   └── solutions.js            # Procedural solution store (Case-Based Reasoning)
-├── test/                       # Automated test suites (Zero external dependencies)
-│   ├── run_all_tests.js        # Master CI/CD test runner across all suites
-│   ├── test_brain.js           # Comprehensive 9-point unit test suite
-│   ├── test_mcp.js             # Stdio MCP protocol validator
-│   ├── test_v3_production_grade.js # SOTA Breakthrough validation suite (13/13 Pass)
-│   ├── test_v3_4_production.js # v3.4 Regression & graph validation suite
-│   └── test_v3_5_production.js # v3.5 Batch ingestion & sanitization suite (9/9 Pass)
-├── .editorconfig               # Universal indentation & whitespace rules
-├── .gitattributes              # Cross-platform line-ending & binary file rules
-├── .gitignore                  # Production SQLite WAL & temporary lock excludes
-├── brain.db                    # Production SQLite database (WAL mode)
-├── cli.js                      # Full-featured administration CLI interface
-├── CONTRIBUTING.md             # Developer workflow, Ponytail & PR guidelines
-├── dashboard.html              # Interactive visual dashboard
-├── install.sh                  # 1-Click installer for Linux / macOS / WSL
-├── install.ps1                 # 1-Click installer for Windows PowerShell
-├── LICENSE                     # Official MIT License
-├── mcp_server.js               # Model Context Protocol Stdio Server (JSON-RPC 2.0)
-├── package.json                # Standard Node.js package specification & scripts
-├── SECURITY.md                 # Security guardrails & vulnerability disclosure policy
-├── setup.js                    # Universal cross-platform zero-clobber setup engine
-└── README.md                   # Enterprise architecture documentation
+├── test/                       # Comprehensive automated test suites (100% pass)
+│   ├── run_all_tests.js        # Master CI test runner
+│   ├── test_brain.js           # Core architecture test suite
+│   ├── test_v3_production_grade.js
+│   ├── test_v3_4_production.js
+│   ├── test_v3_5_production.js
+│   ├── test_v3_7_hardening.js  # Security, Bi-temporal, Recovery & Dual-Repo isolation
+│   └── test_mcp.js             # MCP JSON-RPC protocol test suite
+├── cli.js                      # Multi-Platform CLI administration utility
+├── setup.js                    # Universal cross-platform installer & self-healing restore
+└── package.json                # Zero runtime npm dependencies (Ponytail Rung 3)
+```
+
+---
+
+## 🔒 Decoupled Architecture: Public Engine vs. Private Data Store
+
+To ensure **absolute privacy**, eliminate personal data leakage, and maintain **100% open-source purity**, the Second Brain employs a decoupled dual-repository model:
+
+| Component | Repository | Visibility | Contents |
+| :--- | :--- | :--- | :--- |
+| **Engine Codebase** | `antigravity-second-brain` | **Public** | Core engine logic, hooks, schemas, templates, CLI, tests, CI. Zero personal data. |
+| **Cognitive Memory Store** | `antigravity-second-brain-data` | **Private** | Real user profile, hardware specs, episodic conversations, knowledge items, solutions, and `dump.sql`. |
+
+### Dual-Boot Synchronization Workflow (Windows 11 ⟷ Linux)
+
+```bash
+# Check status of the private cognitive data store
+agy-brain data-status
+
+# Push fresh cognitive snapshot to private GitHub repo
+agy-brain data-push
+
+# Pull latest memory snapshot on a new environment or dual-boot switch & auto-restore DB
+agy-brain data-pull
+
+# Full two-way synchronization (Commit ➔ Pull ➔ Push ➔ SQLite Restore)
+agy-brain data-sync
+
+# Check status of the open-source engine repo (for developers)
+agy-brain engine-status
 ```
 
 ---

@@ -377,16 +377,29 @@ class SemanticKnowledge {
                 `, sourceEntity, relation, targetEntity);
             }
 
-            this.db.run(`
-                INSERT INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata, updated_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
-                ON CONFLICT(source_entity, relation, target_entity) 
-                DO UPDATE SET 
-                    confidence = excluded.confidence, 
-                    valid_until = excluded.valid_until, 
-                    metadata = excluded.metadata, 
-                    updated_at = datetime('now')
-            `, sourceEntity, relation, targetEntity, confidence, validFrom, validUntil, metadata);
+            // Check if there is an existing active relation for this exact triple
+            const existingActive = this.db.get(`
+                SELECT id FROM entity_relations 
+                WHERE source_entity = ? COLLATE NOCASE 
+                  AND relation = ? COLLATE NOCASE 
+                  AND target_entity = ? COLLATE NOCASE 
+                  AND (valid_until IS NULL OR valid_until > datetime('now'))
+            `, sourceEntity, relation, targetEntity);
+
+            if (existingActive) {
+                // Update in-place only if currently active
+                this.db.run(`
+                    UPDATE entity_relations 
+                    SET confidence = ?, valid_until = ?, metadata = ?, updated_at = datetime('now')
+                    WHERE id = ?
+                `, confidence, validUntil, metadata, existingActive.id);
+            } else {
+                // Insert a brand new history event row
+                this.db.run(`
+                    INSERT INTO entity_relations (source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata, updated_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
+                `, sourceEntity, relation, targetEntity, confidence, validFrom, validUntil, metadata);
+            }
             return true;
         } catch (e) {
             return false;

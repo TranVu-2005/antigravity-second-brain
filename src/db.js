@@ -62,6 +62,33 @@ class BrainDB {
                 if (!relCols.some(c => c.name === 'metadata')) {
                     this.db.exec("ALTER TABLE entity_relations ADD COLUMN metadata TEXT DEFAULT '{}';");
                 }
+
+                // Check if table contains legacy table-level UNIQUE constraint
+                const tbl = this.db.prepare("SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'entity_relations'").get();
+                if (tbl && tbl.sql && /UNIQUE\s*\(\s*source_entity\s*,\s*relation\s*,\s*target_entity\s*\)/i.test(tbl.sql)) {
+                    this.db.exec(`
+                        CREATE TABLE entity_relations_v37 (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            source_entity TEXT NOT NULL,
+                            relation TEXT NOT NULL,
+                            target_entity TEXT NOT NULL,
+                            confidence REAL NOT NULL DEFAULT 1.0,
+                            valid_from TEXT NOT NULL DEFAULT (datetime('now')),
+                            valid_until TEXT DEFAULT NULL,
+                            metadata TEXT DEFAULT '{}',
+                            created_at TEXT NOT NULL DEFAULT (datetime('now')),
+                            updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+                        );
+                        INSERT INTO entity_relations_v37 (id, source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata, created_at, updated_at)
+                        SELECT id, source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata, created_at, updated_at FROM entity_relations;
+                        DROP TABLE entity_relations;
+                        ALTER TABLE entity_relations_v37 RENAME TO entity_relations;
+                        CREATE INDEX IF NOT EXISTS idx_relations_source ON entity_relations(source_entity);
+                        CREATE INDEX IF NOT EXISTS idx_relations_target ON entity_relations(target_entity);
+                        CREATE INDEX IF NOT EXISTS idx_relations_validity ON entity_relations(source_entity, valid_until);
+                        CREATE UNIQUE INDEX IF NOT EXISTS idx_relations_active ON entity_relations(source_entity, relation, target_entity) WHERE valid_until IS NULL;
+                    `);
+                }
             }
         } catch (e) {
             console.error('Migration error:', e.message);

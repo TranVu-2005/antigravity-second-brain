@@ -38,6 +38,9 @@ jobs:
       - name: Zero-Dependency Syntax Validation (Lint)
         run: node scripts/lint.js
 
+      - name: Security & Command Injection Audit
+        run: node scripts/security_check.js
+
       - name: Execute Full TDD & Architecture Test Suites
         run: node test/run_all_tests.js
         env:

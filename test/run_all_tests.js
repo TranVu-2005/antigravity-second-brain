@@ -12,6 +12,7 @@ const SUITES = [
     { name: 'v3.0 SOTA Breakthrough Suite', file: 'test_v3_production_grade.js' },
     { name: 'v3.4 Production Verification Suite', file: 'test_v3_4_production.js' },
     { name: 'v3.5 High-Speed Ingestion & Sanitization Suite', file: 'test_v3_5_production.js' },
+    { name: 'v3.7 Production Hardening Suite', file: 'test_v3_7_hardening.js' },
     { name: 'MCP JSON-RPC Stdio Protocol Suite', file: 'test_mcp.js' }
 ];
 

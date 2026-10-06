@@ -3,7 +3,7 @@
 // Antigravity Second Brain: CLI Administration & Synchronization Tool
 // ==============================================================================
 
-const { exec } = require('node:child_process');
+const { spawn } = require('node:child_process');
 const path = require('node:path');
 const { getDB } = require('./src/db');
 const { getProfileManager } = require('./src/profile');
@@ -20,9 +20,9 @@ const command = args[0] || 'help';
 function printHelp() {
     console.log(`
 ===================================================================
-🧠 ANTIGRAVITY SECOND BRAIN CLI v3.0 (Kính phục vụ Ngài)
+🧠 ANTIGRAVITY SECOND BRAIN CLI v3.7 (Kính phục vụ Ngài)
 ===================================================================
-Lệnh khả dụng:
+Lệnh quản trị bộ nhớ nhận thức:
   sync                 Đồng bộ toàn bộ lịch sử transcript từ Antigravity brain
   stats                Xem thống kê cơ sở dữ liệu và bộ nhớ
   search <query>       Tìm kiếm kiến thức và lịch sử trò chuyện
@@ -37,13 +37,16 @@ Lệnh khả dụng:
   compact              Tinh biến bộ nhớ, dọn dẹp và tối ưu hóa index
   dashboard            Mở giao diện trực quan Visual Dashboard trên trình duyệt
   reembed              Nâng cấp và tính toán lại vector 384-dim cho toàn bộ tri thức
-  git-backup [msg]     Sao lưu dữ liệu, xuất text diff và commit lên Git
-  git-pull             Kéo cập nhật mới nhất từ Remote và cập nhật WAL
-  git-sync             Đồng bộ hai chiều trọn vẹn (Commit -> Pull -> Push)
   import-dump [file]   Nạp/hồi phục toàn bộ dữ liệu từ dump.sql vào CSDL SQLite
-  git-status           Xem trạng thái Git repo và kết nối Remote
-  git-remote <url>     Cấu hình địa chỉ Remote Repository (GitHub/GitLab)
-  git-push             Đẩy toàn bộ commit lên Remote Repository
+
+Đồng bộ Hai Kho Lưu Trữ (Decoupled Dual-Repository):
+  data-status          Xem trạng thái Private Data Store (antigravity-second-brain-data)
+  data-backup [msg]    Sao lưu dữ liệu, xuất text diff và commit vào Private Data Store
+  data-pull            Kéo cập nhật mới nhất từ Private Data Store & tự động nạp CSDL
+  data-push            Đẩy toàn bộ snapshot lên Private Data Store trên GitHub
+  data-sync            Đồng bộ hai chiều trọn vẹn (Commit -> Pull -> Push -> Restore)
+  data-remote <url>    Cấu hình URL cho Private Data Repository
+  engine-status        Xem trạng thái Git của Open-Source Engine (antigravity-second-brain)
   help                 Hiển thị hướng dẫn này
 ===================================================================
 `);
@@ -75,8 +78,11 @@ async function main() {
             const dbPath = path.join(__dirname, 'brain.db');
             const dbSize = fs.existsSync(dbPath) ? `${(fs.statSync(dbPath).size / 1024).toFixed(1)} KB` : 'N/A';
 
+            const { getEmbeddingHealth } = require('./src/embedding');
+            const embHealth = await getEmbeddingHealth();
+
             console.log(`
-📊 ANTIGRAVITY SECOND BRAIN - BÁO CÁO THỐNG KÊ (v2.0)
+📊 ANTIGRAVITY SECOND BRAIN - BÁO CÁO THỐNG KÊ (v3.7 Hardened)
 --------------------------------------------------
 • Hồ sơ người dùng (User Profile)    : ${profCount} mục
 • Tri thức dài hạn (Knowledge Items) : ${knCount} mục
@@ -85,9 +91,10 @@ async function main() {
 • Phiên hội thoại (Conversations)    : ${convCount} phiên
 • Bản sao lưu an toàn (Snapshots)    : ${backups.length} bản
 • Không gian vector (Dense Vectors)  : ${actualDim}-dim (${embRow && embRow.len ? embRow.len : 0} bytes/record)
+• Tình trạng Embedding Subsystem     : [${embHealth.status}] (${embHealth.mode}) - ${embHealth.message}
 • Vị trí CSDL                        : brain.db (SQLite WAL Mode, ${dbSize})
 --------------------------------------------------
-Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
+Sẵn sàng phục vụ Ngài với hiệu năng và độ tin cậy tối ưu!
 `);
             break;
         }
@@ -302,13 +309,20 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
             console.log('🔄 Đang kết xuất dữ liệu thời gian thực cho Visual Dashboard...');
             const dashPath = generateDashboard();
             console.log(`🚀 Đang khởi chạy Interactive Dashboard: ${dashPath}`);
-            const startCmd = process.platform === 'win32' ? `start "" "${dashPath}"` : `open "${dashPath}"`;
-            exec(startCmd);
+            const { spawn } = require('node:child_process');
+            if (process.platform === 'win32') {
+                spawn('cmd.exe', ['/c', 'start', '""', dashPath], { detached: true, stdio: 'ignore' }).unref();
+            } else if (process.platform === 'darwin') {
+                spawn('open', [dashPath], { detached: true, stdio: 'ignore' }).unref();
+            } else {
+                spawn('xdg-open', [dashPath], { detached: true, stdio: 'ignore' }).unref();
+            }
             break;
         }
 
+        case 'data-backup':
         case 'git-backup': {
-            console.log('📦 Đang tiến hành sao lưu và đồng bộ Second Brain lên Git...');
+            console.log('📦 Đang tiến hành sao lưu và đồng bộ Second Brain vào Private Data Store...');
             const gitBackup = getGitBackupManager();
             const msg = args.slice(1).join(' ') || null;
             const res = gitBackup.commitBackup(msg);
@@ -329,10 +343,10 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
 
             const status = gitBackup.getStatus();
             if (status.remoteUrl) {
-                console.log(`🚀 Đang đẩy dữ liệu lên Remote: ${status.remoteUrl}...`);
+                console.log(`🚀 Đang đẩy dữ liệu lên Private Remote: ${status.remoteUrl}...`);
                 const pushRes = gitBackup.pushRemote();
                 if (pushRes.success) {
-                    console.log(`✅ Đã đồng bộ lên Remote thành công!`);
+                    console.log(`✅ Đã đồng bộ lên Private Remote thành công!`);
                 } else {
                     console.log(`⚠️ Chưa thể đẩy lên Remote: ${pushRes.error}`);
                 }
@@ -340,10 +354,11 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
             break;
         }
 
+        case 'data-status':
         case 'git-status': {
             const gitBackup = getGitBackupManager();
             const st = gitBackup.getStatus();
-            console.log(`\n🐙 TRẠNG THÁI GIT BACKUP SECOND BRAIN:\n`);
+            console.log(`\n🔒 TRẠNG THÁI PRIVATE DATA STORE (antigravity-second-brain-data):\n`);
             if (!st.gitAvailable) {
                 console.log(`❌ Git chưa khả dụng: ${st.error}`);
                 break;
@@ -353,33 +368,58 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
             if (st.initialized) {
                 console.log(`• Nhánh hiện tại   : ${st.branch}`);
                 console.log(`• Commit mới nhất  : ${st.lastCommit}`);
-                console.log(`• Remote URL       : ${st.remoteUrl || 'Chưa thiết lập (chạy: brain git-remote <url>)'}`);
+                console.log(`• Remote URL       : ${st.remoteUrl || 'Chưa thiết lập (chạy: brain data-remote <url>)'}`);
                 console.log(`• Tệp chưa commit  : ${st.uncommittedCount} tệp`);
             } else {
-                console.log(`• Gợi ý            : Chạy 'brain git-backup' để khởi tạo và tạo commit đầu tiên.`);
+                console.log(`• Gợi ý            : Chạy 'brain data-backup' để khởi tạo và commit dữ liệu.`);
             }
             console.log('');
             break;
         }
 
+        case 'engine-status': {
+            const gitBackup = getGitBackupManager();
+            const st = gitBackup.getEngineStatus();
+            console.log(`\n⚙️ TRẠNG THÁI OPEN-SOURCE ENGINE (antigravity-second-brain):\n`);
+            if (!st.gitAvailable) {
+                console.log(`❌ Git chưa khả dụng: ${st.error}`);
+                break;
+            }
+            console.log(`• Phiên bản Git    : ${st.version}`);
+            console.log(`• Trạng thái Repo  : ${st.initialized ? 'Đã khởi tạo' : 'Chưa khởi tạo'}`);
+            if (st.initialized) {
+                console.log(`• Nhánh hiện tại   : ${st.branch}`);
+                console.log(`• Commit mới nhất  : ${st.lastCommit}`);
+                console.log(`• Remote URL       : ${st.remoteUrl || 'Chưa thiết lập'}`);
+                console.log(`• Tệp thay đổi     : ${st.uncommittedCount} tệp`);
+                if (st.modifiedFiles && st.modifiedFiles.length > 0) {
+                    console.log(`  ${st.modifiedFiles.join('\n  ')}`);
+                }
+            }
+            console.log('');
+            break;
+        }
+
+        case 'data-remote':
         case 'git-remote': {
             const url = args[1];
             if (!url) {
-                console.log('Cú pháp: brain git-remote <url>');
+                console.log('Cú pháp: brain data-remote <url>');
                 return;
             }
             const gitBackup = getGitBackupManager();
             const res = gitBackup.setRemote(url);
             if (res.success) {
-                console.log(`✅ Đã thiết lập Remote URL thành công: ${res.remoteUrl}`);
+                console.log(`✅ Đã thiết lập Remote URL thành công cho Private Data Store: ${res.remoteUrl}`);
             } else {
                 console.error(`❌ Lỗi thiết lập Remote: ${res.error}`);
             }
             break;
         }
 
+        case 'data-push':
         case 'git-push': {
-            console.log('🚀 Đang đẩy dữ liệu lên Remote repository...');
+            console.log('🚀 Đang đẩy dữ liệu lên Private Data Store (GitHub)...');
             const gitBackup = getGitBackupManager();
             const res = gitBackup.pushRemote();
             if (res.success) {
@@ -390,20 +430,25 @@ Sẵn sàng phục vụ Ngài với hiệu năng tối ưu!
             break;
         }
 
+        case 'data-pull':
         case 'git-pull': {
-            console.log('📥 Đang kéo cập nhật mới nhất từ Remote repository...');
+            console.log('📥 Đang kéo cập nhật mới nhất từ Private Data Store & phục hồi CSDL...');
             const gitBackup = getGitBackupManager();
             const res = gitBackup.pullRemote();
             if (res.success) {
                 console.log(`✅ ${res.message}`);
+                if (res.import && res.import.success) {
+                    console.log(`✔ Đã đồng bộ CSDL: ${res.import.counts.knowledge} tri thức, ${res.import.counts.episodes} episodes, ${res.import.counts.solutions} solutions`);
+                }
             } else {
                 console.error(`❌ Lỗi kéo Remote: ${res.error}`);
             }
             break;
         }
 
+        case 'data-sync':
         case 'git-sync': {
-            console.log('🔄 Đang tiến hành đồng bộ hai chiều trọn vẹn (Commit ➔ Pull ➔ Push)...');
+            console.log('🔄 Đang tiến hành đồng bộ hai chiều trọn vẹn Private Data Store (Commit ➔ Pull ➔ Push)...');
             const gitBackup = getGitBackupManager();
             const msg = args.slice(1).join(' ') || null;
             const res = gitBackup.syncRemote(msg);

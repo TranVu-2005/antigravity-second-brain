@@ -2,6 +2,44 @@
 
 Kính gửi Ngài, đây là tài liệu kỹ thuật tổng hợp toàn bộ các mốc phát triển, kiến trúc các thành phần, hợp đồng API và lộ trình nâng cấp hệ thống **Antigravity Second Brain**.
 
+## [3.7.0] - 2026-10-06 (Production-Grade Security Hardening, Bi-Temporal Graph, Complete Data Recovery & CI/CD Discovery)
+
+### 🏆 Tổng quan bản nâng cấp v3.7.0 Hardening Masterpiece
+Dựa trên cuộc đại rà soát chuyên sâu 28 điểm kiến trúc, triệt tiêu toàn diện các lỗ hổng P0, bảo vệ quyền riêng tư và củng cố độ tin cậy của toàn bộ hệ thống:
+
+1. **Triệt Tiêu 100% Lỗ Hổng Command Injection (P0 Security):**
+   - Tái cấu trúc toàn bộ `src/git_backup.js` và `cli.js`: Thay thế hoàn toàn `execSync` nối chuỗi shell bằng `spawnSync` với mảng đối số tách rời (`args: string[]`). Bẻ gãy mọi vector tấn công qua URL remote độc hại, ký tự shell metacharacters (`;`, `&&`, `|`, `$`, `$(...)`) hoặc thông điệp commit.
+   - Thẩm định chặt chẽ định dạng URL remote trước khi nạp vào Git config.
+
+2. **Cơ Chế Staging Allowlist & Pre-Commit Secret Scanner (P0/P1):**
+   - Loại bỏ triệt để lệnh `git add .` vô tội vạ. Hệ thống chỉ stage danh sách các tệp diffable exports được cho phép (`ALLOWED_EXPORT_FILES`).
+   - Tích hợp bộ quét rò rỉ bí mật (Secret Scanner) tự động quét qua nội dung file export trước khi commit (chặn đứng rò rỉ Private Key, GitHub Token, OpenAI/Anthropic API Key, Slack token, AWS key).
+   - Cách ly tuyệt đối cơ sở dữ liệu nhị phân `brain.db` chứa lịch sử chat thực tế khỏi git tracking.
+
+3. **Bảo Toàn Trọn Vẹn Lịch Sử Bi-Temporal Graph ($A \to B \to C \to A$):**
+   - Loại bỏ ràng buộc `UNIQUE(source_entity, relation, target_entity)` ở cấp bảng trong `db/schema.sql`.
+   - Thiết lập Partial Unique Index `idx_relations_active` chỉ áp dụng trên các quan hệ đang kích hoạt (`WHERE valid_until IS NULL`).
+   - Cung cấp cơ chế tự động Migration trong `src/db.js` cho cơ sở dữ liệu hiện có mà không làm mất dữ liệu.
+   - Nâng cấp `addRelation()` trong `src/semantic.js`: Khi sở thích thay đổi từ $A \to B \to C \to A$, hệ thống bảo toàn đầy đủ cả 3 bản ghi lịch sử cùng các mốc thời gian `valid_from` và `valid_until` riêng biệt.
+
+4. **Phục Hồi Dữ Liệu 100% & Tự Động Backfill Embeddings (P1 Recovery):**
+   - Bổ sung bảng `entities` vào `exports/entities.json` và `exports/dump.sql`.
+   - Bổ sung toàn bộ trường `content` của bảng `episodes` vào `exports/episodes_log.json` và `exports/dump.sql`.
+   - Cơ chế tự phục hồi sau khi import: Tự động chạy lệnh rebuild cho toàn bộ các bảng ảo FTS5 (`knowledge_fts`, `episodes_fts`, `solutions_fts`), kiểm tra độ phủ vector và kích hoạt background backfill cho các tri thức chưa có embedding.
+
+5. **Giám Sát Trạng Thái Minh Bạch (Observability) & Điều Tiết Auto-Commit:**
+   - Xây dựng phương thức `getEmbeddingHealth()` xuất trạng thái minh bạch (`READY`, `DEGRADED`, `UNAVAILABLE`) cho Agent và hệ thống.
+   - Bổ sung ghi log hoạt động có cấu trúc vào `logs/second_brain.log`, loại bỏ các khối `catch (e) {}` câm lặng.
+   - Cơ chế điều tiết Throttling (30 phút) trong `hooks/stop.js`: Chấm dứt tình trạng tạo hàng trăm commit rác liên tiếp sau mỗi lượt chat.
+
+6. **DevOps CI/CD Discovery & Nâng Cấp Hệ Thống Kiểm Thử (TDD Fortress):**
+   - Chuyển đổi tệp cấu hình workflow sang đúng thư mục chuẩn `.github/workflows/ci.yml` được GitHub Actions tự động nhận diện.
+   - Matrix kiểm thử 4 môi trường: Ubuntu (Node 22, 24) và Windows (Node 22, 24).
+   - Bổ sung công cụ kiểm tra bảo mật `scripts/security_check.js`.
+   - Bổ sung bộ kiểm thử `test/test_v3_7_hardening.js` kiểm tra trọn vẹn mọi khía cạnh bảo mật, phục hồi dữ liệu và mô hình thời gian.
+
+---
+
 ## [3.6.0] - 2026-10-05 (Universal Dual-Boot Parity, Full Superpowers Suite & 1-Click Linux Deploy Engine)
 
 ### 🏆 Tổng quan bản nâng cấp v3.6.0 Cross-Platform Masterpiece
