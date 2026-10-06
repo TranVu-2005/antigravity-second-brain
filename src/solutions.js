@@ -79,6 +79,10 @@ class SolutionStore {
         return info.lastInsertRowid;
     }
 
+    storeSolution(params) {
+        return this.addSolution(params);
+    }
+
     searchSolutions(query, { project_scope = null, limit = 3 } = {}) {
         if (!query || !query.trim()) {
             const scopeFilter = project_scope ? "WHERE project_scope = ? OR project_scope = 'global'" : '';
