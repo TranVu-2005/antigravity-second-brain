@@ -603,5 +603,38 @@
     "confidence": 1,
     "success_count": 1,
     "created_at": "2026-10-05T19:38:00.328Z"
+  },
+  {
+    "id": 90,
+    "error_pattern": "ℹ fail 2",
+    "root_cause": "Created At: 2026-10-06T17:39:50+07:00\nCompleted At: 2026-10-06T17:39:51+07:00\n\nThe command exited with code 1.\nOutput:\n🧪 Bắt đầu chạy bộ kiểm thử v3.7 Production Hardening Suite...\r\n\r\n✔ 1. Security: Command Injection Resistance in Git Subsystem (20.00324ms)\r\n✔ 2. Security: Pre-Commit Secret Scanner",
+    "solution_code": "Lệnh khắc phục thành công: node test/test_v3_7_hardening.js",
+    "command_fix": "node test/test_v3_7_hardening.js",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-06T10:46:38.771Z"
+  },
+  {
+    "id": 91,
+    "error_pattern": "✖ FAILED with exit code 1 in 0.23s:",
+    "root_cause": "Created At: 2026-10-06T17:43:14+07:00\nCompleted At: 2026-10-06T17:43:20+07:00\n\nThe command exited with code 1.\nOutput:\n\r\n> antigravity-second-brain@3.7.0 test\r\n> node test/run_all_tests.js\r\n\r\n╔════════════════════════════════════════════════════════════════════════╗\r\n║       🧠 ANTIGRAVITY SECOND BR",
+    "solution_code": "Lệnh khắc phục thành công: npm test",
+    "command_fix": "npm test",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-06T10:46:38.773Z"
+  },
+  {
+    "id": 92,
+    "error_pattern": "SyntaxError: Unexpected end of input",
+    "root_cause": "Created At: 2026-10-06T17:44:41+07:00\nCompleted At: 2026-10-06T17:44:42+07:00\n\nThe command exited with code 1.\nOutput:\n🔍 Validating JavaScript syntax across codebase...\r\n✖ Found 1 syntax error(s):\r\n  - hooks/stop.js:\r\n/home/tranvu/.gemini/antigravity/second_brain/hooks/stop.js:178\r\n\r\n\r\n\r\nSyntaxErro",
+    "solution_code": "Lệnh khắc phục thành công: node scripts/lint.js && node scripts/security_check.js",
+    "command_fix": "node scripts/lint.js && node scripts/security_check.js",
+    "project_scope": "global",
+    "confidence": 1,
+    "success_count": 1,
+    "created_at": "2026-10-06T10:46:38.773Z"
   }
 ]
