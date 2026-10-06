@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS knowledge_items (
     verification_status TEXT NOT NULL DEFAULT 'candidate', -- 'candidate', 'verified', 'stable'
     last_verified_at TEXT,
     embedding BLOB,                        -- 384-dim dense float32 vector (1536 bytes)
+    embedding_status TEXT NOT NULL DEFAULT 'neural', -- 'neural', 'fallback'
     project_scope TEXT DEFAULT 'global',   -- 'global' or workspace directory name
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))

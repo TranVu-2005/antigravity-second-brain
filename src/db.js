@@ -48,8 +48,41 @@ class BrainDB {
                 if (!cols.some(c => c.name === 'project_scope')) {
                     this.db.exec("ALTER TABLE knowledge_items ADD COLUMN project_scope TEXT DEFAULT 'global';");
                 }
+                if (!cols.some(c => c.name === 'trust_level')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN trust_level TEXT NOT NULL DEFAULT 'medium';");
+                }
+                if (!cols.some(c => c.name === 'confidence')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN confidence REAL NOT NULL DEFAULT 0.8;");
+                }
+                if (!cols.some(c => c.name === 'verification_status')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN verification_status TEXT NOT NULL DEFAULT 'candidate';");
+                }
+                if (!cols.some(c => c.name === 'last_verified_at')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN last_verified_at TEXT DEFAULT NULL;");
+                }
+                if (!cols.some(c => c.name === 'embedding_status')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN embedding_status TEXT NOT NULL DEFAULT 'neural';");
+                }
             }
 
+            // Solutions migrations
+            const sCols = this.db.prepare("PRAGMA table_info(solutions)").all();
+            if (sCols.length > 0) {
+                if (!sCols.some(c => c.name === 'trust_level')) {
+                    this.db.exec("ALTER TABLE solutions ADD COLUMN trust_level TEXT NOT NULL DEFAULT 'medium';");
+                }
+                if (!sCols.some(c => c.name === 'confidence')) {
+                    this.db.exec("ALTER TABLE solutions ADD COLUMN confidence REAL NOT NULL DEFAULT 1.0;");
+                }
+                if (!sCols.some(c => c.name === 'verification_status')) {
+                    this.db.exec("ALTER TABLE solutions ADD COLUMN verification_status TEXT NOT NULL DEFAULT 'candidate';");
+                }
+                if (!sCols.some(c => c.name === 'last_verified_at')) {
+                    this.db.exec("ALTER TABLE solutions ADD COLUMN last_verified_at TEXT DEFAULT NULL;");
+                }
+            }
+
+            // Entity relations migrations
             const relCols = this.db.prepare("PRAGMA table_info(entity_relations)").all();
             if (relCols.length > 0) {
                 if (!relCols.some(c => c.name === 'valid_from')) {
@@ -88,35 +121,6 @@ class BrainDB {
                         CREATE INDEX IF NOT EXISTS idx_relations_validity ON entity_relations(source_entity, valid_until);
                         CREATE UNIQUE INDEX IF NOT EXISTS idx_relations_active ON entity_relations(source_entity, relation, target_entity) WHERE valid_until IS NULL;
                     `);
-                }
-
-                // --- v3.8 Migration: Memory Trust Model & Confidence Lifecycle ---
-                const kCols = this.db.prepare("PRAGMA table_info(knowledge_items)").all();
-                if (!kCols.some(c => c.name === 'trust_level')) {
-                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN trust_level TEXT NOT NULL DEFAULT 'medium';");
-                }
-                if (!kCols.some(c => c.name === 'confidence')) {
-                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN confidence REAL NOT NULL DEFAULT 0.8;");
-                }
-                if (!kCols.some(c => c.name === 'verification_status')) {
-                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN verification_status TEXT NOT NULL DEFAULT 'candidate';");
-                }
-                if (!kCols.some(c => c.name === 'last_verified_at')) {
-                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN last_verified_at TEXT DEFAULT NULL;");
-                }
-
-                const sCols = this.db.prepare("PRAGMA table_info(solutions)").all();
-                if (!sCols.some(c => c.name === 'trust_level')) {
-                    this.db.exec("ALTER TABLE solutions ADD COLUMN trust_level TEXT NOT NULL DEFAULT 'medium';");
-                }
-                if (!sCols.some(c => c.name === 'confidence')) {
-                    this.db.exec("ALTER TABLE solutions ADD COLUMN confidence REAL NOT NULL DEFAULT 1.0;");
-                }
-                if (!sCols.some(c => c.name === 'verification_status')) {
-                    this.db.exec("ALTER TABLE solutions ADD COLUMN verification_status TEXT NOT NULL DEFAULT 'candidate';");
-                }
-                if (!sCols.some(c => c.name === 'last_verified_at')) {
-                    this.db.exec("ALTER TABLE solutions ADD COLUMN last_verified_at TEXT DEFAULT NULL;");
                 }
             }
         } catch (e) {

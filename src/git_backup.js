@@ -171,12 +171,12 @@ class GitBackupManager {
         fs.writeFileSync(profilePath, JSON.stringify(profileRows, null, 2), 'utf8');
 
         // 2. Export Knowledge Items (không kèm raw embedding BLOB để giữ text diff sạch)
-        const knowledgeRows = db.all('SELECT id, title, content, category, tags, source, importance, project_scope, created_at, updated_at FROM knowledge_items ORDER BY id ASC');
+        const knowledgeRows = db.all('SELECT id, title, content, category, tags, source, importance, project_scope, trust_level, confidence, verification_status, last_verified_at, created_at, updated_at FROM knowledge_items ORDER BY id ASC');
         const knowledgePath = path.join(this.exportsDir, 'knowledge.json');
         fs.writeFileSync(knowledgePath, JSON.stringify(knowledgeRows, null, 2), 'utf8');
 
         // 3. Export Solutions (Procedural memory)
-        const solutionRows = db.all('SELECT id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count, created_at FROM solutions ORDER BY id ASC');
+        const solutionRows = db.all('SELECT id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count, trust_level, verification_status, last_verified_at, created_at FROM solutions ORDER BY id ASC');
         const solutionsPath = path.join(this.exportsDir, 'solutions.json');
         fs.writeFileSync(solutionsPath, JSON.stringify(solutionRows, null, 2), 'utf8');
 
@@ -221,7 +221,11 @@ class GitBackupManager {
             const title = (row.title || '').replace(/'/g, "''");
             const content = (row.content || '').replace(/'/g, "''");
             const tags = (row.tags || '').replace(/'/g, "''");
-            sqlDump += `INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope) VALUES (${row.id}, '${title}', '${content}', '${row.category}', '${tags}', '${row.source}', ${row.importance}, '${row.project_scope}');\n`;
+            const trust = (row.trust_level || 'medium').replace(/'/g, "''");
+            const conf = row.confidence !== undefined && row.confidence !== null ? row.confidence : 0.8;
+            const status = (row.verification_status || 'candidate').replace(/'/g, "''");
+            const lastVer = row.last_verified_at ? `'${row.last_verified_at.replace(/'/g, "''")}'` : 'NULL';
+            sqlDump += `INSERT OR REPLACE INTO knowledge_items (id, title, content, category, tags, source, importance, project_scope, trust_level, confidence, verification_status, last_verified_at) VALUES (${row.id}, '${title}', '${content}', '${row.category}', '${tags}', '${row.source}', ${row.importance}, '${row.project_scope}', '${trust}', ${conf}, '${status}', ${lastVer});\n`;
         }
 
         sqlDump += `\n-- Table: solutions\n`;
@@ -230,7 +234,10 @@ class GitBackupManager {
             const solC = (row.solution_code || '').replace(/'/g, "''");
             const root = (row.root_cause || '').replace(/'/g, "''");
             const cmd = (row.command_fix || '').replace(/'/g, "''");
-            sqlDump += `INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count) VALUES (${row.id}, '${errP}', '${root}', '${solC}', '${cmd}', '${row.project_scope}', ${row.confidence}, ${row.success_count});\n`;
+            const trust = (row.trust_level || 'medium').replace(/'/g, "''");
+            const status = (row.verification_status || 'candidate').replace(/'/g, "''");
+            const lastVer = row.last_verified_at ? `'${row.last_verified_at.replace(/'/g, "''")}'` : 'NULL';
+            sqlDump += `INSERT OR REPLACE INTO solutions (id, error_pattern, root_cause, solution_code, command_fix, project_scope, confidence, success_count, trust_level, verification_status, last_verified_at) VALUES (${row.id}, '${errP}', '${root}', '${solC}', '${cmd}', '${row.project_scope}', ${row.confidence}, ${row.success_count}, '${trust}', '${status}', ${lastVer});\n`;
         }
 
         sqlDump += `\n-- Table: conversations\n`;
@@ -315,6 +322,7 @@ class GitBackupManager {
         this._bundleIntegrations();
 
         return {
+            success: true,
             profileCount: profileRows.length,
             knowledgeCount: knowledgeRows.length,
             solutionsCount: solutionRows.length,
@@ -463,6 +471,14 @@ class GitBackupManager {
 
             // After pulling data, restore database and trigger backfill
             const importRes = this.importDump();
+            if (!importRes || importRes.success === false) {
+                return {
+                    success: false,
+                    error: `Git pull thành công nhưng phục hồi CSDL thất bại: ${importRes ? importRes.error : 'Unknown restore error'}`,
+                    details: pullResult,
+                    import: importRes
+                };
+            }
 
             return {
                 success: true,

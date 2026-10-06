@@ -1,27 +1,20 @@
 #!/usr/bin/env node
 // ==============================================================================
-// Antigravity Second Brain: Unified Master Test Runner (Ponytail Rung 1)
-// Runs all regression & breakthrough suites in isolated child processes
+// Antigravity Second Brain: Dynamic Master Test Runner (Ponytail Rung 1)
+// Automatically discovers and runs all regression & hardening test suites
 // ==============================================================================
 
 const { spawnSync } = require('node:child_process');
+const fs = require('node:fs');
 const path = require('node:path');
 
-const SUITES = [
-    { name: 'v2.0 Core Architecture Suite', file: 'test_brain.js' },
-    { name: 'v3.0 SOTA Breakthrough Suite', file: 'test_v3_production_grade.js' },
-    { name: 'v3.4 Production Verification Suite', file: 'test_v3_4_production.js' },
-    { name: 'v3.5 Ingestion & Sanitization Suite', file: 'test_v3_5_production.js' },
-    { name: 'v3.7 Production Hardening Suite', file: 'test_v3_7_hardening.js' },
-    { name: 'v3.8 Hardening, Atomic Restore & Trust Suite', file: 'test_v3_8_hardening.js' },
-    { name: 'MCP JSON-RPC Stdio Protocol Suite', file: 'test_mcp.js' },
-    { name: 'Adversarial Extractor Robustness Suite', file: 'test_extractor_adversarial.js' },
-    { name: 'Adversarial Retrieval Quality Suite', file: 'adversarial_retrieval_test.js' },
-    { name: 'Embedding Health & Fallback Suite', file: 'test_embed_api.js' },
-    { name: 'Lifecycle Pre-Invocation Hook Suite', file: 'test_hook.js' }
-];
-
 const testDir = __dirname;
+
+// Dynamically discover all test files matching test_*.js or *_test.js
+const testFiles = fs.readdirSync(testDir)
+    .filter(f => (f.startsWith('test_') || f.endsWith('_test.js')) && f.endsWith('.js') && f !== 'run_all_tests.js')
+    .sort();
+
 let passedSuites = 0;
 let failedSuites = 0;
 const startTime = Date.now();
@@ -30,9 +23,9 @@ console.log('╔═════════════════════�
 console.log('║       🧠 ANTIGRAVITY SECOND BRAIN — MASTER CI/CD TEST RUNNER           ║');
 console.log('╚════════════════════════════════════════════════════════════════════════╝\n');
 
-for (const suite of SUITES) {
-    const fullPath = path.join(testDir, suite.file);
-    console.log(`▶ Executing: [${suite.name}] (${suite.file})...`);
+for (const file of testFiles) {
+    const fullPath = path.join(testDir, file);
+    console.log(`▶ Executing suite: ${file}...`);
     const suiteStart = Date.now();
     const result = spawnSync(process.execPath, [fullPath], {
         cwd: path.join(testDir, '..'),
@@ -55,12 +48,12 @@ for (const suite of SUITES) {
 
 const totalDuration = ((Date.now() - startTime) / 1000).toFixed(2);
 console.log('────────────────────────────────────────────────────────────────────────');
-console.log(`🏁 SUMMARY: ${passedSuites}/${SUITES.length} test suites passed in ${totalDuration}s.`);
+console.log(`🏁 SUMMARY: ${passedSuites}/${testFiles.length} test suites passed in ${totalDuration}s.`);
 
 if (failedSuites > 0) {
-    console.error(`\x1b[31m💥 ${failedSuites} test suite(s) failed.\x1b[0m`);
+    console.error(`\x1b[31m❌ CI/CD GATE FAILED: ${failedSuites} suite(s) broke invariants.\x1b[0m`);
     process.exit(1);
 } else {
-    console.log('\x1b[32m🎉 ALL TEST SUITES PASSED FLAWLESSLY!\x1b[0m\n');
+    console.log(`\x1b[32m✨ 100% QUALITY ASSURANCE CERTIFIED — All suites passed flawlessly.\x1b[0m`);
     process.exit(0);
 }

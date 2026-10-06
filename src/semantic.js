@@ -52,16 +52,23 @@ class SemanticKnowledge {
         }
     }
 
-    async _backfillEmbeddings() {
+    async _backfillEmbeddings(embedFn = computeEmbedding) {
         try {
             const expectedByteLength = VECTOR_DIM * 4; // 384 * 4 = 1536 bytes
-            const rows = this.db.all('SELECT id, title, content, tags, embedding FROM knowledge_items');
+            const rows = this.db.all(`
+                SELECT id, title, content, tags, embedding, embedding_status 
+                FROM knowledge_items 
+                WHERE embedding IS NULL OR embedding_status = 'fallback' OR length(embedding) != ?
+            `, expectedByteLength);
             for (const r of rows) {
-                if (!r.embedding || r.embedding.length !== expectedByteLength) {
-                    const text = `${r.title} ${r.content} ${r.tags || ''}`;
-                    const vec = await computeEmbedding(text);
-                    this.db.run('UPDATE knowledge_items SET embedding = ? WHERE id = ?', vectorToBuffer(vec), r.id);
-                }
+                const text = `${r.title} ${r.content} ${r.tags || ''}`;
+                const vec = await embedFn(text);
+                this.db.run(
+                    'UPDATE knowledge_items SET embedding = ?, embedding_status = ? WHERE id = ?',
+                    vectorToBuffer(vec),
+                    'neural',
+                    r.id
+                );
             }
         } catch (e) {}
     }
@@ -73,35 +80,37 @@ class SemanticKnowledge {
         for (const r of rows) {
             const text = `${r.title} ${r.content} ${r.tags || ''}`;
             const vec = await computeEmbedding(text);
-            this.db.run('UPDATE knowledge_items SET embedding = ? WHERE id = ?', vectorToBuffer(vec), r.id);
+            this.db.run('UPDATE knowledge_items SET embedding = ?, embedding_status = ? WHERE id = ?', vectorToBuffer(vec), 'neural', r.id);
             count++;
         }
         return count;
     }
 
-    async addItem({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0, trust_level = 'medium', confidence = 0.8, verification_status = 'candidate', last_verified_at = null }) {
+    async addItem({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0, trust_level = 'medium', confidence = 0.8, verification_status = 'candidate', last_verified_at = null, project_scope = 'global' }) {
         const now = new Date().toISOString();
         const textToEmbed = `${title} ${content} ${tags}`;
         const vec = await computeEmbedding(textToEmbed);
         const buf = vectorToBuffer(vec);
+        const embStatus = 'neural';
 
         const info = this.db.run(`
-            INSERT INTO knowledge_items (title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, embedding, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `, title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, buf, now, now);
+            INSERT INTO knowledge_items (title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, embedding, embedding_status, project_scope, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `, title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, buf, embStatus, project_scope, now, now);
         return info.lastInsertRowid;
     }
 
-    addItemSync({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0, trust_level = 'medium', confidence = 0.8, verification_status = 'candidate', last_verified_at = null }) {
+    addItemSync({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0, trust_level = 'medium', confidence = 0.8, verification_status = 'candidate', last_verified_at = null, project_scope = 'global' }) {
         const now = new Date().toISOString();
         const textToEmbed = `${title} ${content} ${tags}`;
         const vec = computeEmbeddingSync(textToEmbed);
         const buf = vectorToBuffer(vec);
+        const embStatus = 'fallback';
 
         const info = this.db.run(`
-            INSERT INTO knowledge_items (title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, embedding, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `, title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, buf, now, now);
+            INSERT INTO knowledge_items (title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, embedding, embedding_status, project_scope, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `, title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, buf, embStatus, project_scope, now, now);
         return info.lastInsertRowid;
     }
 
@@ -137,8 +146,15 @@ class SemanticKnowledge {
         return true;
     }
 
-    deleteItem(id) {
-        this.db.run('DELETE FROM knowledge_items WHERE id = ?', id);
+    deleteItem(idOrTitle) {
+        if (typeof idOrTitle === 'number' || /^\d+$/.test(idOrTitle)) {
+            this.db.run('DELETE FROM knowledge_items WHERE id = ?', Number(idOrTitle));
+        } else {
+            this.db.run('DELETE FROM knowledge_items WHERE title = ? OR title LIKE ?', idOrTitle, `%${idOrTitle}%`);
+        }
+        try {
+            this.db.exec("INSERT INTO knowledge_fts(knowledge_fts) VALUES('rebuild');");
+        } catch (e) {}
         return true;
     }
 
@@ -150,21 +166,24 @@ class SemanticKnowledge {
     async searchKnowledge(query, optionsOrLimit = 5, maybeCategory = null) {
         let limit = 5;
         let category = null;
+        let project_scope = null;
+        let expand_graph = true;
         if (typeof optionsOrLimit === 'object' && optionsOrLimit !== null) {
             limit = optionsOrLimit.limit !== undefined ? optionsOrLimit.limit : 5;
             category = optionsOrLimit.category !== undefined ? optionsOrLimit.category : null;
+            project_scope = optionsOrLimit.project_scope !== undefined ? optionsOrLimit.project_scope : null;
+            if (optionsOrLimit.expand_graph !== undefined) expand_graph = optionsOrLimit.expand_graph;
         } else if (typeof optionsOrLimit === 'number') {
             limit = optionsOrLimit;
             category = maybeCategory;
         } else if (optionsOrLimit === null || optionsOrLimit === undefined) {
-            // optionsOrLimit is null/undefined — use defaults
+            // defaults
         }
 
         // --- Input validation: coerce non-string query to string, guard null/undefined ---
         if (query === null || query === undefined) {
             query = '';
         } else if (typeof query !== 'string') {
-            // Coerce numbers, objects, etc. to string safely
             try {
                 query = String(query);
             } catch (e) {
@@ -173,14 +192,38 @@ class SemanticKnowledge {
         }
 
         if (limit === 0) return [];
-
-        // Clamp limit to a sane range
         limit = (typeof limit === 'number' && limit > 0) ? Math.min(limit, 100) : 5;
 
+        // Scope filter helper
+        const buildScopeClause = (tablePrefix = '') => {
+            const col = tablePrefix ? `${tablePrefix}.project_scope` : 'project_scope';
+            if (project_scope && project_scope !== 'global') {
+                return { clause: `(${col} = ? OR ${col} = 'global' OR ${col} IS NULL)`, param: project_scope };
+            }
+            return { clause: null, param: null };
+        };
+
+        const scopeInfo = buildScopeClause();
+
         if (!query || !query.trim()) {
-            const categoryFilter = category ? 'WHERE category = ?' : '';
-            const params = category ? [category, limit] : [limit];
-            return this.db.all(`SELECT id, title, content, category, tags, source, importance, access_count, updated_at FROM knowledge_items ${categoryFilter} ORDER BY importance DESC, updated_at DESC LIMIT ?`, ...params);
+            const conditions = [];
+            const params = [];
+            if (category) {
+                conditions.push('category = ?');
+                params.push(category);
+            }
+            if (scopeInfo.clause) {
+                conditions.push(scopeInfo.clause);
+                params.push(scopeInfo.param);
+            }
+            const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(' AND ')}` : '';
+            params.push(limit);
+            return this.db.all(`
+                SELECT id, title, content, category, tags, source, importance, access_count, 
+                       trust_level, confidence, verification_status, project_scope, updated_at 
+                FROM knowledge_items ${whereClause} 
+                ORDER BY importance DESC, updated_at DESC LIMIT ?
+            `, ...params);
         }
 
         const queryVec = await computeEmbedding(query);
@@ -193,24 +236,27 @@ class SemanticKnowledge {
             const words = sanitized.split(/\s+/).filter(Boolean);
             const ftsQuery = words.map(w => `"${w}"*`).join(' OR ');
             try {
-                // When category filter is active, restrict FTS candidates to that category too
-                const ftsRows = category
-                    ? this.db.all(`
-                        SELECT k.id, bm25(knowledge_fts) as raw_rank
-                        FROM knowledge_fts
-                        JOIN knowledge_items k ON knowledge_fts.rowid = k.id
-                        WHERE knowledge_fts MATCH ? AND k.category = ?
-                        ORDER BY bm25(knowledge_fts) ASC
-                        LIMIT 30
-                    `, ftsQuery, category)
-                    : this.db.all(`
-                        SELECT k.id, bm25(knowledge_fts) as raw_rank
-                        FROM knowledge_fts
-                        JOIN knowledge_items k ON knowledge_fts.rowid = k.id
-                        WHERE knowledge_fts MATCH ?
-                        ORDER BY bm25(knowledge_fts) ASC
-                        LIMIT 30
-                    `, ftsQuery);
+                const ftsConditions = ['knowledge_fts MATCH ?'];
+                const ftsParams = [ftsQuery];
+                if (category) {
+                    ftsConditions.push('k.category = ?');
+                    ftsParams.push(category);
+                }
+                const kScope = buildScopeClause('k');
+                if (kScope.clause) {
+                    ftsConditions.push(kScope.clause);
+                    ftsParams.push(kScope.param);
+                }
+
+                const ftsRows = this.db.all(`
+                    SELECT k.id, bm25(knowledge_fts) as raw_rank
+                    FROM knowledge_fts
+                    JOIN knowledge_items k ON knowledge_fts.rowid = k.id
+                    WHERE ${ftsConditions.join(' AND ')}
+                    ORDER BY bm25(knowledge_fts) ASC
+                    LIMIT 30
+                `, ...ftsParams);
+
                 for (const row of ftsRows) {
                     bm25Map.set(row.id, Math.abs(row.raw_rank || 0));
                     ftsCandidateIds.push(row.id);
@@ -218,58 +264,106 @@ class SemanticKnowledge {
             } catch (e) {}
         }
 
+        // 1.5 Causal Graph Expansion: only expand when direct sparse/FTS matches are sparse (< 2)
+        // or query has no strong direct keyword matches, preventing candidate pollution
+        const graphCandidateIds = [];
+        if (expand_graph && sanitized && this.getRelationsForEntity && ftsCandidateIds.length < 2) {
+            try {
+                const allEntities = this.db.all('SELECT name FROM entities');
+                const matchedEntities = allEntities.filter(e => 
+                    sanitized.toLowerCase().includes(e.name.toLowerCase())
+                );
+                for (const ent of matchedEntities) {
+                    const rels = this.getRelationsForEntity(ent.name, 2);
+                    for (const r of rels) {
+                        const tgt = r.target_entity || r.target;
+                        if (tgt && !sanitized.toLowerCase().includes(tgt.toLowerCase())) {
+                            // Find knowledge matching target entity
+                            const matchingK = this.db.all(`
+                                SELECT id FROM knowledge_items 
+                                WHERE (title LIKE ? OR tags LIKE ? OR content LIKE ?)
+                                ${scopeInfo.clause ? `AND ${scopeInfo.clause}` : ''}
+                                LIMIT 5
+                            `, `%${tgt}%`, `%${tgt}%`, `%${tgt}%`, ...(scopeInfo.param ? [scopeInfo.param] : []));
+                            matchingK.forEach(k => graphCandidateIds.push(k.id));
+                        }
+                    }
+                }
+            } catch (gErr) {}
+        }
+
         // Gather Candidate items (Pre-filtering)
         let candidateItems;
         const totalCount = this.db.get('SELECT COUNT(*) as cnt FROM knowledge_items').cnt;
-        if (totalCount <= 50) {
-            const categoryFilter = category ? 'WHERE category = ?' : '';
-            const params = category ? [category] : [];
-            candidateItems = this.db.all(`
-                SELECT id, title, content, category, tags, source, importance, access_count, embedding, updated_at 
-                FROM knowledge_items ${categoryFilter}
-            `, ...params);
-        } else {
-            // In the large-DB branch, always scope recent rows to category if specified
-            const categoryFilter = category ? 'WHERE category = ?' : '';
-            const params = category ? [category] : [];
-            const recentRows = this.db.all(`
-                SELECT id FROM knowledge_items ${categoryFilter}
-                ORDER BY updated_at DESC LIMIT 25
-            `, ...params);
 
-            const candidateIdSet = new Set([...ftsCandidateIds, ...recentRows.map(r => r.id)]);
+        const baseConds = [];
+        const baseParams = [];
+        if (category) {
+            baseConds.push('category = ?');
+            baseParams.push(category);
+        }
+        if (scopeInfo.clause) {
+            baseConds.push(scopeInfo.clause);
+            baseParams.push(scopeInfo.param);
+        }
+        const baseWhere = baseConds.length > 0 ? `WHERE ${baseConds.join(' AND ')}` : '';
+
+        if (totalCount <= 50) {
+            candidateItems = this.db.all(`
+                SELECT id, title, content, category, tags, source, importance, access_count, 
+                       trust_level, confidence, verification_status, project_scope, embedding, updated_at 
+                FROM knowledge_items ${baseWhere}
+            `, ...baseParams);
+        } else {
+            const recentRows = this.db.all(`
+                SELECT id FROM knowledge_items ${baseWhere}
+                ORDER BY updated_at DESC LIMIT 25
+            `, ...baseParams);
+
+            const candidateIdSet = new Set([...ftsCandidateIds, ...graphCandidateIds, ...recentRows.map(r => r.id)]);
             if (candidateIdSet.size === 0) {
                 const topImp = this.db.all(`
-                    SELECT id FROM knowledge_items ${categoryFilter}
+                    SELECT id FROM knowledge_items ${baseWhere}
                     ORDER BY importance DESC LIMIT 30
-                `, ...params);
+                `, ...baseParams);
                 topImp.forEach(r => candidateIdSet.add(r.id));
             }
             const candidateIds = Array.from(candidateIdSet);
             const placeholders = candidateIds.map(() => '?').join(',');
-            // Post-filter by category to ensure no cross-category leak from ftsCandidateIds
+
+            const postConds = [`id IN (${placeholders})`];
+            const postParams = [...candidateIds];
             if (category) {
-                candidateItems = this.db.all(`
-                    SELECT id, title, content, category, tags, source, importance, access_count, embedding, updated_at 
-                    FROM knowledge_items WHERE id IN (${placeholders}) AND category = ?
-                `, ...candidateIds, category);
-            } else {
-                candidateItems = this.db.all(`
-                    SELECT id, title, content, category, tags, source, importance, access_count, embedding, updated_at 
-                    FROM knowledge_items WHERE id IN (${placeholders})
-                `, ...candidateIds);
+                postConds.push('category = ?');
+                postParams.push(category);
             }
+            if (scopeInfo.clause) {
+                postConds.push(scopeInfo.clause);
+                postParams.push(scopeInfo.param);
+            }
+
+            candidateItems = this.db.all(`
+                SELECT id, title, content, category, tags, source, importance, access_count, 
+                       trust_level, confidence, verification_status, project_scope, embedding, updated_at 
+                FROM knowledge_items WHERE ${postConds.join(' AND ')}
+            `, ...postParams);
         }
 
         const now = Date.now();
         const expectedByteLength = VECTOR_DIM * 4;
 
+        const graphCandidateSet = new Set(graphCandidateIds);
+
         // Compute individual modality scores
         const candidates = candidateItems.map(item => {
+            const isGraphCandidate = graphCandidateSet.has(item.id);
             let denseScore = 0;
             if (item.embedding && item.embedding.length === expectedByteLength) {
                 const itemVec = bufferToVector(item.embedding);
                 denseScore = cosineSimilarity(queryVec, itemVec);
+            }
+            if (isGraphCandidate) {
+                denseScore = Math.max(denseScore, 0.45);
             }
             denseScore = Math.max(0, denseScore);
 
@@ -287,6 +381,10 @@ class SemanticKnowledge {
                 tags: item.tags,
                 source: item.source,
                 importance: item.importance,
+                trust_level: item.trust_level || 'medium',
+                confidence: item.confidence !== undefined ? item.confidence : 0.8,
+                verification_status: item.verification_status || 'candidate',
+                project_scope: item.project_scope || 'global',
                 denseScore: denseScore,
                 sparseScore: sparseScore,
                 recencyScore: recencyScore,
@@ -308,7 +406,6 @@ class SemanticKnowledge {
             const rDense = denseRankMap.get(c.id);
             const rSparse = sparseRankMap.get(c.id);
 
-            // RRF formula: w_dense / (60 + r_dense) + w_sparse / (60 + r_sparse) + w_recency * recencyScore + w_importance * importance
             let denseRrf = c.denseScore > 0 ? (0.55 / (RRF_K + rDense)) : 0;
             if (c.denseScore > 0) {
                 denseRrf *= (0.5 + 0.5 * c.denseScore);
@@ -318,8 +415,15 @@ class SemanticKnowledge {
             const recencyVal = (0.05 / RRF_K) * c.recencyScore;
             const impVal = (0.05 / RRF_K) * ((c.importance || 1.0) / 2.0);
 
-            const rrfTotal = denseRrf + sparseRrf + recencyVal + impVal;
-            c.score = Number((rrfTotal * RRF_K).toFixed(4));
+            const rrfBase = denseRrf + sparseRrf + recencyVal + impVal;
+
+            // Trust-aware score modulation (TRUST-002)
+            const isVerified = c.verification_status === 'verified' || c.verification_status === 'stable';
+            const trustWeight = c.trust_level === 'high' ? 1.0 : (c.trust_level === 'medium' ? 0.75 : 0.5);
+            const verificationBoost = isVerified ? 0.15 : 0.0;
+
+            const rrfTotal = (rrfBase * RRF_K) * (0.8 + 0.2 * trustWeight) + verificationBoost;
+            c.score = Number(rrfTotal.toFixed(4));
         }
 
         candidates.sort((a, b) => b.score - a.score);
@@ -331,7 +435,6 @@ class SemanticKnowledge {
 
         return top;
     }
-
 
     // Entity Graph Operations (Bi-Temporal SOTA Graph Engine)
     addEntity(name, type = 'concept', description = '') {

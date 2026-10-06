@@ -185,7 +185,9 @@ async function main() {
     // 6. Database Verification & Auto-Recovery
     logStep('6/6', 'Kiểm tra & Khởi tạo cơ sở dữ liệu nhận thức (brain.db)...');
     const { BrainDB } = require('./src/db');
+    const { GitBackupManager } = require('./src/git_backup');
     const db = new BrainDB();
+    const gitMgr = new GitBackupManager(BRAIN_DIR, path.join(BRAIN_DIR, 'exports'), db);
     let stats = db.get('SELECT COUNT(*) as kn FROM knowledge_items');
 
     // Auto-restore from dump.sql (Private Data Store) or templates/seed.sql (Clean Template Seed)
@@ -194,41 +196,26 @@ async function main() {
         const seedPath = path.join(BRAIN_DIR, 'templates', 'seed.sql');
 
         if (fs.existsSync(dumpPath)) {
-            console.log('  ↳ CSDL mới tinh, tự động phục hồi dữ liệu từ exports/dump.sql...');
-            const sql = fs.readFileSync(dumpPath, 'utf8');
-            db.exec(sql);
-            db.exec('PRAGMA wal_checkpoint(TRUNCATE);');
-
-            // Rebuild FTS virtual tables
-            try {
-                db.exec("INSERT INTO knowledge_fts(knowledge_fts) VALUES('rebuild');");
-                db.exec("INSERT INTO episodes_fts(episodes_fts) VALUES('rebuild');");
-                db.exec("INSERT INTO solutions_fts(solutions_fts) VALUES('rebuild');");
-            } catch (e) {}
-
-            stats = db.get('SELECT COUNT(*) as kn FROM knowledge_items');
-            const epCount = db.get('SELECT COUNT(*) as c FROM episodes').c;
-            const entCount = db.get('SELECT COUNT(*) as c FROM entities').c;
-            logSuccess(`Đã phục hồi thành công: ${stats.kn} tri thức, ${epCount} episodes, ${entCount} entities!`);
-
-            // Check embedding coverage and trigger backfill
-            const missingEmb = db.get("SELECT COUNT(*) as c FROM knowledge_items WHERE embedding IS NULL").c;
-            if (missingEmb > 0) {
-                console.log(`  ↳ Kích hoạt backfill vector embedding cho ${missingEmb} mục tri thức...`);
-                try {
-                    const { getSemanticKnowledge } = require('./src/semantic');
-                    const sem = getSemanticKnowledge(db);
-                    sem._backfillEmbeddings().catch(() => {});
-                } catch (e) {}
+            console.log('  ↳ CSDL mới tinh, tự động phục hồi dữ liệu từ exports/dump.sql qua atomic importDump...');
+            const restoreRes = gitMgr.importDump(dumpPath);
+            if (!restoreRes.success) {
+                logWarn(`Cảnh báo phục hồi từ dump.sql: ${restoreRes.error}`);
+            } else {
+                stats = db.get('SELECT COUNT(*) as kn FROM knowledge_items');
+                const epCount = db.get('SELECT COUNT(*) as c FROM episodes').c;
+                const entCount = db.get('SELECT COUNT(*) as c FROM entities').c;
+                logSuccess(`Đã phục hồi nguyên tử thành công: ${stats.kn} tri thức, ${epCount} episodes, ${entCount} entities!`);
             }
         } else if (fs.existsSync(seedPath)) {
-            console.log('  ↳ Khởi tạo CSDL sạch từ templates/seed.sql...');
-            const sql = fs.readFileSync(seedPath, 'utf8');
-            db.exec(sql);
-            db.exec('PRAGMA wal_checkpoint(TRUNCATE);');
-            stats = db.get('SELECT COUNT(*) as kn FROM knowledge_items');
-            logSuccess(`Đã nạp schema và tri thức mẫu ban đầu (${stats.kn} mục)!`);
-            console.log('  💡 Mẹo: Chạy `agy-brain data-pull` để nạp kho ký ức cá nhân từ antigravity-second-brain-data.');
+            console.log('  ↳ Khởi tạo CSDL sạch từ templates/seed.sql qua atomic importDump...');
+            const seedRes = gitMgr.importDump(seedPath);
+            if (!seedRes.success) {
+                logWarn(`Lỗi phục hồi seed: ${seedRes.error}`);
+            } else {
+                stats = db.get('SELECT COUNT(*) as kn FROM knowledge_items');
+                logSuccess(`Đã nạp schema và tri thức mẫu ban đầu (${stats.kn} mục)!`);
+                console.log('  💡 Mẹo: Chạy `agy-brain data-pull` để nạp kho ký ức cá nhân từ antigravity-second-brain-data.');
+            }
         }
     }
     logSuccess(`Cơ sở dữ liệu SQLite WAL hoạt động hoàn hảo! Hiện có: ${stats.kn} mục tri thức.`);

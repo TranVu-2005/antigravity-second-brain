@@ -83,6 +83,18 @@ class SolutionStore {
         return this.addSolution(params);
     }
 
+    deleteSolution(idOrPattern) {
+        if (typeof idOrPattern === 'number' || /^\d+$/.test(idOrPattern)) {
+            this.db.run('DELETE FROM solutions WHERE id = ?', Number(idOrPattern));
+        } else {
+            this.db.run('DELETE FROM solutions WHERE error_pattern = ? OR error_pattern LIKE ?', idOrPattern, `%${idOrPattern}%`);
+        }
+        try {
+            this.db.exec("INSERT INTO solutions_fts(solutions_fts) VALUES('rebuild');");
+        } catch (e) {}
+        return true;
+    }
+
     searchSolutions(query, { project_scope = null, limit = 3 } = {}) {
         if (!query || !query.trim()) {
             const scopeFilter = project_scope ? "WHERE project_scope = ? OR project_scope = 'global'" : '';

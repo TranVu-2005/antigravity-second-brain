@@ -323,20 +323,21 @@ npm run lint
 # Security audit against shell string interpolation & credential leakage
 npm run test:security
 
-# Execute Master CI/CD Test Runner (All 11 test suites)
+# Execute Master CI/CD Test Runner (All 12 test suites)
 npm test
 
 # Run empirical benchmark evaluation and regression check
 npm run eval
 
 # Run individual test tracks
+npm run test:v3.8.1   # v3.8.1 Production Hardening, Trust & Scope Isolation, Graph Multi-Hop
 npm run test:v3.8     # v3.8 Hardening, Atomic Restore, Trust Model & Multi-Hop Graph
 npm run test:v3.7     # v3.7 Hardening & Robustness Suite
 npm run test:v3.5     # v3.5 Batch ingestion & SQLite parameter sanitization
 npm run test:v3.4     # v3.4 Regression & Bi-Temporal graph tests
 npm run test:v3       # v3.0 SOTA Breakthrough suite
 npm run test:unit     # v2.0 Architecture unit tests
-npm run test:mcp      # Stdio MCP protocol validator
+npm run test:mcp      # Stdio MCP protocol validator (14 tools schema verified)
 ```
 
 ---

@@ -219,14 +219,20 @@ class ContextRetriever {
         // ---------------------------------------------------------------------
         const isCasualQuery = safeQuery ? /^(?:chào|hi|hello|hey|alo|ê|ơi|bye|tạm biệt|cảm ơn|thanks|thank you|ok|oke|okie|ừ|được rồi)\b/i.test(safeQuery.trim()) : false;
 
-        let knowledgeResults = await this.semantic.searchKnowledge(safeQuery || '', { limit: 4 });
+        let knowledgeResults = await this.semantic.searchKnowledge(safeQuery || '', { 
+            project_scope: projectScope, 
+            limit: 4 
+        });
 
         // Multi-Hop Knowledge Graph Expansion: Expand hybrid candidate selection with 2-hop connected entities
         if (traversedEntities.length > 0 && !isCasualQuery) {
             try {
                 for (const entName of traversedEntities.slice(0, 4)) {
                     if (!entName || entName.length < 2) continue;
-                    const graphItems = await this.semantic.searchKnowledge(entName, { limit: 2 });
+                    const graphItems = await this.semantic.searchKnowledge(entName, { 
+                        project_scope: projectScope, 
+                        limit: 2 
+                    });
                     if (graphItems && graphItems.length > 0) {
                         const existingIds = new Set(knowledgeResults.map(k => k.id));
                         for (const item of graphItems) {
@@ -235,6 +241,12 @@ class ContextRetriever {
                                 item.denseScore = Math.max(item.denseScore || 0, 0.40);
                                 knowledgeResults.push(item);
                                 existingIds.add(item.id);
+                            } else {
+                                const existing = knowledgeResults.find(k => k.id === item.id);
+                                if (existing) {
+                                    existing.denseScore = Math.max(existing.denseScore || 0, 0.40);
+                                    existing.score = Math.max(existing.score || 0, 0.50);
+                                }
                             }
                         }
                     }

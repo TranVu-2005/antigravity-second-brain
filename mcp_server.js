@@ -14,6 +14,7 @@ const { getEpisodicMemory } = require('./src/episodic');
 const { getSolutionStore } = require('./src/solutions');
 const { getGitBackupManager } = require('./src/git_backup');
 const { VECTOR_DIM } = require('./src/embedding');
+const PKG_VERSION = require('./package.json').version;
 
 const TOOLS = [
     {
@@ -260,22 +261,27 @@ class SecondBrainMCPServer {
         }
 
         switch (method) {
-            case 'initialize':
+            case 'initialize': {
+                const clientVersion = params?.protocolVersion || '2024-11-05';
+                const supportedVersions = ['2024-11-05', '2025-03-20', '2026-07-28'];
+                const negotiatedVersion = supportedVersions.includes(clientVersion) ? clientVersion : '2024-11-05';
+
                 this.sendResponse({
                     jsonrpc: '2.0',
                     id,
                     result: {
-                        protocolVersion: '2024-11-05',
+                        protocolVersion: negotiatedVersion,
                         capabilities: {
                             tools: {}
                         },
                         serverInfo: {
                             name: 'antigravity-second-brain',
-                            version: '2.0.0'
+                            version: PKG_VERSION
                         }
                     }
                 });
                 break;
+            }
 
             case 'tools/list':
                 this.sendResponse({
@@ -422,7 +428,7 @@ class SecondBrainMCPServer {
                     const dbPath = path.join(__dirname, 'brain.db');
                     const dbSize = fs.existsSync(dbPath) ? `${(fs.statSync(dbPath).size / 1024).toFixed(1)} KB` : 'N/A';
 
-                    resultText = `=== ANTIGRAVITY SECOND BRAIN STATS (v3.1.0 Production-Grade) ===\n` +
+                    resultText = `=== ANTIGRAVITY SECOND BRAIN STATS (v${PKG_VERSION} Production-Grade) ===\n` +
                         `• Hồ sơ người dùng (User Profile): ${profCount} mục\n` +
                         `• Tri thức dài hạn (Knowledge Items): ${knCount} mục\n` +
                         `• Bộ nhớ quy trình sửa lỗi (Solutions): ${solCount} giải pháp\n` +
@@ -515,10 +521,36 @@ class SecondBrainMCPServer {
                     let expiredRel = false;
                     if (target) {
                         expiredRel = this.semantic.expireRelation(key, 'prefers', target) ||
-                                     this.semantic.expireRelation(key, 'uses', target);
+                                     this.semantic.expireRelation(key, 'uses', target) ||
+                                     this.semantic.expireRelation(key, 'located_in', target);
                     }
 
-                    resultText = `Đã thực hiện gỡ bỏ/hết hiệu lực (Letta-style): ${deletedProfile ? `Profile key "${key}" đã xóa.` : `Key "${key}" đã xử lý.`} ${expiredRel ? `Quan hệ thực thể với "${target}" đã chuyển sang trạng thái expired.` : ''} (Lý do: ${reason})`;
+                    // Cascade forget to Semantic Knowledge Items
+                    let deletedKnowledge = false;
+                    try {
+                        const knMatches = this.db.all('SELECT id FROM knowledge_items WHERE title = ? OR title LIKE ? OR tags LIKE ?', key, `%${key}%`, `%${key}%`);
+                        for (const km of knMatches) {
+                            this.semantic.deleteItem(km.id);
+                            deletedKnowledge = true;
+                        }
+                    } catch (e) {}
+
+                    // Cascade forget to Procedural Solutions
+                    let deletedSolution = false;
+                    try {
+                        const solMatches = this.db.all('SELECT id FROM solutions WHERE error_pattern = ? OR error_pattern LIKE ?', key, `%${key}%`);
+                        for (const sm of solMatches) {
+                            this.solutions.deleteSolution(sm.id);
+                            deletedSolution = true;
+                        }
+                    } catch (e) {}
+
+                    resultText = `Đã thực hiện gỡ bỏ/hết hiệu lực toàn diện (Letta-style): ` +
+                        `${deletedProfile ? `Profile key "${key}" đã xóa. ` : ''}` +
+                        `${deletedKnowledge ? `Tri thức ngữ nghĩa liên quan "${key}" đã xóa khỏi CSDL và FTS. ` : ''}` +
+                        `${deletedSolution ? `Giải pháp thủ tục liên quan "${key}" đã xóa. ` : ''}` +
+                        `${expiredRel ? `Quan hệ thực thể với "${target}" đã chuyển sang trạng thái expired. ` : ''}` +
+                        `(Lý do: ${reason})`;
                     break;
                 }
 
@@ -577,4 +609,8 @@ if (require.main === module) {
     server.start();
 }
 
-module.exports = { SecondBrainMCPServer };
+module.exports = { 
+    SecondBrainMCPServer,
+    TOOLS,
+    PKG_VERSION
+};

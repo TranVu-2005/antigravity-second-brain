@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-10-06T18:05:31.351Z",
-  "version": "3.8.0",
+  "timestamp": "2026-10-06T20:35:18.792Z",
+  "version": "3.8.1",
   "suite": "all",
   "runtime": {
     "node": "v24.18.0",
@@ -22,12 +22,12 @@
       "ndcg_at_5": 0.466,
       "query_count": 17,
       "latency_ms": {
-        "p50": 4.07,
-        "p95": 5.72,
-        "p99": 6.24,
-        "mean": 3.85,
-        "min": 0.49,
-        "max": 6.37,
+        "p50": 5.46,
+        "p95": 6.37,
+        "p99": 6.4,
+        "mean": 5.01,
+        "min": 0.8,
+        "max": 6.41,
         "count": 17
       }
     },
@@ -39,12 +39,12 @@
         "mrr": 0.7,
         "ndcg_at_5": 0.663,
         "latency_ms": {
-          "p50": 4.13,
-          "p95": 5.5,
-          "p99": 5.55,
-          "mean": 3.91,
-          "min": 0.83,
-          "max": 5.56,
+          "p50": 4.88,
+          "p95": 5.47,
+          "p99": 5.49,
+          "mean": 4.16,
+          "min": 0.8,
+          "max": 5.5,
           "count": 5
         }
       },
@@ -55,12 +55,12 @@
         "mrr": 0.417,
         "ndcg_at_5": 0.335,
         "latency_ms": {
-          "p50": 3.85,
-          "p95": 5.12,
-          "p99": 5.33,
-          "mean": 3.32,
-          "min": 0.49,
-          "max": 5.38,
+          "p50": 5.44,
+          "p95": 5.94,
+          "p99": 6.03,
+          "mean": 4.67,
+          "min": 1.08,
+          "max": 6.05,
           "count": 5
         }
       },
@@ -71,12 +71,12 @@
         "mrr": 0.342,
         "ndcg_at_5": 0.286,
         "latency_ms": {
-          "p50": 4.28,
-          "p95": 4.36,
-          "p99": 4.37,
-          "mean": 4.21,
-          "min": 3.93,
-          "max": 4.37,
+          "p50": 5.83,
+          "p95": 6.33,
+          "p99": 6.35,
+          "mean": 5.81,
+          "min": 5.24,
+          "max": 6.36,
           "count": 4
         }
       },
@@ -87,12 +87,12 @@
         "mrr": 0.528,
         "ndcg_at_5": 0.599,
         "latency_ms": {
-          "p50": 3.23,
-          "p95": 6.06,
-          "p99": 6.31,
-          "mean": 4.14,
-          "min": 2.82,
-          "max": 6.37,
+          "p50": 5.92,
+          "p95": 6.36,
+          "p99": 6.4,
+          "mean": 5.96,
+          "min": 5.55,
+          "max": 6.41,
           "count": 3
         }
       }
@@ -154,9 +154,9 @@
       "missing_fts": [],
       "counts": {
         "user_profile": 15,
-        "knowledge_items": 258,
-        "solutions": 63,
-        "episodes": 14255,
+        "knowledge_items": 273,
+        "solutions": 70,
+        "episodes": 14829,
         "conversations": 179,
         "entities": 29,
         "entity_relations": 26
@@ -193,7 +193,7 @@
           "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" solutions",
           "exit_code": 0,
           "passed": true,
-          "output_snippet": " 🛠️ BỘ NHỚ GIẢI PHÁP KỸ THUẬT (PROCEDURAL MEMORY - 20 mục):  • [#29] Lỗi: \"[QUY TRÌNH] Kiểm tra tiế"
+          "output_snippet": " 🛠️ BỘ NHỚ GIẢI PHÁP KỸ THUẬT (PROCEDURAL MEMORY - 20 mục):  • [#104] Lỗi: \"Lỗi trong tác vụ: \"Đánh"
         },
         {
           "name": "solution",
