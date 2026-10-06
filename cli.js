@@ -20,7 +20,7 @@ const command = args[0] || 'help';
 function printHelp() {
     console.log(`
 ===================================================================
-🧠 ANTIGRAVITY SECOND BRAIN CLI v3.7 (Kính phục vụ Ngài)
+🧠 ANTIGRAVITY SECOND BRAIN CLI v3.8 (Kính phục vụ Ngài)
 ===================================================================
 Lệnh quản trị bộ nhớ nhận thức:
   sync                 Đồng bộ toàn bộ lịch sử transcript từ Antigravity brain

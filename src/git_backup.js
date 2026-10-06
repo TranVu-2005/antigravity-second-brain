@@ -475,10 +475,28 @@ class GitBackupManager {
             return { success: false, error: 'Không tìm thấy tệp dump.sql' };
         }
 
+        const db = this.db || getDB();
         try {
-            const db = this.db || getDB();
             const sql = fs.readFileSync(targetPath, 'utf8');
-            db.exec(sql);
+            if (!sql || !sql.trim()) {
+                return { success: false, error: 'Tệp dump.sql trống' };
+            }
+
+            // Atomic transactional restore: abort & rollback on any syntax or schema violation
+            db.exec('BEGIN IMMEDIATE;');
+            try {
+                db.exec(sql);
+                const integrityRow = db.get('PRAGMA integrity_check;');
+                const integrityStatus = integrityRow ? (integrityRow.integrity_check || Object.values(integrityRow)[0]) : 'ok';
+                if (integrityStatus !== 'ok') {
+                    throw new Error(`Kiểm tra toàn vẹn CSDL thất bại (integrity_check): ${integrityStatus}`);
+                }
+                db.exec('COMMIT;');
+            } catch (innerErr) {
+                try { db.exec('ROLLBACK;'); } catch (rbErr) {}
+                throw innerErr;
+            }
+
             db.exec('PRAGMA wal_checkpoint(TRUNCATE);');
 
             // Rebuild FTS Virtual Tables for 100% Search Index Parity

@@ -63,6 +63,10 @@ CREATE TABLE IF NOT EXISTS knowledge_items (
     source TEXT DEFAULT 'auto_extraction', -- 'user', 'agent', 'auto_extraction', 'sync'
     importance REAL NOT NULL DEFAULT 1.0,  -- 0.1 to 2.0
     access_count INTEGER NOT NULL DEFAULT 0,
+    trust_level TEXT NOT NULL DEFAULT 'medium', -- 'high', 'medium', 'low'
+    confidence REAL NOT NULL DEFAULT 0.8,       -- 0.0 to 1.0
+    verification_status TEXT NOT NULL DEFAULT 'candidate', -- 'candidate', 'verified', 'stable'
+    last_verified_at TEXT,
     embedding BLOB,                        -- 384-dim dense float32 vector (1536 bytes)
     project_scope TEXT DEFAULT 'global',   -- 'global' or workspace directory name
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
@@ -82,7 +86,10 @@ CREATE TABLE IF NOT EXISTS solutions (
     command_fix TEXT,
     project_scope TEXT DEFAULT 'global',
     tags TEXT,
+    trust_level TEXT NOT NULL DEFAULT 'medium', -- 'high', 'medium', 'low'
     confidence REAL NOT NULL DEFAULT 1.0,
+    verification_status TEXT NOT NULL DEFAULT 'candidate', -- 'candidate', 'verified', 'stable'
+    last_verified_at TEXT,
     success_count INTEGER NOT NULL DEFAULT 1,
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))

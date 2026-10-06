@@ -158,9 +158,15 @@ async function main() {
     const options = parseArgs();
     const startTime = Date.now();
 
+    let pkgVersion = '3.8.0';
+    try {
+        const pkg = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'package.json'), 'utf8'));
+        if (pkg.version) pkgVersion = pkg.version;
+    } catch (e) {}
+
     const reportData = {
         timestamp: new Date().toISOString(),
-        version: '2.0.0',
+        version: pkgVersion,
         suite: options.suite,
         runtime: {
             node: process.version,

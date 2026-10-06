@@ -79,34 +79,34 @@ class SemanticKnowledge {
         return count;
     }
 
-    async addItem({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0 }) {
+    async addItem({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0, trust_level = 'medium', confidence = 0.8, verification_status = 'candidate', last_verified_at = null }) {
         const now = new Date().toISOString();
         const textToEmbed = `${title} ${content} ${tags}`;
         const vec = await computeEmbedding(textToEmbed);
         const buf = vectorToBuffer(vec);
 
         const info = this.db.run(`
-            INSERT INTO knowledge_items (title, content, category, tags, source, importance, embedding, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `, title, content, category, tags, source, importance, buf, now, now);
+            INSERT INTO knowledge_items (title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, embedding, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `, title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, buf, now, now);
         return info.lastInsertRowid;
     }
 
-    addItemSync({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0 }) {
+    addItemSync({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0, trust_level = 'medium', confidence = 0.8, verification_status = 'candidate', last_verified_at = null }) {
         const now = new Date().toISOString();
         const textToEmbed = `${title} ${content} ${tags}`;
         const vec = computeEmbeddingSync(textToEmbed);
         const buf = vectorToBuffer(vec);
 
         const info = this.db.run(`
-            INSERT INTO knowledge_items (title, content, category, tags, source, importance, embedding, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `, title, content, category, tags, source, importance, buf, now, now);
+            INSERT INTO knowledge_items (title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, embedding, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `, title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, buf, now, now);
         return info.lastInsertRowid;
     }
 
     async updateItem(id, fields = {}) {
-        const allowed = ['title', 'content', 'category', 'tags', 'importance'];
+        const allowed = ['title', 'content', 'category', 'tags', 'importance', 'trust_level', 'confidence', 'verification_status', 'last_verified_at'];
         const updates = [];
         const params = [];
 

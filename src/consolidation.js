@@ -335,13 +335,32 @@ class MemoryConsolidator {
                     try {
                         this.db.run(`
                             UPDATE solutions
-                            SET success_count = success_count + 1, confidence = MIN(1.0, confidence + 0.05), updated_at = datetime('now')
+                            SET success_count = success_count + 1,
+                                confidence = MIN(1.0, confidence + 0.05),
+                                verification_status = CASE WHEN success_count + 1 >= 2 THEN 'stable' ELSE verification_status END,
+                                trust_level = CASE WHEN success_count + 1 >= 2 THEN 'high' ELSE trust_level END,
+                                last_verified_at = CASE WHEN success_count + 1 >= 2 THEN datetime('now') ELSE last_verified_at END,
+                                updated_at = datetime('now')
                             WHERE id = ?
                         `, existing.id);
                     } catch (e) {}
                 }
             }
         }
+    }
+
+    promoteCandidate(id, type = 'knowledge') {
+        const table = type === 'solution' ? 'solutions' : 'knowledge_items';
+        this.db.run(`
+            UPDATE ${table}
+            SET verification_status = 'verified',
+                trust_level = 'high',
+                confidence = 1.0,
+                last_verified_at = datetime('now'),
+                updated_at = datetime('now')
+            WHERE id = ?
+        `, id);
+        return this.db.get(`SELECT * FROM ${table} WHERE id = ?`, id);
     }
 }
 

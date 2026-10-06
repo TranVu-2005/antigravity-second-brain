@@ -11,9 +11,14 @@ const SUITES = [
     { name: 'v2.0 Core Architecture Suite', file: 'test_brain.js' },
     { name: 'v3.0 SOTA Breakthrough Suite', file: 'test_v3_production_grade.js' },
     { name: 'v3.4 Production Verification Suite', file: 'test_v3_4_production.js' },
-    { name: 'v3.5 High-Speed Ingestion & Sanitization Suite', file: 'test_v3_5_production.js' },
+    { name: 'v3.5 Ingestion & Sanitization Suite', file: 'test_v3_5_production.js' },
     { name: 'v3.7 Production Hardening Suite', file: 'test_v3_7_hardening.js' },
-    { name: 'MCP JSON-RPC Stdio Protocol Suite', file: 'test_mcp.js' }
+    { name: 'v3.8 Hardening, Atomic Restore & Trust Suite', file: 'test_v3_8_hardening.js' },
+    { name: 'MCP JSON-RPC Stdio Protocol Suite', file: 'test_mcp.js' },
+    { name: 'Adversarial Extractor Robustness Suite', file: 'test_extractor_adversarial.js' },
+    { name: 'Adversarial Retrieval Quality Suite', file: 'adversarial_retrieval_test.js' },
+    { name: 'Embedding Health & Fallback Suite', file: 'test_embed_api.js' },
+    { name: 'Lifecycle Pre-Invocation Hook Suite', file: 'test_hook.js' }
 ];
 
 const testDir = __dirname;

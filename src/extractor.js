@@ -314,14 +314,24 @@ class MemoryExtractor {
                 } catch (e) {}
 
                 if (!isDuplicate) {
+                    const isUserRole = (role === 'user');
+                    const trustLevel = isUserRole ? (item.importance >= 1.5 ? 'high' : 'medium') : 'medium';
+                    const conf = isUserRole ? (item.importance >= 1.5 ? 1.0 : 0.85) : 0.70;
+                    const verStatus = isUserRole ? 'verified' : 'candidate';
+                    const lastVer = isUserRole ? new Date().toISOString() : null;
+
                     if (this.semantic.addItemSync) {
                         this.semantic.addItemSync({
                             title: item.title,
                             content: item.content,
                             category: item.category,
                             tags: item.tags,
-                            source: 'auto_extraction',
-                            importance: item.importance
+                            source: isUserRole ? 'user_explicit' : 'auto_extraction',
+                            importance: item.importance,
+                            trust_level: trustLevel,
+                            confidence: conf,
+                            verification_status: verStatus,
+                            last_verified_at: lastVer
                         });
                     } else {
                         this.semantic.addItem({
@@ -329,8 +339,12 @@ class MemoryExtractor {
                             content: item.content,
                             category: item.category,
                             tags: item.tags,
-                            source: 'auto_extraction',
-                            importance: item.importance
+                            source: isUserRole ? 'user_explicit' : 'auto_extraction',
+                            importance: item.importance,
+                            trust_level: trustLevel,
+                            confidence: conf,
+                            verification_status: verStatus,
+                            last_verified_at: lastVer
                         });
                     }
                 }
@@ -348,12 +362,17 @@ class MemoryExtractor {
                 } catch (e) {}
 
                 if (!isDuplicate) {
+                    const isUserRole = (role === 'user');
                     this.solutions.addSolution({
                         error_pattern: item.error_pattern,
                         solution_code: item.solution_code,
                         command_fix: item.command_fix || item.solution_code,
                         project_scope: item.project_scope || projectScope,
-                        tags: item.tags || 'bugfix'
+                        tags: item.tags || 'bugfix',
+                        trust_level: isUserRole ? 'high' : 'medium',
+                        confidence: isUserRole ? 1.0 : 0.8,
+                        verification_status: isUserRole ? 'verified' : 'candidate',
+                        last_verified_at: isUserRole ? new Date().toISOString() : null
                     });
                 }
             } else if (item.type === 'entity_relation') {

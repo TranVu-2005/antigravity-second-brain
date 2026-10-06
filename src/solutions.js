@@ -47,7 +47,7 @@ class SolutionStore {
         }
     }
 
-    addSolution({ error_pattern, root_cause = '', solution_code, command_fix = '', project_scope = 'global', tags = '', confidence = 1.0 }) {
+    addSolution({ error_pattern, root_cause = '', solution_code, command_fix = '', project_scope = 'global', tags = '', confidence = 1.0, trust_level = 'medium', verification_status = 'candidate', last_verified_at = null }) {
         const existing = this.db.get(`
             SELECT id, success_count FROM solutions 
             WHERE LOWER(TRIM(error_pattern)) = LOWER(TRIM(?))
@@ -63,16 +63,19 @@ class SolutionStore {
                     command_fix = COALESCE(?, command_fix),
                     success_count = success_count + 1,
                     confidence = MIN(1.0, confidence + 0.1),
+                    verification_status = CASE WHEN success_count + 1 >= 2 THEN 'stable' ELSE verification_status END,
+                    trust_level = CASE WHEN success_count + 1 >= 2 THEN 'high' ELSE trust_level END,
+                    last_verified_at = CASE WHEN success_count + 1 >= 2 THEN ? ELSE last_verified_at END,
                     updated_at = ?
                 WHERE id = ?
-            `, root_cause, solution_code, command_fix, now, existing.id);
+            `, root_cause, solution_code, command_fix, now, now, existing.id);
             return existing.id;
         }
 
         const info = this.db.run(`
-            INSERT INTO solutions (error_pattern, root_cause, solution_code, command_fix, project_scope, tags, confidence, success_count, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?)
-        `, error_pattern, root_cause, solution_code, command_fix, project_scope, tags, confidence, now, now);
+            INSERT INTO solutions (error_pattern, root_cause, solution_code, command_fix, project_scope, tags, confidence, success_count, trust_level, verification_status, last_verified_at, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, 1, ?, ?, ?, ?, ?)
+        `, error_pattern, root_cause, solution_code, command_fix, project_scope, tags, confidence, trust_level, verification_status, last_verified_at, now, now);
         return info.lastInsertRowid;
     }
 
@@ -148,8 +151,9 @@ class SolutionStore {
 let instance = null;
 
 function getSolutionStore(db = getDB()) {
-    if (!instance) {
-        instance = new SolutionStore(db);
+    const targetDb = db || getDB();
+    if (!instance || instance.db !== targetDb) {
+        instance = new SolutionStore(targetDb);
     }
     return instance;
 }

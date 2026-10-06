@@ -183,8 +183,9 @@ class ProfileManager {
 let instance = null;
 
 function getProfileManager(db = getDB()) {
-    if (!instance) {
-        instance = new ProfileManager(db);
+    const targetDb = db || getDB();
+    if (!instance || instance.db !== targetDb) {
+        instance = new ProfileManager(targetDb);
     }
     return instance;
 }

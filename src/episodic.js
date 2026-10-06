@@ -256,8 +256,9 @@ class EpisodicMemory {
 let instance = null;
 
 function getEpisodicMemory(db = getDB(), brainDir = DEFAULT_ANTIGRAVITY_BRAIN_DIR) {
-    if (!instance) {
-        instance = new EpisodicMemory(db, brainDir);
+    const targetDb = db || getDB();
+    if (!instance || instance.db !== targetDb) {
+        instance = new EpisodicMemory(targetDb, brainDir);
     }
     return instance;
 }

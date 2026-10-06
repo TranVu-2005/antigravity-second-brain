@@ -4,6 +4,7 @@
 // ==============================================================================
 
 const path = require('node:path');
+const { getDB } = require('./db');
 const { getProfileManager } = require('./profile');
 const { getSemanticKnowledge } = require('./semantic');
 const { getEpisodicMemory } = require('./episodic');
@@ -13,11 +14,17 @@ const DEFAULT_MAX_TOKENS = 1200; // ~4200 characters max
 const CHARS_PER_TOKEN = 3.5;
 
 class ContextRetriever {
-    constructor() {
-        this.profile = getProfileManager();
-        this.semantic = getSemanticKnowledge();
-        this.episodic = getEpisodicMemory();
-        this.solutions = getSolutionStore();
+    constructor(db = null) {
+        this.db = db || getDB();
+        this.profile = getProfileManager(this.db);
+        this.semantic = getSemanticKnowledge(this.db);
+        this.episodic = getEpisodicMemory(this.db);
+        this.solutions = getSolutionStore(this.db);
+    }
+
+    async retrieveContext(query = '', options = {}) {
+        const conversationId = (options && options.conversationId) || null;
+        return this.compileContext(query, conversationId, options);
     }
 
     inferProjectScope(workspacePaths) {
@@ -165,6 +172,7 @@ class ContextRetriever {
         // ---------------------------------------------------------------------
         // Priority 2.5: Entity Knowledge Graph Traversal (1-Hop & 2-Hop Relations)
         // ---------------------------------------------------------------------
+        let traversedEntities = [];
         if (safeQuery && this.semantic.getRelationsForEntity) {
             try {
                 const allEntities = this.semantic.db.all('SELECT name FROM entities');
@@ -178,11 +186,14 @@ class ContextRetriever {
                 if (matchedEntities.length > 0) {
                     const graphLines = ['[QUAN HỆ THỰC THỂ (KNOWLEDGE GRAPH)]'];
                     const seenRel = new Set();
+                    const discoveredEntityNames = new Set();
                     for (const ent of matchedEntities) {
                         const rels = this.semantic.getRelationsForEntity(ent.name, 2);
                         for (const r of rels) {
                             const src = r.source_entity || r.source;
                             const tgt = r.target_entity || r.target;
+                            if (src) discoveredEntityNames.add(src);
+                            if (tgt) discoveredEntityNames.add(tgt);
                             const key = `${src}->${r.relation}->${tgt}`;
                             if (!seenRel.has(key)) {
                                 seenRel.add(key);
@@ -195,6 +206,7 @@ class ContextRetriever {
                             }
                         }
                     }
+                    traversedEntities = Array.from(discoveredEntityNames);
                     if (graphLines.length > 1) {
                         sections.push(graphLines.join('\n'));
                     }
@@ -207,7 +219,28 @@ class ContextRetriever {
         // ---------------------------------------------------------------------
         const isCasualQuery = safeQuery ? /^(?:chào|hi|hello|hey|alo|ê|ơi|bye|tạm biệt|cảm ơn|thanks|thank you|ok|oke|okie|ừ|được rồi)\b/i.test(safeQuery.trim()) : false;
 
-        const knowledgeResults = await this.semantic.searchKnowledge(safeQuery || '', { limit: 4 });
+        let knowledgeResults = await this.semantic.searchKnowledge(safeQuery || '', { limit: 4 });
+
+        // Multi-Hop Knowledge Graph Expansion: Expand hybrid candidate selection with 2-hop connected entities
+        if (traversedEntities.length > 0 && !isCasualQuery) {
+            try {
+                for (const entName of traversedEntities.slice(0, 4)) {
+                    if (!entName || entName.length < 2) continue;
+                    const graphItems = await this.semantic.searchKnowledge(entName, { limit: 2 });
+                    if (graphItems && graphItems.length > 0) {
+                        const existingIds = new Set(knowledgeResults.map(k => k.id));
+                        for (const item of graphItems) {
+                            if (!existingIds.has(item.id)) {
+                                item.score = Math.max(item.score || 0, 0.50);
+                                item.denseScore = Math.max(item.denseScore || 0, 0.40);
+                                knowledgeResults.push(item);
+                                existingIds.add(item.id);
+                            }
+                        }
+                    }
+                }
+            } catch (e) {}
+        }
         if (knowledgeResults && knowledgeResults.length > 0) {
             // Dynamic Relevance Cutoff: Only inject if genuinely relevant
             const filteredKnowledge = safeQuery 

@@ -1,6 +1,7 @@
 # 🧠 Antigravity Second Brain: Enterprise Multi-Platform Cognitive Architecture
 
 [![Platform](https://img.shields.io/badge/Platform-Windows%2011%20%7C%20Linux%20(Ubuntu%20%2F%20Debian%20%2F%20Arch%20%2F%20Fedora)%20%7C%20WSL2-blue.svg)](https://github.com/TranVu-2005/antigravity-second-brain)
+[![CI](https://github.com/TranVu-2005/antigravity-second-brain/actions/workflows/ci.yml/badge.svg)](https://github.com/TranVu-2005/antigravity-second-brain/actions)
 [![Runtime](https://img.shields.io/badge/Node.js-%3E%3D%2022.5.0%20(Native%20node%3Asqlite)-green.svg)](https://nodejs.org)
 [![Database](https://img.shields.io/badge/Engine-SQLite%203%20(WAL%20%2B%20FTS5%20%2B%20CTE)-orange.svg)](https://sqlite.org)
 [![Vectors](https://img.shields.io/badge/Embeddings-384--dim%20FastEmbed%20(MiniLM--L12--v2)-purple.svg)](https://github.com/qdrant/fastembed)
@@ -313,16 +314,24 @@ When Antigravity initiates, the MCP Server exposes 14 specialized cognitive tool
 
 ## 🧪 Testing & Verification
 
-Second Brain adopts a strict **TDD & Zero External Dependencies** standard. All test suites run natively with Node 24 standard library:
+Second Brain adopts a strict **TDD & Zero External Dependencies** standard. All test suites run natively with the Node.js standard library:
 
 ```bash
-# Validate JavaScript syntax & AST across the codebase (node --check)
+# Validate JavaScript syntax across the codebase (node --check)
 npm run lint
 
-# Execute Master CI/CD Test Runner (All 5 test suites)
+# Security audit against shell string interpolation & credential leakage
+npm run test:security
+
+# Execute Master CI/CD Test Runner (All 11 test suites)
 npm test
 
+# Run empirical benchmark evaluation and regression check
+npm run eval
+
 # Run individual test tracks
+npm run test:v3.8     # v3.8 Hardening, Atomic Restore, Trust Model & Multi-Hop Graph
+npm run test:v3.7     # v3.7 Hardening & Robustness Suite
 npm run test:v3.5     # v3.5 Batch ingestion & SQLite parameter sanitization
 npm run test:v3.4     # v3.4 Regression & Bi-Temporal graph tests
 npm run test:v3       # v3.0 SOTA Breakthrough suite

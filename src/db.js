@@ -89,6 +89,35 @@ class BrainDB {
                         CREATE UNIQUE INDEX IF NOT EXISTS idx_relations_active ON entity_relations(source_entity, relation, target_entity) WHERE valid_until IS NULL;
                     `);
                 }
+
+                // --- v3.8 Migration: Memory Trust Model & Confidence Lifecycle ---
+                const kCols = this.db.prepare("PRAGMA table_info(knowledge_items)").all();
+                if (!kCols.some(c => c.name === 'trust_level')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN trust_level TEXT NOT NULL DEFAULT 'medium';");
+                }
+                if (!kCols.some(c => c.name === 'confidence')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN confidence REAL NOT NULL DEFAULT 0.8;");
+                }
+                if (!kCols.some(c => c.name === 'verification_status')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN verification_status TEXT NOT NULL DEFAULT 'candidate';");
+                }
+                if (!kCols.some(c => c.name === 'last_verified_at')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN last_verified_at TEXT DEFAULT NULL;");
+                }
+
+                const sCols = this.db.prepare("PRAGMA table_info(solutions)").all();
+                if (!sCols.some(c => c.name === 'trust_level')) {
+                    this.db.exec("ALTER TABLE solutions ADD COLUMN trust_level TEXT NOT NULL DEFAULT 'medium';");
+                }
+                if (!sCols.some(c => c.name === 'confidence')) {
+                    this.db.exec("ALTER TABLE solutions ADD COLUMN confidence REAL NOT NULL DEFAULT 1.0;");
+                }
+                if (!sCols.some(c => c.name === 'verification_status')) {
+                    this.db.exec("ALTER TABLE solutions ADD COLUMN verification_status TEXT NOT NULL DEFAULT 'candidate';");
+                }
+                if (!sCols.some(c => c.name === 'last_verified_at')) {
+                    this.db.exec("ALTER TABLE solutions ADD COLUMN last_verified_at TEXT DEFAULT NULL;");
+                }
             }
         } catch (e) {
             console.error('Migration error:', e.message);
