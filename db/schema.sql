@@ -208,3 +208,49 @@ CREATE TRIGGER IF NOT EXISTS trg_solutions_au AFTER UPDATE ON solutions BEGIN
     INSERT INTO solutions_fts(rowid, error_pattern, root_cause, solution_code, command_fix, tags)
     VALUES (new.id, new.error_pattern, new.root_cause, new.solution_code, new.command_fix, new.tags);
 END;
+
+-- 8. True Bi-Temporal Knowledge Graph Events (Append-Only Event Sourcing)
+CREATE TABLE IF NOT EXISTS entity_relation_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    event_type TEXT NOT NULL, -- 'INSERT', 'UPDATE', 'EXPIRE', 'DELETE'
+    source_entity TEXT NOT NULL,
+    relation TEXT NOT NULL,
+    target_entity TEXT NOT NULL,
+    confidence REAL NOT NULL DEFAULT 1.0,
+    valid_from TEXT NOT NULL DEFAULT (datetime('now')),
+    valid_until TEXT DEFAULT NULL,
+    metadata TEXT DEFAULT '{}',
+    transaction_time TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_rel_events_src_tgt ON entity_relation_events(source_entity, target_entity);
+CREATE INDEX IF NOT EXISTS idx_rel_events_tx_time ON entity_relation_events(transaction_time);
+
+-- 9. Memory Lifecycle & Provenance Event Store (Immutable Audit Trail)
+CREATE TABLE IF NOT EXISTS memory_events (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    memory_type TEXT NOT NULL, -- 'knowledge', 'solution', 'episode', 'profile'
+    item_id INTEGER NOT NULL,
+    event_type TEXT NOT NULL,  -- 'CREATED', 'UPDATED', 'EVALUATED', 'STATUS_CHANGE', 'TOMBSTONED', 'PURGED'
+    from_status TEXT,
+    to_status TEXT,
+    confidence REAL,
+    details TEXT,              -- JSON details
+    recorded_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_mem_events_item ON memory_events(memory_type, item_id);
+CREATE INDEX IF NOT EXISTS idx_mem_events_type ON memory_events(event_type);
+
+CREATE TABLE IF NOT EXISTS memory_provenance (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    memory_type TEXT NOT NULL,
+    item_id INTEGER NOT NULL,
+    source_type TEXT NOT NULL, -- 'conversation', 'user_explicit', 'autonomous_reinforcement', 'import'
+    source_ref TEXT,           -- conversation_id, tool_call_id, commit_hash
+    author TEXT,
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_mem_provenance_item ON memory_provenance(memory_type, item_id);
+

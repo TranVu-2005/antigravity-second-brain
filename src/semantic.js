@@ -97,7 +97,24 @@ class SemanticKnowledge {
             INSERT INTO knowledge_items (title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, embedding, embedding_status, project_scope, created_at, updated_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `, title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, buf, embStatus, project_scope, now, now);
-        return info.lastInsertRowid;
+        
+        const newId = info.lastInsertRowid;
+        this.recordMemoryEvent({
+            memoryType: 'knowledge',
+            itemId: newId,
+            eventType: 'CREATED',
+            toStatus: verification_status,
+            confidence: confidence,
+            details: { title, category, project_scope }
+        });
+        this.recordProvenance({
+            memoryType: 'knowledge',
+            itemId: newId,
+            sourceType: source,
+            author: source === 'user' ? 'user' : 'agent'
+        });
+
+        return newId;
     }
 
     addItemSync({ title, content, category = 'fact', tags = '', source = 'user', importance = 1.0, trust_level = 'medium', confidence = 0.8, verification_status = 'candidate', last_verified_at = null, project_scope = 'global' }) {
@@ -111,7 +128,24 @@ class SemanticKnowledge {
             INSERT INTO knowledge_items (title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, embedding, embedding_status, project_scope, created_at, updated_at)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `, title, content, category, tags, source, importance, trust_level, confidence, verification_status, last_verified_at, buf, embStatus, project_scope, now, now);
-        return info.lastInsertRowid;
+
+        const newId = info.lastInsertRowid;
+        this.recordMemoryEvent({
+            memoryType: 'knowledge',
+            itemId: newId,
+            eventType: 'CREATED',
+            toStatus: verification_status,
+            confidence: confidence,
+            details: { title, category, project_scope }
+        });
+        this.recordProvenance({
+            memoryType: 'knowledge',
+            itemId: newId,
+            sourceType: source,
+            author: source === 'user' ? 'user' : 'agent'
+        });
+
+        return newId;
     }
 
     async updateItem(id, fields = {}) {
@@ -143,19 +177,118 @@ class SemanticKnowledge {
         params.push(id);
 
         this.db.run(`UPDATE knowledge_items SET ${updates.join(', ')} WHERE id = ?`, ...params);
+
+        this.recordMemoryEvent({
+            memoryType: 'knowledge',
+            itemId: id,
+            eventType: 'UPDATED',
+            fromStatus: current ? current.verification_status : null,
+            toStatus: fields.verification_status || (current ? current.verification_status : null),
+            confidence: fields.confidence !== undefined ? fields.confidence : (current ? current.confidence : null),
+            details: fields
+        });
+
         return true;
     }
 
     deleteItem(idOrTitle) {
+        let targetId = null;
         if (typeof idOrTitle === 'number' || /^\d+$/.test(idOrTitle)) {
-            this.db.run('DELETE FROM knowledge_items WHERE id = ?', Number(idOrTitle));
+            targetId = Number(idOrTitle);
+            this.db.run('DELETE FROM knowledge_items WHERE id = ?', targetId);
         } else {
+            const row = this.db.get('SELECT id FROM knowledge_items WHERE title = ? OR title LIKE ? LIMIT 1', idOrTitle, `%${idOrTitle}%`);
+            if (row) targetId = row.id;
             this.db.run('DELETE FROM knowledge_items WHERE title = ? OR title LIKE ?', idOrTitle, `%${idOrTitle}%`);
+        }
+        if (targetId) {
+            this.recordMemoryEvent({
+                memoryType: 'knowledge',
+                itemId: targetId,
+                eventType: 'PURGED',
+                toStatus: 'purged',
+                details: { action: 'physical_erasure' }
+            });
         }
         try {
             this.db.exec("INSERT INTO knowledge_fts(knowledge_fts) VALUES('rebuild');");
         } catch (e) {}
         return true;
+    }
+
+    forgetItem(idOrTitle, { hardDelete = false } = {}) {
+        let item = null;
+        if (typeof idOrTitle === 'number' || /^\d+$/.test(idOrTitle)) {
+            item = this.getItem(Number(idOrTitle));
+        } else {
+            item = this.db.get('SELECT * FROM knowledge_items WHERE title = ? OR title LIKE ? LIMIT 1', idOrTitle, `%${idOrTitle}%`);
+        }
+        if (!item) return false;
+
+        if (hardDelete) {
+            return this.deleteItem(item.id);
+        }
+
+        // Logical Forget: Mark as tombstone (excluded from all search & retrieval)
+        this.db.run(`
+            UPDATE knowledge_items 
+            SET verification_status = 'tombstone', updated_at = datetime('now')
+            WHERE id = ?
+        `, item.id);
+
+        this.recordMemoryEvent({
+            memoryType: 'knowledge',
+            itemId: item.id,
+            eventType: 'TOMBSTONED',
+            fromStatus: item.verification_status,
+            toStatus: 'tombstone',
+            details: { title: item.title, action: 'logical_forget' }
+        });
+        return true;
+    }
+
+    recordMemoryEvent({ memoryType = 'knowledge', itemId, eventType, fromStatus = null, toStatus = null, confidence = null, details = null }) {
+        try {
+            this.db.run(`
+                INSERT INTO memory_events (memory_type, item_id, event_type, from_status, to_status, confidence, details, recorded_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
+            `, memoryType, itemId, eventType, fromStatus, toStatus, confidence, typeof details === 'object' ? JSON.stringify(details) : (details || '{}'));
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    recordProvenance({ memoryType = 'knowledge', itemId, sourceType = 'user', sourceRef = null, author = 'user' }) {
+        try {
+            this.db.run(`
+                INSERT INTO memory_provenance (memory_type, item_id, source_type, source_ref, author, created_at)
+                VALUES (?, ?, ?, ?, ?, datetime('now'))
+            `, memoryType, itemId, sourceType, sourceRef, author);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    getMemoryAuditTrail(memoryType = 'knowledge', itemId) {
+        try {
+            const events = this.db.all(`
+                SELECT id, memory_type, item_id, event_type, from_status, to_status, confidence, details, recorded_at
+                FROM memory_events
+                WHERE memory_type = ? AND item_id = ?
+                ORDER BY recorded_at ASC, id ASC
+            `, memoryType, itemId);
+            const provenance = this.db.all(`
+                SELECT id, memory_type, item_id, source_type, source_ref, author, created_at
+                FROM memory_provenance
+                WHERE memory_type = ? AND item_id = ?
+                ORDER BY created_at ASC
+            `, memoryType, itemId);
+            return { events, provenance };
+        } catch (e) {
+            return { events: [], provenance: [] };
+        }
     }
 
     getItem(id) {
@@ -264,10 +397,9 @@ class SemanticKnowledge {
             } catch (e) {}
         }
 
-        // 1.5 Causal Graph Expansion: only expand when direct sparse/FTS matches are sparse (< 2)
-        // or query has no strong direct keyword matches, preventing candidate pollution
-        const graphCandidateIds = [];
-        if (expand_graph && sanitized && this.getRelationsForEntity && ftsCandidateIds.length < 2) {
+        // 1.5 Causal Graph Expansion: Real Graph Path Evidence without arbitrary score floors
+        const graphCandidateMap = new Map(); // id -> graphEvidenceScore
+        if (expand_graph && sanitized && this.getRelationsForEntity) {
             try {
                 const allEntities = this.db.all('SELECT name FROM entities');
                 const matchedEntities = allEntities.filter(e => 
@@ -277,6 +409,9 @@ class SemanticKnowledge {
                     const rels = this.getRelationsForEntity(ent.name, 2);
                     for (const r of rels) {
                         const tgt = r.target_entity || r.target;
+                        const conf = r.confidence !== undefined ? r.confidence : 1.0;
+                        const hop = r.depth || r.hop || 1;
+                        const pathWeight = conf * Math.pow(0.6, hop);
                         if (tgt && !sanitized.toLowerCase().includes(tgt.toLowerCase())) {
                             // Find knowledge matching target entity
                             const matchingK = this.db.all(`
@@ -285,18 +420,21 @@ class SemanticKnowledge {
                                 ${scopeInfo.clause ? `AND ${scopeInfo.clause}` : ''}
                                 LIMIT 5
                             `, `%${tgt}%`, `%${tgt}%`, `%${tgt}%`, ...(scopeInfo.param ? [scopeInfo.param] : []));
-                            matchingK.forEach(k => graphCandidateIds.push(k.id));
+                            matchingK.forEach(k => {
+                                const currentScore = graphCandidateMap.get(k.id) || 0;
+                                graphCandidateMap.set(k.id, Math.max(currentScore, pathWeight));
+                            });
                         }
                     }
                 }
             } catch (gErr) {}
         }
 
-        // Gather Candidate items (Pre-filtering)
+        // 1.6 Candidate items (Full Dense Scan Architecture < 10,000 vectors)
         let candidateItems;
         const totalCount = this.db.get('SELECT COUNT(*) as cnt FROM knowledge_items').cnt;
 
-        const baseConds = [];
+        const baseConds = ["verification_status != 'tombstone'"];
         const baseParams = [];
         if (category) {
             baseConds.push('category = ?');
@@ -308,23 +446,26 @@ class SemanticKnowledge {
         }
         const baseWhere = baseConds.length > 0 ? `WHERE ${baseConds.join(' AND ')}` : '';
 
-        if (totalCount <= 50) {
+        if (totalCount <= 10000) {
+            // Full Dense Scan: Every memory item's embedding is evaluated via cosine similarity
             candidateItems = this.db.all(`
                 SELECT id, title, content, category, tags, source, importance, access_count, 
                        trust_level, confidence, verification_status, project_scope, embedding, updated_at 
                 FROM knowledge_items ${baseWhere}
             `, ...baseParams);
         } else {
+            // Pre-filtered Candidate Union for massive (>10k) datasets
             const recentRows = this.db.all(`
                 SELECT id FROM knowledge_items ${baseWhere}
-                ORDER BY updated_at DESC LIMIT 25
+                ORDER BY updated_at DESC LIMIT 100
             `, ...baseParams);
 
+            const graphCandidateIds = Array.from(graphCandidateMap.keys());
             const candidateIdSet = new Set([...ftsCandidateIds, ...graphCandidateIds, ...recentRows.map(r => r.id)]);
             if (candidateIdSet.size === 0) {
                 const topImp = this.db.all(`
                     SELECT id FROM knowledge_items ${baseWhere}
-                    ORDER BY importance DESC LIMIT 30
+                    ORDER BY importance DESC LIMIT 50
                 `, ...baseParams);
                 topImp.forEach(r => candidateIdSet.add(r.id));
             }
@@ -352,23 +493,19 @@ class SemanticKnowledge {
         const now = Date.now();
         const expectedByteLength = VECTOR_DIM * 4;
 
-        const graphCandidateSet = new Set(graphCandidateIds);
-
-        // Compute individual modality scores
+        // Compute individual modality scores (Dense, Sparse BM25, Graph Evidence, Recency)
         const candidates = candidateItems.map(item => {
-            const isGraphCandidate = graphCandidateSet.has(item.id);
             let denseScore = 0;
             if (item.embedding && item.embedding.length === expectedByteLength) {
                 const itemVec = bufferToVector(item.embedding);
                 denseScore = cosineSimilarity(queryVec, itemVec);
             }
-            if (isGraphCandidate) {
-                denseScore = Math.max(denseScore, 0.45);
-            }
             denseScore = Math.max(0, denseScore);
 
             const rawBm25 = bm25Map.get(item.id) || 0;
             const sparseScore = rawBm25 > 0 ? Math.min(1.0, rawBm25 / 10.0) : 0;
+
+            const graphScore = graphCandidateMap.get(item.id) || 0;
 
             const ageHours = Math.max(0, (now - new Date(item.updated_at).getTime()) / (1000 * 60 * 60));
             const recencyScore = 1.0 / (1.0 + ageHours / 168.0);
@@ -387,12 +524,13 @@ class SemanticKnowledge {
                 project_scope: item.project_scope || 'global',
                 denseScore: denseScore,
                 sparseScore: sparseScore,
+                graphScore: graphScore,
                 recencyScore: recencyScore,
                 updated_at: item.updated_at
             };
         });
 
-        // 2. Reciprocal Rank Fusion (RRF with k = 60)
+        // 2. Reciprocal Rank Fusion & Unified Feature Ranker
         const RRF_K = 60;
         const denseRanked = [...candidates].sort((a, b) => b.denseScore - a.denseScore);
         const sparseRanked = [...candidates].sort((a, b) => b.sparseScore - a.sparseScore);
@@ -406,16 +544,17 @@ class SemanticKnowledge {
             const rDense = denseRankMap.get(c.id);
             const rSparse = sparseRankMap.get(c.id);
 
-            let denseRrf = c.denseScore > 0 ? (0.55 / (RRF_K + rDense)) : 0;
+            let denseRrf = c.denseScore > 0 ? (0.50 / (RRF_K + rDense)) : 0;
             if (c.denseScore > 0) {
                 denseRrf *= (0.5 + 0.5 * c.denseScore);
             }
 
-            const sparseRrf = c.sparseScore > 0 ? (0.35 / (RRF_K + rSparse)) : 0;
+            const sparseRrf = c.sparseScore > 0 ? (0.30 / (RRF_K + rSparse)) : 0;
+            const graphRrf = c.graphScore > 0 ? (0.10 / RRF_K) * c.graphScore : 0;
             const recencyVal = (0.05 / RRF_K) * c.recencyScore;
             const impVal = (0.05 / RRF_K) * ((c.importance || 1.0) / 2.0);
 
-            const rrfBase = denseRrf + sparseRrf + recencyVal + impVal;
+            const rrfBase = denseRrf + sparseRrf + graphRrf + recencyVal + impVal;
 
             // Trust-aware score modulation (TRUST-002)
             const isVerified = c.verification_status === 'verified' || c.verification_status === 'stable';
@@ -503,6 +642,13 @@ class SemanticKnowledge {
                     VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'))
                 `, sourceEntity, relation, targetEntity, confidence, validFrom, validUntil, metadata);
             }
+
+            // Append-only True Bi-Temporal Audit Event
+            this.db.run(`
+                INSERT INTO entity_relation_events (event_type, source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata, transaction_time)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+            `, existingActive ? 'UPDATE' : 'INSERT', sourceEntity, relation, targetEntity, confidence, validFrom, validUntil, metadata);
+
             return true;
         } catch (e) {
             return false;
@@ -511,6 +657,11 @@ class SemanticKnowledge {
 
     expireRelation(sourceEntity, relation, targetEntity) {
         try {
+            this.db.run(`
+                INSERT INTO entity_relation_events (event_type, source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata, transaction_time)
+                VALUES ('EXPIRE', ?, ?, ?, 1.0, datetime('now'), datetime('now'), '{}', datetime('now'))
+            `, sourceEntity, relation, targetEntity);
+
             this.db.run(`
                 UPDATE entity_relations 
                 SET valid_until = datetime('now'), updated_at = datetime('now')
@@ -523,6 +674,42 @@ class SemanticKnowledge {
         } catch (e) {
             return false;
         }
+    }
+
+    deleteRelation(sourceEntity, relation, targetEntity) {
+        try {
+            this.db.run(`
+                INSERT INTO entity_relation_events (event_type, source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata, transaction_time)
+                VALUES ('DELETE', ?, ?, ?, 1.0, datetime('now'), datetime('now'), '{}', datetime('now'))
+            `, sourceEntity, relation, targetEntity);
+
+            this.db.run(`
+                DELETE FROM entity_relations 
+                WHERE source_entity = ? COLLATE NOCASE 
+                  AND relation = ? COLLATE NOCASE 
+                  AND target_entity = ? COLLATE NOCASE
+            `, sourceEntity, relation, targetEntity);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    getBitemporalTimeline(sourceEntity, targetEntity = null) {
+        if (!sourceEntity) return [];
+        let query = `
+            SELECT id, event_type, source_entity, relation, target_entity, 
+                   confidence, valid_from, valid_until, metadata, transaction_time
+            FROM entity_relation_events
+            WHERE (source_entity = ? COLLATE NOCASE OR target_entity = ? COLLATE NOCASE)
+        `;
+        const params = [sourceEntity, sourceEntity];
+        if (targetEntity) {
+            query += ` AND (source_entity = ? COLLATE NOCASE OR target_entity = ? COLLATE NOCASE)`;
+            params.push(targetEntity, targetEntity);
+        }
+        query += ` ORDER BY transaction_time ASC, id ASC`;
+        return this.db.all(query, ...params);
     }
 
     getGraph(includeExpired = false) {

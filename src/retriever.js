@@ -233,16 +233,17 @@ class ContextRetriever {
                     if (graphItems && graphItems.length > 0) {
                         const existingIds = new Set(knowledgeResults.map(k => k.id));
                         for (const item of graphItems) {
+                            const graphWeight = 0.35;
                             if (!existingIds.has(item.id)) {
-                                item.score = Math.max(item.score || 0, 0.50);
-                                item.denseScore = Math.max(item.denseScore || 0, 0.40);
+                                item.graphScore = Math.max(item.graphScore || 0, graphWeight);
+                                item.score = Number(((item.score || 0) * 0.8 + item.graphScore * 0.2).toFixed(4));
                                 knowledgeResults.push(item);
                                 existingIds.add(item.id);
                             } else {
                                 const existing = knowledgeResults.find(k => k.id === item.id);
                                 if (existing) {
-                                    existing.denseScore = Math.max(existing.denseScore || 0, 0.40);
-                                    existing.score = Math.max(existing.score || 0, 0.50);
+                                    existing.graphScore = Math.max(existing.graphScore || 0, graphWeight);
+                                    existing.score = Number(((existing.score || 0) * 0.8 + existing.graphScore * 0.2).toFixed(4));
                                 }
                             }
                         }
@@ -253,7 +254,7 @@ class ContextRetriever {
         if (knowledgeResults && knowledgeResults.length > 0) {
             // Dynamic Relevance Cutoff: Only inject if genuinely relevant
             const filteredKnowledge = safeQuery 
-                ? (isCasualQuery ? [] : knowledgeResults.filter(k => (k.denseScore >= 0.35 || k.sparseScore >= 0.25)))
+                ? (isCasualQuery ? [] : knowledgeResults.filter(k => (k.denseScore >= 0.35 || k.sparseScore >= 0.25 || (k.graphScore && k.graphScore >= 0.30))))
                 : knowledgeResults;
 
             if (filteredKnowledge.length > 0) {

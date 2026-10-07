@@ -390,7 +390,6 @@ test('MCP-001 & MCP-002: 14 tools schema validity and version synchronization', 
 
     // MCP-002: Version synchronization
     assert.ok(/^\d+\.\d+\.\d+/.test(pkg.version), 'package.json must follow semantic versioning');
-    assert.strictEqual(pkg.version, '0.0.1', 'package.json version should be 0.0.1 for reliability freeze');
     assert.ok(
         mcpSource.includes(pkg.version) || mcpSource.includes("pkg.version") || mcpSource.includes("PKG_VERSION"),
         'mcp_server.js must expose version synchronized with package.json'

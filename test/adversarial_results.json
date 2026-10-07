@@ -13,7 +13,7 @@
           "name": "TC-1.01: null input",
           "passed": true,
           "details": {
-            "elapsedMs": 2,
+            "elapsedMs": 1,
             "validShape": true
           }
         },
@@ -37,7 +37,7 @@
           "name": "TC-1.04: whitespace only",
           "passed": true,
           "details": {
-            "elapsedMs": 2,
+            "elapsedMs": 1,
             "validShape": true
           }
         },
@@ -109,7 +109,7 @@
           "name": "TC-1.13: 100KB repetitive string",
           "passed": true,
           "details": {
-            "elapsedMs": 3,
+            "elapsedMs": 2,
             "validShape": true
           }
         },
@@ -117,7 +117,7 @@
           "name": "TC-1.14: ReDoS pattern (location prefix + 10k spaces)",
           "passed": true,
           "details": {
-            "elapsedMs": 8,
+            "elapsedMs": 5,
             "validShape": true
           }
         },
@@ -125,7 +125,7 @@
           "name": "TC-1.15: ReDoS pattern (tech prefix + 10k underscores)",
           "passed": true,
           "details": {
-            "elapsedMs": 1,
+            "elapsedMs": 0,
             "validShape": true
           }
         },

@@ -18,11 +18,13 @@ const args = process.argv.slice(2);
 const command = args[0] || 'help';
 
 function printHelp() {
+    const pkgVer = require('./package.json').version;
     console.log(`
 ===================================================================
-🧠 ANTIGRAVITY SECOND BRAIN CLI v3.8.1 (Production-Grade Cognitive Engine)
+🧠 ANTIGRAVITY SECOND BRAIN CLI v${pkgVer} (Production-Grade Cognitive Engine)
 ===================================================================
 Cognitive Memory Administration Commands:
+  doctor               Run complete system diagnostics (SQLite, WAL, FTS5, embeddings, audit)
   sync                 Synchronize full interaction transcripts from Antigravity
   stats                Inspect database size, embedding space, and memory tiers
   search <query>       Search across long-term knowledge and conversation history
@@ -54,6 +56,14 @@ Decoupled Dual-Repository Management:
 
 async function main() {
     switch (command) {
+        case 'doctor': {
+            const { runDiagnostics, formatDoctorReport } = require('./src/doctor');
+            const report = await runDiagnostics();
+            console.log(formatDoctorReport(report));
+            if (!report.healthy) process.exit(1);
+            break;
+        }
+
         case 'sync': {
             console.log('🔄 Synchronizing conversation transcripts from Antigravity Brain...');
             const episodic = getEpisodicMemory();
