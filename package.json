@@ -1,6 +1,6 @@
 {
   "name": "antigravity-second-brain",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Universal Multi-Platform Cognitive Long-Term Memory Engine for Antigravity AI Agent",
   "main": "mcp_server.js",
   "type": "commonjs",
@@ -21,6 +21,9 @@
     "test": "node test/run_all_tests.js",
     "test:all": "node test/run_all_tests.js",
     "test:unit": "node test/test_brain.js",
+    "test:v0.0.1": "node test/test_v0_0_1_reliability.js",
+    "test:v0.0.2": "node test/test_v0_0_2_retrieval_and_lifecycle.js",
+    "test:v0.0.3": "node test/test_v0_0_3_correctness_and_sync.js",
     "test:reliability": "node test/test_v0_0_1_reliability.js",
     "test:v3": "node test/test_v3_production_grade.js",
     "test:v3.4": "node test/test_v3_4_production.js",

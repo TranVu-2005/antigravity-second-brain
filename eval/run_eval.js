@@ -164,6 +164,12 @@ async function main() {
         if (pkg.version) pkgVersion = pkg.version;
     } catch (e) {}
 
+    let gitCommit = 'local';
+    try {
+        const { execSync } = require('node:child_process');
+        gitCommit = execSync('git rev-parse HEAD', { cwd: path.join(__dirname, '..'), encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+    } catch (e) {}
+
     const reportData = {
         timestamp: new Date().toISOString(),
         version: pkgVersion,
@@ -171,6 +177,7 @@ async function main() {
         runtime: {
             node: process.version,
             platform: process.platform,
+            git_commit: gitCommit,
             vector_dim: 384,
             daemon_healthy: false
         },

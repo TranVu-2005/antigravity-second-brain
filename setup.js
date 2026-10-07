@@ -53,8 +53,11 @@ function readJsonSafe(filePath, defaultVal = {}) {
         const content = fs.readFileSync(filePath, 'utf8');
         return JSON.parse(content);
     } catch (e) {
-        logWarn(`Không thể parse JSON tại ${filePath}, sử dụng giá trị mặc định: ${e.message}`);
-        return defaultVal;
+        const badPath = `${filePath}.bad.${Date.now()}`;
+        try {
+            fs.copyFileSync(filePath, badPath);
+        } catch (copyErr) {}
+        throw new Error(`Tệp cấu hình JSON tại ${filePath} bị hỏng hoặc sai cú pháp (${e.message})! Đã sao lưu an toàn tại ${badPath}. Cài đặt dừng lại để bảo vệ dữ liệu.`);
     }
 }
 

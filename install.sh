@@ -13,9 +13,13 @@ if ! command -v node >/dev/null 2>&1; then
     exit 1
 fi
 
-NODE_MAJOR=$(node -v | cut -d'.' -f1 | tr -d 'v')
-if [ "$NODE_MAJOR" -lt 22 ]; then
-    echo "⚠️ Cảnh báo: Second Brain sử dụng native node:sqlite (yêu cầu Node.js >= 22.5.0). Phiên bản hiện tại: $(node -v)"
+NODE_VERSION=$(node -v | tr -d 'v')
+NODE_MAJOR=$(echo "$NODE_VERSION" | cut -d'.' -f1)
+NODE_MINOR=$(echo "$NODE_VERSION" | cut -d'.' -f2)
+
+if [ "$NODE_MAJOR" -lt 22 ] || ( [ "$NODE_MAJOR" -eq 22 ] && [ "$NODE_MINOR" -lt 5 ] ); then
+    echo "❌ Lỗi: Second Brain yêu cầu Node.js >= 22.5.0 (để hỗ trợ native node:sqlite DatabaseSync). Phiên bản hiện tại: v$NODE_VERSION"
+    exit 1
 fi
 
 # Ensure executable bits on POSIX

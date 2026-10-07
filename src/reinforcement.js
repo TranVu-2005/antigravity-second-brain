@@ -19,6 +19,7 @@ class ReinforcementLearner {
         const lines = content.trim().split('\n');
         
         const learnedSolutions = [];
+        let state = 'IDLE'; // 'IDLE' | 'FAILURE_DETECTED' | 'REMEDIATION_OBSERVED'
         let pendingFailure = null;
 
         for (let i = 0; i < lines.length; i++) {
@@ -44,8 +45,9 @@ class ReinforcementLearner {
                                 cmd = cmd.slice(1, -1);
                             }
                         }
-                        if (pendingFailure) {
+                        if (state === 'FAILURE_DETECTED' && pendingFailure) {
                             pendingFailure.candidateFix = cmd;
+                            state = 'REMEDIATION_OBSERVED';
                         }
                     }
                 }
@@ -56,9 +58,44 @@ class ReinforcementLearner {
                 const text = step.content;
 
                 const hasExitFailure = /exited with code\s+([1-9]\d*)/i.test(text);
+                const isExitSuccess = /exited with code\s+0\b/i.test(text) && !hasExitFailure;
                 const hasErrorKeywords = /not recognized|cannot be loaded|exception|syntaxerror|unauthorizedaccess|no such column|enoent/i.test(text);
 
-                if (hasExitFailure || (hasErrorKeywords && text.includes('exited with code'))) {
+                if (state === 'REMEDIATION_OBSERVED' && pendingFailure && pendingFailure.candidateFix) {
+                    if (isExitSuccess) {
+                        // VERIFIED SUCCESS! The candidate command actually solved the issue!
+                        const id = this.solutionStore.addSolution({
+                            error_pattern: pendingFailure.errorSignature,
+                            root_cause: pendingFailure.rawOutput,
+                            solution_code: `Lệnh khắc phục thành công: ${pendingFailure.candidateFix}`,
+                            command_fix: pendingFailure.candidateFix,
+                            project_scope: projectScope,
+                            tags: 'autonomous_mined,candidate_procedure',
+                            confidence: 0.35,
+                            trust_level: 'low',
+                            verification_status: 'candidate'
+                        });
+
+                        learnedSolutions.push({
+                            id,
+                            error: pendingFailure.errorSignature,
+                            fix: pendingFailure.candidateFix
+                        });
+
+                        pendingFailure = null;
+                        state = 'IDLE';
+                    } else if (hasExitFailure) {
+                        // The candidate fix failed as well. Update error signature or retry
+                        const newError = this._extractErrorSignature(text);
+                        if (newError) {
+                            pendingFailure.errorSignature = newError;
+                            pendingFailure.rawOutput = text.slice(0, 300);
+                        }
+                        pendingFailure.candidateFix = null;
+                        state = 'FAILURE_DETECTED';
+                    }
+                } else if (hasExitFailure || (hasErrorKeywords && text.includes('exited with code'))) {
+                    // Initial failure detected
                     const cleanError = this._extractErrorSignature(text);
                     if (cleanError) {
                         pendingFailure = {
@@ -66,27 +103,8 @@ class ReinforcementLearner {
                             rawOutput: text.slice(0, 300),
                             candidateFix: null
                         };
+                        state = 'FAILURE_DETECTED';
                     }
-                    // Resolved! The candidateFix worked! Register as candidate (NOT 1.0 confidence)
-                    const id = this.solutionStore.addSolution({
-                        error_pattern: pendingFailure.errorSignature,
-                        root_cause: pendingFailure.rawOutput,
-                        solution_code: `Lệnh khắc phục thành công: ${pendingFailure.candidateFix}`,
-                        command_fix: pendingFailure.candidateFix,
-                        project_scope: projectScope,
-                        tags: 'autonomous_mined,candidate_procedure',
-                        confidence: 0.35,
-                        trust_level: 'low',
-                        verification_status: 'candidate'
-                    });
-
-                    learnedSolutions.push({
-                        id,
-                        error: pendingFailure.errorSignature,
-                        fix: pendingFailure.candidateFix
-                    });
-
-                    pendingFailure = null;
                 }
             }
         }

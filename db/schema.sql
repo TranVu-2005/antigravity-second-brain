@@ -70,6 +70,9 @@ CREATE TABLE IF NOT EXISTS knowledge_items (
     embedding BLOB,                        -- 384-dim dense float32 vector (1536 bytes)
     embedding_status TEXT NOT NULL DEFAULT 'neural', -- 'neural', 'fallback'
     project_scope TEXT DEFAULT 'global',   -- 'global' or workspace directory name
+    content_updated_at TEXT,               -- Timestamp when content/title actually changed
+    last_accessed_at TEXT,                 -- Timestamp of most recent retrieval hit
+    last_decay_at TEXT,                    -- Timestamp when memory decay was calculated
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
 );

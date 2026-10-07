@@ -66,6 +66,9 @@ function createTestDB() {
             embedding BLOB,
             embedding_status TEXT NOT NULL DEFAULT 'neural',
             project_scope TEXT DEFAULT 'global',
+            content_updated_at TEXT,
+            last_accessed_at TEXT,
+            last_decay_at TEXT,
             created_at TEXT NOT NULL DEFAULT (datetime('now')),
             updated_at TEXT NOT NULL DEFAULT (datetime('now'))
         );
@@ -198,7 +201,7 @@ async function runSuite() {
             tags: 'kernel,design',
             confidence: 0.9
         });
-        testDB.run('UPDATE knowledge_items SET embedding = ? WHERE id = ?', vectorToBuffer(targetVector), oldId);
+        testDB.run("UPDATE knowledge_items SET embedding = ?, embedding_status = 'neural' WHERE id = ?", vectorToBuffer(targetVector), oldId);
 
         // Insert 55 filler/recent items with orthogonal noise vector
         for (let i = 2; i <= 56; i++) {
@@ -209,7 +212,7 @@ async function runSuite() {
                 tags: 'filler',
                 confidence: 0.5
             });
-            testDB.run('UPDATE knowledge_items SET embedding = ? WHERE id = ?', vectorToBuffer(noiseVector), fid);
+            testDB.run("UPDATE knowledge_items SET embedding = ?, embedding_status = 'neural' WHERE id = ?", vectorToBuffer(noiseVector), fid);
         }
 
         const totalItems = testDB.get('SELECT COUNT(*) as cnt FROM knowledge_items').cnt;

@@ -13,6 +13,7 @@ const { GitSyncLock } = require('./git_lock');
 const EXPORTS_DIR = path.join(BRAIN_DIR, 'exports');
 
 const ALLOWED_EXPORT_FILES = [
+    'manifest.json',
     'profile.json',
     'profile.md',
     'knowledge.json',
@@ -21,11 +22,15 @@ const ALLOWED_EXPORT_FILES = [
     'episodes_log.json',
     'entities.json',
     'entity_relations.json',
+    'entity_relation_events.json',
+    'memory_events.json',
+    'memory_provenance.json',
     'dump.sql',
     'dashboard.html',
     'README.md',
     '.gitignore',
     // Backward compatibility aliases
+    'exports/manifest.json',
     'exports/profile.json',
     'exports/knowledge.json',
     'exports/solutions.json',
@@ -33,6 +38,9 @@ const ALLOWED_EXPORT_FILES = [
     'exports/episodes_log.json',
     'exports/entities.json',
     'exports/entity_relations.json',
+    'exports/entity_relation_events.json',
+    'exports/memory_events.json',
+    'exports/memory_provenance.json',
     'exports/dump.sql'
 ];
 
@@ -305,6 +313,50 @@ class GitBackupManager {
             }
         } catch (e) {}
 
+        // 4.7. Export Bi-Temporal Events & Memory Lifecycle Audit Tables
+        let relationEventRows = [];
+        try {
+            relationEventRows = db.all('SELECT id, event_type, source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata, transaction_time FROM entity_relation_events ORDER BY id ASC');
+            fs.writeFileSync(path.join(this.exportsDir, 'entity_relation_events.json'), JSON.stringify(relationEventRows, null, 2), 'utf8');
+        } catch (e) {}
+
+        let memoryEventRows = [];
+        try {
+            memoryEventRows = db.all('SELECT id, memory_type, item_id, event_type, from_status, to_status, confidence, details, recorded_at FROM memory_events ORDER BY id ASC');
+            fs.writeFileSync(path.join(this.exportsDir, 'memory_events.json'), JSON.stringify(memoryEventRows, null, 2), 'utf8');
+        } catch (e) {}
+
+        let provenanceRows = [];
+        try {
+            provenanceRows = db.all('SELECT id, memory_type, item_id, source_type, source_ref, author, created_at FROM memory_provenance ORDER BY id ASC');
+            fs.writeFileSync(path.join(this.exportsDir, 'memory_provenance.json'), JSON.stringify(provenanceRows, null, 2), 'utf8');
+        } catch (e) {}
+
+        // 4.8. Generate Synchronization Manifest
+        let gitSha = 'local';
+        try {
+            gitSha = this._execGit(['rev-parse', 'HEAD'], { cwd: this.brainDir }).trim();
+        } catch (e) {}
+
+        const manifestData = {
+            manifest_version: 1,
+            engine_version: "0.0.3",
+            exported_at: new Date().toISOString(),
+            git_commit: gitSha,
+            counts: {
+                profile: profileRows.length,
+                knowledge: knowledgeRows.length,
+                solutions: solutionRows.length,
+                conversations: convRows.length,
+                episodes: episodeRows ? episodeRows.length : 0,
+                entities: entityRows ? entityRows.length : 0,
+                relation_events: relationEventRows.length,
+                memory_events: memoryEventRows.length,
+                provenance: provenanceRows.length
+            }
+        };
+        fs.writeFileSync(path.join(this.exportsDir, 'manifest.json'), JSON.stringify(manifestData, null, 2), 'utf8');
+
         const sqlDumpPath = path.join(this.exportsDir, 'dump.sql');
         fs.writeFileSync(sqlDumpPath, sqlDump, 'utf8');
 
@@ -342,7 +394,12 @@ class GitBackupManager {
             conversationsCount: convRows.length,
             episodesCount: episodeRows ? episodeRows.length : 0,
             entitiesCount: entityRows ? entityRows.length : 0,
-            exportedFiles: ['profile.json', 'knowledge.json', 'solutions.json', 'conversations_summary.json', 'episodes_log.json', 'entities.json', 'entity_relations.json', 'dump.sql']
+            exportedFiles: [
+                'manifest.json', 'profile.json', 'knowledge.json', 'solutions.json', 
+                'conversations_summary.json', 'episodes_log.json', 'entities.json', 
+                'entity_relations.json', 'entity_relation_events.json', 
+                'memory_events.json', 'memory_provenance.json', 'dump.sql'
+            ]
         };
     }
 
@@ -572,9 +629,20 @@ class GitBackupManager {
         }
     }
 
-    restoreFromJSON(sourceDir = null) {
-        const targetDir = sourceDir || this.exportsDir;
-        const db = this.db || getDB();
+    restoreFromJSON(customTargetDirOrDb = null, customSourceDir = null) {
+        let db = this.db || getDB();
+        let targetDir = this.exportsDir;
+
+        if (customTargetDirOrDb) {
+            if (typeof customTargetDirOrDb === 'string') {
+                targetDir = customTargetDirOrDb;
+            } else if (typeof customTargetDirOrDb === 'object') {
+                db = customTargetDirOrDb;
+                if (customSourceDir && typeof customSourceDir === 'string') {
+                    targetDir = customSourceDir;
+                }
+            }
+        }
 
         try {
             db.exec('BEGIN IMMEDIATE;');
@@ -670,6 +738,45 @@ class GitBackupManager {
                 `);
                 for (const c of convs) {
                     stmtC.run(c.id, c.title, c.summary || '', c.message_count || 0);
+                }
+            }
+
+            // 7. Restore entity_relation_events (Bi-temporal audit)
+            const relEvFile = path.join(targetDir, 'entity_relation_events.json');
+            if (fs.existsSync(relEvFile)) {
+                const relEvents = JSON.parse(fs.readFileSync(relEvFile, 'utf8'));
+                const stmtRE = db.prepare(`
+                    INSERT OR REPLACE INTO entity_relation_events (id, event_type, source_entity, relation, target_entity, confidence, valid_from, valid_until, metadata, transaction_time)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                `);
+                for (const re of relEvents) {
+                    stmtRE.run(re.id, re.event_type, re.source_entity, re.relation, re.target_entity, re.confidence !== undefined ? re.confidence : 1.0, re.valid_from, re.valid_until, re.metadata || '{}', re.transaction_time || new Date().toISOString());
+                }
+            }
+
+            // 8. Restore memory_events (Lifecycle audit)
+            const memEvFile = path.join(targetDir, 'memory_events.json');
+            if (fs.existsSync(memEvFile)) {
+                const memEvents = JSON.parse(fs.readFileSync(memEvFile, 'utf8'));
+                const stmtME = db.prepare(`
+                    INSERT OR REPLACE INTO memory_events (id, memory_type, item_id, event_type, from_status, to_status, confidence, details, recorded_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                `);
+                for (const me of memEvents) {
+                    stmtME.run(me.id, me.memory_type, me.item_id, me.event_type, me.from_status, me.to_status, me.confidence, typeof me.details === 'object' ? JSON.stringify(me.details) : (me.details || '{}'), me.recorded_at || new Date().toISOString());
+                }
+            }
+
+            // 9. Restore memory_provenance
+            const provFile = path.join(targetDir, 'memory_provenance.json');
+            if (fs.existsSync(provFile)) {
+                const provRows = JSON.parse(fs.readFileSync(provFile, 'utf8'));
+                const stmtPR = db.prepare(`
+                    INSERT OR REPLACE INTO memory_provenance (id, memory_type, item_id, source_type, source_ref, author, created_at)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                `);
+                for (const pr of provRows) {
+                    stmtPR.run(pr.id, pr.memory_type, pr.item_id, pr.source_type, pr.source_ref, pr.author, pr.created_at || new Date().toISOString());
                 }
             }
 

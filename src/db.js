@@ -6,10 +6,9 @@
 const { DatabaseSync } = require('node:sqlite');
 const fs = require('node:fs');
 const path = require('node:path');
+const { BRAIN_HOME, DB_PATH, SCHEMA_PATH } = require('./config');
 
-const BRAIN_DIR = path.resolve(__dirname, '..');
-const DB_PATH = path.join(BRAIN_DIR, 'brain.db');
-const SCHEMA_PATH = path.join(BRAIN_DIR, 'db', 'schema.sql');
+const BRAIN_DIR = BRAIN_HOME;
 
 class BrainDB {
     constructor(dbPath = DB_PATH) {
@@ -62,6 +61,15 @@ class BrainDB {
                 }
                 if (!cols.some(c => c.name === 'embedding_status')) {
                     this.db.exec("ALTER TABLE knowledge_items ADD COLUMN embedding_status TEXT NOT NULL DEFAULT 'neural';");
+                }
+                if (!cols.some(c => c.name === 'content_updated_at')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN content_updated_at TEXT DEFAULT NULL;");
+                }
+                if (!cols.some(c => c.name === 'last_accessed_at')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN last_accessed_at TEXT DEFAULT NULL;");
+                }
+                if (!cols.some(c => c.name === 'last_decay_at')) {
+                    this.db.exec("ALTER TABLE knowledge_items ADD COLUMN last_decay_at TEXT DEFAULT NULL;");
                 }
             }
 

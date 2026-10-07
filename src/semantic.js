@@ -450,7 +450,8 @@ class SemanticKnowledge {
             // Full Dense Scan: Every memory item's embedding is evaluated via cosine similarity
             candidateItems = this.db.all(`
                 SELECT id, title, content, category, tags, source, importance, access_count, 
-                       trust_level, confidence, verification_status, project_scope, embedding, updated_at 
+                       trust_level, confidence, verification_status, project_scope, embedding, embedding_status, 
+                       content_updated_at, last_accessed_at, updated_at 
                 FROM knowledge_items ${baseWhere}
             `, ...baseParams);
         } else {
@@ -485,7 +486,8 @@ class SemanticKnowledge {
 
             candidateItems = this.db.all(`
                 SELECT id, title, content, category, tags, source, importance, access_count, 
-                       trust_level, confidence, verification_status, project_scope, embedding, updated_at 
+                       trust_level, confidence, verification_status, project_scope, embedding, embedding_status, 
+                       content_updated_at, last_accessed_at, updated_at 
                 FROM knowledge_items WHERE ${postConds.join(' AND ')}
             `, ...postParams);
         }
@@ -496,7 +498,8 @@ class SemanticKnowledge {
         // Compute individual modality scores (Dense, Sparse BM25, Graph Evidence, Recency)
         const candidates = candidateItems.map(item => {
             let denseScore = 0;
-            if (item.embedding && item.embedding.length === expectedByteLength) {
+            const isFallback = item.embedding_status === 'fallback';
+            if (!isFallback && item.embedding && item.embedding.length === expectedByteLength) {
                 const itemVec = bufferToVector(item.embedding);
                 denseScore = cosineSimilarity(queryVec, itemVec);
             }

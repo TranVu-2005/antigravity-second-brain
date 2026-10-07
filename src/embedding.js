@@ -170,7 +170,11 @@ async function computeEmbedding(text) {
 
     const trimmed = text.trim();
     if (_embeddingCache.has(trimmed)) {
-        return _embeddingCache.get(trimmed);
+        const val = _embeddingCache.get(trimmed);
+        // True LRU: Refresh entry position to most recently used
+        _embeddingCache.delete(trimmed);
+        _embeddingCache.set(trimmed, val);
+        return val;
     }
 
     if (process.env.NODE_ENV === 'test') {
@@ -195,10 +199,10 @@ async function computeEmbedding(text) {
                 const rawVec = data.embeddings[0];
                 const floatVec = normalizeL2(new Float32Array(rawVec));
 
-                // Cache management
+                // Cache management (True LRU eviction)
                 if (_embeddingCache.size >= MAX_CACHE_SIZE) {
-                    const firstKey = _embeddingCache.keys().next().value;
-                    _embeddingCache.delete(firstKey);
+                    const oldestKey = _embeddingCache.keys().next().value;
+                    _embeddingCache.delete(oldestKey);
                 }
                 _embeddingCache.set(trimmed, floatVec);
 
@@ -224,9 +228,18 @@ function computeEmbeddingSync(text) {
     if (!text || !text.trim()) return new Float32Array(VECTOR_DIM);
     const trimmed = text.trim();
     if (_embeddingCache.has(trimmed)) {
-        return _embeddingCache.get(trimmed);
+        const val = _embeddingCache.get(trimmed);
+        _embeddingCache.delete(trimmed);
+        _embeddingCache.set(trimmed, val);
+        return val;
     }
-    return computeFallbackVector(trimmed);
+    const fallback = computeFallbackVector(trimmed);
+    if (_embeddingCache.size >= MAX_CACHE_SIZE) {
+        const oldestKey = _embeddingCache.keys().next().value;
+        _embeddingCache.delete(oldestKey);
+    }
+    _embeddingCache.set(trimmed, fallback);
+    return fallback;
 }
 
 /**
@@ -292,5 +305,7 @@ module.exports = {
     getEmbeddingHealth,
     cosineSimilarity,
     vectorToBuffer,
-    bufferToVector
+    bufferToVector,
+    computeFallbackVector,
+    _embeddingCache
 };

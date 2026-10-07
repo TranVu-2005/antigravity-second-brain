@@ -17,7 +17,8 @@ let checkedFiles = 0;
 // Patterns indicating dangerous shell concatenation or unparameterized child_process command execution
 const SHELL_INJECTION_PATTERNS = [
     { name: 'child_process execSync with template literal', regex: /(?<!\bdb\.)(?<!this\.db\.)\bexecSync\s*\(\s*`[^`]*\${/ },
-    { name: 'child_process exec with template literal', regex: /(?<!\bdb\.)(?<!this\.db\.)\bexec\s*\(\s*`[^`]*\${/ }
+    { name: 'child_process exec with template literal', regex: /(?<!\bdb\.)(?<!this\.db\.)\bexec\s*\(\s*`[^`]*\${/ },
+    { name: 'raw SQL query with unescaped string literal interpolation', regex: /(?:\bdb|\bthis\.db)\.(?:run|get|all)\s*\(\s*`[^`]*['"]\${/ }
 ];
 
 function auditFile(filePath) {
@@ -84,6 +85,6 @@ if (violations.length > 0) {
     }
     process.exit(1);
 } else {
-    console.log(`\x1b[32m✔ Audited ${checkedFiles} source files: Static AST/Regex audit passed (no dangerous shell template concatenations detected).\x1b[0m\n`);
+    console.log(`\x1b[32m✔ Audited ${checkedFiles} source files: Static Regex pattern scanner passed (no dangerous shell template or unparameterized queries detected).\x1b[0m\n`);
     process.exit(0);
 }

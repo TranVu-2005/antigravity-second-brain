@@ -32,14 +32,14 @@ jobs:
       - name: Syntax & Lint Verification
         run: node scripts/lint.js
 
-      - name: Security & Command Injection AST Audit
+      - name: Security & Command Injection Pattern Audit
         run: node scripts/security_check.js
 
       - name: Runtime & Container Healthcheck Verification
         run: node scripts/healthcheck.js
 
       - name: Dependency Vulnerability Audit
-        run: npm audit --omit=dev --audit-level=high || true
+        run: npm audit --omit=dev --audit-level=high
 
   test-matrix:
     name: Test on ${{ matrix.os }} (Node ${{ matrix.node-version }})

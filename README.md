@@ -5,7 +5,7 @@
 [![Runtime](https://img.shields.io/badge/Node.js-%3E%3D%2022.5.0%20(Native%20node%3Asqlite)-green.svg)](https://nodejs.org)
 [![Database](https://img.shields.io/badge/Engine-SQLite%203%20(WAL%20%2B%20FTS5%20%2B%20CTE)-orange.svg)](https://sqlite.org)
 [![Vectors](https://img.shields.io/badge/Embeddings-384--dim%20FastEmbed%20(MiniLM--L12--v2)-purple.svg)](https://github.com/qdrant/fastembed)
-[![Engineering](https://img.shields.io/badge/Standard-Ponytail%20Minimalism%20(Zero%20Dependencies)-black.svg)](#-engineering-philosophy--security)
+[![Engineering](https://img.shields.io/badge/Dependencies-Standard%20Lib%20%2B%20MCP%20SDK-black.svg)](#-engineering-philosophy--security)
 [![License](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
 
 **Antigravity Second Brain** is an autonomous, production-grade cognitive long-term memory engine engineered specifically for the **Antigravity AI Agent**. It operates as an ephemeral, zero-overhead memory injection layer that preserves agent identity, retains technical architectural decisions (ADRs), indexes complete conversational history, and autonomously learns from terminal error resolutions (Procedural Memory & Self-Correction).
@@ -300,36 +300,39 @@ When Antigravity initiates, the MCP Server exposes 14 specialized cognitive tool
 
 ## 🛡️ Engineering Philosophy & Security
 
-### 1. Ponytail Minimalist Engineering (Dietrich Gebert's 7-Rung Ladder)
-* **Standard Library Dominance:** Built entirely on Node.js built-ins (`node:sqlite`, `node:fs`, `node:path`, `node:os`, `node:child_process`). Zero npm runtime dependencies.
-* **Platform-First Design:** Direct SQLite WAL storage instead of heavy ORM abstractions. Native POSIX and Windows shell adapters.
-* **Delete Over Refactor:** Unused agent artifacts and test sandboxes are aggressively purged to maintain repository cleanliness.
+### 1. Minimalist Engineering & Production Standards
+* **Native Platform Core:** Storage engine, hooks, CLI tools, and synchronization operate on Node.js built-ins (`node:sqlite`, `node:fs`, `node:path`, `node:os`, `node:child_process`) with zero external database dependencies.
+* **Official Model Context Protocol:** Standard MCP server (`mcp_server.js`) utilizes the official `@modelcontextprotocol/sdk` and `zod` for rigorous JSON-RPC 2.0 schema validation across all 14 tools.
+* **Deterministic Fallback:** When the neural FastEmbed daemon is offline, embeddings safely switch to deterministic hash vectors tagged with `embedding_status = 'fallback'`. Retrieval ranking suppresses fallback dense similarity (`denseScore = 0`) to prevent pseudo-semantic noise while preserving BM25 and graph retrieval.
+* **Transaction Safety:** Multi-step write operations utilize SQLite ACID transactions (`BEGIN IMMEDIATE ... COMMIT`).
 
 ### 2. Enterprise Security & Secret Hygiene
-* **Zero Credential Exposure:** Templates in `integrations/` are parameterized. Third-party tokens (e.g., GitHub PATs, API keys) are strictly barred from export manifests.
-* **Deterministic Fallback:** If the neural embedding daemon is unreachable or uninstalled, the system transitions to a deterministic L2-normalized vector generator, ensuring the agent never crashes or hangs.
-* **Transaction Safety:** All multi-step write operations utilize SQLite ACID transactions (`BEGIN TRANSACTION ... COMMIT`).
+* **Regex Pattern Scanner:** `scripts/security_check.js` audits codebase files for dangerous shell string interpolations, unescaped raw SQL template concatenation, and credential/API key patterns.
+* **Decoupled Data Storage:** Private interaction data and conversation history reside in a dedicated private data repository or local directory (`exports/`), separated from engine source code.
 
 ---
 
 ## 🧪 Testing & Verification
 
-Second Brain adopts a strict **TDD & Zero External Dependencies** standard. All test suites run natively with the Node.js standard library:
+Second Brain maintains a comprehensive automated test fortress with 15 dedicated test suites executed natively:
 
 ```bash
 # Validate JavaScript syntax across the codebase (node --check)
 npm run lint
 
-# Security audit against shell string interpolation & credential leakage
+# Deterministic security pattern audit (shell injection, raw SQL concat, secret leakage)
 npm run test:security
 
-# Execute Master CI/CD Test Runner (All 12 test suites)
+# Execute Master CI/CD Test Runner (All 15 test suites)
 npm test
 
 # Run empirical benchmark evaluation and regression check
 npm run eval
 
 # Run individual test tracks
+npm run test:v0.0.3   # v0.0.3 Deterministic Correctness, FSM Reinforcement & Sync Tables
+npm run test:v0.0.2   # v0.0.2 Retrieval Engine v4, Bi-Temporal Events & Diagnostic Doctor
+npm run test:v0.0.1   # v0.0.1 Baseline Reliability & MCP Validation
 npm run test:v3.8.1   # v3.8.1 Production Hardening, Trust & Scope Isolation, Graph Multi-Hop
 npm run test:v3.8     # v3.8 Hardening, Atomic Restore, Trust Model & Multi-Hop Graph
 npm run test:v3.7     # v3.7 Hardening & Robustness Suite
