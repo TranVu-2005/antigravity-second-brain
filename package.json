@@ -40,6 +40,7 @@
     "git-backup": "node cli.js git-backup",
     "git-sync": "node cli.js git-sync",
     "dashboard": "node cli.js dashboard",
+    "healthcheck": "node scripts/healthcheck.js",
     "mcp": "node mcp_server.js"
   },
   "engines": {

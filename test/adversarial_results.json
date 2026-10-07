@@ -37,7 +37,7 @@
           "name": "TC-1.04: whitespace only",
           "passed": true,
           "details": {
-            "elapsedMs": 1,
+            "elapsedMs": 2,
             "validShape": true
           }
         },
@@ -109,7 +109,7 @@
           "name": "TC-1.13: 100KB repetitive string",
           "passed": true,
           "details": {
-            "elapsedMs": 5,
+            "elapsedMs": 3,
             "validShape": true
           }
         },
@@ -141,7 +141,7 @@
           "name": "TC-1.17: Surrogate pairs and emojis",
           "passed": true,
           "details": {
-            "elapsedMs": 1,
+            "elapsedMs": 0,
             "validShape": true
           }
         },

@@ -12,6 +12,7 @@ brain.db-shm
 *.log
 .last_pull
 .last_auto_commit
+.git-sync.lock
 logs/
 
 # Personal Cognitive Data Store (Decoupled to private repo: antigravity-second-brain-data)

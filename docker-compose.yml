@@ -1,0 +1,18 @@
+services:
+  second-brain:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: antigravity-second-brain
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - BRAIN_DIR=/data/.antigravity_brain
+    volumes:
+      - second-brain-data:/data
+    stdin_open: true
+    tty: true
+
+volumes:
+  second-brain-data:
+    driver: local
