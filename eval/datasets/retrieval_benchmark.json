@@ -1,0 +1,240 @@
+[
+  {
+    "id": "RET-KW-001",
+    "scenario": "keyword_exact",
+    "query": "screenoff.cmd",
+    "target_store": "knowledge",
+    "relevant_ids": [8, 9, 10],
+    "primary_target_id": 8,
+    "graded_relevance": {
+      "8": 3,
+      "9": 2,
+      "10": 2
+    },
+    "hard_negatives": [6],
+    "description": "Exact keyword match for screenoff utility command"
+  },
+  {
+    "id": "RET-KW-002",
+    "scenario": "keyword_exact",
+    "query": "PowerShell quoting argument list",
+    "target_store": "solutions",
+    "relevant_ids": [1],
+    "primary_target_id": 1,
+    "graded_relevance": {
+      "1": 3
+    },
+    "hard_negatives": [2, 3],
+    "description": "Exact keyword match for PowerShell quoting syntax error solution"
+  },
+  {
+    "id": "RET-KW-003",
+    "scenario": "keyword_exact",
+    "query": "FastTemp ThreadPoolExecutor",
+    "target_store": "knowledge",
+    "relevant_ids": [11],
+    "primary_target_id": 11,
+    "graded_relevance": {
+      "11": 3
+    },
+    "hard_negatives": [6, 7],
+    "description": "Exact technical identifier match for FastTemp hardware reading"
+  },
+  {
+    "id": "RET-KW-004",
+    "scenario": "keyword_exact",
+    "query": "antigravity-second-brain.git",
+    "target_store": "knowledge",
+    "relevant_ids": [1],
+    "primary_target_id": 1,
+    "graded_relevance": {
+      "1": 3
+    },
+    "hard_negatives": [4, 5],
+    "description": "Exact git repository keyword lookup"
+  },
+  {
+    "id": "RET-KW-005",
+    "scenario": "keyword_exact",
+    "query": "Lenovo Legion Toolkit Quick Action",
+    "target_store": "knowledge",
+    "relevant_ids": [10, 8],
+    "primary_target_id": 10,
+    "graded_relevance": {
+      "10": 3,
+      "8": 2
+    },
+    "hard_negatives": [4],
+    "description": "Exact keyword query for Legion Toolkit Quick Action integration"
+  },
+  {
+    "id": "RET-SEM-001",
+    "scenario": "semantic_paraphrase",
+    "query": "nơi ở và làm việc hiện tại của Ngài",
+    "target_store": "knowledge",
+    "relevant_ids": [3, 2],
+    "primary_target_id": 3,
+    "graded_relevance": {
+      "3": 3,
+      "2": 1
+    },
+    "hard_negatives": [5],
+    "description": "Semantic query in Vietnamese for master location"
+  },
+  {
+    "id": "RET-SEM-002",
+    "scenario": "semantic_paraphrase",
+    "query": "cách tắt phụt màn hình laptop ngay lập tức",
+    "target_store": "knowledge",
+    "relevant_ids": [8, 10, 9],
+    "primary_target_id": 8,
+    "graded_relevance": {
+      "8": 3,
+      "10": 2,
+      "9": 2
+    },
+    "hard_negatives": [6, 7],
+    "description": "Paraphrased query for turning off laptop screen"
+  },
+  {
+    "id": "RET-SEM-003",
+    "scenario": "semantic_paraphrase",
+    "query": "nguyên tắc không được bịa đặt hay chém gió thông tin",
+    "target_store": "knowledge",
+    "relevant_ids": [2, 1],
+    "primary_target_id": 2,
+    "graded_relevance": {
+      "2": 3,
+      "1": 1
+    },
+    "hard_negatives": [4],
+    "description": "Paraphrased persona and absolute honesty rule retrieval"
+  },
+  {
+    "id": "RET-SEM-004",
+    "scenario": "semantic_paraphrase",
+    "query": "how to resolve powershell single and double quote escaping bug",
+    "target_store": "solutions",
+    "relevant_ids": [1],
+    "primary_target_id": 1,
+    "graded_relevance": {
+      "1": 3
+    },
+    "hard_negatives": [2, 3],
+    "description": "English paraphrase for PowerShell quote escape solution"
+  },
+  {
+    "id": "RET-SEM-005",
+    "scenario": "semantic_paraphrase",
+    "query": "kiểm tra quạt gió và độ nóng CPU Lenovo Legion",
+    "target_store": "knowledge",
+    "relevant_ids": [7, 11, 6],
+    "primary_target_id": 7,
+    "graded_relevance": {
+      "7": 3,
+      "11": 2,
+      "6": 1
+    },
+    "hard_negatives": [8],
+    "description": "Paraphrased hardware temperature and fan query"
+  },
+  {
+    "id": "RET-MH-001",
+    "scenario": "multi_hop",
+    "query": "Các công cụ và nền tảng chính mà Ngài trực tiếp sử dụng để làm việc",
+    "target_store": "knowledge",
+    "relevant_ids": [1, 5, 4],
+    "primary_target_id": 1,
+    "graded_relevance": {
+      "1": 3,
+      "5": 2,
+      "4": 2
+    },
+    "hard_negatives": [8],
+    "description": "Multi-hop relational: master uses Antigravity, Python uv, and MCP"
+  },
+  {
+    "id": "RET-MH-002",
+    "scenario": "multi_hop",
+    "query": "Địa chỉ git repo của dự án Second Brain mà Ngài đang phát triển",
+    "target_store": "knowledge",
+    "relevant_ids": [1],
+    "primary_target_id": 1,
+    "graded_relevance": {
+      "1": 3
+    },
+    "hard_negatives": [6],
+    "description": "Multi-hop query connecting master identity to repo knowledge"
+  },
+  {
+    "id": "RET-MH-003",
+    "scenario": "multi_hop",
+    "query": "Quy tắc ứng xử và phong cách giao tiếp khi phục vụ Ngài tại Hoàng Mai",
+    "target_store": "knowledge",
+    "relevant_ids": [2, 3],
+    "primary_target_id": 2,
+    "graded_relevance": {
+      "2": 3,
+      "3": 2
+    },
+    "hard_negatives": [10],
+    "description": "Multi-hop combining serving style directive with master location"
+  },
+  {
+    "id": "RET-MH-004",
+    "scenario": "multi_hop",
+    "query": "Môi trường phát triển Python 3.12 và quản lý gói uv",
+    "target_store": "knowledge",
+    "relevant_ids": [5, 1],
+    "primary_target_id": 5,
+    "graded_relevance": {
+      "5": 3,
+      "1": 1
+    },
+    "hard_negatives": [8],
+    "description": "Multi-hop query relating system dev environment and platform architecture"
+  },
+  {
+    "id": "RET-TMP-001",
+    "scenario": "temporal",
+    "query": "Bản cập nhật mới nhất của lệnh kiểm tra nhiệt độ phần cứng",
+    "target_store": "knowledge",
+    "relevant_ids": [11, 7],
+    "primary_target_id": 11,
+    "graded_relevance": {
+      "11": 3,
+      "7": 2,
+      "6": 0
+    },
+    "hard_negatives": [6],
+    "description": "Temporal freshness: FastTemp v3 (ID 11) supersedes Legion v2 (ID 7) and temp.cmd v1 (ID 6)"
+  },
+  {
+    "id": "RET-TMP-002",
+    "scenario": "temporal",
+    "query": "Quy tắc điều khiển Legion Toolkit cập nhật gần đây nhất",
+    "target_store": "knowledge",
+    "relevant_ids": [10, 8],
+    "primary_target_id": 10,
+    "graded_relevance": {
+      "10": 3,
+      "8": 2
+    },
+    "hard_negatives": [6],
+    "description": "Temporal freshness: quick action sync v2 (ID 10) vs older screenoff script (ID 8)"
+  },
+  {
+    "id": "RET-TMP-003",
+    "scenario": "temporal",
+    "query": "Lệnh temp thế hệ mới tích hợp Lenovo Legion Toolkit",
+    "target_store": "knowledge",
+    "relevant_ids": [7, 11],
+    "primary_target_id": 7,
+    "graded_relevance": {
+      "7": 3,
+      "11": 2
+    },
+    "hard_negatives": [8],
+    "description": "Temporal freshness: specific generation query"
+  }
+]

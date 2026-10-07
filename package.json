@@ -1,0 +1,67 @@
+{
+  "name": "antigravity-second-brain",
+  "version": "0.0.1",
+  "description": "Universal Multi-Platform Cognitive Long-Term Memory Engine for Antigravity AI Agent",
+  "main": "mcp_server.js",
+  "type": "commonjs",
+  "bin": {
+    "brain": "./cli.js",
+    "second-brain": "./cli.js",
+    "agy-brain": "./cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TranVu-2005/antigravity-second-brain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TranVu-2005/antigravity-second-brain/issues"
+  },
+  "homepage": "https://github.com/TranVu-2005/antigravity-second-brain#readme",
+  "scripts": {
+    "test": "node test/run_all_tests.js",
+    "test:all": "node test/run_all_tests.js",
+    "test:unit": "node test/test_brain.js",
+    "test:reliability": "node test/test_v0_0_1_reliability.js",
+    "test:v3": "node test/test_v3_production_grade.js",
+    "test:v3.4": "node test/test_v3_4_production.js",
+    "test:v3.5": "node test/test_v3_5_production.js",
+    "test:v3.7": "node test/test_v3_7_hardening.js",
+    "test:v3.8": "node test/test_v3_8_hardening.js",
+    "test:v3.8.1": "node test/test_v3_8_1_hardening.js",
+    "test:security": "node scripts/security_check.js",
+    "test:mcp": "node test/test_mcp.js",
+    "lint": "node scripts/lint.js",
+    "eval": "node eval/run_eval.js --compare-baseline eval/baselines/v3.8_baseline.json",
+    "eval:record": "node eval/run_eval.js --output eval/current_eval.json",
+    "setup": "node setup.js",
+    "sync": "node cli.js sync",
+    "stats": "node cli.js stats",
+    "backup": "node cli.js backup",
+    "git-backup": "node cli.js git-backup",
+    "git-sync": "node cli.js git-sync",
+    "dashboard": "node cli.js dashboard",
+    "mcp": "node mcp_server.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "keywords": [
+    "antigravity",
+    "second-brain",
+    "cognitive-memory",
+    "sqlite",
+    "fts5",
+    "mcp",
+    "model-context-protocol",
+    "fastembed",
+    "ai-agent",
+    "bi-temporal-graph",
+    "procedural-memory"
+  ],
+  "author": "TranVu-2005",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "zod": "^4.6.5"
+  }
+}

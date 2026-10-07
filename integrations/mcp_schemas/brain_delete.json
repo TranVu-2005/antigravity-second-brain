@@ -1,0 +1,1 @@
+{"name":"brain_delete","description":"Xóa một mục kiến thức khỏi Second Brain theo ID.","parameters":{"properties":{"id":{"description":"ID của mục kiến thức cần xóa","type":"integer"}},"required":["id"],"type":"object"}}

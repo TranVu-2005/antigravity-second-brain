@@ -1,0 +1,53 @@
+name: Continuous Integration & Cross-Platform Parity
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }} (Node ${{ matrix.node-version }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node-version: [22.x, 24.x]
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Verify Environment & Native SQLite Support
+        run: |
+          node -v
+          node -e "const sqlite = require('node:sqlite'); console.log('✔ Native node:sqlite available');"
+
+      - name: Zero-Dependency Syntax Validation (Lint)
+        run: node scripts/lint.js
+
+      - name: Security & Command Injection Audit
+        run: node scripts/security_check.js
+
+      - name: Configure Git Identity for CI Runner
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Execute Full TDD & Architecture Test Suites
+        run: node test/run_all_tests.js
+        env:
+          NODE_ENV: test
+          CI: true

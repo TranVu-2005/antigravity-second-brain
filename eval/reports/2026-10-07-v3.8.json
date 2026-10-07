@@ -1,0 +1,218 @@
+{
+  "timestamp": "2026-10-06T18:05:31.351Z",
+  "version": "3.8.0",
+  "suite": "all",
+  "runtime": {
+    "node": "v24.18.0",
+    "platform": "linux",
+    "vector_dim": 384,
+    "daemon_healthy": true
+  },
+  "retrieval_metrics": {
+    "overall": {
+      "recall_at_1": 0.265,
+      "recall_at_3": 0.363,
+      "recall_at_5": 0.578,
+      "recall_at_10": 0.892,
+      "precision_at_1": 0.353,
+      "precision_at_3": 0.196,
+      "precision_at_5": 0.224,
+      "precision_at_10": 0.176,
+      "mrr": 0.502,
+      "ndcg_at_5": 0.466,
+      "query_count": 17,
+      "latency_ms": {
+        "p50": 4.07,
+        "p95": 5.72,
+        "p99": 6.24,
+        "mean": 3.85,
+        "min": 0.49,
+        "max": 6.37,
+        "count": 17
+      }
+    },
+    "by_scenario": {
+      "keyword_exact": {
+        "query_count": 5,
+        "recall_at_3": 0.567,
+        "recall_at_5": 0.7,
+        "mrr": 0.7,
+        "ndcg_at_5": 0.663,
+        "latency_ms": {
+          "p50": 4.13,
+          "p95": 5.5,
+          "p99": 5.55,
+          "mean": 3.91,
+          "min": 0.83,
+          "max": 5.56,
+          "count": 5
+        }
+      },
+      "semantic_paraphrase": {
+        "query_count": 5,
+        "recall_at_3": 0.367,
+        "recall_at_5": 0.567,
+        "mrr": 0.417,
+        "ndcg_at_5": 0.335,
+        "latency_ms": {
+          "p50": 3.85,
+          "p95": 5.12,
+          "p99": 5.33,
+          "mean": 3.32,
+          "min": 0.49,
+          "max": 5.38,
+          "count": 5
+        }
+      },
+      "multi_hop": {
+        "query_count": 4,
+        "recall_at_3": 0.125,
+        "recall_at_5": 0.25,
+        "mrr": 0.342,
+        "ndcg_at_5": 0.286,
+        "latency_ms": {
+          "p50": 4.28,
+          "p95": 4.36,
+          "p99": 4.37,
+          "mean": 4.21,
+          "min": 3.93,
+          "max": 4.37,
+          "count": 4
+        }
+      },
+      "temporal": {
+        "query_count": 3,
+        "recall_at_3": 0.333,
+        "recall_at_5": 0.833,
+        "mrr": 0.528,
+        "ndcg_at_5": 0.599,
+        "latency_ms": {
+          "p50": 3.23,
+          "p95": 6.06,
+          "p99": 6.31,
+          "mean": 4.14,
+          "min": 2.82,
+          "max": 6.37,
+          "count": 3
+        }
+      }
+    }
+  },
+  "reflection_metrics": {
+    "overall": {
+      "precision": 1,
+      "recall": 0.75,
+      "f1_score": 0.857,
+      "tp": 3,
+      "fp": 0,
+      "fn": 1,
+      "deduplication_accuracy": 1,
+      "conflict_resolution_accuracy": 1
+    },
+    "by_category": {
+      "profile": {
+        "precision": 1,
+        "recall": 0.5,
+        "f1": 0.667,
+        "tp": 1,
+        "fp": 0,
+        "fn": 1
+      },
+      "rule": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "procedural": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 1,
+        "fp": 0,
+        "fn": 0
+      },
+      "entity": {
+        "precision": 1,
+        "recall": 1,
+        "f1": 1,
+        "tp": 0,
+        "fp": 0,
+        "fn": 0
+      }
+    }
+  },
+  "compatibility": {
+    "status": "PASSED",
+    "database_integrity": {
+      "status": "PASSED",
+      "journal_mode": "wal",
+      "foreign_keys": true,
+      "missing_tables": [],
+      "missing_fts": [],
+      "counts": {
+        "user_profile": 15,
+        "knowledge_items": 258,
+        "solutions": 63,
+        "episodes": 14255,
+        "conversations": 179,
+        "entities": 29,
+        "entity_relations": 26
+      }
+    },
+    "cli_commands": {
+      "passed": true,
+      "passed_count": 5,
+      "total_count": 5,
+      "details": [
+        {
+          "name": "stats",
+          "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" stats",
+          "exit_code": 0,
+          "passed": true,
+          "output_snippet": " 📊 ANTIGRAVITY SECOND BRAIN - BÁO CÁO THỐNG KÊ (v3.7 Hardened) ------------------------------------"
+        },
+        {
+          "name": "profile",
+          "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" profile",
+          "exit_code": 0,
+          "passed": true,
+          "output_snippet": " 👑 HỒ SƠ CỐT LÕI CỦA NGÀI:    [environment] hostname            : tranvu-galactic-ion   [environmen"
+        },
+        {
+          "name": "search",
+          "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" search bảo mật",
+          "exit_code": 0,
+          "passed": true,
+          "output_snippet": "🔍 Kết quả tìm kiếm cho: \"bảo mật\"  --- Tri thức & Ghi chú --- • [#286 | SNIPPET] Hệ sinh thái Kịch "
+        },
+        {
+          "name": "solutions",
+          "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" solutions",
+          "exit_code": 0,
+          "passed": true,
+          "output_snippet": " 🛠️ BỘ NHỚ GIẢI PHÁP KỸ THUẬT (PROCEDURAL MEMORY - 20 mục):  • [#29] Lỗi: \"[QUY TRÌNH] Kiểm tra tiế"
+        },
+        {
+          "name": "solution",
+          "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" solution PowerShell",
+          "exit_code": 0,
+          "passed": true,
+          "output_snippet": " 🔍 TÌM THẤY 2 GIẢI PHÁP PHÙ HỢP:  • Lỗi: \"SyntaxError: missing ) after argument list / PowerShell q"
+        }
+      ]
+    },
+    "mcp_server": {
+      "passed": true,
+      "mcp_initialized": true,
+      "tools_registered_count": 14,
+      "required_tools_present": true,
+      "missing_required_tools": [],
+      "calls_tested": 6,
+      "calls_succeeded": 6
+    }
+  },
+  "regression_check": null
+}

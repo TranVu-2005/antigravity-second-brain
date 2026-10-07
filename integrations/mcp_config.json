@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "second-brain": {
+      "command": "node",
+      "args": [
+        "{{BRAIN_DIR}}/mcp_server.js"
+      ]
+    }
+  }
+}

@@ -1,0 +1,29 @@
+name: 💡 Feature Request
+description: Propose a new feature, memory tier optimization, or architectural enhancement
+title: "[FEATURE]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We adhere strictly to the **Ponytail Minimalist Philosophy** (YAGNI, Dietrich Gebert's 7-Rung Ladder).
+        New proposals must justify why they cannot be solved with standard platform built-ins before introducing complexity.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      description: A clear description of what the problem or bottleneck is.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution / Architectural Design
+      description: Describe your proposed design, MCP tool schema, or SQLite schema migration.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Any alternative solutions or features you've considered.

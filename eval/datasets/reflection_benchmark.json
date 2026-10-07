@@ -1,0 +1,135 @@
+[
+  {
+    "id": "D-01",
+    "title": "Profile Expansion & Tech Preferences",
+    "category": "profile",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Từ hôm nay mình chuyên dùng Rust và Go để phát triển backend nhé, ghi nhớ điều này."
+      }
+    ],
+    "expected": {
+      "extractions": [
+        {
+          "type": "profile",
+          "category": "tech_stack",
+          "key_pattern": "tech_pref.*",
+          "value_includes": ["Rust", "Go"],
+          "min_confidence": 0.9
+        }
+      ],
+      "min_tp": 1,
+      "max_fp": 0
+    },
+    "description": "Evaluates user profile extraction of programming language preferences"
+  },
+  {
+    "id": "D-02",
+    "title": "Permanent Directive & Persona Rule",
+    "category": "rule",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Ngươi nhớ luôn luôn: khi sinh mã nguồn, phải kèm theo unit test đầy đủ bằng Vitest hoặc Jest."
+      }
+    ],
+    "expected": {
+      "extractions": [
+        {
+          "type": "knowledge",
+          "category": "rule",
+          "content_includes": ["unit test", "Vitest", "Jest"],
+          "min_importance": 1.5
+        }
+      ],
+      "min_tp": 1,
+      "max_fp": 0
+    },
+    "description": "Evaluates extraction of mandatory operational directives and rules"
+  },
+  {
+    "id": "D-03",
+    "title": "Procedural Bug Troubleshooting",
+    "category": "procedural",
+    "turns": [
+      {
+        "role": "assistant",
+        "content": "Lỗi khi chạy Prisma migrate: P1001 Can't reach database server at localhost:5432"
+      },
+      {
+        "role": "user",
+        "content": "Cách sửa lỗi Prisma P1001 database server : docker start my-postgres"
+      }
+    ],
+    "expected": {
+      "extractions": [
+        {
+          "type": "solution",
+          "error_pattern_includes": ["Prisma", "P1001"],
+          "solution_code_includes": ["docker start my-postgres"]
+        }
+      ],
+      "min_tp": 1,
+      "max_fp": 0
+    },
+    "description": "Evaluates procedural bug-to-fix case-based reasoning extraction"
+  },
+  {
+    "id": "D-04",
+    "title": "Negative Control / Conversational Chatter",
+    "category": "negative_control",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Hôm nay trời nhiều mây quá, chắc lát nữa sẽ mưa to. Cậu có thấy đói bụng không?"
+      }
+    ],
+    "expected": {
+      "extractions": [],
+      "min_tp": 0,
+      "max_fp": 0
+    },
+    "description": "Evaluates suppression of false positives on non-informative conversational banter"
+  },
+  {
+    "id": "D-05",
+    "title": "Dynamic Conflict Resolution & Fact Supersession",
+    "category": "profile",
+    "turns": [
+      {
+        "role": "user",
+        "content": "Tôi đang sống tại Cầu Giấy, Hà Nội."
+      },
+      {
+        "role": "assistant",
+        "content": "Đã ghi nhận nơi ở của Ngài tại Cầu Giấy."
+      },
+      {
+        "role": "user",
+        "content": "Thực ra tôi đã chuyển sang sống tại Hoàng Mai, Hà Nội rồi, không còn ở Cầu Giấy nữa."
+      }
+    ],
+    "expected": {
+      "extractions": [
+        {
+          "type": "profile",
+          "key": "location",
+          "category": "environment",
+          "value_includes": ["Hoàng Mai"]
+        }
+      ],
+      "state_checks": {
+        "user_profile": {
+          "key": "location",
+          "must_contain": "Hoàng Mai",
+          "must_not_contain": "Cầu Giấy",
+          "exact_count": 1
+        }
+      },
+      "min_tp": 1,
+      "max_fp": 0
+    },
+    "description": "Evaluates clean overwriting of outdated profile facts without ghost duplicate records"
+  }
+]

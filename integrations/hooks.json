@@ -1,0 +1,25 @@
+{
+  "second-brain": {
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "node \"{{BRAIN_DIR}}/hooks/pre_invocation.js\"",
+        "timeout": 5
+      }
+    ],
+    "PostInvocation": [
+      {
+        "type": "command",
+        "command": "node \"{{BRAIN_DIR}}/hooks/post_invocation.js\"",
+        "timeout": 10
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "node \"{{BRAIN_DIR}}/hooks/stop.js\"",
+        "timeout": 15
+      }
+    ]
+  }
+}

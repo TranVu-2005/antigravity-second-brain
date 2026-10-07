@@ -1,0 +1,1 @@
+{"name":"brain_git_backup","description":"Tự động trích xuất toàn bộ dữ liệu Second Brain ra text diff và commit bản sao lưu lên Git repo.","parameters":{"properties":{"message":{"description":"Thông điệp commit tùy chỉnh (tùy chọn)","type":"string"}},"type":"object"}}

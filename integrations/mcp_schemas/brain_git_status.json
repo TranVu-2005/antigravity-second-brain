@@ -1,0 +1,1 @@
+{"name":"brain_git_status","description":"Kiểm tra trạng thái Git repository, nhánh, commit mới nhất và cấu hình Remote của Second Brain.","parameters":{"properties":{},"type":"object"}}
