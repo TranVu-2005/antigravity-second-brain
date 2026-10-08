@@ -5,7 +5,7 @@
   "runtime": {
     "node": "v24.18.0",
     "platform": "linux",
-    "git_commit": "bef34fb5dae06ee1f04342e4b062d163d894f2bb",
+    "git_commit": "04ee0e5a4f0ce3439ec64a6ea40b0a3bf0d97389",
     "vector_dim": 384,
     "daemon_healthy": true
   },
@@ -173,35 +173,35 @@
           "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" stats",
           "exit_code": 0,
           "passed": true,
-          "output_snippet": " 📊 ANTIGRAVITY SECOND BRAIN - OPERATIONAL STATS REPORT (v3.8.1 Hardened) --------------------------"
+          "output_snippet": " \ud83d\udcca ANTIGRAVITY SECOND BRAIN - OPERATIONAL STATS REPORT (v3.8.1 Hardened) --------------------------"
         },
         {
           "name": "profile",
           "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" profile",
           "exit_code": 0,
           "passed": true,
-          "output_snippet": " 👑 USER IDENTITY & CORE PROFILE:    [environment] hostname            : tranvu-galactic-ion   [envi"
+          "output_snippet": " \ud83d\udc51 USER IDENTITY & CORE PROFILE:    [environment] hostname            : tranvu-galactic-ion   [envi"
         },
         {
           "name": "search",
-          "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" search bảo mật",
+          "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" search b\u1ea3o m\u1eadt",
           "exit_code": 0,
           "passed": true,
-          "output_snippet": "🔍 Search results for: \"bảo mật\"  --- Knowledge Items & Notes --- • [#70 | ARCHITECTURE] Cập nhật tố"
+          "output_snippet": "\ud83d\udd0d Search results for: \"b\u1ea3o m\u1eadt\"  --- Knowledge Items & Notes --- \u2022 [#70 | ARCHITECTURE] C\u1eadp nh\u1eadt t\u1ed1"
         },
         {
           "name": "solutions",
           "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" solutions",
           "exit_code": 0,
           "passed": true,
-          "output_snippet": " 🛠️ PROCEDURAL MEMORY - LEARNED ERROR SOLUTIONS (20 items):  • [#104] Error: \"Lỗi trong tác vụ: \"Đá"
+          "output_snippet": " \ud83d\udee0\ufe0f PROCEDURAL MEMORY - LEARNED ERROR SOLUTIONS (20 items):  \u2022 [#104] Error: \"L\u1ed7i trong t\u00e1c v\u1ee5: \"\u0110\u00e1"
         },
         {
           "name": "solution",
           "command": "node \"/home/tranvu/.gemini/antigravity/second_brain/cli.js\" solution PowerShell",
           "exit_code": 0,
           "passed": true,
-          "output_snippet": " 🔍 FOUND 3 MATCHING SOLUTIONS:  • Error: \"SyntaxError: missing ) after argument list / PowerShell q"
+          "output_snippet": " \ud83d\udd0d FOUND 3 MATCHING SOLUTIONS:  \u2022 Error: \"SyntaxError: missing ) after argument list / PowerShell q"
         }
       ]
     },
