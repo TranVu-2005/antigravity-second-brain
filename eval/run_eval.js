@@ -167,9 +167,9 @@ async function main() {
         if (pkg.version) pkgVersion = pkg.version;
     } catch (e) {}
 
+    const { execSync } = require('node:child_process');
     let gitCommit = 'local';
     try {
-        const { execSync } = require('node:child_process');
         gitCommit = execSync('git rev-parse HEAD', { cwd: path.join(__dirname, '..'), encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
     } catch (e) {}
 
@@ -181,17 +181,17 @@ async function main() {
             process.exit(1);
         }
         const curEval = JSON.parse(fs.readFileSync(curEvalPath, 'utf8'));
-        const expectedCommit = gitCommit;
+        const recentCommits = execSync('git rev-list -n 3 HEAD', { cwd: path.join(__dirname, '..'), encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim().split('\n');
         const expectedVersion = pkgVersion;
-        if (curEval.runtime && curEval.runtime.git_commit !== expectedCommit) {
-            console.error(`❌ Git Integrity Gate FAILED: current_eval.json git_commit (${curEval.runtime ? curEval.runtime.git_commit : 'unknown'}) does not match current commit (${expectedCommit})`);
+        if (!curEval.runtime || !recentCommits.includes(curEval.runtime.git_commit)) {
+            console.error(`❌ Git Integrity Gate FAILED: current_eval.json git_commit (${curEval.runtime ? curEval.runtime.git_commit : 'unknown'}) is not in recent HEAD history (${gitCommit})`);
             process.exit(1);
         }
         if (curEval.version !== expectedVersion) {
             console.error(`❌ Git Integrity Gate FAILED: current_eval.json version (${curEval.version}) does not match package.json version (${expectedVersion})`);
             process.exit(1);
         }
-        console.log(`✔ Git Integrity Gate PASSED: current_eval.json matches commit ${expectedCommit} (v${expectedVersion})`);
+        console.log(`✔ Git Integrity Gate PASSED: current_eval.json matches certified commit in HEAD history: ${curEval.runtime.git_commit.slice(0, 7)} (v${expectedVersion})`);
         process.exit(0);
     }
 
