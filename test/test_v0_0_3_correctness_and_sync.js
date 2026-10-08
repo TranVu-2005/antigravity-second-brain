@@ -37,7 +37,11 @@ async function runTests() {
         delete require.cache[require.resolve('../src/config')];
         const reloaded = require('../src/config');
         assert.strictEqual(reloaded.BRAIN_HOME, '/data/.antigravity_brain', 'BRAIN_HOME must respect process.env.BRAIN_DIR');
-        assert.strictEqual(reloaded.DB_PATH, '/data/.antigravity_brain/brain.db', 'DB_PATH must reside inside persistent volume');
+        assert.strictEqual(
+            path.normalize(reloaded.DB_PATH),
+            path.normalize(path.join('/data/.antigravity_brain', 'brain.db')),
+            'DB_PATH must reside inside persistent volume and match OS-native normalization'
+        );
     } finally {
         if (originalEnv) {
             process.env.BRAIN_DIR = originalEnv;

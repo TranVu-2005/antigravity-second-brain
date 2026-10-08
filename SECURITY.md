@@ -4,10 +4,8 @@
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 3.8.x   | :white_check_mark: |
-| 3.7.x   | :white_check_mark: |
-| 3.6.x   | :white_check_mark: |
-| < 3.6   | :x:                |
+| 0.0.x   | :white_check_mark: |
+| < 0.0.1 | :x:                |
 
 ---
 
@@ -15,9 +13,10 @@
 
 Antigravity Second Brain is engineered with strict local security principles:
 
-1. **Zero External Network Exfiltration:**
-   - Second Brain operates purely as an in-process and stdio engine.
+1. **Zero Arbitrary External Network Exfiltration:**
+   - Second Brain operates purely as an in-process and stdio engine with zero telemetry or third-party cloud data transmission.
    - It communicates exclusively through local IPC (stdio JSON-RPC) and local SQLite storage.
+   - Cross-device data synchronization occurs strictly through intentional, user-configured Git remote commands (`git push`/`git pull`).
 2. **Data & Privacy Isolation:**
    - Personal conversation logs, local hardware profiles, and credentials are strictly stored in a private repository (`antigravity-second-brain-data`).
    - The public engine repository enforces an export allowlist and pre-commit secret scanning.

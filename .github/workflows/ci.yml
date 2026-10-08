@@ -98,7 +98,9 @@ jobs:
         run: npm ci
 
       - name: Run Benchmark Evaluation Gate
-        run: node eval/run_eval.js --compare-baseline eval/baselines/v3.8_baseline.json
+        run: |
+          node eval/run_eval.js --compare-baseline eval/baselines/v3.8_baseline.json
+          node eval/run_eval.js --verify-git-integrity
 
   docker-verification:
     name: Docker Multi-Stage Build & Container Healthcheck

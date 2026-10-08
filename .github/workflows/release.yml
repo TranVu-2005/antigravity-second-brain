@@ -9,8 +9,8 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    name: Create GitHub Release
+  verify:
+    name: Verify Integrity & Tests Before Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Codebase
@@ -36,6 +36,28 @@ jobs:
             exit 1
           fi
           echo "✔ Tag version matches package.json: $PKG_VERSION"
+
+      - name: Verify Code Quality & Healthcheck
+        run: |
+          node scripts/lint.js
+          node scripts/security_check.js
+          node scripts/healthcheck.js
+
+      - name: Verify All Test Suites Pass
+        run: node test/run_all_tests.js
+        env:
+          NODE_ENV: test
+          CI: true
+
+  release:
+    name: Create GitHub Release
+    needs: [verify]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Create GitHub Release Notes
         uses: softprops/action-gh-release@v2

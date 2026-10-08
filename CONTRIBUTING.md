@@ -38,11 +38,11 @@ node setup.js
 # Validate JavaScript syntax across the repository
 npm run lint
 
-# Run the master test runner (all 5 test suites)
+# Run the master test runner (all 15 test suites)
 npm test
 
 # Run specific version test track
-npm run test:v3.5
+npm run test:v0.0.3
 npm run test:mcp
 ```
 

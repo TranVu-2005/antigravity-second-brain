@@ -607,6 +607,7 @@ class SemanticKnowledge {
         this.addEntity(sourceEntity);
         this.addEntity(targetEntity);
 
+        this.db.exec('BEGIN IMMEDIATE');
         try {
             // Conflict Superseding: If relation is singular (e.g. prefers, located_in, works_on),
             // supersede previous active relations with different target
@@ -652,8 +653,11 @@ class SemanticKnowledge {
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
             `, existingActive ? 'UPDATE' : 'INSERT', sourceEntity, relation, targetEntity, confidence, validFrom, validUntil, metadata);
 
+            this.db.exec('COMMIT');
             return true;
         } catch (e) {
+            try { this.db.exec('ROLLBACK'); } catch (_) {}
+            console.error(`[SemanticGraph] Atomic addRelation transaction failed:`, e.message);
             return false;
         }
     }

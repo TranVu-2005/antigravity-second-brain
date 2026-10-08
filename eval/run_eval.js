@@ -34,6 +34,8 @@ function parseArgs() {
             options.output = path.resolve(process.cwd(), args[++i]);
         } else if (arg === '--format' && i + 1 < args.length) {
             options.format = args[++i].toLowerCase();
+        } else if (arg === '--verify-git-integrity') {
+            options.verifyGitIntegrity = true;
         } else if (arg === '--top-k' && i + 1 < args.length) {
             options.topK = parseInt(args[++i], 10);
         } else if (arg === '--help' || arg === '-h') {
@@ -50,6 +52,7 @@ Options:
   --output <path>                             Path to save structured JSON report
   --format <table|json>                       Display format (default: table)
   --top-k <int>                               Top-K candidate cutoff for retrieval (default: 10)
+  --verify-git-integrity                      Verify current_eval.json matches HEAD commit & package version
   --help, -h                                  Show this help message
 `);
             process.exit(0);
@@ -95,13 +98,13 @@ function checkRegressions(evalData, baselineData, threshold = 0.02) {
         if (cur.latency_ms && base.latency_ms && base.latency_ms.p95 > 0) {
             const p95Ratio = (cur.latency_ms.p95 - base.latency_ms.p95) / base.latency_ms.p95;
             deltas.latency_p95 = `${cur.latency_ms.p95 >= base.latency_ms.p95 ? '+' : ''}${(cur.latency_ms.p95 - base.latency_ms.p95).toFixed(1)}ms`;
-            if (p95Ratio > 0.20 && cur.latency_ms.p95 > 50) {
+            if ((p95Ratio > 0.30 && cur.latency_ms.p95 > 10) || cur.latency_ms.p95 > 25) {
                 failures.push({
                     metric: 'Latency p95',
                     current: cur.latency_ms.p95,
                     baseline: base.latency_ms.p95,
                     delta: p95Ratio,
-                    reason: `p95 Latency increased by ${(p95Ratio * 100).toFixed(1)}%, exceeding 20% limit`
+                    reason: `p95 Latency regressed: current=${cur.latency_ms.p95}ms, baseline=${base.latency_ms.p95}ms, delta=${(p95Ratio * 100).toFixed(1)}% (budget: >30% over 10ms or >25ms absolute)`
                 });
             }
         }
@@ -169,6 +172,28 @@ async function main() {
         const { execSync } = require('node:child_process');
         gitCommit = execSync('git rev-parse HEAD', { cwd: path.join(__dirname, '..'), encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
     } catch (e) {}
+
+    // Verify git integrity gate if requested
+    if (options.verifyGitIntegrity) {
+        const curEvalPath = path.join(__dirname, 'current_eval.json');
+        if (!fs.existsSync(curEvalPath)) {
+            console.error('❌ Git Integrity Gate FAILED: eval/current_eval.json does not exist on disk');
+            process.exit(1);
+        }
+        const curEval = JSON.parse(fs.readFileSync(curEvalPath, 'utf8'));
+        const expectedCommit = gitCommit;
+        const expectedVersion = pkgVersion;
+        if (curEval.runtime && curEval.runtime.git_commit !== expectedCommit) {
+            console.error(`❌ Git Integrity Gate FAILED: current_eval.json git_commit (${curEval.runtime ? curEval.runtime.git_commit : 'unknown'}) does not match current commit (${expectedCommit})`);
+            process.exit(1);
+        }
+        if (curEval.version !== expectedVersion) {
+            console.error(`❌ Git Integrity Gate FAILED: current_eval.json version (${curEval.version}) does not match package.json version (${expectedVersion})`);
+            process.exit(1);
+        }
+        console.log(`✔ Git Integrity Gate PASSED: current_eval.json matches commit ${expectedCommit} (v${expectedVersion})`);
+        process.exit(0);
+    }
 
     const reportData = {
         timestamp: new Date().toISOString(),

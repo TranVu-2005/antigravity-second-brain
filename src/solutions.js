@@ -57,7 +57,8 @@ class SolutionStore {
         const existing = this.db.get(`
             SELECT id, success_count, confidence, verification_status, trust_level FROM solutions 
             WHERE LOWER(TRIM(error_pattern)) = LOWER(TRIM(?))
-        `, error_pattern);
+              AND project_scope = ?
+        `, error_pattern, project_scope);
 
         const now = new Date().toISOString();
 

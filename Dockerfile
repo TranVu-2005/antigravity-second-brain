@@ -38,6 +38,7 @@ COPY --from=deps --chown=node:node /build/node_modules ./node_modules
 # Copy application source code
 COPY --chown=node:node package.json ./
 COPY --chown=node:node cli.js mcp_server.js setup.js ./
+COPY --chown=node:node db/ ./db/
 COPY --chown=node:node src/ ./src/
 COPY --chown=node:node scripts/ ./scripts/
 

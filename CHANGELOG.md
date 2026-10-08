@@ -3,6 +3,35 @@
 All notable changes to the **Antigravity Second Brain** engine are documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) and follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) standards.
 
+## [0.0.4] - 2026-10-08
+
+### Stabilization, Data Integrity & Certified Reliability
+
+This release resolves all critical findings from the second-round architectural and release audit:
+
+#### P0 Correctness & CI/CD Certification
+- **Cross-Platform Test Normalization (`test/test_v0_0_3_correctness_and_sync.js`):**
+  - Replaced literal POSIX path assertion with OS-native `path.normalize()`, achieving full green CI parity across Windows 11 and Linux Ubuntu runners.
+- **Production Docker Runtime Schema Inclusion (`Dockerfile`):**
+  - Added `COPY --chown=node:node db/ ./db/` to ensure `schema.sql` is present inside the minimal container image, preventing runtime `no such table` failures.
+- **Deep Healthcheck & Server Bootstrap Verification (`scripts/healthcheck.js`):**
+  - Upgraded healthcheck from static tool-count inspection to a genuine runtime bootstrap verification: validates schema existence, initializes in-memory database, validates relational and FTS5 tables (`knowledge_items`, `solutions`, `entity_relations`, `memory_events`, `knowledge_fts`), and instantiates `SecondBrainMCPServer`.
+- **Reproducible Evaluation & Latency Regression Tightening (`eval/run_eval.js`, `.github/workflows/ci.yml`):**
+  - Added `--verify-git-integrity` flag asserting `current_eval.json` commit matches HEAD and package version.
+  - Tightened latency regression gate: triggers failure if p95 latency regresses by > 25% or exceeds the 35ms absolute budget.
+- **Release Pipeline Hardening (`.github/workflows/release.yml`):**
+  - Enforced prerequisite verification gate (`verify` job running syntax lint, security check, healthcheck, and test suites) before publishing any GitHub release.
+
+#### P1 Project Isolation, Composite Identity & Atomic Transactions
+- **End-to-End Project Scope Persistence (`src/extractor.js`):**
+  - Fixed persistence gap: `project_scope` is now explicitly passed from extracted conversation data to `semantic.addItemSync` and `semantic.addItem`.
+- **Composite Identity for Procedural Memory (`src/solutions.js`, `src/extractor.js`):**
+  - Dedup query now scopes solutions by `(error_pattern, project_scope)`, preventing cross-project pollution of success counts and remediation codes.
+- **Atomic Mutation Transactions (`src/semantic.js`):**
+  - Wrapped `addRelation` and multi-step relation supersede/insertion/audit flows in an atomic `BEGIN IMMEDIATE` / `COMMIT` / `ROLLBACK` transaction.
+- **Documentation & Version Hygiene (`SECURITY.md`, `CONTRIBUTING.md`, `package.json`):**
+  - Unified versioning under `0.0.4`, cleaned up stale `3.8.x` references, updated test suite count to 15 suites, and precisely documented the zero-arbitrary-network-exfiltration privacy boundary.
+
 ---
 
 ## [0.0.3] - 2026-10-08

@@ -320,6 +320,7 @@ class MemoryExtractor {
                     const verStatus = isUserRole ? 'verified' : 'candidate';
                     const lastVer = isUserRole ? new Date().toISOString() : null;
 
+                    const targetScope = item.projectScope || item.project_scope || projectScope || 'global';
                     if (this.semantic.addItemSync) {
                         this.semantic.addItemSync({
                             title: item.title,
@@ -331,7 +332,8 @@ class MemoryExtractor {
                             trust_level: trustLevel,
                             confidence: conf,
                             verification_status: verStatus,
-                            last_verified_at: lastVer
+                            last_verified_at: lastVer,
+                            project_scope: targetScope
                         });
                     } else {
                         this.semantic.addItem({
@@ -344,18 +346,21 @@ class MemoryExtractor {
                             trust_level: trustLevel,
                             confidence: conf,
                             verification_status: verStatus,
-                            last_verified_at: lastVer
+                            last_verified_at: lastVer,
+                            project_scope: targetScope
                         });
                     }
                 }
             } else if (item.type === 'solution') {
-                // Deduplication: Avoid duplicate solution error patterns
+                // Deduplication: Avoid duplicate solution error patterns within the same project scope
                 let isDuplicate = false;
+                const targetSolutionScope = item.project_scope || item.projectScope || projectScope || 'global';
                 try {
                     const existing = this.solutions.db.all(`
                         SELECT id FROM solutions 
                         WHERE LOWER(TRIM(error_pattern)) = LOWER(TRIM(?))
-                    `, item.error_pattern);
+                          AND project_scope = ?
+                    `, item.error_pattern, targetSolutionScope);
                     if (existing && existing.length > 0) {
                         isDuplicate = true;
                     }
@@ -367,7 +372,7 @@ class MemoryExtractor {
                         error_pattern: item.error_pattern,
                         solution_code: item.solution_code,
                         command_fix: item.command_fix || item.solution_code,
-                        project_scope: item.project_scope || projectScope,
+                        project_scope: targetSolutionScope,
                         tags: item.tags || 'bugfix',
                         trust_level: isUserRole ? 'high' : 'medium',
                         confidence: isUserRole ? 1.0 : 0.8,

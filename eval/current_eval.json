@@ -1,11 +1,11 @@
 {
-  "timestamp": "2026-10-07T19:40:51.021Z",
-  "version": "0.0.3",
+  "timestamp": "2026-10-08T05:25:16.843Z",
+  "version": "0.0.4",
   "suite": "all",
   "runtime": {
     "node": "v24.18.0",
     "platform": "linux",
-    "git_commit": "4f7956866468f7f9cb11b2a67fd65194a407d483",
+    "git_commit": "bef34fb5dae06ee1f04342e4b062d163d894f2bb",
     "vector_dim": 384,
     "daemon_healthy": true
   },
@@ -23,12 +23,12 @@
       "ndcg_at_5": 0.455,
       "query_count": 17,
       "latency_ms": {
-        "p50": 5.58,
-        "p95": 12.3,
-        "p99": 13.75,
-        "mean": 5.64,
-        "min": 0.75,
-        "max": 14.11,
+        "p50": 1.75,
+        "p95": 6.79,
+        "p99": 7.55,
+        "mean": 2.22,
+        "min": 0.23,
+        "max": 7.74,
         "count": 17
       }
     },
@@ -40,12 +40,12 @@
         "mrr": 0.7,
         "ndcg_at_5": 0.663,
         "latency_ms": {
-          "p50": 5.19,
-          "p95": 5.85,
-          "p99": 5.91,
-          "mean": 4.34,
-          "min": 0.78,
-          "max": 5.92,
+          "p50": 1.56,
+          "p95": 1.77,
+          "p99": 1.78,
+          "mean": 1.36,
+          "min": 0.23,
+          "max": 1.78,
           "count": 5
         }
       },
@@ -56,12 +56,12 @@
         "mrr": 0.383,
         "ndcg_at_5": 0.322,
         "latency_ms": {
-          "p50": 3.86,
-          "p95": 10.47,
-          "p99": 11.57,
-          "mean": 4.89,
-          "min": 0.75,
-          "max": 11.85,
+          "p50": 1.75,
+          "p95": 5.59,
+          "p99": 6.36,
+          "mean": 2.41,
+          "min": 0.32,
+          "max": 6.55,
           "count": 5
         }
       },
@@ -72,12 +72,12 @@
         "mrr": 0.325,
         "ndcg_at_5": 0.258,
         "latency_ms": {
-          "p50": 7.11,
-          "p95": 13.13,
-          "p99": 13.91,
-          "mean": 8.66,
-          "min": 6.34,
-          "max": 14.11,
+          "p50": 2.12,
+          "p95": 6.91,
+          "p99": 7.57,
+          "mean": 3.46,
+          "min": 1.87,
+          "max": 7.74,
           "count": 4
         }
       },
@@ -88,12 +88,12 @@
         "mrr": 0.528,
         "ndcg_at_5": 0.592,
         "latency_ms": {
-          "p50": 5.63,
-          "p95": 6.18,
-          "p99": 6.23,
-          "mean": 5.04,
-          "min": 3.26,
-          "max": 6.24,
+          "p50": 1.74,
+          "p95": 1.89,
+          "p99": 1.91,
+          "mean": 1.67,
+          "min": 1.35,
+          "max": 1.91,
           "count": 3
         }
       }
@@ -155,10 +155,10 @@
       "missing_fts": [],
       "counts": {
         "user_profile": 15,
-        "knowledge_items": 310,
-        "solutions": 85,
-        "episodes": 20539,
-        "conversations": 180,
+        "knowledge_items": 320,
+        "solutions": 98,
+        "episodes": 22018,
+        "conversations": 181,
         "entities": 29,
         "entity_relations": 27
       }
@@ -215,5 +215,16 @@
       "calls_succeeded": 6
     }
   },
-  "regression_check": null
+  "regression_check": {
+    "baseline_path": "/home/tranvu/.gemini/antigravity/second_brain/eval/baselines/v3.8_baseline.json",
+    "status": "PASSED",
+    "threshold": 0.02,
+    "deltas": {
+      "recall_at_5": "-0.009",
+      "mrr": "-0.014",
+      "latency_p95": "+1.1ms",
+      "f1_score": "+0.000"
+    },
+    "failures": []
+  }
 }
